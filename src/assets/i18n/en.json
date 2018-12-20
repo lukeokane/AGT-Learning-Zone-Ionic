@@ -76,6 +76,12 @@
 
   "FORGOT_PASSWORD":"Forgot Password",
   "CONTINUE":"Continue",
-  "WELCOME_TO_ITLC":"Welcome to ITLC"
+  "WELCOME_TO_ITLC":"Welcome to ITLC",
   
+  "CHOOSE_A_COURSE":"Choose a Course",
+  "YEAR":"Year",
+  "CHOOSE_A_GROUP":"Choose a Group",
+  "CHOOSE_A_YEAR":"Choose a Year",
+
+  "MANAGE_BOOKING":"Manage Booking"
 }
