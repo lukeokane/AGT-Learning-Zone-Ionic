@@ -15,11 +15,18 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class AdminBookingManagementPage {
 
+  menuClicked : boolean =  false;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminBookingManagementPage');
+  }
+  
+  clicked()
+  {
+    this.menuClicked = true;
   }
 
 }

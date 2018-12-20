@@ -18,7 +18,7 @@ export class MyApp {
   pages: any[] = [
     { title: 'Welcome', component: 'WelcomePage' },
     { title: 'Tabs', component: 'TabsPage' },
-    { title: 'Login', component: 'LoginPage' },
+    { title: 'Manage Bookings', component: 'AdminBookingManagementPage' },
     { title: 'Signup', component: 'SignupPage' },
     { title: 'Menu', component: 'MenuPage' },
     { title: 'Settings', component: 'SettingsPage' },
