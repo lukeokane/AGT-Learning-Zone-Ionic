@@ -24,133 +24,93 @@
           </ion-col>
         </ion-row>
         <hr>
-        <ion-row>
+        <ion-row class="chooseBooking" *ngFor="let booking of bookings" (click)="goToBooking(booking)">
           <ion-col class="border">
             <ion-row>
               <ion-col>
-                <h6>Shaun Conroy <span class="timePos">4 mins ago</span></h6>
-                Lorem Ipsum sit amit consecteur.......
-              </ion-col>
-            </ion-row>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col class="border">
-            <ion-row>
-              <ion-col>
-                <h6>Elaine Pei Ling Chong<span class="timePos">6 Hours Ago</span></h6>
-                Lorem Ipsum sit amit consecteur.......
-              </ion-col>
-            </ion-row>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col class="border">
-            <ion-row>
-              <ion-col>
-                <h6>Luke O'Kane<span class="timePos">1 Day ago</span></h6>
-                Lorem Ipsum sit amit consecteur.......
-              </ion-col>
-            </ion-row>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col class="border">
-            <ion-row>
-              <ion-col>
-                <h6>Marcus Philips<span class="timePos">2 Days ago</span></h6>
-                Lorem Ipsum sit amit consecteur.......
-              </ion-col>
-            </ion-row>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col class="border">
-            <ion-row>
-              <ion-col>
-                <h6>Farwa Javed<span class="timePos">2 Days ago</span></h6>
-                Lorem Ipsum sit amit consecteur.......
-              </ion-col>
-            </ion-row>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col class="border">
-            <ion-row>
-              <ion-col>
-                <h6>Shaun Conroy<span class="timePos">2 Days ago</span></h6>
-                Lorem Ipsum sit amit consecteur.......
-              </ion-col>
-            </ion-row>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col class="border">
-            <ion-row>
-              <ion-col>
-                <h6>Thoms Larkin<span class="timePos">3 Days ago</span></h6>
-                Lorem Ipsum sit amit consecteur.......
+                <h6>{{booking?.requestedBy}} <span class="timePos"> ago</span></h6>
+                {{(booking?.userComments | slice :0:18) + (booking.userComments?.length >18 ? '...' : '')}}
               </ion-col>
             </ion-row>
           </ion-col>
         </ion-row>
       </div>
     </ion-col>
-    <ion-col col-8>
-      <br><br>
-      <ion-row>
-        <ion-col>
-          <h6>Marcus Philips</h6>
-          D001893736 - CO4a
-        </ion-col>
-      </ion-row>
-      <hr>
-      <div class="theme">
+    <ng-container *ngIf="selectedBooking != null && selectedBooking != undefined">
+      <ion-col col-8>
         <br><br>
         <ion-row>
-          <ion-col class="bold">
-            <i class="fa fa-exclamation-circle"></i>&nbsp;
-            {{'LEVEL_OF_IMPORTANCE' | translate}}
-           &nbsp;: Medium
+          <ion-col>
+            <h6>{{selectedBooking?.requestedBy}}</h6>
+            D001893736 - CO4a
           </ion-col>
+        </ion-row>
+        <hr>
+        <div class="theme">
+          <br><br>
+          <ion-row>
+            <ion-col class="bold">
+              <i class="fa fa-exclamation-circle"></i>&nbsp;
+              {{'LEVEL_OF_IMPORTANCE' | translate}}
+              &nbsp;: {{selectedBooking?.importanceLevel}}
+            </ion-col>
             <ion-col>
               <button ion-button outline class="tags">Java</button> &nbsp;
               <button ion-button outline class="tags">OOP</button> &nbsp;
               <button ion-button outline class="tags">programming</button> &nbsp;
             </ion-col>
-        </ion-row>
-        <br>
+          </ion-row>
+          <br>
+          <ion-row>
+            <ion-col class="bold">
+              <i class="fa fa-calendar"></i>&nbsp;
+              {{'TIME_AND_DATE' | translate}}
+            </ion-col>
+            <ion-col>
+              {{selectedBooking?.startTime?.getDate()}}/{{selectedBooking?.startTime.getMonth() +
+              1}}/{{selectedBooking?.startTime.getFullYear()}}
+              <!-- 23/10/2018 -->
+              <br>
+              <!-- 10:00 AM - 11:00 AM -->
+              {{selectedBooking?.startTime.getHours()}}
+              <ng-container *ngIf="selectedBooking.startTime.getHours() == 00 || selectedBooking.startTime.getHours() < 12">am</ng-container>
+              <ng-container *ngIf="selectedBooking.startTime.getHours() >= 12">pm</ng-container>
+              - {{selectedBooking.endTime.getHours()}}
+              <ng-container *ngIf="selectedBooking.startTime.getHours() == 00 || selectedBooking.startTime.getHours() < 12">am</ng-container>
+              <ng-container *ngIf="selectedBooking.startTime.getHours() >= 12">pm</ng-container>
+            </ion-col>
+            <ion-col col-4></ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col class="bold">
+              <i class="fa fa-comments"></i>&nbsp;
+              {{'COMMENTS' | translate}}
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col col-9>
+              {{selectedBooking?.userComments}}
+            </ion-col>
+            <ion-col col-3></ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <button ion-button class="assignBtn">ASSIGN</button>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+    </ng-container>
+    <ng-container *ngIf="selectedBooking == null || selectedBooking == undefined">
+      <ion-col col-8>
+        <br><br><br>
         <ion-row>
-          <ion-col class="bold">
-            <i class="fa fa-calendar"></i>&nbsp;
-            {{'TIME_AND_DATE' | translate}}
-          </ion-col>
           <ion-col>
-            Tuesday - 23/10/2018
-            <br>
-            10:00 AM - 11:00 AM
-          </ion-col>
-          <ion-col col-4></ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col class="bold">
-            <i class="fa fa-comments"></i>&nbsp;
-            {{'COMMENTS' | translate}}
+            <h6>Select a Booking....</h6>
           </ion-col>
         </ion-row>
-        <ion-row>
-          <ion-col col-9>
-            I'm trying to learn the best way to implement interfaces with inheritance for a topic
-            being taught in Object Oriented Programming next week.
-          </ion-col>
-          <ion-col col-3></ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <button ion-button class="assignBtn">ASSIGN</button>
-          </ion-col>
-        </ion-row>
-      </div>
-    </ion-col>
+        <hr>
+      </ion-col>
+    </ng-container>
   </ion-row>
 </ion-content>
