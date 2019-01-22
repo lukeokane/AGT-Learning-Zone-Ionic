@@ -10,6 +10,7 @@ export class Booking {
         public endTime?:Date,
         public userComments?:String,
         public importanceLevel?:OrdinalScale,
+		public adminAcceptedId?:number,
         public tutorAccepted?:boolean,
         public tutorAcceptedId?:number,
         public tutorRejectedCount?:number,
