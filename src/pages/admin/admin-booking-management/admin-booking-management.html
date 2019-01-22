@@ -1,10 +1,11 @@
+
 <top-menu></top-menu>
 <ion-content padding>
   <ion-row>
     <ion-col col-1>
       <ion-row>
         <ion-col col-1>
-          <button ion-button id="menu_button" menuToggle (click)="clicked()">
+          <button ion-button id="menu_button" menuToggle>
             <div class="border-menu">
               <div class="bar1"></div>
               <div class="bar2"></div>
@@ -28,8 +29,10 @@
           <ion-col class="border">
             <ion-row>
               <ion-col>
-                <h6>{{booking?.requestedBy}} <span class="timePos"> ago</span></h6>
-                {{(booking?.userComments | slice :0:18) + (booking.userComments?.length >18 ? '...' : '')}}
+                <h6>{{booking?.requestedBy}} 
+                  <!-- <span class="timePos"> ago</span> -->
+                </h6>
+                {{(booking?.userComments | slice :0:24) + (booking?.userComments?.length >24 ? '...' : '')}}
               </ion-col>
             </ion-row>
           </ion-col>
@@ -67,11 +70,10 @@
               {{'TIME_AND_DATE' | translate}}
             </ion-col>
             <ion-col>
+              {{dayOfWeek}} -
               {{selectedBooking?.startTime?.getDate()}}/{{selectedBooking?.startTime.getMonth() +
               1}}/{{selectedBooking?.startTime.getFullYear()}}
-              <!-- 23/10/2018 -->
               <br>
-              <!-- 10:00 AM - 11:00 AM -->
               {{selectedBooking?.startTime.getHours()}}
               <ng-container *ngIf="selectedBooking.startTime.getHours() == 00 || selectedBooking.startTime.getHours() < 12">am</ng-container>
               <ng-container *ngIf="selectedBooking.startTime.getHours() >= 12">pm</ng-container>
@@ -95,7 +97,7 @@
           </ion-row>
           <ion-row>
             <ion-col>
-              <button ion-button class="assignBtn">ASSIGN</button>
+              <button ion-button class="assignBtn">{{'ASSIGN' | translate}}</button>
             </ion-col>
           </ion-row>
         </div>
@@ -106,7 +108,7 @@
         <br><br><br>
         <ion-row>
           <ion-col>
-            <h6>Select a Booking....</h6>
+            <h6>{{'SELECT_A_BOOKING' | translate}}....</h6>
           </ion-col>
         </ion-row>
         <hr>

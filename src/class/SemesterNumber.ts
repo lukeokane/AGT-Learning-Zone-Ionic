@@ -1,5 +1,5 @@
 export enum SemesterNumber {
-    ZERO="ZERO",
+    NONE="NONE",
     ONE="ONE",
     TWO="TWO",
     THREE="THREE",
