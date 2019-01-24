@@ -2,9 +2,7 @@ page-admin-booking-management {
     #menu_button{
         background-color: transparent;
         color: black;
-        box-shadow: none;
-
-    
+        box-shadow: none;    
     }
     
     .border-menu {
@@ -30,7 +28,8 @@ page-admin-booking-management {
     }
     .scroll{
         overflow-x: 100px;
-        height: 600px;
+        height: 500px;
+        border-right: 0.2px solid #F0F0F0;
     }
     
     .timePos{
@@ -79,7 +78,16 @@ page-admin-booking-management {
     }
 
     .chooseBooking:hover { 
-        background-color: #DEF2F1;
+        background-color: #DEF2F1 !important;
       }
+
+    .levels{
+        padding: 10px;
+        border-radius: 8px;
+    }
+  
+    input{
+        border: none;
+    }
 
 }
