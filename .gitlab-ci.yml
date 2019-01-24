@@ -11,18 +11,18 @@ before_script:
 
 cache:
   untracked: true
-  key: "$CI_PROJECT_ID"
+  key: "$CI_COMMIT_REF_NAME"
   paths:
     - node_modules/
     - .yarn
 
 build_web:
   stage: test
-  only:
-      - master
+  #only:
+  #    - master
   script:
     - npm run lint
-    - npm run scss-lint
+    #- npm run scss-lint
     - npm run test
     - npm run build
     - npm run e2e
