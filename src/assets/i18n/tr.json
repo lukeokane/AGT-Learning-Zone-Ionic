@@ -35,19 +35,19 @@
   "CARDS_TITLE": "Sosyal",
   "SEARCH_TITLE": "Arama",
 
-  "FORGOT_PASSWORD":"",
-  "CONTINUE":"",
-  "WELCOME_TO_ITLC":"",
+  "FORGOT_PASSWORD":"Parolanızı mı unuttunuz",
+  "CONTINUE":"Devam et",
+  "WELCOME_TO_ITLC":"ITLC'ye Hoşgeldiniz",
   
-  "CHOOSE_A_COURSE":"",
-  "YEAR":"",
-  "CHOOSE_A_GROUP":"",
-  "CHOOSE_A_YEAR":"",
+  "CHOOSE_A_COURSE":"Bir kurs seçin",
+  "YEAR":"Yıl",
+  "CHOOSE_A_GROUP":"Bir grup seçiniz",
+  "CHOOSE_A_YEAR":"Bir Yıl Seç",
 
-  "MANAGE_BOOKING":"",
-  "LEVEL_OF_IMPORTANCE":"",
-  "TIME_AND_DATE":"",
-  "COMMENTS":"",
-  "ASSIGN":"",
-  "SELECT_A_BOOKING":""
+  "MANAGE_BOOKING":"Rezervasyonu Yönet",
+  "LEVEL_OF_IMPORTANCE":"Önem Seviyesi",
+  "TIME_AND_DATE":"Saat ve Tarih",
+  "COMMENTS":"Yorumlar",
+  "ASSIGN":"Atamak",
+  "SELECT_A_BOOKING":"Bir rezervasyon seçin"
 }

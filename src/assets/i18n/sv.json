@@ -46,19 +46,19 @@
 
   "SEARCH_TITLE": "Sök",
 
-  "FORGOT_PASSWORD":"",
-  "CONTINUE":"",
-  "WELCOME_TO_ITLC":"",
+  "FORGOT_PASSWORD":"Glömt ditt lösenord",
+  "CONTINUE":"Fortsätta",
+  "WELCOME_TO_ITLC":"Välkommen till ITLC",
   
-  "CHOOSE_A_COURSE":"",
-  "YEAR":"",
-  "CHOOSE_A_GROUP":"",
-  "CHOOSE_A_YEAR":"",
+  "CHOOSE_A_COURSE":"Välj en kurs",
+  "YEAR":"År",
+  "CHOOSE_A_GROUP":"Välj en grupp",
+  "CHOOSE_A_YEAR":"Välj ett år",
 
-  "MANAGE_BOOKING":"",
-  "LEVEL_OF_IMPORTANCE":"",
-  "TIME_AND_DATE":"",
-  "COMMENTS":"",
-  "ASSIGN":"",
-  "SELECT_A_BOOKING":""
+  "MANAGE_BOOKING":"Hantera bokning",
+  "LEVEL_OF_IMPORTANCE":"Nivå av betydelse",
+  "TIME_AND_DATE":"Tid och datum",
+  "COMMENTS":"kommentarer",
+  "ASSIGN":"Tilldela",
+  "SELECT_A_BOOKING":"Välj en bokning"
 }

@@ -45,19 +45,19 @@
 
   "SEARCH_TITLE": "ค้นหา",
 
-  "FORGOT_PASSWORD":"",
-  "CONTINUE":"",
-  "WELCOME_TO_ITLC":"",
+  "FORGOT_PASSWORD":"ลืมรหัสผ่าน",
+  "CONTINUE":"ต่อ",
+  "WELCOME_TO_ITLC":"ยินดีต้อนรับสู่ ITLC",
   
-  "CHOOSE_A_COURSE":"",
-  "YEAR":"",
-  "CHOOSE_A_GROUP":"",
-  "CHOOSE_A_YEAR":"",
+  "CHOOSE_A_COURSE":"เลือกหลักสูตร",
+  "YEAR":"ปี",
+  "CHOOSE_A_GROUP":"เลือกกลุ่ม",
+  "CHOOSE_A_YEAR":"เลือกปี",
 
-  "MANAGE_BOOKING":"",
-  "LEVEL_OF_IMPORTANCE":"",
-  "TIME_AND_DATE":"",
-  "COMMENTS":"",
-  "ASSIGN":"",
-  "SELECT_A_BOOKING":""
+  "MANAGE_BOOKING":"จัดการการจอง",
+  "LEVEL_OF_IMPORTANCE":"ระดับความสำคัญ",
+  "TIME_AND_DATE":"เวลาและวันที่",
+  "COMMENTS":"ความคิดเห็น",
+  "ASSIGN":"กำหนด",
+  "SELECT_A_BOOKING":"เลือกการจอง"
 }
