@@ -1,4 +1,4 @@
-image: marcoturi/ionic:latest
+image: beevelop/ionic:latest
 
 stages:
   - test
@@ -23,9 +23,12 @@ build_web:
   script:
     - npm run lint
     #- npm run scss-lint
-    - npm run test
-    - npm run build
-    - npm run e2e
+    - npm run test:ci
+    #- npm run test
+    - npm run test:coverage
+    - npm run build --prod && npm run e2e
+    #- npm run build --prod
+    #- npm run e2e
 
 # build_ios:
 #   stage: deploy
