@@ -63,19 +63,19 @@
   "SEARCH_TITLE": "Hľadať",
   "SEARCH_PLACEHOLDER": "Napíšte hľadaný výraz, e.g. \"Donald Duck\"",
 
-  "FORGOT_PASSWORD":"",
-  "CONTINUE":"",
-  "WELCOME_TO_ITLC":"",
+  "FORGOT_PASSWORD":"Zabudol si heslo",
+  "CONTINUE":"ďalej",
+  "WELCOME_TO_ITLC":"Vitajte v ITLC",
   
-  "CHOOSE_A_COURSE":"",
-  "YEAR":"",
-  "CHOOSE_A_GROUP":"",
-  "CHOOSE_A_YEAR":"",
+  "CHOOSE_A_COURSE":"Vyberte kurz",
+  "YEAR":"rok",
+  "CHOOSE_A_GROUP":"Vyberte skupinu",
+  "CHOOSE_A_YEAR":"Vyberte rok",
 
-  "MANAGE_BOOKING":"",
-  "LEVEL_OF_IMPORTANCE":"",
-  "TIME_AND_DATE":"",
-  "COMMENTS":"",
-  "ASSIGN":"",
-  "SELECT_A_BOOKING":""
+  "MANAGE_BOOKING":"Správa rezervácie",
+  "LEVEL_OF_IMPORTANCE":"Úroveň dôležitosti",
+  "TIME_AND_DATE":"Čas a dátum",
+  "COMMENTS":"Komentáre",
+  "ASSIGN":"Priradiť",
+  "SELECT_A_BOOKING":"Vyberte rezerváciu"
 }

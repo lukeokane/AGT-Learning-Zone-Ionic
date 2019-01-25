@@ -46,19 +46,19 @@
 
   "SEARCH_TITLE": "Поиск",
 
-  "FORGOT_PASSWORD":"",
-  "CONTINUE":"",
-  "WELCOME_TO_ITLC":"",
+  "FORGOT_PASSWORD":"Забыли пароль",
+  "CONTINUE":"Продолжить",
+  "WELCOME_TO_ITLC":"Добро пожаловать в ITLC",
   
-  "CHOOSE_A_COURSE":"",
-  "YEAR":"",
-  "CHOOSE_A_GROUP":"",
-  "CHOOSE_A_YEAR":"",
+  "CHOOSE_A_COURSE":"Выберите курс",
+  "YEAR":"Год",
+  "CHOOSE_A_GROUP":"Выберите группу",
+  "CHOOSE_A_YEAR":"Выбрать год",
 
-  "MANAGE_BOOKING":"",
-  "LEVEL_OF_IMPORTANCE":"",
-  "TIME_AND_DATE":"",
-  "COMMENTS":"",
-  "ASSIGN":"",
-  "SELECT_A_BOOKING":""
+  "MANAGE_BOOKING":"Управление бронированием",
+  "LEVEL_OF_IMPORTANCE":"Уровень важности",
+  "TIME_AND_DATE":"Время и дата",
+  "COMMENTS":"Комментарии",
+  "ASSIGN":"приписывать",
+  "SELECT_A_BOOKING":"Выберите бронирование"
 }
