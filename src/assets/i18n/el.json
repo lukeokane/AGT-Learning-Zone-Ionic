@@ -46,19 +46,19 @@
 
   "SEARCH_TITLE": "Αναζήτηση",
 
-  "FORGOT_PASSWORD":"",
-  "CONTINUE":"",
-  "WELCOME_TO_ITLC":"",
+  "FORGOT_PASSWORD":"Ξεχάσατε τον κωδικό",
+  "CONTINUE":"Να συνεχίσει",
+  "WELCOME_TO_ITLC":"Καλώς ήρθατε στην ITLC",
   
-  "CHOOSE_A_COURSE":"",
-  "YEAR":"",
-  "CHOOSE_A_GROUP":"",
-  "CHOOSE_A_YEAR":"",
+  "CHOOSE_A_COURSE":"Επιλέξτε ένα μάθημα",
+  "YEAR":"Ετος",
+  "CHOOSE_A_GROUP":"Επιλέξτε μια ομάδα",
+  "CHOOSE_A_YEAR":"Επιλέξτε ένα έτος",
 
-  "MANAGE_BOOKING":"",
-  "LEVEL_OF_IMPORTANCE":"",
-  "TIME_AND_DATE":"",
-  "COMMENTS":"",
-  "ASSIGN":"",
-  "SELECT_A_BOOKING":""
+  "MANAGE_BOOKING":"Διαχείριση Κρατήσεων",
+  "LEVEL_OF_IMPORTANCE":"Επίπεδο σημασίας",
+  "TIME_AND_DATE":"Ωρα και ημερομηνία",
+  "COMMENTS":"Σχόλια",
+  "ASSIGN":"Αναθέτω",
+  "SELECT_A_BOOKING":"Επιλέξτε μια κράτηση"
 }

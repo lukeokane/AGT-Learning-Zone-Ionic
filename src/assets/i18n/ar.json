@@ -66,19 +66,19 @@
   "SEARCH_TITLE": "بحث",
   "SEARCH_PLACEHOLDER": "ابحث في قائمة العناصر، مثل \"Donald Duck\"",
 
-  "FORGOT_PASSWORD":"",
-  "CONTINUE":"",
-  "WELCOME_TO_ITLC":"",
+  "FORGOT_PASSWORD":"هل نسيت كلمة المرور",
+  "CONTINUE":"استمر",
+  "WELCOME_TO_ITLC":"مرحبا بك في ITLC",
   
-  "CHOOSE_A_COURSE":"",
-  "YEAR":"",
-  "CHOOSE_A_GROUP":"",
-  "CHOOSE_A_YEAR":"",
+  "CHOOSE_A_COURSE":"اختر دورة",
+  "YEAR":"عام",
+  "CHOOSE_A_GROUP":"اختر مجموعة",
+  "CHOOSE_A_YEAR":"اختر سنة",
 
-  "MANAGE_BOOKING":"",
-  "LEVEL_OF_IMPORTANCE":"",
-  "TIME_AND_DATE":"",
-  "COMMENTS":"",
-  "ASSIGN":"",
-  "SELECT_A_BOOKING":""
+  "MANAGE_BOOKING":"إدارة الحجز",
+  "LEVEL_OF_IMPORTANCE":"مستوى الأهمية",
+  "TIME_AND_DATE":"الوقت و التاريخ",
+  "COMMENTS":"تعليقات",
+  "ASSIGN":"تعيين",
+  "SELECT_A_BOOKING":"اختر الحجز"
 }

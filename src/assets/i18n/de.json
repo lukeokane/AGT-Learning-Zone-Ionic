@@ -54,19 +54,19 @@
   "SEARCH_TITLE": "Suche",
   "SEARCH_PLACEHOLDER": "Suche in der Artikel-Liste, z.B. \"Donald Duck\"",
 
-  "FORGOT_PASSWORD":"",
-  "CONTINUE":"",
-  "WELCOME_TO_ITLC":"",
+  "FORGOT_PASSWORD":"Passwort vergessen",
+  "CONTINUE":"Fortsetzen",
+  "WELCOME_TO_ITLC":"Willkommen bei ITLC",
   
-  "CHOOSE_A_COURSE":"",
-  "YEAR":"",
-  "CHOOSE_A_GROUP":"",
+  "CHOOSE_A_COURSE":"Kurs auswählen",
+  "YEAR":"Jahr",
+  "CHOOSE_A_GROUP":"Wähle eine Gruppe",
   "CHOOSE_A_YEAR":"",
 
-  "MANAGE_BOOKING":"",
-  "LEVEL_OF_IMPORTANCE":"",
-  "TIME_AND_DATE":"",
-  "COMMENTS":"",
-  "ASSIGN":"",
-  "SELECT_A_BOOKING":""
+  "MANAGE_BOOKING":"Wähle ein Jahr",
+  "LEVEL_OF_IMPORTANCE":"Wichtigkeit",
+  "TIME_AND_DATE":"Zeit und Datum",
+  "COMMENTS":"Bemerkungen",
+  "ASSIGN":"Zuordnen",
+  "SELECT_A_BOOKING":"Wählen Sie eine Buchung aus"
 }

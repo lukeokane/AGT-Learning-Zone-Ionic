@@ -46,19 +46,19 @@
 
   "SEARCH_TITLE": "Søg",
 
-  "FORGOT_PASSWORD":"",
-  "CONTINUE":"",
-  "WELCOME_TO_ITLC":"",
+  "FORGOT_PASSWORD":"Glemt kodeord",
+  "CONTINUE":"Blive ved",
+  "WELCOME_TO_ITLC":"Velkommen til ITLC",
   
-  "CHOOSE_A_COURSE":"",
-  "YEAR":"",
-  "CHOOSE_A_GROUP":"",
-  "CHOOSE_A_YEAR":"",
+  "CHOOSE_A_COURSE":"Vælg et kursus",
+  "YEAR":"År",
+  "CHOOSE_A_GROUP":"Vælg en gruppe",
+  "CHOOSE_A_YEAR":"Vælg et år",
 
-  "MANAGE_BOOKING":"",
-  "LEVEL_OF_IMPORTANCE":"",
-  "TIME_AND_DATE":"",
-  "COMMENTS":"",
-  "ASSIGN":"",
-  "SELECT_A_BOOKING":""
+  "MANAGE_BOOKING":"Administrer Booking",
+  "LEVEL_OF_IMPORTANCE":"Niveau af betydning",
+  "TIME_AND_DATE":"Tid og dato",
+  "COMMENTS":"Kommentarer",
+  "ASSIGN":"Tildel",
+  "SELECT_A_BOOKING":"Vælg en reservation"
 }
