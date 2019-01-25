@@ -31,5 +31,21 @@
     "ITEM_CREATE_TITLE": "Artikulu berria",
     "ITEM_CREATE_CHOOSE_IMAGE": "Argazkia sortu",
     "CARDS_TITLE": "Sozial",
-    "SEARCH_TITLE": "Bilatu"
+    "SEARCH_TITLE": "Bilatu",
+
+    "FORGOT_PASSWORD":"",
+    "CONTINUE":"",
+    "WELCOME_TO_ITLC":"",
+    
+    "CHOOSE_A_COURSE":"",
+    "YEAR":"",
+    "CHOOSE_A_GROUP":"",
+    "CHOOSE_A_YEAR":"",
+  
+    "MANAGE_BOOKING":"",
+    "LEVEL_OF_IMPORTANCE":"",
+    "TIME_AND_DATE":"",
+    "COMMENTS":"",
+    "ASSIGN":"",
+    "SELECT_A_BOOKING":""
 }
