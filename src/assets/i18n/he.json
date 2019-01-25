@@ -46,19 +46,19 @@
 
   "SEARCH_TITLE": "חיפוש",
 
-  "FORGOT_PASSWORD":"",
-  "CONTINUE":"",
-  "WELCOME_TO_ITLC":"",
+  "FORGOT_PASSWORD":"שכחת את הסיסמא",
+  "CONTINUE":"המשך",
+  "WELCOME_TO_ITLC":"ברוכים הבאים ל- ITLC",
   
-  "CHOOSE_A_COURSE":"",
-  "YEAR":"",
-  "CHOOSE_A_GROUP":"",
-  "CHOOSE_A_YEAR":"",
+  "CHOOSE_A_COURSE":"בחר קורס",
+  "YEAR":"שנה",
+  "CHOOSE_A_GROUP":"בחר קבוצה",
+  "CHOOSE_A_YEAR":"בחר שנה",
 
-  "MANAGE_BOOKING":"",
-  "LEVEL_OF_IMPORTANCE":"",
-  "TIME_AND_DATE":"",
-  "COMMENTS":"",
-  "ASSIGN":"",
-  "SELECT_A_BOOKING":""
+  "MANAGE_BOOKING":"נהל את ההזמנה",
+  "LEVEL_OF_IMPORTANCE":"רמת החשיבות",
+  "TIME_AND_DATE":"שעה ותאריך",
+  "COMMENTS":"הערות",
+  "ASSIGN":"הקצה",
+  "SELECT_A_BOOKING":"בחר הזמנה"
 }

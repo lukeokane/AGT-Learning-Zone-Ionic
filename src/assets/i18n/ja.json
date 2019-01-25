@@ -66,19 +66,19 @@
   "SEARCH_TITLE": "検索",
   "SEARCH_PLACEHOLDER": "項目一覧を検索 例 \"Donald Duck\"",
 
-  "FORGOT_PASSWORD":"",
-  "CONTINUE":"",
-  "WELCOME_TO_ITLC":"",
+  "FORGOT_PASSWORD":"パスワードをお忘れですか",
+  "CONTINUE":"持続する",
+  "WELCOME_TO_ITLC":"ITLCへようこそ",
   
-  "CHOOSE_A_COURSE":"",
-  "YEAR":"",
-  "CHOOSE_A_GROUP":"",
-  "CHOOSE_A_YEAR":"",
+  "CHOOSE_A_COURSE":"コースを選択",
+  "YEAR":"年",
+  "CHOOSE_A_GROUP":"グループを選択",
+  "CHOOSE_A_YEAR":"年を選ぶ",
 
-  "MANAGE_BOOKING":"",
-  "LEVEL_OF_IMPORTANCE":"",
-  "TIME_AND_DATE":"",
-  "COMMENTS":"",
-  "ASSIGN":"",
-  "SELECT_A_BOOKING":""
+  "MANAGE_BOOKING":"予約を管理する",
+  "LEVEL_OF_IMPORTANCE":"重要度",
+  "TIME_AND_DATE":"日付と時刻",
+  "COMMENTS":"コメント",
+  "ASSIGN":"割り当てます",
+  "SELECT_A_BOOKING":"予約を選択"
 }

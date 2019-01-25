@@ -46,19 +46,19 @@
 
   "SEARCH_TITLE": "Zoeken",
 
-  "FORGOT_PASSWORD":"",
-  "CONTINUE":"",
-  "WELCOME_TO_ITLC":"",
+  "FORGOT_PASSWORD":"Wachtwoord vergeten",
+  "CONTINUE":"Doorgaan met",
+  "WELCOME_TO_ITLC":"Welkom bij ITLC",
   
-  "CHOOSE_A_COURSE":"",
-  "YEAR":"",
-  "CHOOSE_A_GROUP":"",
-  "CHOOSE_A_YEAR":"",
+  "CHOOSE_A_COURSE":"Kies een cursus",
+  "YEAR":"Jaar",
+  "CHOOSE_A_GROUP":"Kies een groep",
+  "CHOOSE_A_YEAR":"Kies een jaar",
 
-  "MANAGE_BOOKING":"",
-  "LEVEL_OF_IMPORTANCE":"",
-  "TIME_AND_DATE":"",
-  "COMMENTS":"",
-  "ASSIGN":"",
-  "SELECT_A_BOOKING":""
+  "MANAGE_BOOKING":"Beheer Boeking",
+  "LEVEL_OF_IMPORTANCE":"Niveau van belangrijkheid",
+  "TIME_AND_DATE":"Tijd en datum",
+  "COMMENTS":"Comments",
+  "ASSIGN":"Toewijzen",
+  "SELECT_A_BOOKING":"Selecteer een boeking"
 }
