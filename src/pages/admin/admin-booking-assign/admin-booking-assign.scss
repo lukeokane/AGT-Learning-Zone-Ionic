@@ -1,3 +1,39 @@
 page-admin-booking-assign {
+    #menu_button{
+        background-color: transparent;
+        color: black;
+        box-shadow: none;    
+    }
+    
+    .border-menu {
+        display: inline-block;
+        cursor: pointer;
+    }
+    
+    .bar1, .bar2, .bar3 {
+        width: 35px;
+        height: 5px;
+        background-color: #DEF2F1;
+        border: 1px solid #3AAFA9;
+        margin: 6px 0;
+    
+    }
+    
+    .bar3 {
+        width: 25px;
+    }
+    .border{
+        border-right: 1px solid #F0F0F0;
+        border-bottom:1px solid #F0F0F0;
+    }
 
+    .avatar{
+        height: 30px;
+        width: 50px;
+    }
+    .scroll{
+        overflow-x: auto;
+        height: 500px;
+        border-right: 0.2px solid #F0F0F0;
+    }
 }

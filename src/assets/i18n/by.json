@@ -44,5 +44,21 @@
 
   "CARDS_TITLE": "Суполкі",
 
-  "SEARCH_TITLE": "Пошук"
+  "SEARCH_TITLE": "Пошук",
+
+  "FORGOT_PASSWORD":"",
+  "CONTINUE":"",
+  "WELCOME_TO_ITLC":"",
+  
+  "CHOOSE_A_COURSE":"",
+  "YEAR":"",
+  "CHOOSE_A_GROUP":"",
+  "CHOOSE_A_YEAR":"",
+
+  "MANAGE_BOOKING":"",
+  "LEVEL_OF_IMPORTANCE":"",
+  "TIME_AND_DATE":"",
+  "COMMENTS":"",
+  "ASSIGN":"",
+  "SELECT_A_BOOKING":""
 }

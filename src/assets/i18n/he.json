@@ -44,5 +44,21 @@
 
   "CARDS_TITLE": "חברתי",
 
-  "SEARCH_TITLE": "חיפוש"
+  "SEARCH_TITLE": "חיפוש",
+
+  "FORGOT_PASSWORD":"שכחת את הסיסמא",
+  "CONTINUE":"המשך",
+  "WELCOME_TO_ITLC":"ברוכים הבאים ל- ITLC",
+  
+  "CHOOSE_A_COURSE":"בחר קורס",
+  "YEAR":"שנה",
+  "CHOOSE_A_GROUP":"בחר קבוצה",
+  "CHOOSE_A_YEAR":"בחר שנה",
+
+  "MANAGE_BOOKING":"נהל את ההזמנה",
+  "LEVEL_OF_IMPORTANCE":"רמת החשיבות",
+  "TIME_AND_DATE":"שעה ותאריך",
+  "COMMENTS":"הערות",
+  "ASSIGN":"הקצה",
+  "SELECT_A_BOOKING":"בחר הזמנה"
 }

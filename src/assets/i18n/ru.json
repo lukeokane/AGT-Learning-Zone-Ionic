@@ -44,5 +44,21 @@
 
   "CARDS_TITLE": "Социальный",
 
-  "SEARCH_TITLE": "Поиск"
+  "SEARCH_TITLE": "Поиск",
+
+  "FORGOT_PASSWORD":"Забыли пароль",
+  "CONTINUE":"Продолжить",
+  "WELCOME_TO_ITLC":"Добро пожаловать в ITLC",
+  
+  "CHOOSE_A_COURSE":"Выберите курс",
+  "YEAR":"Год",
+  "CHOOSE_A_GROUP":"Выберите группу",
+  "CHOOSE_A_YEAR":"Выбрать год",
+
+  "MANAGE_BOOKING":"Управление бронированием",
+  "LEVEL_OF_IMPORTANCE":"Уровень важности",
+  "TIME_AND_DATE":"Время и дата",
+  "COMMENTS":"Комментарии",
+  "ASSIGN":"приписывать",
+  "SELECT_A_BOOKING":"Выберите бронирование"
 }

@@ -44,5 +44,21 @@
 
   "CARDS_TITLE": "Κοινωνικά",
 
-  "SEARCH_TITLE": "Αναζήτηση"
+  "SEARCH_TITLE": "Αναζήτηση",
+
+  "FORGOT_PASSWORD":"Ξεχάσατε τον κωδικό",
+  "CONTINUE":"Να συνεχίσει",
+  "WELCOME_TO_ITLC":"Καλώς ήρθατε στην ITLC",
+  
+  "CHOOSE_A_COURSE":"Επιλέξτε ένα μάθημα",
+  "YEAR":"Ετος",
+  "CHOOSE_A_GROUP":"Επιλέξτε μια ομάδα",
+  "CHOOSE_A_YEAR":"Επιλέξτε ένα έτος",
+
+  "MANAGE_BOOKING":"Διαχείριση Κρατήσεων",
+  "LEVEL_OF_IMPORTANCE":"Επίπεδο σημασίας",
+  "TIME_AND_DATE":"Ωρα και ημερομηνία",
+  "COMMENTS":"Σχόλια",
+  "ASSIGN":"Αναθέτω",
+  "SELECT_A_BOOKING":"Επιλέξτε μια κράτηση"
 }

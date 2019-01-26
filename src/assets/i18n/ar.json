@@ -64,5 +64,21 @@
   "CARDS_TITLE": "اجتماعي",
 
   "SEARCH_TITLE": "بحث",
-  "SEARCH_PLACEHOLDER": "ابحث في قائمة العناصر، مثل \"Donald Duck\""
+  "SEARCH_PLACEHOLDER": "ابحث في قائمة العناصر، مثل \"Donald Duck\"",
+
+  "FORGOT_PASSWORD":"هل نسيت كلمة المرور",
+  "CONTINUE":"استمر",
+  "WELCOME_TO_ITLC":"مرحبا بك في ITLC",
+  
+  "CHOOSE_A_COURSE":"اختر دورة",
+  "YEAR":"عام",
+  "CHOOSE_A_GROUP":"اختر مجموعة",
+  "CHOOSE_A_YEAR":"اختر سنة",
+
+  "MANAGE_BOOKING":"إدارة الحجز",
+  "LEVEL_OF_IMPORTANCE":"مستوى الأهمية",
+  "TIME_AND_DATE":"الوقت و التاريخ",
+  "COMMENTS":"تعليقات",
+  "ASSIGN":"تعيين",
+  "SELECT_A_BOOKING":"اختر الحجز"
 }

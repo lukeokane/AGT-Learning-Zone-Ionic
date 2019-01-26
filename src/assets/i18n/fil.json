@@ -44,5 +44,21 @@
 
   "CARDS_TITLE": "Social",
 
-  "SEARCH_TITLE": "Hanapin"
+  "SEARCH_TITLE": "Hanapin",
+  
+  "FORGOT_PASSWORD":"Nakalimutan ang password",
+  "CONTINUE":"Magpatuloy",
+  "WELCOME_TO_ITLC":"Maligayang pagdating sa ITLC",
+  
+  "CHOOSE_A_COURSE":"Pumili ng isang Course",
+  "YEAR":"Taon",
+  "CHOOSE_A_GROUP":"Pumili ng isang Grupo",
+  "CHOOSE_A_YEAR":"Pumili ng isang Taon",
+
+  "MANAGE_BOOKING":"Pamahalaan ang Booking",
+  "LEVEL_OF_IMPORTANCE":"Antas ng Kahalagahan",
+  "TIME_AND_DATE":"Oras at Petsa",
+  "COMMENTS":"Mga komento",
+  "ASSIGN":"Magtalaga",
+  "SELECT_A_BOOKING":"Pumili ng Booking"
 }

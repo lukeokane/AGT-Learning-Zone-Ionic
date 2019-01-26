@@ -1,3 +1,4 @@
+import { adminBookingAssignnPage } from './../../pages';
 import { UserInfo } from './../../../class/UserInfo';
 import { BookingUserDetails } from './../../../class/BookingUserDetails';
 import { Booking } from './../../../class/Booking';
@@ -49,9 +50,9 @@ export class AdminBookingManagementPage {
     this.dayOfWeek= this.selectedBooking.startTime.getDay() ==0 ? "Sunday" : this.selectedBooking.startTime.getDay()==1? "Monday" : this.selectedBooking.startTime.getDay()== 2 ? "Tuesday" : this.selectedBooking.startTime.getDay()== 3 ? "Wednesday" :  this.selectedBooking.startTime.getDay()== 4 ? "Thursday" :  this.selectedBooking.startTime.getDay()== 5 ? "Friday" : this.selectedBooking.startTime.getDay()== 6 ? "Saturday"  : void 0;
   }  
 
-  goToCheckIn()
+  goToAssignTutorManually()
   {
-    this.navCtrl.push("ItlcModalCheckinPage");
+    this.navCtrl.push(adminBookingAssignnPage);
   }
 
 }

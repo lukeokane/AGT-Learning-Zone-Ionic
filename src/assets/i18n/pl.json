@@ -44,5 +44,21 @@
 
   "CARDS_TITLE": "Społeczność",
 
-  "SEARCH_TITLE": "Szukaj"
+  "SEARCH_TITLE": "Szukaj",
+
+  "FORGOT_PASSWORD":"Zapomniałeś hasła",
+  "CONTINUE":"dalej",
+  "WELCOME_TO_ITLC":"Witamy w ITLC",
+  
+  "CHOOSE_A_COURSE":"Wybierz kurs",
+  "YEAR":"Rok",
+  "CHOOSE_A_GROUP":"Wybierz grupę",
+  "CHOOSE_A_YEAR":"Wybierz rok",
+
+  "MANAGE_BOOKING":"Zarządzanie rezerwacją",
+  "LEVEL_OF_IMPORTANCE":"Poziom ważności",
+  "TIME_AND_DATE":"Czas i data",
+  "COMMENTS":"Komentarze",
+  "ASSIGN":"Przydzielać",
+  "SELECT_A_BOOKING":"Wybierz rezerwację"
 }

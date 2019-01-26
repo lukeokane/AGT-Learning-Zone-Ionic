@@ -44,5 +44,21 @@
 
   "CARDS_TITLE": "Social",
 
-  "SEARCH_TITLE": "Søg"
+  "SEARCH_TITLE": "Søg",
+
+  "FORGOT_PASSWORD":"Glemt kodeord",
+  "CONTINUE":"Blive ved",
+  "WELCOME_TO_ITLC":"Velkommen til ITLC",
+  
+  "CHOOSE_A_COURSE":"Vælg et kursus",
+  "YEAR":"År",
+  "CHOOSE_A_GROUP":"Vælg en gruppe",
+  "CHOOSE_A_YEAR":"Vælg et år",
+
+  "MANAGE_BOOKING":"Administrer Booking",
+  "LEVEL_OF_IMPORTANCE":"Niveau af betydning",
+  "TIME_AND_DATE":"Tid og dato",
+  "COMMENTS":"Kommentarer",
+  "ASSIGN":"Tildel",
+  "SELECT_A_BOOKING":"Vælg en reservation"
 }
