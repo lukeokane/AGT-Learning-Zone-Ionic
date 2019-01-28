@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
- * Generated class for the AdminStatisticsPage page.
+ * Generated class for the AdminStatisticsDistributionPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -10,22 +10,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-admin-statistics',
-  templateUrl: 'admin-statistics.html',
+  selector: 'page-admin-statistics-distribution',
+  templateUrl: 'admin-statistics-distribution.html',
 })
-export class AdminStatisticsPage {
+export class AdminStatisticsDistributionPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AdminStatisticsPage');
-  }
-  toNextStats(){
-    this.navCtrl.push("AdminStatisticsDistributionPage");
+    console.log('ionViewDidLoad AdminStatisticsDistributionPage');
   }
 
-  toNextStats1(){
-    this.navCtrl.push("AdminStatisticsHoursPage");
-  }
 }

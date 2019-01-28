@@ -1,18 +1,21 @@
-<!--
-  Generated template for the AdminStatisticsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>admin-statistics</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
+<top-menu></top-menu>
 <ion-content padding>
+  <ion-row>
+    <ion-col col-1>
+      <ion-row>
+        <ion-col col-1>
+          <button ion-button id="menu_button" menuToggle>
+            <div class="border-menu">
+              <div class="bar1"></div>
+              <div class="bar2"></div>
+              <div class="bar3" [style.margin-left]="20"></div>
+            </div>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+    </ion-row>
+    <button (click)="toNextStats()" ion-button>Statistics Distribution Page</button>
+    <button (click)="toNextStats1()" ion-button>Statistics Hours Page</button>
 
 </ion-content>

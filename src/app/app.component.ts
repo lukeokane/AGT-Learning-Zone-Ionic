@@ -22,7 +22,7 @@ export class MyApp {
     { title: 'Signup', component: 'SignupPage' },
     { title: 'Menu', component: 'MenuPage' },
     { title: 'Settings', component: 'SettingsPage' },
-    { title: 'Entities', component: 'EntityPage' }
+    { title: 'Statistics', component: 'AdminStatisticsPage' }
   ];
 
   constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config,
