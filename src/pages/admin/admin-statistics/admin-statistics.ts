@@ -21,5 +21,11 @@ export class AdminStatisticsPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminStatisticsPage');
   }
+  toNextStats(){
+    this.navCtrl.push("AdminStatisticsDistributionPage");
+  }
 
+  toNextStats1(){
+    this.navCtrl.push("AdminStatisticsHoursPage");
+  }
 }
