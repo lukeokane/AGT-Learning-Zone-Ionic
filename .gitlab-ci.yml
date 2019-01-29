@@ -19,7 +19,7 @@ cache:
 build_web:
   stage: test
   #only:
-  #    - master
+  ##    - master
   script:
     - npm run lint
     #- npm run scss-lint
