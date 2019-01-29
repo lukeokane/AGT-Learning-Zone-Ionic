@@ -1,3 +1,4 @@
+import { BookingsService } from './../services/Booking.provider';
 import { Notification } from './../class/Notification';
 import { SemesterService } from './../services/Semester.provider';
 import { CourseService } from './../services/Course.provider';
@@ -26,6 +27,7 @@ import { EntityPageModule } from '../pages/entities/entity.module';
 import { ComponentsModule } from '../components/components.module';
 import { PopoverNotificationPage } from '../pages/popover-notification/popover-notification';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { UserService } from '../services/User.provider';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -88,6 +90,8 @@ export function provideSettings(storage: Storage) {
     CourseYearService,
     SemesterGroupService,
     SemesterService,
+    BookingsService,
+    UserService,
     Camera,
     SplashScreen,
     StatusBar,
