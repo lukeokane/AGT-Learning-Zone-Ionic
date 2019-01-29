@@ -29,6 +29,7 @@ import { PopoverNotificationPage } from '../pages/popover-notification/popover-n
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { UserService } from '../services/User.provider';
 
+
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
 export function createTranslateLoader(http: HttpClient) {

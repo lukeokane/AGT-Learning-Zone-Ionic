@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { AdminStatisticsHoursPage } from './admin-statistics-hours';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 @NgModule({
   declarations: [
@@ -8,6 +9,7 @@ import { AdminStatisticsHoursPage } from './admin-statistics-hours';
   ],
   imports: [
     IonicPageModule.forChild(AdminStatisticsHoursPage),
+    ChartsModule,
   ],
 })
 export class AdminStatisticsHoursPageModule {}

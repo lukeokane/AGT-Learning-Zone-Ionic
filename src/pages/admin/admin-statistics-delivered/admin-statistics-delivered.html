@@ -1,5 +1,5 @@
 <!--
-  Generated template for the AdminStatisticsHoursPage page.
+  Generated template for the AdminStatisticsDeliveredPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -7,15 +7,16 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>adminStatisticsHours</ion-title>
+    <ion-title>admin-statistics-delivered</ion-title>
   </ion-navbar>
 
 </ion-header>
 
+
 <ion-content padding>
     <div class="topic">
         <p>
-          Tutorial/Student Hours
+          Tutorials Delivered
         </p>
       </div>
       <!-- <button on-click="debug()">Click me </button> -->
@@ -82,9 +83,21 @@
             </ion-row>
           </ion-grid>
       </form>
-    <div style="display: block">
-      <canvas baseChart width="1400" height="500" [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-        [legend]="barChartLegend" [chartType]="barChartType">
-      </canvas>
-    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+          <div style="display: block;">
+          <canvas baseChart width="1400" height="500"
+                      [datasets]="lineChartData"
+                      [labels]="lineChartLabels"
+                      [options]="lineChartOptions"
+                      [colors]="lineChartColors"
+                      [legend]="lineChartLegend"
+                      [chartType]="lineChartType"
+                      (chartHover)="chartHovered($event)"
+                      (chartClick)="chartClicked($event)"></canvas>
+          </div>
+        </div>
+      </div>
+
 </ion-content>

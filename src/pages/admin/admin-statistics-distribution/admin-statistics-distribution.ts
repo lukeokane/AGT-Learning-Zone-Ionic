@@ -15,11 +15,37 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class AdminStatisticsDistributionPage {
 
+  toDate: string;
+  fromDate: string;
+  selectedYear: any;
+
+  // Doughnut
+  public doughnutChartLabels: string[] = ['Java', 'Javascript', 'C++'];
+  public doughnutChartData: number[] = [350, 450, 100];
+  public doughnutChartType: string = 'doughnut';
+
+  // events
+  public chartClicked(e: any): void {
+    console.log(e);
+  }
+
+  public chartHovered(e: any): void {
+    console.log(e);
+  }
+
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminStatisticsDistributionPage');
+  }
+
+  generateChart(){
+    console.log(this.toDate);
+    console.log(this.fromDate);
+    console.log(this.selectedYear);
+    
   }
 
 }
