@@ -12,7 +12,8 @@ export class UserInfo {
         public bookingUserDetails?:Array<BookingUserDetails>,
         public sentNotifications?:Array<Notification>,
         public receivedNotifications?:Array<Notification>,
-        public bookings?:Array<Booking>
+        public bookings?:Array<Booking>,
+        public userId?:number
         // public courseTitle?:string,
         // public courseYear?:number,
         // public courseGroupTitle?:string,

@@ -1,4 +1,4 @@
-image: beevelop/ionic:latest
+image: marcomaisel/ionic:latest
 
 stages:
   - test
@@ -11,7 +11,7 @@ before_script:
 
 cache:
   untracked: true
-  key: "$CI_COMMIT_REF_NAME"
+  key: "$CI_PROJECT_ID"
   paths:
     - node_modules/
     - .yarn
@@ -26,9 +26,8 @@ build_web:
     - npm run test:ci
     #- npm run test
     - npm run test:coverage
-    - npm run build --prod && npm run e2e
     #- npm run build --prod
-    #- npm run e2e
+    - npm run e2e
 
 # build_ios:
 #   stage: deploy
