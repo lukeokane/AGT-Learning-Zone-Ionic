@@ -23,9 +23,9 @@ build_web:
   script:
     - npm run lint
     #- npm run scss-lint
-    - npm run test:ci
-    #- npm run test
-    - npm run test:coverage
+    #- npm run test:ci
+    - npm run test
+    #- npm run test:coverage
     #- npm run build --prod
     - npm run e2e
 
