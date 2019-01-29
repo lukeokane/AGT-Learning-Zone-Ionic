@@ -26,9 +26,8 @@ build_web:
     - npm run test:ci
     #- npm run test
     - npm run test:coverage
-    - npm run build --prod && npm run e2e
-    #- npm run build --prod
-    #- npm run e2e
+    #- npm run build
+    - npm run e2e
 
 # build_ios:
 #   stage: deploy
