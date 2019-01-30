@@ -2,17 +2,17 @@ image: beevelop/ionic:latest
 
 stages:
   - test
-  - deploy
+  #- deploy
 
 before_script:
-  - yarn config set cache-folder yarn-cache
+  - yarn config set cache-folder .yarn
   - yarn
   - gem install scss_lint
   - npm run post-install
 
 cache:
   paths:
-    - yarn-cache/
+    - .yarn
 
 build_web:
   stage: test
