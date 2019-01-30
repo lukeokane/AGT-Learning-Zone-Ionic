@@ -29,6 +29,7 @@ import { PopoverNotificationPage } from '../pages/popover-notification/popover-n
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { UserService } from '../services/User.provider';
 import { SubjectsService } from '../services/Subject.provider';
+import { UserRequestModalPage } from '../pages/user-request-modal/user-request-modal';
 
 
 // The translate loader needs to know where to load i18n files
@@ -55,7 +56,8 @@ export function provideSettings(storage: Storage) {
 @NgModule({
   declarations: [
     MyApp ,
-    PopoverNotificationPage
+    PopoverNotificationPage,
+    UserRequestModalPage
   ],
   imports: [
     BrowserModule,
@@ -76,7 +78,8 @@ export function provideSettings(storage: Storage) {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp  ,
-    PopoverNotificationPage
+    PopoverNotificationPage,
+    UserRequestModalPage
   ],
   providers: [
     Api,
