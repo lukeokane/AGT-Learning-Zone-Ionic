@@ -33,13 +33,20 @@
                 <ng-container *ngFor="let user of findUserBookings">
                   <ng-container *ngFor="let info of booking?.userInfos">
                     <ng-container *ngIf="user?.id == info?.userId">
-                      <h6>{{user?.firstName}} {{user?.lastName}}
+                      <h6>
+                        <ion-avatar class="avatar">
+                          <br>
+                          <img *ngIf="user?.imageURL == null && user?.imageURL == undefined" src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+                          <img *ngIf="user?.imageURL != null && user?.imageURL != undefined" src="user.imageURL">
+                        </ion-avatar> &emsp;&emsp;&emsp;
+                        {{user?.firstName}} {{user?.lastName}}
                       </h6>
                     </ng-container>
                   </ng-container>
                 </ng-container>
                 <span class="timePos">{{booking?.modifiedTimestamp | date}}</span>
-                {{(booking?.userComments | slice :0:24) + (booking?.userComments?.length >24 ? '...' : '')}}
+                &emsp;&emsp;&emsp;&emsp;{{(booking?.userComments | slice :0:17) + (booking?.userComments?.length >17 ?
+                '...' : '')}}
               </ion-col>
             </ion-row>
           </ion-col>
@@ -48,15 +55,21 @@
     </ion-col>
     <ng-container *ngIf="selectedBooking != null && selectedBooking != undefined">
       <ion-col col-8>
-        <br><br>
+        <br>
         <ion-row>
           <ion-col>
             <ng-container *ngFor="let user of findUserBookings">
               <ng-container *ngFor="let info of selectedBooking?.userInfos">
                 <ng-container *ngIf="user?.id == info?.userId">
-                  <h6>{{user?.firstName}} {{user?.lastName}}</h6>
-                  <br>
-                  {{user?.email}} -
+                  <h6>
+                    <ion-avatar class="avatar">
+                      <br>
+                      <img *ngIf="user?.imageURL == null && user?.imageURL == undefined" src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+                      <img *ngIf="user?.imageURL != null && user?.imageURL != undefined" src="user.imageURL">
+                    </ion-avatar> &emsp;&emsp;&emsp;
+                    {{user?.firstName}} {{user?.lastName}}
+                  </h6> 
+                  &emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;{{user?.email}} -
                 </ng-container>
               </ng-container>
             </ng-container>
