@@ -30,11 +30,15 @@
           <ion-col class="border">
             <ion-row>
               <ion-col>
-                <ng-container *ngFor="let user of booking.userInfos">
-                  <h6>{{user?.user?.firstName}} {{user?.user?.lastName}}
-                    <!-- <span class="timePos"> ago</span> -->
-                  </h6>
+                <ng-container *ngFor="let user of findUserBookings">
+                  <ng-container *ngFor="let info of booking?.userInfos">
+                    <ng-container *ngIf="user?.id == info?.userId">
+                      <h6>{{user?.firstName}} {{user?.lastName}}
+                      </h6>
+                    </ng-container>
+                  </ng-container>
                 </ng-container>
+                <span class="timePos">{{booking?.modifiedTimestamp | date}}</span>
                 {{(booking?.userComments | slice :0:24) + (booking?.userComments?.length >24 ? '...' : '')}}
               </ion-col>
             </ion-row>
@@ -47,10 +51,21 @@
         <br><br>
         <ion-row>
           <ion-col>
-            <ng-container *ngFor="let user of selectedBooking.userInfos">
-              <h6>{{user?.user.firstName}} {{user?.user?.lastName}}</h6>
-              <br>
-              {{user?.user?.email}} - {{user?.semesterGroup?.title}}
+            <ng-container *ngFor="let user of findUserBookings">
+              <ng-container *ngFor="let info of selectedBooking?.userInfos">
+                <ng-container *ngIf="user?.id == info?.userId">
+                  <h6>{{user?.firstName}} {{user?.lastName}}</h6>
+                  <br>
+                  {{user?.email}} -
+                </ng-container>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngFor="let semesterGroup of semesterGroups">
+              <ng-container *ngFor="let info of selectedBooking?.userInfos">
+                <ng-container *ngIf="semesterGroup?.id == info?.semesterGroupId">
+                  {{semesterGroup?.title}}
+                </ng-container>
+              </ng-container>
             </ng-container>
           </ion-col>
         </ion-row>
@@ -62,13 +77,21 @@
               <i class="fa fa-exclamation-circle"></i>&nbsp;
               {{'LEVEL_OF_IMPORTANCE' | translate}}
               &nbsp;
-              <span class="levels" *ngIf="selectedBooking?.importanceLevel == 'HIGH' || selectedBooking?.importanceLevel == 'MEDIUM'" [style.backgroundColor]="selectedBooking.importanceLevel == 'HIGH' ? '#FE787B' : '#FFB478' ">{{selectedBooking?.importanceLevel}}</span>
+              <span class="levels" *ngIf="selectedBooking?.importanceLevel == 'HIGH' || selectedBooking?.importanceLevel == 'MEDIUM'"
+                [style.backgroundColor]="selectedBooking?.importanceLevel == 'HIGH' ? '#FE787B' : '#FFB478' ">{{selectedBooking?.importanceLevel}}</span>
               <span class="levels" *ngIf="selectedBooking?.importanceLevel == 'LOW'" style="background-color:#FFFF99">{{selectedBooking?.importanceLevel}}</span>
             </ion-col>
             <ion-col>
-              <button ion-button outline class="tags">Java</button> &nbsp;
-              <button ion-button outline class="tags">OOP</button> &nbsp;
-              <button ion-button outline class="tags">programming</button> &nbsp;
+              <ng-container *ngIf="selectedBooking?.subjectId != null && selectedBooking.subjectId != undefined">
+                <ng-container *ngFor="let subject of subjects">
+                  <ng-container *ngIf="selectedBooking?.subjectId == subject?.id">
+                    <button ion-button outline class="tags">{{subject?.title}}</button> &nbsp;
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+              <ng-container *ngIf="selectedBooking?.subjectId == null || selectedBooking?.subjectId == undefined">
+                <button ion-button outline class="tags">No Subject Specified</button>
+              </ng-container>
             </ion-col>
           </ion-row>
           <br>
@@ -78,14 +101,14 @@
               {{'TIME_AND_DATE' | translate}}
             </ion-col>
             <ion-col>
-              {{dayOfWeek}} - {{selectedBooking?.startTime?.getDate()}}/{{selectedBooking?.startTime.getMonth() + 1}}/{{selectedBooking?.startTime.getFullYear()}}
+              <!-- {{dayOfWeek}} - {{selectedBooking?.startTime?.getDate()}}/{{selectedBooking?.startTime.getMonth() + 1}}/{{selectedBooking?.startTime.getFullYear()}} -->
               <br>
-              {{selectedBooking?.startTime.getHours()}}
-              <ng-container *ngIf="selectedBooking.startTime.getHours() == 00 || selectedBooking.startTime.getHours() < 12">am</ng-container>
-              <ng-container *ngIf="selectedBooking.startTime.getHours() >= 12">pm</ng-container>
-              - {{selectedBooking.endTime.getHours()}}
-              <ng-container *ngIf="selectedBooking.startTime.getHours() == 00 || selectedBooking.startTime.getHours() < 12">am</ng-container>
-              <ng-container *ngIf="selectedBooking.startTime.getHours() >= 12">pm</ng-container>
+              <!-- {{selectedBooking?.startTime | date}} -->
+              <!-- <ng-container *ngIf="selectedBooking.startTime.getHours() == 00 || selectedBooking.startTime.getHours() < 12">am</ng-container> -->
+              <!-- <ng-container *ngIf="selectedBooking.startTime.getHours() >= 12">pm</ng-container> -->
+              <!-- - {{selectedBooking.endTime.getHours()}} -->
+              <!-- <ng-container *ngIf="selectedBooking.startTime.getHours() == 00 || selectedBooking.startTime.getHours() < 12">am</ng-container> -->
+              <!-- <ng-container *ngIf="selectedBooking.startTime.getHours() >= 12">pm</ng-container> -->
             </ion-col>
             <ion-col col-4></ion-col>
           </ion-row>
