@@ -16,7 +16,7 @@ export class UserService {
         return this.http.post(this.resourceUrl, user);
     }
 
-    update(user: User): Observable<Booking> {
+    update(user: User): Observable<User> {
         return this.http.put(this.resourceUrl, user);
     }
 

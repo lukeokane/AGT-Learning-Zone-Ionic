@@ -28,6 +28,7 @@ import { ComponentsModule } from '../components/components.module';
 import { PopoverNotificationPage } from '../pages/popover-notification/popover-notification';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { UserService } from '../services/User.provider';
+import { SubjectsService } from '../services/Subject.provider';
 
 
 // The translate loader needs to know where to load i18n files
@@ -93,6 +94,7 @@ export function provideSettings(storage: Storage) {
     SemesterService,
     BookingsService,
     UserService,
+    SubjectsService,
     Camera,
     SplashScreen,
     StatusBar,
