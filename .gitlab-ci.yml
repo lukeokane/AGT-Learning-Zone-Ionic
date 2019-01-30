@@ -8,7 +8,7 @@ before_script:
   - npm i -g yarn
   - yarn config set cache-folder .yarn
   - yarn
-  - gem install scss_lint
+  #- gem install scss_lint
   - npm run post-install
 
 cache:
@@ -19,7 +19,7 @@ build_web:
   stage: test
   script:
     - npm run lint
-    - npm run scss-lint
+    #- npm run scss-lint
     - npm run test
     - npm run build
     - npm run e2e
