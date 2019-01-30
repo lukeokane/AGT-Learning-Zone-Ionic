@@ -22,7 +22,9 @@ export class Booking {
         public bookingUserDetails?: Array<BookingUserDetails>,
         public subject?:Subject,
         public userInfos?: Array<UserInfo>,
-        public notifications?:Array<Notification>
+        public notifications?:Array<Notification>,
+        public subjectId?:number,
+        public modifiedTimestamp?:Date
     )
     { }
 
