@@ -5,7 +5,7 @@ import { AccountService } from './account.service';
 
 @Injectable()
 export class Principal {
-    private userIdentity: any;
+    userIdentity: any;
     private authenticated = false;
     private authenticationState = new Subject<any>();
 
@@ -52,7 +52,7 @@ export class Principal {
     identity(force?: boolean): Promise<any> {
         if (force === true) {
             this.userIdentity = undefined;
-        }
+        }''
 
         // check and see if we have retrieved the userIdentity data from the server.
         // if we have, reuse it by immediately resolving
