@@ -10,21 +10,69 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header> -->
-<top-menu ></top-menu>
+<top-menu></top-menu>
 <ion-content padding>
   <ion-grid>
-    <ion-row>
+    <ion-row align-items-stretch>
       <ion-col col-1>
         <button ion-button id="menu_button" menuToggle>
-          <div class="border-menu" >
+          <div class="border-menu">
             <div class="bar1"></div>
             <div class="bar2"></div>
             <div class="bar3" [style.margin-left]="20"></div>
           </div>
         </button>
       </ion-col>
+
       <ion-col>
+        <div *ngIf="screenWidth>=800">
+          <div class="container-date">
+            <span class="date-change" (click)="onPreWeek()">Previous</span> <span style="color:#D7DAE2">|</span>
+            <span class="date-change" (click)="onNextWeek()"> Next</span>
+          </div>
+
+          <span>Week {{getWeekNumber(currentDate)}}: {{getStartEndDate()}} </span>
+        </div>
+        <div *ngIf="screenWidth<800">
+          <span class="width:15%; display:inline-block; cursor:pointer" (click)="onPreWeek()">
+            <ion-icon name="arrow-back"></ion-icon>
+          </span>
+          <span class="width:70%; display:inline-block; cursor:pointer" (click)="onNextWeek()">
+            <b>Week {{getWeekNumber(currentDate)}}</b>
+            {{getStartEndDate()}}
+          </span>
+          <span class="width:15%; display:inline-block">
+            <ion-icon name="arrow-forward"></ion-icon>
+
+          </span>
+        </div>
+
+        <table class="tg">
+          <tr>
+            <th class="tg-date"></th>
+            <th class="tg-date" *ngFor="let date of dates">{{convertDateToString(date)}}</th>
+          </tr>
+          <tr *ngFor="let t of time;let i = index">
+            <td *ngIf="!checkMatchTime(t)" class="tg-time">{{t}}</td>
+            <td *ngIf="checkMatchTime(t)" class="tg-time"><b>{{t}}</b></td>
+            <ng-container *ngFor="let date of dates; let i =index">
+              <td *ngIf="i==0" class="tg-slot" (click)="slotClicked(date,t)">
+                <div class="strike" *ngIf="checkMatchTime(t) && checkMatchDate(date)">
+                  <span class="dot"></span>
+                </div>
+                <div class="showBooking">Drop In</div>
+              </td>
+              <td *ngIf="i!=0" class="tg-slot" (click)="slotClicked(date,t)">
+
+                <div class="strike" *ngIf="checkMatchTime(t) && checkMatchDate(date)">
+                  <span class="dot-transparent "></span>
+                </div>
+              </td>
+            </ng-container>
+          </tr>
+        </table>
       </ion-col>
     </ion-row>
+
   </ion-grid>
 </ion-content>
