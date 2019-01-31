@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import { Api } from '../providers/api/api';
 import { SemesterGroup } from '../class/SemesterGroup';

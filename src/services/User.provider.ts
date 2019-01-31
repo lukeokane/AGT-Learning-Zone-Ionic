@@ -1,10 +1,8 @@
 import { User } from './../class/User';
-import { Booking } from './../class/Booking';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import { Api } from '../providers/api/api';
-import { createRequestOption } from './../providers/request-util';
 
 @Injectable()
 export class UserService {

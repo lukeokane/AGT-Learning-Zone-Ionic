@@ -1,6 +1,5 @@
 import { UserInfoService } from './../services/UserInfo.provider';
 import { BookingsService } from './../services/Booking.provider';
-import { Notification } from './../class/Notification';
 import { SemesterService } from './../services/Semester.provider';
 import { CourseService } from './../services/Course.provider';
 import { SemesterGroupService } from './../services/SemesterGroup.provider';
@@ -26,13 +25,9 @@ import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 import { AuthInterceptor } from '../providers/auth/auth-interceptor';
 import { EntityPageModule } from '../pages/entities/entity.module';
 import { ComponentsModule } from '../components/components.module';
-import { PopoverNotificationPage } from '../pages/popover-notification/popover-notification';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { UserService } from '../services/User.provider';
 import { SubjectsService } from '../services/Subject.provider';
-import { UserRequestModalPage } from '../pages/user-request-modal/user-request-modal';
-import { UserRequestTimeslotPage } from '../pages/user-request-timeslot/user-request-timeslot';
-
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
