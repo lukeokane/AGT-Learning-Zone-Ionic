@@ -14,6 +14,80 @@
 
 
 <ion-content padding>
-    <h1>{{convertToString()}} </h1>
+  <ion-grid>
+    <ion-row>
+      <h1>{{convertToString()}} </h1>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 class="form-border">
+        <ion-select placeholder="Select Subjects">
+          <ion-option value="f">Female</ion-option>
+          <ion-option value="m">Male</ion-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    <ion-row>
 
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 class="form-border">
+        <ion-select placeholder="Select Topics">
+          <ion-option value="f">Female</ion-option>
+          <ion-option value="m">Male</ion-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-label>
+        <ion-icon name="calendar"></ion-icon>
+        Date Range
+      </ion-label>
+    </ion-row>
+    <ion-row>
+      <ion-col col-5 class="form-border">
+        <ion-datetime display-format="DD/MMM/YYYY"></ion-datetime>
+      </ion-col>
+
+      <ion-col offset-2 col-5 class="form-border">
+        <ion-datetime display-format="DD/MMM/YYYY"></ion-datetime>
+      </ion-col>
+
+    </ion-row>
+    <ion-row>
+      <ion-textarea placeholder="Please provide some more detail about the
+    nature of your query...">
+      </ion-textarea>
+    </ion-row>
+    <ion-row>
+      <ion-label>
+        <ion-icon name="alert" style="color:#FE787B"></ion-icon>
+        Level of Importance
+      </ion-label>
+    </ion-row>
+    <ion-row>
+      <p><span>
+          <ion-icon [name]="visible1 ? 'radio-button-off' :'radio-button-on'" class="priority-btn" (click)="onClickPriority('low',1)"></ion-icon>
+        </span>
+        <span>
+          <ion-icon [name]="visible2 ? 'radio-button-off' :'radio-button-on'" class="priority-btn" (click)="onClickPriority('medium',2)"></ion-icon>
+        </span>
+        <span>
+          <ion-icon [name]="visible3 ? 'radio-button-off' :'radio-button-on'" class="priority-btn" (click)="onClickPriority('high',3)"></ion-icon>
+        </span>
+      </p>
+
+    </ion-row>
+
+    <ion-row>
+
+      <ion-col col-6>
+        <button ion-button block class="cancel-btn">Cancel</button>
+      </ion-col>
+      <ion-col col-6>
+        <button ion-button block class="continue-btn"(click)="onClickContinue()">Continue</button>
+
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
 </ion-content>
