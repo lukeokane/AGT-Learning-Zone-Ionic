@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
+import { Booking } from '../../class/Booking';
 
 /**
  * Generated class for the UserRequestTimeslotPage page.
@@ -14,12 +15,31 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'user-request-timeslot.html',
 })
 export class UserRequestTimeslotPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  booking: Booking;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private viewCtrl: ViewController) {
+    // if (this.navParams.get("booking") != null && this.navParams.get("booking") != undefined)
+    //   this.booking = this.navParams.get("booking");
+    // else
+    //   this.viewCtrl.dismiss();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserRequestTimeslotPage');
+  }
+
+  onClickRequest() {
+    let confirmModal = this.modalCtrl.create("UserRequestSendTutorialPage", { booking: this.booking });
+    confirmModal.onDidDismiss(data => {
+      // return send ; true=send
+      if(data!=undefined && data !=null){
+        if(data==true){
+//send to backend
+
+        }
+        this.viewCtrl.dismiss(data);
+      }
+    });
+    confirmModal.present();
   }
 
 }
