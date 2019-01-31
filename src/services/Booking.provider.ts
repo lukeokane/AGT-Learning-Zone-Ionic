@@ -4,12 +4,13 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import { Api } from '../providers/api/api';
 import { createRequestOption } from './../providers/request-util';
+import { LoadingController } from 'ionic-angular';
 
 @Injectable()
 export class BookingsService {
     private resourceUrl = Api.API_URL + '/bookings';
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient,public loadingCtrl: LoadingController) { }
 
     create(booking: Booking): Observable<Booking> {
         return this.http.post(this.resourceUrl, booking);
@@ -29,6 +30,22 @@ export class BookingsService {
 
     delete(id: number): Observable<any> {
         return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response', responseType: 'text' });
+    }
+
+    saveBooking(booking: Booking): Booking {
+        let loading = this.loadingCtrl.create({
+            content: 'Saving Booking...'
+        });
+        loading.present();
+        this.update(booking).subscribe(data => {
+            booking = data;
+            loading.dismiss();
+            return booking;
+        }, (error) => {
+            loading.dismiss();
+            console.error(error);
+        });
+        return null;
     }
 
     findBookingsPendingAdminApproval(req?: any): Observable<HttpResponse<Booking[]>> {

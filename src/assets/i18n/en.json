@@ -88,5 +88,7 @@
   "TIME_AND_DATE":"Time & Date",
   "COMMENTS":"Comments",
   "ASSIGN":"Assign",
-  "SELECT_A_BOOKING":"Select a Booking"
+  "SELECT_A_BOOKING":"Select a Booking",
+  "TUTOR":"Tutor",
+  "SKILLS":"Skills"
 }
