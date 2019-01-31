@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { App, IonicPage, NavController, MenuController, ModalController } from 'ionic-angular';
+import { App, IonicPage, NavController, MenuController, ModalController, Toast, ToastController } from 'ionic-angular';
 import { Principal } from '../../providers/auth/principal.service';
 import { FirstRunPage } from '../pages';
 import { LoginService } from '../../providers/login/login.service';
@@ -25,16 +25,17 @@ export class HomePage implements OnInit {
 
 
   constructor(public navCtrl: NavController,
-              private principal: Principal,
-              private app: App,
-              private loginService: LoginService,
-              private menuCtrl: MenuController,
-              private modalCtrl: ModalController) {
+    private principal: Principal,
+    private app: App,
+    private loginService: LoginService,
+    private menuCtrl: MenuController,
+    private modalCtrl: ModalController,
+    private toastCtrl: ToastController) {
 
-                this.today = new Date();
-                this.generateDate(this.today);
-                this.screenWidth = window.screen.width;
-               }
+    this.today = new Date();
+    this.generateDate(this.today);
+    this.screenWidth = window.screen.width;
+  }
 
   ngOnInit() {
     this.principal.identity().then((account) => {
@@ -74,7 +75,18 @@ export class HomePage implements OnInit {
     var timeInt = parseInt(time, 10);
     let profileModal = this.modalCtrl.create("UserRequestModalPage", { dateSelected: dateSelected, timeSelected: timeInt });
     profileModal.onDidDismiss(data => {
-      console.log(data);
+      if (data != undefined && data != null) {
+        if (data == true) {
+          let toast = this.toastCtrl.create({
+            message: 'Request sent successfully',
+            duration: 3000,
+            position: 'top',
+            showCloseButton:true,
+            closeButtonText:"Close"
+          });
+          toast.present();
+        }
+      }
     });
     profileModal.present();
   }
