@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 import { UserRequestTimeslotPage } from '../user-request-timeslot/user-request-timeslot';
 import { Booking } from '../../class/Booking';
 
@@ -23,9 +23,8 @@ export class UserRequestModalPage {
   visible3: any;
   booking:Booking;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private modalCtrl:ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private modalCtrl:ModalController,private viewCtrl:ViewController) {
     this.dateSelected = this.navParams.get("dateSelected");
-    console.log(this.dateSelected.toString());
     this.timeSelected = this.navParams.get("timeSelected");
     this.visible1 = true;
     this.visible2 = true;
@@ -61,10 +60,10 @@ export class UserRequestModalPage {
   }
 
   onClickContinue(){
-    console.log("CLICKED");
     let timeSlotModal = this.modalCtrl.create("UserRequestTimeslotPage", {booking: this.booking });
     timeSlotModal.onDidDismiss(data => {
-      console.log(data);
+      this.viewCtrl.dismiss(data);
+
     });
     timeSlotModal.present();
   }
