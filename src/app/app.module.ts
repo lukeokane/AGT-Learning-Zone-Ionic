@@ -30,6 +30,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { UserService } from '../services/User.provider';
 import { SubjectsService } from '../services/Subject.provider';
 import { UserRequestModalPage } from '../pages/user-request-modal/user-request-modal';
+import { UserRequestTimeslotPage } from '../pages/user-request-timeslot/user-request-timeslot';
 
 
 // The translate loader needs to know where to load i18n files
@@ -57,7 +58,8 @@ export function provideSettings(storage: Storage) {
   declarations: [
     MyApp ,
     PopoverNotificationPage,
-    UserRequestModalPage
+    UserRequestModalPage,
+    UserRequestTimeslotPage
   ],
   imports: [
     BrowserModule,
@@ -79,7 +81,8 @@ export function provideSettings(storage: Storage) {
   entryComponents: [
     MyApp  ,
     PopoverNotificationPage,
-    UserRequestModalPage
+    UserRequestModalPage,
+    UserRequestTimeslotPage
   ],
   providers: [
     Api,

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
- * Generated class for the SelectTimeslotPage page.
+ * Generated class for the UserRequestTimeslotPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -10,16 +10,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-select-timeslot',
-  templateUrl: 'select-timeslot.html',
+  selector: 'page-user-request-timeslot',
+  templateUrl: 'user-request-timeslot.html',
 })
-export class SelectTimeslotPage {
+export class UserRequestTimeslotPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SelectTimeslotPage');
+    console.log('ionViewDidLoad UserRequestTimeslotPage');
   }
 
 }
