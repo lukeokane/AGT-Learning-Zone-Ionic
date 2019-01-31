@@ -14,7 +14,41 @@
       </ion-col>
     </ion-row>
   </ion-col>
-    <ion-row>
+  <ng-container *ngIf="filterTutors != null || filterTutors != undefined">
+  <ion-row *ngFor="let tutor of filterTutors">
+    <ion-col col-1></ion-col>
+    <ion-col col-4 style="border: 1px solid #CACED5">
+      <ion-row>
+        <ion-col col-2>
+          <ion-avatar class="avatar">
+            <img src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+          </ion-avatar>
+        </ion-col>
+        <ion-col>
+          <br>
+          <ng-container>
+            <ng-container *ngFor="let user of userInfos">
+              <ng-container *ngIf="tutor?.id == user?.userId">
+                {{tutor?.firstName}} {{tutor?.lastName}}
+                <br>
+                Tutor
+                Skills : 
+                <ng-container *ngIf="user?.tutorSkills != null || user?.tutorSkills != undefined">
+                  {{user?.tutorSkills}}
+                </ng-container>
+                <ng-container *ngIf="user?.tutorSkills == null || user?.tutorSkills == undefined">
+                  No skills specified
+                </ng-container>
+                <hr>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+          <button style="float:right;background-color: #FE787B;color: white" ion-button>{{'ASSIGN' | translate}}</button>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+  </ion-row>
+  <!-- <ion-row>
       <ion-col col-1></ion-col>
       <ion-col col-4 style="border: 1px solid #CACED5">
         <ion-row>
@@ -121,5 +155,6 @@
           </ion-col>
         </ion-row>
       </ion-col>
-    </ion-row>
+    </ion-row> -->
+    </ng-container>
 </ion-content>
