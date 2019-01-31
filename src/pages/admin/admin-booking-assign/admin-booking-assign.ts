@@ -1,3 +1,4 @@
+import { Booking } from './../../../class/Booking';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -15,11 +16,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class AdminBookingAssignPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  selectedBooking: Booking;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AdminBookingAssignPage');
+
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    if (this.navParams.get("selectedBooking") != null || this.navParams.get("selectedBooking") != undefined) {
+      this.selectedBooking = this.navParams.get("selectedBooking");
+      console.log("Selected booking to assign to tutor : ", this.selectedBooking);
+    }
   }
 
 }
