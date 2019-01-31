@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+//import { CourseService } from '../../../providers/course/course.service';
+import { CourseService } from '../../../services/Course.provider';
+import { Course } from '../../../class/Course';
 
 /**
  * Generated class for the AdminStatisticsDeliveredPage page.
@@ -18,6 +21,8 @@ export class AdminStatisticsDeliveredPage {
   toDate: string;
   fromDate: string;
   selectedYear: any;
+  courses: Course[];
+  selectedCourse: Course;
 
   public lineChartData: Array<any> = [
     { data: [65, 59, 80, 81, 56, 55, 40], label: 'Tutorials Delivered' }
@@ -40,11 +45,25 @@ export class AdminStatisticsDeliveredPage {
   public lineChartLegend: boolean = true;
   public lineChartType: string = 'line';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    private courseService: CourseService, 
+    ) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AdminStatisticsDeliveredPage');
+    console.log('ionViewDidLoad AdminStatisticsDistributionPage');
+    this.loadAll();
+  }
+
+  loadAll() {
+    this.courseService.findAllCoursesList().subscribe(data => {
+      this.courses = data.body;
+      console.log(this.courses);
+      console.log(this.selectedCourse);
+    }, error => {
+      console.log(error);
+    });
   }
 
 }
