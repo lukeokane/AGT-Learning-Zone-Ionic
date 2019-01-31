@@ -73,7 +73,7 @@ export class HomePage implements OnInit {
     var time = timeSelected.substring(0, 2);
     var timeInt = parseInt(time, 10);
     console.log(dateSelected);
-    let profileModal = this.modalCtrl.create(UserRequestModalPage, { dateSelected: dateSelected, timeSelected: timeInt });
+    let profileModal = this.modalCtrl.create("UserRequestModalPage", { dateSelected: dateSelected, timeSelected: timeInt });
     profileModal.onDidDismiss(data => {
       console.log(data);
     });
