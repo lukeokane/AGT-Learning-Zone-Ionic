@@ -62,7 +62,7 @@ export class UserRequestModalPage {
 
   onClickContinue(){
     console.log("CLICKED");
-    let timeSlotModal = this.modalCtrl.create(UserRequestTimeslotPage, {booking: this.booking });
+    let timeSlotModal = this.modalCtrl.create("UserRequestTimeslotPage", {booking: this.booking });
     timeSlotModal.onDidDismiss(data => {
       console.log(data);
     });

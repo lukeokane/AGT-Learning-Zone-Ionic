@@ -56,10 +56,7 @@ export function provideSettings(storage: Storage) {
 
 @NgModule({
   declarations: [
-    PopoverNotificationPage,
-    UserRequestModalPage,
-    UserRequestTimeslotPage
-    MyApp ,
+    MyApp
   ],
   imports: [
     BrowserModule,
@@ -79,10 +76,7 @@ export function provideSettings(storage: Storage) {
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp  ,
-    PopoverNotificationPage,
-    UserRequestTimeslotPage
-    UserRequestModalPage,
+    MyApp
   ],
   providers: [
     Api,
