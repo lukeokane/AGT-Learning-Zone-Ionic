@@ -15,7 +15,7 @@ export class TopMenuComponent {
 
   showNotifications(myEvent) {
     console.log(myEvent);
-    const popover = this.popoverCtrl.create(PopoverNotificationPage,{},{cssClass:'custom-popover'});
+    const popover = this.popoverCtrl.create("PopoverNotificationPage",{},{cssClass:'custom-popover'});
     // myEvent={
     //   target : {
     //     getBoundingClientRect : () => {

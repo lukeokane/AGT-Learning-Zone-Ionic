@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+//import { CourseService } from '../../../providers/course/course.service';
+import { CourseService } from '../../../services/Course.provider';
+import { Course } from '../../../class/Course';
+import { ToastController } from 'ionic-angular';
 /**
  * Generated class for the AdminStatisticsDistributionPage page.
  *
@@ -18,6 +21,8 @@ export class AdminStatisticsDistributionPage {
   toDate: string;
   fromDate: string;
   selectedYear: any;
+  courses: Course[];
+  selectedCourse: Course;
 
   // Doughnut
   public doughnutChartLabels: string[] = ['Java', 'Javascript', 'C++'];
@@ -34,18 +39,33 @@ export class AdminStatisticsDistributionPage {
   }
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    private courseService: CourseService, 
+    ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminStatisticsDistributionPage');
+    this.loadAll();
   }
 
-  generateChart(){
+  loadAll() {
+    this.courseService.findAllCoursesList().subscribe(data => {
+      this.courses = data.body;
+      console.log(this.courses);
+      console.log(this.selectedCourse);
+    }, error => {
+      console.log(error);
+    });
+  }
+
+
+  generateChart() {
     console.log(this.toDate);
     console.log(this.fromDate);
     console.log(this.selectedYear);
-    
+    console.log(this.selectedCourse);
   }
 
 }

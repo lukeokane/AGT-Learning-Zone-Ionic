@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+//import { CourseService } from '../../../providers/course/course.service';
+import { CourseService } from '../../../services/Course.provider';
+import { Course } from '../../../class/Course';
 
 /**
  * Generated class for the AdminStatisticsHoursPage page.
@@ -18,6 +21,8 @@ export class AdminStatisticsHoursPage {
   toDate: string;
   fromDate: string;
   selectedYear: any;
+  courses: Course[];
+  selectedCourse: Course;
 
   public barChartOptions = {
     scaleShowVerticalLines: false,
@@ -32,11 +37,25 @@ export class AdminStatisticsHoursPage {
   ];
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+    public navParams: NavParams, 
+    private courseService: CourseService, 
+    ) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AdminStatisticsHoursPage');
+    console.log('ionViewDidLoad AdminStatisticsDistributionPage');
+    this.loadAll();
+  }
+
+  loadAll() {
+    this.courseService.findAllCoursesList().subscribe(data => {
+      this.courses = data.body;
+      console.log(this.courses);
+      console.log(this.selectedCourse);
+    }, error => {
+      console.log(error);
+    });
   }
 
 }

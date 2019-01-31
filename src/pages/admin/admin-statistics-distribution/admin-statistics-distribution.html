@@ -22,7 +22,7 @@
   <!-- <button on-click="debug()">Click me </button> -->
   <form (submit)="generateChart()">
     <ion-grid>
-        <ion-row text-center>
+        <ion-row>
           <ion-col size="18" size-sm>
               <div>
                   <h4>Course</h4>
@@ -30,7 +30,7 @@
                     <select class="form-control" class="input" [(ngModel)]="selectedCourse" [ngModelOptions]="{standalone: true}">
                       <option>Please select a course</option>
                       <option>all</option>
-                      <!-- <option *ngFor="let course of courses; trackBy: id;let i = index;" class="form-control" class="text-center">{{course?.title}} {{course?.code}}</option> -->
+                      <option *ngFor="let course of courses; trackBy: id;let i = index;" class="form-control" class="text-center">{{course?.title}} {{course?.code}}</option>
                     </select>
                   </div>
                 </div>

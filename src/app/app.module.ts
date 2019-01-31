@@ -56,10 +56,10 @@ export function provideSettings(storage: Storage) {
 
 @NgModule({
   declarations: [
-    MyApp ,
     PopoverNotificationPage,
     UserRequestModalPage,
     UserRequestTimeslotPage
+    MyApp ,
   ],
   imports: [
     BrowserModule,
@@ -81,8 +81,8 @@ export function provideSettings(storage: Storage) {
   entryComponents: [
     MyApp  ,
     PopoverNotificationPage,
-    UserRequestModalPage,
     UserRequestTimeslotPage
+    UserRequestModalPage,
   ],
   providers: [
     Api,

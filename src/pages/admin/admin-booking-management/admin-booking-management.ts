@@ -11,14 +11,6 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 import { User } from '../../../class/User';
 import { Subject } from '../../../class/Subject';
 
-
-/**
- * Generated class for the AdminBookingManagementPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-admin-booking-management',
@@ -138,8 +130,10 @@ export class AdminBookingManagementPage implements OnInit {
     // this.dayOfWeek= this.selectedBooking.startTime.getDay() ==0 ? "Sunday" : this.selectedBooking.startTime.getDay()==1? "Monday" : this.selectedBooking.startTime.getDay()== 2 ? "Tuesday" : this.selectedBooking.startTime.getDay()== 3 ? "Wednesday" :  this.selectedBooking.startTime.getDay()== 4 ? "Thursday" :  this.selectedBooking.startTime.getDay()== 5 ? "Friday" : this.selectedBooking.startTime.getDay()== 6 ? "Saturday"  : void 0;
   }
 
-  goToAssignTutorManually() {
-    this.navCtrl.push(adminBookingAssignnPage);
+  goToAssignTutorManually(selectedBooking:Booking) {
+    this.navCtrl.push(adminBookingAssignnPage,{
+      selectedBooking:selectedBooking
+    });
   }
 
 }
