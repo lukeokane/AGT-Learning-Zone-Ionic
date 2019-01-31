@@ -1,3 +1,4 @@
+import { UserInfoService } from './../services/UserInfo.provider';
 import { BookingsService } from './../services/Booking.provider';
 import { Notification } from './../class/Notification';
 import { SemesterService } from './../services/Semester.provider';
@@ -95,6 +96,7 @@ export function provideSettings(storage: Storage) {
     BookingsService,
     UserService,
     SubjectsService,
+    UserInfoService,
     Camera,
     SplashScreen,
     StatusBar,
