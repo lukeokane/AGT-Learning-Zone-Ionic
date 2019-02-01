@@ -3,11 +3,12 @@ import { UserInfoService } from './../../../services/UserInfo.provider';
 import { UserService } from './../../../services/User.provider';
 import { Booking } from './../../../class/Booking';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { Principal } from '../../../providers/auth/principal.service';
 import { User } from '../../../class/User';
 import { UserInfo } from '../../../class/UserInfo';
 import { BookingsService } from '../../../services/Booking.provider';
+import { first } from 'rxjs/operator/first';
 
 @IonicPage()
 @Component({
@@ -16,10 +17,10 @@ import { BookingsService } from '../../../services/Booking.provider';
 })
 export class AdminBookingAssignPage implements OnInit {
   selectedBooking: Booking;
-  filterTutors: Array<User>=[];
+  filterTutors: Array<User> = [];
   userInfos: Array<UserInfo>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private userService: UserService, private toastCtrl: ToastController, private principal: Principal, private userInfoService: UserInfoService,private bookingService:BookingsService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private userService: UserService, private toastCtrl: ToastController, private principal: Principal, private userInfoService: UserInfoService, private bookingService: BookingsService, private alertCtrl: AlertController) {
     if (this.navParams.get("selectedBooking") != null || this.navParams.get("selectedBooking") != undefined) {
       this.selectedBooking = this.navParams.get("selectedBooking");
       console.log("Selected booking to assign to tutor : ", this.selectedBooking);
@@ -53,7 +54,7 @@ export class AdminBookingAssignPage implements OnInit {
   initUserInfo() {
     this.userInfoService.query().subscribe(
       (response) => {
-        this.userInfos=response;
+        this.userInfos = response;
       },
       (error) => {
         console.error(error);
@@ -62,16 +63,41 @@ export class AdminBookingAssignPage implements OnInit {
       });
   }
 
-  assignToTutor(tutorId:number)
-  {
-    if(tutorId!= null || tutorId != undefined)
-    {
+  ContinueAlert(tutorId: any) {
+    let fullName: any;
+
+    this.filterTutors.forEach(tutor => {
+      if (tutor.id == tutorId) {
+        fullName = tutor.firstName + " " + tutor.lastName;
+      }
+    });
+
+    let alert = this.alertCtrl.create({
+      title: 'Requested Tutorial<br> <h6>This tutorial is assigned to</h6>',
+      subTitle: fullName,
+      buttons: [
+        {
+          text: 'Continue',
+          handler: () => {
+            this.assignToTutor(tutorId);
+          }
+        },
+
+      ],
+      cssClass: 'alertCustomCss'
+    });
+    alert.present();
+  }
+
+
+
+  assignToTutor(tutorId: number) {
+    if (tutorId != null || tutorId != undefined) {
       this.selectedBooking.adminAcceptedId = tutorId;
     }
-    if(this.selectedBooking != null || this.selectedBooking != undefined)
-    {
-    this.bookingService.saveBooking(this.selectedBooking);
-    this.navCtrl.push(homePage);
+    if (this.selectedBooking != null || this.selectedBooking != undefined) {
+      this.bookingService.saveBooking(this.selectedBooking);
+      this.navCtrl.push(homePage);
     }
   }
 }

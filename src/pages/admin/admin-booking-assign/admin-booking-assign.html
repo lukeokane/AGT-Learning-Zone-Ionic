@@ -40,7 +40,7 @@
                     No skills specified
                   </ng-container>
                   <hr>
-                  <button style="float:right;background-color: #FE787B;color: white" (click)="assignToTutor(tutor.id)" ion-button>{{'ASSIGN' | translate}}</button>
+                  <button style="float:right;background-color: #FE787B;color: white" (click)="ContinueAlert(tutor.id)" ion-button>{{'ASSIGN' | translate}}</button>
                 </ng-container>
               </ng-container>
             </ng-container>
@@ -48,113 +48,8 @@
         </ion-row>
       </ion-col>
     </ion-row>
-    <!-- <ion-row>
-      <ion-col col-1></ion-col>
-      <ion-col col-4 style="border: 1px solid #CACED5">
-        <ion-row>
-          <ion-col col-2>
-            <ion-avatar class="avatar">
-              <img src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
-            </ion-avatar>
-          </ion-col>
-          <ion-col>
-            <h6>Cathal Nolan</h6>
-            Tutor
-            Skills : Java, C#, Python, Angular
-            <hr>
-            <button style="float:right;background-color: #FE787B;color: white" ion-button>{{'ASSIGN' | translate}}</button>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-      <ion-col col-1></ion-col>
-      <ion-col col-4 style="border:1px solid #CACED5">
-        <ion-row>
-          <ion-col col-2>
-            <ion-avatar class="avatar">
-              <img src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
-            </ion-avatar>
-          </ion-col>
-          <ion-col>
-            <h6>Damona Treson</h6>
-            Tutor
-            Skills : Java, C#, Python, Angular
-            <hr>
-            <button style="float:right;background-color: #FE787B;color: white" ion-button>{{'ASSIGN' | translate}}</button>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col col-1></ion-col>
-      <ion-col col-4 style="border: 1px solid #CACED5">
-        <ion-row>
-          <ion-col col-2>
-            <ion-avatar class="avatar">
-              <img src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
-            </ion-avatar>
-          </ion-col>
-          <ion-col>
-            <h6>Farah Anvari</h6>
-            Tutor
-            Skills : Java, C#, Python, Angular
-            <hr>
-            <button style="float:right;background-color: #FE787B;color: white" ion-button>{{'ASSIGN' | translate}}</button>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-      <ion-col col-1></ion-col>
-      <ion-col col-4 style="border:1px solid #CACED5">
-        <ion-row>
-          <ion-col col-2>
-            <ion-avatar class="avatar">
-              <img src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
-            </ion-avatar>
-          </ion-col>
-          <ion-col>
-            <h6>Claire Baldwin</h6>
-            Tutor
-            Skills : Java, C#, Python, Angular
-            <hr>
-            <button style="float:right;background-color: #FE787B;color: white" ion-button>{{'ASSIGN' | translate}}</button>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col col-1></ion-col>
-      <ion-col col-4 style="border: 1px solid #CACED5">
-        <ion-row>
-          <ion-col col-2>
-            <ion-avatar class="avatar">
-              <img src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
-            </ion-avatar>
-          </ion-col>
-          <ion-col>
-            <h6>Stewart Sigal</h6>
-            Tutor
-            Skills : Java, C#, Python, Angular
-            <hr>
-            <button style="float:right;background-color: #FE787B;color: white" ion-button>{{'ASSIGN' | translate}}</button>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-      <ion-col col-1></ion-col>
-      <ion-col col-4 style="border:1px solid #CACED5">
-        <ion-row>
-          <ion-col col-2>
-            <ion-avatar class="avatar">
-              <img src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
-            </ion-avatar>
-          </ion-col>
-          <ion-col>
-            <h6>Hermann Mayer</h6>
-            Tutor
-            Skills : Java, C#, Python, Angular
-            <hr>
-            <button style="float:right;background-color: #FE787B;color: white" ion-button>{{'ASSIGN' | translate}}</button>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-    </ion-row> -->
+    <ng-container *ngIf="filterTutors.length == 0">
+      No Tutors Found
+    </ng-container>
   </ng-container>
 </ion-content>
