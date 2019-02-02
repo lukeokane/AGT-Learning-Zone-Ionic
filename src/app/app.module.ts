@@ -1,3 +1,4 @@
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserInfoService } from './../services/UserInfo.provider';
 import { BookingsService } from './../services/Booking.provider';
 import { SemesterService } from './../services/Semester.provider';
@@ -59,6 +60,7 @@ export function provideSettings(storage: Storage) {
     ComponentsModule,
     HttpClientModule,
     ChartsModule,
+    NgbModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
