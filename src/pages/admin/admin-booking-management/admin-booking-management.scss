@@ -22,18 +22,27 @@ page-admin-booking-management {
     .bar3 {
         width: 25px;
     }
-    .border{
-        border-right: 1px solid #F0F0F0;
-        border-bottom:1px solid #F0F0F0;
+
+    .border-bottom{
+        border-bottom: 1px solid #F0F0F0;
     }
-    .scroll{
-        overflow-x: 100px;
-        height: 500px;
-        border-right: 0.2px solid #F0F0F0;
+
+    .top{
+        margin-top:3%;
+    }
+
+    .border-right{
+        border-right: 1px solid #F0F0F0;
     }
     
+    .scroll {
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 420px;
+      }
+    
     .timePos{
-        float:right;
+        color: grey;
         font-size: 12px;
     }
 
@@ -58,10 +67,6 @@ page-admin-booking-management {
         color:#FE787B;
     }
 
-    .rightBorder{
-        border-right: 1px solid #F0F0F0;
-    }
-
     .bold{
         font-weight:bold;
     }
@@ -73,13 +78,9 @@ page-admin-booking-management {
 
     .tags{
         color:#2B7A78;
-        border-color: #2B7A78;
+        // border-color: #2B7A78;
         background-color:white;
     }
-
-    .chooseBooking:hover { 
-        background-color: #DEF2F1 !important;
-      }
 
     .levels{
         padding: 10px;
@@ -91,7 +92,11 @@ page-admin-booking-management {
     }
     
     .avatar{
-        height: 24px;
+        height: 30px;
         width: 35px;
+    }
+
+    ion-item:hover{
+        background-color: #DEF2F1 !important;
     }
 }

@@ -60,7 +60,7 @@ export function provideSettings(storage: Storage) {
     ComponentsModule,
     HttpClientModule,
     ChartsModule,
-    NgbModule,
+    NgbModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

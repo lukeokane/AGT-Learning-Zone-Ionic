@@ -14,11 +14,11 @@
       </ion-col>
     </ion-row>
   </ion-col>
-  <ng-container *ngIf="filterTutors != null || filterTutors != undefined">
-    <ion-row *ngFor="let tutor of filterTutors">
+    <ion-row  *ngIf="filterTutors != null || filterTutors != undefined">
       <ion-col col-1></ion-col>
-      <ion-col col-4 style="border: 1px solid #CACED5">
-        <ion-row>
+      <ion-col col-4 >
+        <ion-row style="border: 1px solid #CACED5" *ngFor="let tutor of filterTutors">
+          <ion-col col-1></ion-col>
           <ion-col col-2>
             <ion-avatar class="avatar">
               <img src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
@@ -26,7 +26,6 @@
           </ion-col>
           <ion-col>
             <br>
-            <ng-container>
               <ng-container *ngFor="let user of userInfos">
                 <ng-container *ngIf="tutor?.id == user?.userId">
                   {{tutor?.firstName}} {{tutor?.lastName}}
@@ -43,13 +42,8 @@
                   <button style="float:right;background-color: #FE787B;color: white" (click)="ContinueAlert(tutor.id)" ion-button>{{'ASSIGN' | translate}}</button>
                 </ng-container>
               </ng-container>
-            </ng-container>
           </ion-col>
         </ion-row>
       </ion-col>
     </ion-row>
-    <ng-container *ngIf="filterTutors.length == 0">
-      No Tutors Found
-    </ng-container>
-  </ng-container>
 </ion-content>

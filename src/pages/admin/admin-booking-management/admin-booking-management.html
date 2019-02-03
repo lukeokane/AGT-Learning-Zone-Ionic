@@ -14,78 +14,80 @@
         </ion-col>
       </ion-row>
     </ion-col>
-    <ion-col col-3>
+    <ion-col class="border-right" col-3>
       <h6>{{'MANAGE_BOOKING' | translate}}</h6>
       <div class="scroll">
-        <ion-row class="rightBorder">
-          <ion-col>
+        <ion-row>
+          <ion-col></ion-col>
+          <ion-col col-11>
             &nbsp;<i class="fa fa-search"></i>
             <input padding type="text" placeholder="Search Subject, Topic or Name">
           </ion-col>
         </ion-row>
-        <br>
         <hr>
-        <ion-row class="chooseBooking" *ngFor="let booking of bookings;let i = index" (click)="goToBooking(booking)"
-          [style.backgroundColor]="selectedBooking == booking ? '#F6FFFF' : 'white' ">
-          <ion-col class="border">
+        <ion-list>
+          <ion-item class="border-bottom" *ngFor="let booking of bookings;let i = index" (click)="goToBooking(booking)"
+            [style.backgroundColor]="selectedBooking == booking ? '#F6FFFF' : 'white' ">
             <ion-row>
-              <ion-col>
-                <ng-container *ngFor="let user of findUserBookings">
-                  <ng-container *ngFor="let info of booking?.userInfos">
-                    <ng-container *ngIf="user?.id == info?.userId">
-                      <h6>
-                        <ion-avatar class="avatar">
-                          <br>
-                          <img *ngIf="user?.imageURL == null && user?.imageURL == undefined" src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
-                          <img *ngIf="user?.imageURL != null && user?.imageURL != undefined" src="user.imageURL">
-                        </ion-avatar> &emsp;&emsp;&emsp;
-                        {{user?.firstName}} {{user?.lastName}}
-                      </h6>
-                    </ng-container>
+              <ng-container *ngFor="let user of findUserBookings">
+                <ng-container *ngFor="let info of booking?.userInfos">
+                  <ng-container *ngIf="user?.id == info?.userId">
+                    <ion-col class="avatar" col-2>&nbsp;&nbsp;
+                        <img *ngIf="user?.imageURL == null || user?.imageURL == undefined" src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+                        <img *ngIf="user?.imageURL != null || user?.imageURL != undefined" src="user.imageURL">
+                    </ion-col>
+                    <ion-col col-6 class="top">&nbsp;&nbsp;{{user?.firstName}} {{user?.lastName}}</ion-col>
+                    <ion-col col-2></ion-col>
                   </ng-container>
                 </ng-container>
-                <span class="timePos">{{booking?.modifiedTimestamp | date}}</span>
-                &emsp;&emsp;&emsp;&emsp;{{(booking?.userComments | slice :0:17) + (booking?.userComments?.length >17 ?
+              </ng-container>
+            </ion-row>
+            <ion-row>
+              <ion-col col-2></ion-col>
+              <ion-col col-6>&nbsp;
+                {{(booking?.userComments | slice :0:15) + (booking?.userComments?.length > 15 ?
                 '...' : '')}}
               </ion-col>
+              <ion-col col-4>
+                <span class="timePos">{{booking?.modifiedTimestamp | date}}</span>
+              </ion-col>
             </ion-row>
-          </ion-col>
-        </ion-row>
+          </ion-item>
+        </ion-list>
+        <div style="margin-top:300px" class="row justify-content-center">
+          <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
+            [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
       </div>
     </ion-col>
     <ng-container *ngIf="selectedBooking != null && selectedBooking != undefined">
       <ion-col col-8>
         <br>
-        <ion-row>
-          <ion-col>
-            <ng-container *ngFor="let user of findUserBookings">
-              <ng-container *ngFor="let info of selectedBooking?.userInfos">
-                <ng-container *ngIf="user?.id == info?.userId">
-                  <h6>
-                    <ion-avatar class="avatar">
-                      <br>
-                      <img *ngIf="user?.imageURL == null && user?.imageURL == undefined" src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
-                      <img *ngIf="user?.imageURL != null && user?.imageURL != undefined" src="user.imageURL">
-                    </ion-avatar> &emsp;&emsp;&emsp;
-                    {{user?.firstName}} {{user?.lastName}}
-                  </h6> 
-                  &emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;{{user?.email}} -
-                </ng-container>
-              </ng-container>
+        <ng-container *ngFor="let user of findUserBookings">
+          <ng-container *ngFor="let info of selectedBooking?.userInfos">
+            <ng-container *ngIf="user?.id == info?.userId">
+              <ion-avatar class="avatar">
+                <br><br><br>
+                <img *ngIf="user?.imageURL == null || user?.imageURL == undefined" src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+                <img *ngIf="user?.imageURL != null || user?.imageURL != undefined" src="user.imageURL">
+              </ion-avatar>
+              <h6>&emsp;&emsp;&emsp;{{user?.firstName}} {{user?.lastName}}</h6>
+              &nbsp;&emsp;&emsp;&emsp;{{user?.email}} -
             </ng-container>
-            <ng-container *ngFor="let semesterGroup of semesterGroups">
-              <ng-container *ngFor="let info of selectedBooking?.userInfos">
-                <ng-container *ngIf="semesterGroup?.id == info?.semesterGroupId">
-                  {{semesterGroup?.title}}
-                </ng-container>
-              </ng-container>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngFor="let semesterGroup of semesterGroups">
+          <ng-container *ngFor="let info of selectedBooking?.userInfos">
+            <ng-container *ngIf="semesterGroup?.id == info?.semesterGroupId">
+              {{semesterGroup?.title}}
             </ng-container>
-          </ion-col>
-        </ion-row>
+          </ng-container>
+        </ng-container>
         <hr>
         <div class="theme">
-          <br><br>
+          <br>
           <ion-row>
+            <ion-col col-1></ion-col>
             <ion-col class="bold">
               <i class="fa fa-exclamation-circle"></i>&nbsp;
               {{'LEVEL_OF_IMPORTANCE' | translate}}
@@ -109,6 +111,7 @@
           </ion-row>
           <br>
           <ion-row>
+            <ion-col col-1></ion-col>
             <ion-col class="bold">
               <i class="fa fa-calendar"></i>&nbsp;
               {{'TIME_AND_DATE' | translate}}
@@ -126,30 +129,35 @@
             <ion-col col-4></ion-col>
           </ion-row>
           <ion-row>
+            <ion-col col-1></ion-col>
             <ion-col class="bold">
               <i class="fa fa-comments"></i>&nbsp;
               {{'COMMENTS' | translate}}
             </ion-col>
           </ion-row>
           <ion-row>
+            <ion-col col-1></ion-col>
             <ion-col col-9>
               {{selectedBooking?.userComments}}
             </ion-col>
-            <ion-col col-3></ion-col>
+            <ion-col col-2></ion-col>
           </ion-row>
           <ion-row>
             <ion-col>
-              <button ion-button (click)="goToAssignTutorManually(selectedBooking)" class="assignBtn">{{'ASSIGN' | translate}}</button>
+              <button ion-button (click)="goToAssignTutorManually(selectedBooking)" class="assignBtn">{{'ASSIGN' |
+                translate}}</button>
             </ion-col>
+            <ion-col col-1></ion-col>
           </ion-row>
         </div>
       </ion-col>
     </ng-container>
     <ng-container *ngIf="selectedBooking == null || selectedBooking == undefined">
       <ion-col col-8>
-        <br><br><br>
+        <br><br>
         <ion-row>
-          <ion-col>
+          <ion-col></ion-col>
+          <ion-col col-11>
             <h6>{{'SELECT_A_BOOKING' | translate}}....</h6>
           </ion-col>
         </ion-row>

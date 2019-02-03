@@ -31,6 +31,9 @@ export class AdminBookingManagementPage implements OnInit {
   findUserBookings: Array<User>;
   semesterGroups: Array<SemesterGroup>;
   subjects: Array<Subject>;
+  predicate: any = 'id';
+  previousPage: any;
+  reverse: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private bookingsService: BookingsService, private toastCtrl: ToastController, private userService: UserService, private semesterGroupService: SemesterGroupService, private subjectService: SubjectsService) {
     // this.bookings=[new Booking(1,"help in Java","Shaun Conroy", new Date("Tue Oct 23 2018 10:00:00"), new Date("Tue Oct 23 2018 11:00:00"),"I'm trying to learn the best way to implement interfaces with inheritance for a topic being taught in Object Oriented Programming next week",OrdinalScale.LOW,null,null,null,null,null,null,new Subject(1,null,"Java",[new Topic(1,"OOP")],null,null),[new UserInfo(1,null,new User(1,null,null,"Shaun","Conroy","D001893736"),new SemesterGroup(1,"Group 1",null,[new Subject(1,"Java","Java",[new Topic(1,"Classes",null,null)],null,null)],null,null),null,null,null,null)],null),new Booking(1,"help in Java","Shaun Conroy", new Date("Tue Oct 23 2018 10:00:00"), new Date("Tue Oct 23 2018 11:00:00")," is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",OrdinalScale.MEDIUM,null,null,null,null,null,null,new Subject(1,null,"Java",null,null,null),[new UserInfo(1,null,new User(1,null,null,"Elaine Pei","Ling Chong","D0018910736"),new SemesterGroup(1,"dd",null,[new Subject(1,"Java","Java",[new Topic(1,"Classes",null,null)],null,null)],null,null),null,null,null,null)],null),new Booking(1,"help in Java","Shaun Conroy", new Date("Tue Oct 23 2018 10:00:00"), new Date("Tue Oct 23 2018 11:00:00"),"There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour",OrdinalScale.HIGH,null,null,null,null,null,null,new Subject(1,null,"Java",null,null,null),[new UserInfo(1,null,new User(1,null,null,"Luke","O'Kane","D0017209171"),new SemesterGroup(1,"dd",null,[new Subject(1,"Java","Java",[new Topic(1,"Classes",null,null)],null,null)],null,null),null,null,null,null)],null)];
@@ -44,11 +47,12 @@ export class AdminBookingManagementPage implements OnInit {
   }
 
   initBooking(refresher?) {
-    this.itemsPerPage = 30;
+    this.itemsPerPage = 4;
 
     this.bookingsService.findBookingsPendingAdminApproval({
       page: this.page - 1,
-      size: this.itemsPerPage
+      size: this.itemsPerPage,
+      sort: this.sort()
     }).subscribe(
       (res: HttpResponse<Booking[]>) => {
         this.onSuccess(res.body, res.headers)
@@ -64,8 +68,25 @@ export class AdminBookingManagementPage implements OnInit {
     this.totalItems = headers.get('X-Total-Count');
     this.queryCount = this.totalItems;
     this.bookings = data;
+
     console.log("Bookings", this.bookings);
   }
+
+  loadPage(page: number) {
+    if (page !== this.previousPage) {
+      this.previousPage = page;
+      this.initBooking();
+    }
+  }
+
+  sort() {
+    const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+    if (this.predicate !== 'id') {
+      result.push('id');
+    }
+    return result;
+  }
+
 
   initUsersInfo() {
     this.userService.query().subscribe(
@@ -99,7 +120,7 @@ export class AdminBookingManagementPage implements OnInit {
     this.totalItems = headers.get('X-Total-Count');
     this.queryCount = this.totalItems;
     this.semesterGroups = data;
-    // console.log("SemesterGroup", this.semesterGroups);
+    console.log("SemesterGroup", this.semesterGroups);
   }
 
   initSubjects() {
@@ -122,7 +143,7 @@ export class AdminBookingManagementPage implements OnInit {
     this.totalItems = headers.get('X-Total-Count');
     this.queryCount = this.totalItems;
     this.subjects = data;
-    // console.log("Subjects", this.subjects);
+    console.log("Subjects", this.subjects);
   }
 
   goToBooking(booking: Booking) {
@@ -135,5 +156,6 @@ export class AdminBookingManagementPage implements OnInit {
       selectedBooking:selectedBooking
     });
   }
+
 
 }
