@@ -4,6 +4,10 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import { Api } from '../providers/api/api';
 import { createRequestOption } from './../providers/request-util';
+import { map } from 'rxjs/operators';
+
+type EntityResponseType = HttpResponse<Subject>;
+type EntityArrayResponseType = HttpResponse<Subject[]>;
 
 @Injectable()
 export class SubjectsService {
@@ -37,6 +41,12 @@ export class SubjectsService {
             .map((res: HttpResponse<Subject[]>) => this.convertArrayResponse(res));
     }
 
+    findAllSubjectsList(req?: any): Observable<EntityArrayResponseType> {
+        const options = null;
+        return this.http.get<Subject[]>(`${this.resourceUrl}/findAllSubjectsList`, { params: options, observe: 'response' })
+        .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    }
+
     private convertArrayResponse(res: HttpResponse<Subject[]>): HttpResponse<Subject[]> {
         const jsonResponse: Subject[] = res.body;
         const body: Subject[] = [];
@@ -48,6 +58,13 @@ export class SubjectsService {
         return res.clone({ body });
     }
 
+    protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+        if (res.body) {
+            res.body.forEach((subject: Subject) => {
+            });
+        }
+        return res;
+    }
     /**
 * Convert a returned JSON object to Subject.
 */

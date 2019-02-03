@@ -3,7 +3,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 //import { CourseService } from '../../../providers/course/course.service';
 import { CourseService } from '../../../services/Course.provider';
 import { Course } from '../../../class/Course';
-import { ToastController } from 'ionic-angular';
+import { BookingsService } from '../../../services/Booking.provider';
+import { Booking } from '../../../class/Booking';
+import { SubjectsService } from '../../../services/Subject.provider';
+import { Subject} from '../../../class/Subject';
+import { BookingUserDetails } from '../../../class/BookingUserDetails';
+import { HttpResponse } from '@angular/common/http';
+import { ToastController, } from 'ionic-angular';
+
 /**
  * Generated class for the AdminStatisticsDistributionPage page.
  *
@@ -22,7 +29,13 @@ export class AdminStatisticsDistributionPage {
   fromDate: string;
   selectedYear: any;
   courses: Course[];
+  subjects: Subject[];
   selectedCourse: Course;
+  itemsPerPage: any;
+  page: number;
+  totalItems: any;
+  queryCount: any;
+  bookings: Array<Booking>;
 
   // Doughnut
   public doughnutChartLabels: string[] = ['Java', 'Javascript', 'C++'];
@@ -39,33 +52,62 @@ export class AdminStatisticsDistributionPage {
   }
 
 
-  constructor(public navCtrl: NavController, 
-    public navParams: NavParams, 
-    private courseService: CourseService, 
-    ) {
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams,
+    private courseService: CourseService,
+    private bookingsService: BookingsService,
+    private subjectsService: SubjectsService,
+    private toastCtrl: ToastController,
+  ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminStatisticsDistributionPage');
+    this.bookings =  new Array<Booking>();
+    //this.bookings
+    
+        
     this.loadAll();
+    this.loadAllBookings();
+    this.loadAllSubjects();
   }
 
   loadAll() {
     this.courseService.findAllCoursesList().subscribe(data => {
       this.courses = data.body;
       console.log(this.courses);
-      console.log(this.selectedCourse);
+      // console.log(this.selectedCourse);
     }, error => {
       console.log(error);
     });
   }
 
+  loadAllBookings() {
+    this.bookingsService.findAllBookingsList().subscribe(data => {
+      this.bookings = data.body;
+      console.log(this.bookings);
+    }, error => {
+      console.log(error);
+    });
+    
+  }
+
+  loadAllSubjects(){
+    this.subjectsService.findAllSubjectsList().subscribe(data => {
+      this.subjects = data.body;
+      console.log(this.subjects);
+    }, error => {
+      console.log(error);
+    });
+
+  }
 
   generateChart() {
     console.log(this.toDate);
     console.log(this.fromDate);
     console.log(this.selectedYear);
     console.log(this.selectedCourse);
+    console.log(this.bookings);
   }
 
 }

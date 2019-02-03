@@ -5,6 +5,10 @@ import { Observable } from 'rxjs/Rx';
 import { Api } from '../providers/api/api';
 import { createRequestOption } from './../providers/request-util';
 import { LoadingController } from 'ionic-angular';
+import { map } from 'rxjs/operators';
+
+type EntityResponseType = HttpResponse<Booking>;
+type EntityArrayResponseType = HttpResponse<Booking[]>;
 
 @Injectable()
 export class BookingsService {
@@ -59,6 +63,19 @@ export class BookingsService {
         return this.http.get(`${this.resourceUrl}/userId /${userId }`,{ params: options, observe: 'response' }) .map((res: HttpResponse<Booking[]>) => this.convertArrayResponse(res));
     }
 
+    findAllBookingsList(req?: any): Observable<EntityArrayResponseType> {
+        const options = null;
+        return this.http.get<Booking[]>(`${this.resourceUrl}/findAllBookingsList`, { params: options, observe: 'response' })
+        .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    }
+
+    protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+        if (res.body) {
+            res.body.forEach((subject: Booking) => {
+            });
+        }
+        return res;
+    }
     
     private convertArrayResponse(res: HttpResponse<Booking[]>): HttpResponse<Booking[]> {
         const jsonResponse: Booking[] = res.body;
