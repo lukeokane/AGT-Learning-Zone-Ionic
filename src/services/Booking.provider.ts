@@ -7,7 +7,6 @@ import { createRequestOption } from './../providers/request-util';
 import { LoadingController } from 'ionic-angular';
 import { map } from 'rxjs/operators';
 
-type EntityResponseType = HttpResponse<Booking>;
 type EntityArrayResponseType = HttpResponse<Booking[]>;
 
 @Injectable()

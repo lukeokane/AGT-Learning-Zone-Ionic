@@ -1,4 +1,4 @@
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 import { CourseService } from './../../services/Course.provider';
 import { SemesterGroupService } from './../../services/SemesterGroup.provider';
 import { CourseYear } from './../../class/CourseYear';

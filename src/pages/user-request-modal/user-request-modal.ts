@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
-import { UserRequestTimeslotPage } from '../user-request-timeslot/user-request-timeslot';
 import { Booking } from '../../class/Booking';
 
 /**

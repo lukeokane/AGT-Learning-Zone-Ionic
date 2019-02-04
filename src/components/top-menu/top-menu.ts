@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { PopoverController } from 'ionic-angular';
-import { PopoverNotificationPage } from '../../pages/popover-notification/popover-notification';
 
 @Component({
   selector: 'top-menu',

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { App, IonicPage, NavController, MenuController, ModalController, Toast, ToastController } from 'ionic-angular';
+import { App, IonicPage, NavController, ModalController, ToastController } from 'ionic-angular';
 import { Principal } from '../../providers/auth/principal.service';
 import { FirstRunPage } from '../pages';
 import { LoginService } from '../../providers/login/login.service';
-import { UserRequestModalPage } from '../user-request-modal/user-request-modal';
 
 @IonicPage()
 @Component({
@@ -28,7 +27,6 @@ export class HomePage implements OnInit {
     private principal: Principal,
     private app: App,
     private loginService: LoginService,
-    private menuCtrl: MenuController,
     private modalCtrl: ModalController,
     private toastCtrl: ToastController) {
 

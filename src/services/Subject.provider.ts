@@ -6,7 +6,6 @@ import { Api } from '../providers/api/api';
 import { createRequestOption } from './../providers/request-util';
 import { map } from 'rxjs/operators';
 
-type EntityResponseType = HttpResponse<Subject>;
 type EntityArrayResponseType = HttpResponse<Subject[]>;
 
 @Injectable()

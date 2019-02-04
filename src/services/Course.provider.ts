@@ -5,7 +5,6 @@ import { Observable } from 'rxjs/Rx';
 import { Api } from '../providers/api/api';
 import { map } from 'rxjs/operators';
 
-type EntityResponseType = HttpResponse<Course>;
 type EntityArrayResponseType = HttpResponse<Course[]>;
 
 @Injectable()

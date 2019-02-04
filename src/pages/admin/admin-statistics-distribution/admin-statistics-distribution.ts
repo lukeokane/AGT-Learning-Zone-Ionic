@@ -7,9 +7,6 @@ import { BookingsService } from '../../../services/Booking.provider';
 import { Booking } from '../../../class/Booking';
 import { SubjectsService } from '../../../services/Subject.provider';
 import { Subject} from '../../../class/Subject';
-import { BookingUserDetails } from '../../../class/BookingUserDetails';
-import { HttpResponse } from '@angular/common/http';
-import { ToastController, } from 'ionic-angular';
 
 /**
  * Generated class for the AdminStatisticsDistributionPage page.
@@ -56,9 +53,7 @@ export class AdminStatisticsDistributionPage {
     public navParams: NavParams,
     private courseService: CourseService,
     private bookingsService: BookingsService,
-    private subjectsService: SubjectsService,
-    private toastCtrl: ToastController,
-  ) {
+    private subjectsService: SubjectsService  ) {
   }
 
   ionViewDidLoad() {
