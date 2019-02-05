@@ -6,7 +6,7 @@ import { Course } from '../../../class/Course';
 import { BookingsService } from '../../../services/Booking.provider';
 import { Booking } from '../../../class/Booking';
 import { SubjectsService } from '../../../services/Subject.provider';
-import { Subject} from '../../../class/Subject';
+import { Subject } from '../../../class/Subject';
 
 /**
  * Generated class for the AdminStatisticsDistributionPage page.
@@ -22,8 +22,8 @@ import { Subject} from '../../../class/Subject';
 })
 export class AdminStatisticsDistributionPage {
 
-  toDate: string;
-  fromDate: string;
+  toDate: any;
+  fromDate: any;
   selectedYear: any;
   courses: Course[];
   subjects: Subject[];
@@ -53,17 +53,17 @@ export class AdminStatisticsDistributionPage {
     public navParams: NavParams,
     private courseService: CourseService,
     private bookingsService: BookingsService,
-    private subjectsService: SubjectsService  ) {
+    private subjectsService: SubjectsService) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminStatisticsDistributionPage');
-    this.bookings =  new Array<Booking>();
+    this.bookings = new Array<Booking>();
     //this.bookings
-    
-        
+
+
     this.loadAll();
-    this.loadAllBookings();
+    //this.loadAllBookings();
     this.loadAllSubjects();
   }
 
@@ -78,16 +78,16 @@ export class AdminStatisticsDistributionPage {
   }
 
   loadAllBookings() {
-    this.bookingsService.findAllBookingsList().subscribe(data => {
+    this.bookingsService.findAllBookingsDistributionList(this.toDate, this.fromDate).subscribe(data => {
       this.bookings = data.body;
       console.log(this.bookings);
     }, error => {
       console.log(error);
     });
-    
+
   }
 
-  loadAllSubjects(){
+  loadAllSubjects() {
     this.subjectsService.findAllSubjectsList().subscribe(data => {
       this.subjects = data.body;
       console.log(this.subjects);
@@ -98,6 +98,16 @@ export class AdminStatisticsDistributionPage {
   }
 
   generateChart() {
+
+    this.bookingsService.findAllBookingsDistributionList(this.fromDate, this.toDate).subscribe(data => {
+      this.bookings = data.body;
+      console.log(this.bookings);
+    }, error => {
+      console.log(error);
+    });
+
+
+
     console.log(this.toDate);
     console.log(this.fromDate);
     console.log(this.selectedYear);

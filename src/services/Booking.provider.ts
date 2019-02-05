@@ -62,9 +62,9 @@ export class BookingsService {
         return this.http.get(`${this.resourceUrl}/userId /${userId }`,{ params: options, observe: 'response' }) .map((res: HttpResponse<Booking[]>) => this.convertArrayResponse(res));
     }
 
-    findAllBookingsList(req?: any): Observable<EntityArrayResponseType> {
+    findAllBookingsDistributionList(fromDate: string, toDate: string): Observable<EntityArrayResponseType> {
         const options = null;
-        return this.http.get<Booking[]>(`${this.resourceUrl}/findAllBookingsList`, { params: options, observe: 'response' })
+        return this.http.get<Booking[]>(`${this.resourceUrl}/findAllBookingsList/${fromDate}/toDate/${toDate}`, { params: options, observe: 'response' })
         .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
