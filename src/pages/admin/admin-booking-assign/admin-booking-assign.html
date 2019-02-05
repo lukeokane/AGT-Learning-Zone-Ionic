@@ -14,36 +14,37 @@
       </ion-col>
     </ion-row>
   </ion-col>
-    <ion-row  *ngIf="filterTutors != null || filterTutors != undefined">
-      <ion-col col-1></ion-col>
-      <ion-col col-4 >
-        <ion-row style="border: 1px solid #CACED5" *ngFor="let tutor of filterTutors">
-          <ion-col col-1></ion-col>
-          <ion-col col-2>
-            <ion-avatar class="avatar">
-              <img src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
-            </ion-avatar>
-          </ion-col>
-          <ion-col>
-            <br>
-              <ng-container *ngFor="let user of userInfos">
-                <ng-container *ngIf="tutor?.id == user?.userId">
-                  {{tutor?.firstName}} {{tutor?.lastName}}
-                  <br>
-                  {{'TUTOR' | translate}}
-                  {{'SKILLS' | translate}} :
-                  <ng-container *ngIf="user?.tutorSkills != null || user?.tutorSkills != undefined">
-                    {{user?.tutorSkills}}
-                  </ng-container>
-                  <ng-container *ngIf="user?.tutorSkills == null || user?.tutorSkills == undefined">
-                    No skills specified
-                  </ng-container>
-                  <hr>
-                  <button style="float:right;background-color: #FE787B;color: white" (click)="ContinueAlert(tutor.id)" ion-button>{{'ASSIGN' | translate}}</button>
-                </ng-container>
+  <ion-row *ngIf="filterTutors != null || filterTutors != undefined">
+    <ion-col col-1></ion-col>
+    <ion-col col-4>
+      <ion-row style="border: 1px solid #CACED5" *ngFor="let tutor of filterTutors">
+        <ion-col col-1></ion-col>
+        <ion-col col-2>
+          <ion-avatar class="avatar">
+            <img src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+          </ion-avatar>
+        </ion-col>
+        <ion-col>
+          <br>
+          <ng-container *ngFor="let user of userInfos">
+            <ng-container *ngIf="tutor?.id == user?.userId">
+              {{tutor?.firstName}} {{tutor?.lastName}}
+              <br>
+              {{'TUTOR' | translate}}
+              {{'SKILLS' | translate}} :
+              <ng-container *ngIf="user?.tutorSkills != null || user?.tutorSkills != undefined">
+                {{user?.tutorSkills}}
               </ng-container>
-          </ion-col>
-        </ion-row>
-      </ion-col>
-    </ion-row>
+              <ng-container *ngIf="user?.tutorSkills == null || user?.tutorSkills == undefined">
+                No skills specified
+              </ng-container>
+              <hr>
+              <button style="float:right;background-color: #FE787B;color: white" (click)="ContinueAlert(tutor.id)"
+                ion-button>{{'ASSIGN' | translate}}</button>
+            </ng-container>
+          </ng-container>
+        </ion-col>
+      </ion-row>
+    </ion-col>
+  </ion-row>
 </ion-content>
