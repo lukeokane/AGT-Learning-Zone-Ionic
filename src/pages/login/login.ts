@@ -1,3 +1,4 @@
+import { userHomePage, itlcHomePage, homePage } from './../pages';
 import { Principal } from './../../providers/auth/principal.service';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -39,19 +40,19 @@ export class LoginPage {
     this.loginService.login(this.account).then(() => {
 
       if (this.principal.userIdentity.authorities.some(function (elem) {
-        let isTrue: boolean = false;
-        if (elem == "ROLE_ADMIN")
-          isTrue = true
-        return isTrue;
+        return elem == "ROLE_ADMIN";
       })) {
-        this.app.getRootNavs()[0].setRoot(MainPage);
-      } else if (this.principal.userIdentity.authorities.some(function (elem) {
-        let isTrue: boolean = false;
-        if (elem == "ROLE_USER")
-          isTrue = true
-        return isTrue;
+        this.app.getRootNavs()[0].setRoot(homePage);
+      }
+      else if (this.principal.userIdentity.authorities.some(function (elem) {
+        return elem == "ROLE_USER";
       })) {
-        this.app.getRootNavs()[0].setRoot("UserHomePage");
+        this.app.getRootNavs()[0].setRoot(userHomePage);
+      }
+      else if (this.principal.userIdentity.authorities.some(function (elem) {
+        return elem == "ROLE_ITLC";
+      })) {
+        this.app.getRootNavs()[0].setRoot(itlcHomePage);
       }
     }).catch(() => {
       // Unable to log in

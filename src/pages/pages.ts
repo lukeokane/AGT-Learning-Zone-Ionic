@@ -14,5 +14,8 @@ export const MainPage = 'HomePage';
 export const loginPage = "LoginPage";
 export const homePage = "HomePage";
 export const signUpPage = "SignupPage";
-export const adminBookingAssignnPage ="AdminBookingAssignPage";
-  
+export const adminBookingManagementPage ="AdminBookingManagementPage";
+export const adminBookingAssignPage= "AdminBookingAssignPage";
+export const userHomePage="UserHomePage";
+export const itlcHomePage="ItlcHomePage";
+export const itlcModalCheckinPage="ItlcModalCheckinPage";

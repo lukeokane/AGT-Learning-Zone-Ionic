@@ -4,7 +4,7 @@ import { SemesterGroup } from './../../../class/SemesterGroup';
 import { UserService } from './../../../services/User.provider';
 import { HttpResponse } from '@angular/common/http';
 import { BookingsService } from './../../../services/Booking.provider';
-import { adminBookingAssignnPage, homePage } from './../../pages';
+import { homePage, adminBookingAssignPage } from './../../pages';
 import { Booking } from './../../../class/Booking';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
@@ -167,7 +167,7 @@ export class AdminBookingManagementPage implements OnInit {
   }
 
   goToAssignTutorManually(selectedBooking: Booking) {
-    this.navCtrl.push(adminBookingAssignnPage, {
+    this.navCtrl.push(adminBookingAssignPage, {
       selectedBooking: selectedBooking
     });
   }

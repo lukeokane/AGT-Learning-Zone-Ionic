@@ -1,5 +1,6 @@
+import { itlcModalCheckinPage, itlcHomePage } from './../pages';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Modal, ModalController } from 'ionic-angular';
 
 /**
  * Generated class for the ItlcHomePage page.
@@ -15,11 +16,24 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ItlcHomePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private modalCtrl:ModalController) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ItlcHomePage');
+  }
+
+  goToCheckInPage()
+  {
+
+    let profileModal = this.modalCtrl.create(itlcModalCheckinPage);
+    profileModal.onDidDismiss(data => {
+      if (data != undefined && data != null) {
+  
+        
+      }
+    });
+    profileModal.present();
   }
 
 }
