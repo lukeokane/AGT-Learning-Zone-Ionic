@@ -50,8 +50,8 @@ export class AdminBookingManagementPage implements OnInit {
     this.initSubjects();
   }
 
-  initBooking(refresher?) {
-    this.itemsPerPage = 4;
+  initBooking() {
+    this.itemsPerPage = 10;
     this.bookingsService.findBookingsPendingAdminApproval({
       page: this.page - 1,
       size: this.itemsPerPage,
@@ -68,15 +68,22 @@ export class AdminBookingManagementPage implements OnInit {
   }
 
   initUsersInfo() {
-    this.userService.query().subscribe(
-      (response) => {
-        this.findUserBookings = response;
+    this.itemsPerPage = 32;
+    this.userService.getAllUsers(
+      {
+        page: this.page - 1,
+        size: this.itemsPerPage,
+        sort: this.sort()
+      })
+      .subscribe(
+        (res: HttpResponse<User[]>) => {
+        this.findUserBookings = res.body;
       },
-      (error) => {
-        console.error(error);
-        let toast = this.toastCtrl.create({ message: 'Failed to load data', duration: 2000, position: 'middle' });
-        toast.present();
-      });
+        (error) => {
+          console.error(error);
+          let toast = this.toastCtrl.create({ message: 'Failed to load data', duration: 2000, position: 'middle' });
+          toast.present();
+        });
   }
 
   initSemesterGroup() {
@@ -113,15 +120,21 @@ export class AdminBookingManagementPage implements OnInit {
   }
 
   initUserInfo() {
-    this.userInfoService.query().subscribe(
-      (response) => {
-        this.userInfos = response;
-      },
-      (error) => {
-        console.error(error);
-        let toast = this.toastCtrl.create({ message: 'Failed to load data', duration: 2000, position: 'middle' });
-        toast.present();
-      });
+    this.itemsPerPage = 32;
+    this.userInfoService.getAllUserInfos(
+      {
+        size: this.itemsPerPage,
+        sort: this.sort()
+      })
+      .subscribe(
+        (res: HttpResponse<UserInfo[]>) => {
+          this.userInfos = res.body;
+        },
+        (error) => {
+          console.error(error);
+          let toast = this.toastCtrl.create({ message: 'Failed to load data', duration: 2000, position: 'middle' });
+          toast.present();
+        });
   }
 
   private onSuccess(data, headers) {

@@ -14,7 +14,8 @@ export class UserInfo {
         public receivedNotifications?:Array<Notification>,
         public bookings?:Array<Booking>,
         public userId?:number,
-        public semesterGroupId?:number
+        public semesterGroupId?:number,
+        public profileImageURL?:string
         // public courseTitle?:string,
         // public courseYear?:number,
         // public courseGroupTitle?:string,

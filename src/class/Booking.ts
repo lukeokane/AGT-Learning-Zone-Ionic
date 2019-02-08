@@ -24,7 +24,9 @@ export class Booking {
         public userInfos?: Array<UserInfo>,
         public notifications?:Array<Notification>,
         public subjectId?:number,
-        public modifiedTimestamp?:Date
+        public modifiedTimestamp?:Date,
+        public requestTimes?:string,
+        public readByAdmin?:boolean
     )
     { }
 

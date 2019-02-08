@@ -1,3 +1,4 @@
+import { HttpResponse } from '@angular/common/http';
 import { homePage } from './../../pages';
 import { UserInfoService } from './../../../services/UserInfo.provider';
 import { UserService } from './../../../services/User.provider';
@@ -17,6 +18,13 @@ export class AdminBookingAssignPage implements OnInit {
   selectedBooking: Booking;
   filterTutors: Array<User> = [];
   userInfos: Array<UserInfo>;
+  predicate: any = 'id';
+  previousPage: any;
+  reverse: any;
+  itemsPerPage: any;
+  page: number;
+  totalItems: any;
+  queryCount: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private userService: UserService, private toastCtrl: ToastController, private userInfoService: UserInfoService, private bookingService: BookingsService, private alertCtrl: AlertController) {
     if (this.navParams.get("selectedBooking") != null || this.navParams.get("selectedBooking") != undefined) {
@@ -31,36 +39,79 @@ export class AdminBookingAssignPage implements OnInit {
   }
 
   initUsers() {
-    this.userService.query().subscribe(
-      (response) => {
-        response.forEach(user => {
-          user.authorities.forEach(authority => {
-            if (authority == "ROLE_TUTOR") {
-              this.filterTutors = this.filterTutors.concat(user);
-              console.log(this.filterTutors);
-            }
-          });
+    this.itemsPerPage = 9;
+    this.userService.getAllUsers(
+      {
+        page: this.page - 1,
+        size: this.itemsPerPage,
+        sort: this.sort()
+      })
+      .subscribe(
+        (res: HttpResponse<User[]>) => {
+          this.onSuccess(res.body, res.headers)
+        },
+        (error) => {
+          console.error(error);
+          let toast = this.toastCtrl.create({ message: 'Failed to load data', duration: 2000, position: 'middle' });
+          toast.present();
         });
-
-      },
-      (error) => {
-        console.error(error);
-        let toast = this.toastCtrl.create({ message: 'Failed to load data', duration: 2000, position: 'middle' });
-        toast.present();
-      });
   }
 
   initUserInfo() {
-    this.userInfoService.query().subscribe(
-      (response) => {
-        this.userInfos = response;
-      },
-      (error) => {
-        console.error(error);
-        let toast = this.toastCtrl.create({ message: 'Failed to load data', duration: 2000, position: 'middle' });
-        toast.present();
-      });
+    this.itemsPerPage = 32;
+    this.userInfoService.getAllUserInfos(
+      {
+        size: this.itemsPerPage,
+        sort: this.sort()
+      })
+      .subscribe(
+        (res: HttpResponse<UserInfo[]>) => {
+          this.onSuccess1(res.body, res.headers)
+        },
+        (error) => {
+          console.error(error);
+          let toast = this.toastCtrl.create({ message: 'Failed to load data', duration: 2000, position: 'middle' });
+          toast.present();
+        });
   }
+
+  private onSuccess(data, headers) {
+    this.filterTutors =[];
+    this.totalItems = headers.get('X-Total-Count');
+    this.queryCount = this.totalItems;
+
+    data.forEach(user => {
+      user.authorities.forEach(authority => {
+        if (authority == "ROLE_TUTOR") {
+          this.filterTutors.push(user);
+          console.log(this.filterTutors);
+        }
+      });
+    });
+  }
+
+  private onSuccess1(data, headers) {
+    this.userInfos=[];
+    this.totalItems = headers.get('X-Total-Count');
+    this.queryCount = this.totalItems;
+    this.userInfos =data;
+  }
+
+  sort() {
+    const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+    if (this.predicate !== 'id') {
+      result.push('id');
+    }
+    return result;
+  }
+
+  loadPage(page: number) {
+    if (page !== this.previousPage) {
+      this.previousPage = page;
+      this.initUsers();
+    }
+  }
+
 
   ContinueAlert(tutorId: any) {
     let fullName: any;
