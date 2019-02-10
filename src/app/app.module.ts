@@ -29,6 +29,7 @@ import { ComponentsModule } from '../components/components.module';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { UserService } from '../services/User.provider';
 import { SubjectsService } from '../services/Subject.provider';
+import { TopicService } from '../services/Topic.provider';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -94,6 +95,7 @@ export function provideSettings(storage: Storage) {
     UserService,
     SubjectsService,
     UserInfoService,
+    TopicService,
     Camera,
     SplashScreen,
     StatusBar,
