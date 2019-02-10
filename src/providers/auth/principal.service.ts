@@ -94,4 +94,8 @@ export class Principal {
     getImageUrl(): String {
         return this.isIdentityResolved() ? this.userIdentity.imageUrl : null;
     }
+    getUserId():String{
+        console.log(this.userIdentity);
+        return this.userIdentity.id;
+    }
 }
