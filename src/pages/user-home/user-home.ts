@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, ModalController, ToastController, App } from 'ionic-angular';
 import { FirstRunPage } from '../pages';
 import { Principal } from '../../providers/auth/principal.service';
+import { BookingsService } from '../../services/Booking.provider';
+import { Booking } from '../../class/Booking';
 
 /**
  * Generated class for the UserHomePage page.
@@ -28,13 +30,14 @@ export class UserHomePage {
   currentDate: Date;
   time: String[] = ["09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "13:00 PM", "14:00 PM", "15:00 PM", "16:00 PM", "17:00 PM", "18:00 PM"];
 
-
+  bookings: Array<any>;
 
   constructor(public navCtrl: NavController,
     private modalCtrl: ModalController,
     private toastCtrl: ToastController,
     private principal: Principal,
-    private app: App) {
+    private app: App,
+    private bookingService: BookingsService) {
 
     this.today = new Date();
     this.generateDate(this.today);
@@ -49,6 +52,12 @@ export class UserHomePage {
         this.account = account;
       }
     });
+    this.bookingService.query().subscribe(data => {
+      console.log(data);
+      this.bookings = data;
+    }, (erro) => {
+      console.error(erro);
+    })
   }
 
   isAuthenticated() {
@@ -79,8 +88,8 @@ export class UserHomePage {
             message: 'Thank You! You will receive a confirmation e-mail when your request is approved',
             duration: 5000,
             position: 'top',
-            showCloseButton:true,
-            closeButtonText:"Close"
+            showCloseButton: true,
+            closeButtonText: "Close"
           });
           toast.present();
         }
@@ -137,5 +146,26 @@ export class UserHomePage {
     lastSun.setTime(lastSun.getTime() - (24 * 60 * 60 * 1000));
     this.generateDate(lastSun);
   }
+  checkBooking(time: String, date: Date) {
+    //d =  date type
+    //time = 12:00 pm string
 
+    // console.log(d.toISOString().substring(11,13));//return 11 or 12
+    //2019-02-10T22:16:37.213Z
+    if (this.bookings != undefined && this.bookings != null) {
+      // let temp = this.bookings[0];
+      // this.bookings = new Array<any>();
+      // this.bookings.push(temp);
+      let found = this.bookings.find((value, index, array) => {
+
+        let t: boolean = typeof (value.startTime) == 'string' ? value.startTime.substring(11, 13) == time.substring(0, 2) : value.startTime.toISOString().substring(11, 13) == time.substring(0, 2);
+        let d: boolean = typeof (value.startTime) == 'string' ? value.startTime.substring(0, 11) == date.toISOString().substring(0, 11) : value.startTime.toISOString().substring(0, 11) == date.toISOString().substring(0, 11);
+        return t && d;
+      });
+      if (found != undefined) {
+        return found.title;
+      }
+    }
+
+  }
 }

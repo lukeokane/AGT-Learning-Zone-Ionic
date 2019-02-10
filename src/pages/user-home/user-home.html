@@ -25,11 +25,11 @@
           <span class="width:15%; display:inline-block; cursor:pointer" (click)="onPreWeek()">
             <ion-icon name="arrow-back"></ion-icon>
           </span>
-          <span class="width:70%; display:inline-block; cursor:pointer" (click)="onNextWeek()">
+          <span class="width:70%; display:inline-block;" >
             <b>Week {{getWeekNumber(currentDate)}}</b>
             {{getStartEndDate()}}
           </span>
-          <span class="width:15%; display:inline-block">
+          <span class="width:15%; display:inline-block cursor:pointer" (click)="onNextWeek()">
             <ion-icon name="arrow-forward"></ion-icon>
 
           </span>
@@ -48,13 +48,15 @@
                 <div class="strike" *ngIf="checkMatchTime(t) && checkMatchDate(date)">
                   <span class="dot"></span>
                 </div>
-                <div class="showBooking">Drop In</div>
+                <div class="showBooking">{{checkBooking(t,date)}}</div>
               </td>
               <td *ngIf="i!=0" class="tg-slot" (click)="slotClicked(date,t)">
 
                 <div class="strike" *ngIf="checkMatchTime(t) && checkMatchDate(date)">
                   <span class="dot-transparent "></span>
                 </div>
+                <div class="showBooking">{{checkBooking(t,date)}}</div>
+
               </td>
             </ng-container>
           </tr>
