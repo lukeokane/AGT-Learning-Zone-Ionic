@@ -15,12 +15,22 @@ import { Booking } from '../../class/Booking';
   templateUrl: 'user-request-timeslot.html',
 })
 export class UserRequestTimeslotPage {
+  dateSelected: Date;
+  timeSelected: any;
   booking: Booking;
+  dateStart: any;
+  dateEnd: any;  
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private viewCtrl: ViewController) {
-    // if (this.navParams.get("booking") != null && this.navParams.get("booking") != undefined)
-    //   this.booking = this.navParams.get("booking");
-    // else
-    //   this.viewCtrl.dismiss();
+    if (this.navParams.get("booking") != null && this.navParams.get("booking") != undefined)
+      this.booking = this.navParams.get("booking");
+    else
+      this.viewCtrl.dismiss();
+
+    this.dateSelected = this.navParams.get("dateSelected");
+    this.timeSelected = this.navParams.get("timeSelected");
+    this.dateStart = this.navParams.get("dateStart");
+    this.dateEnd = this.navParams.get("dateEnd");
   }
 
   ionViewDidLoad() {

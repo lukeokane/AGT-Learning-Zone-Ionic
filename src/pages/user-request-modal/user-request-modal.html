@@ -20,9 +20,8 @@
     </ion-row>
     <ion-row>
       <ion-col col-12 class="form-border">
-        <ion-select placeholder="Select Subjects">
-          <ion-option value="f">Female</ion-option>
-          <ion-option value="m">Male</ion-option>
+        <ion-select placeholder="Select Subjects" [(ngModel)]="booking.subjectId">
+          <ion-option *ngFor="let s of subjects " [value]="s.id">{{s.title}}</ion-option>
         </ion-select>
       </ion-col>
     </ion-row>
@@ -32,8 +31,7 @@
     <ion-row>
       <ion-col col-12 class="form-border">
         <ion-select placeholder="Select Topics">
-          <ion-option value="f">Female</ion-option>
-          <ion-option value="m">Male</ion-option>
+          <ion-option *ngFor="let t of topics " [value]="t.title">{{t.title}}</ion-option>
         </ion-select>
       </ion-col>
     </ion-row>
@@ -44,17 +42,17 @@
       </ion-label>
     </ion-row>
     <ion-row>
-      <ion-col col-5 class="form-border">
-        <ion-datetime display-format="DD/MMM/YYYY"></ion-datetime>
+      <ion-col col-5 class="form-border" >
+        <ion-datetime [(ngModel)]="dateStart" (ngModelChange)="checkDateType($event)" display-format="DD/MMM/YYYY"></ion-datetime>
       </ion-col>
 
-      <ion-col offset-2 col-5 class="form-border">
-        <ion-datetime display-format="DD/MMM/YYYY"></ion-datetime>
+      <ion-col offset-2 col-5 class="form-border" >
+        <ion-datetime  [(ngModel)]="dateEnd" display-format="DD/MMM/YYYY"></ion-datetime>
       </ion-col>
 
     </ion-row>
     <ion-row>
-      <ion-textarea placeholder="Please provide some more detail about the
+      <ion-textarea [(ngModel)]="booking.userComments" placeholder="Please provide some more detail about the
     nature of your query...">
       </ion-textarea>
     </ion-row>
@@ -66,13 +64,16 @@
     </ion-row>
     <ion-row>
       <p><span>
-          <ion-icon [name]="visible1 ? 'radio-button-off' :'radio-button-on'" class="priority-btn" (click)="onClickPriority('low',1)"></ion-icon>
+          <ion-icon [name]="booking.importanceLevel!='LOW' ? 'radio-button-off' :'radio-button-on'" class="priority-btn"
+            (click)="onClickPriority(1)"></ion-icon>
         </span>
         <span>
-          <ion-icon [name]="visible2 ? 'radio-button-off' :'radio-button-on'" class="priority-btn" (click)="onClickPriority('medium',2)"></ion-icon>
+          <ion-icon [name]="booking.importanceLevel!='MEDIUM' ? 'radio-button-off' :'radio-button-on'" class="priority-btn"
+            (click)="onClickPriority(2)"></ion-icon>
         </span>
         <span>
-          <ion-icon [name]="visible3 ? 'radio-button-off' :'radio-button-on'" class="priority-btn" (click)="onClickPriority('high',3)"></ion-icon>
+          <ion-icon [name]="booking.importanceLevel!='HIGH' ? 'radio-button-off' :'radio-button-on'" class="priority-btn"
+            (click)="onClickPriority(3)"></ion-icon>
         </span>
       </p>
 
@@ -81,10 +82,10 @@
     <ion-row>
 
       <ion-col col-6>
-        <button ion-button block class="cancel-btn">Cancel</button>
+        <button ion-button block class="cancel-btn" (click)="onClickCancel()">Cancel</button>
       </ion-col>
       <ion-col col-6>
-        <button ion-button block class="continue-btn"(click)="onClickContinue()">Continue</button>
+        <button ion-button block class="continue-btn" (click)="onClickContinue()">Continue</button>
 
       </ion-col>
     </ion-row>
