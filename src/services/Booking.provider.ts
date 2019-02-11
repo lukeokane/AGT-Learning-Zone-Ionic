@@ -62,9 +62,39 @@ export class BookingsService {
         return this.http.get(`${this.resourceUrl}/userId /${userId }`,{ params: options, observe: 'response' }) .map((res: HttpResponse<Booking[]>) => this.convertArrayResponse(res));
     }
 
-    findAllBookingsDistributionList(fromDate: string, toDate: string): Observable<EntityArrayResponseType> {
+    
+    // finding all bookings by course all, year all within a date range and with BookingUserdetails
+    findAllBookingsList(fromDate: string, toDate: string): Observable<EntityArrayResponseType> {
         const options = null;
         return this.http.get<Booking[]>(`${this.resourceUrl}/findAllBookingsList/${fromDate}/toDate/${toDate}`, { params: options, observe: 'response' })
+        .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    }
+
+    // finding all bookings by course all, year all within a date range and no BookingUserdetails
+    findAllBookingsDistributionList(fromDate: string, toDate: string): Observable<EntityArrayResponseType> {
+        const options = null;
+        return this.http.get<Booking[]>(`${this.resourceUrl}/findAllBookingsDistributionList/${fromDate}/toDate/${toDate}`, { params: options, observe: 'response' })
+        .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    }
+
+    // finding all bookings by course all, a selected year, within a date range and BookingUserdetails populated
+    findAllBookingsAllCoursesSelectedYear(fromDate: string, toDate: string, selectedYear: any): Observable<EntityArrayResponseType> {
+        const options = null;
+        return this.http.get<Booking[]>(`${this.resourceUrl}/findAllBookingsAllCoursesSelectedYear/${fromDate}/toDate/${toDate}/selectedYear/${selectedYear}`, { params: options, observe: 'response' })
+        .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    }
+
+    // finding all bookings by a selected course, a selected year, within a date range and BookingUserdetails populated
+    findAllBookingsSelectedCourseAndSelectedYear(fromDate: string, toDate: string, selectedCourse: any, selectedYear: any): Observable<EntityArrayResponseType> {
+        const options = null;
+        return this.http.get<Booking[]>(`${this.resourceUrl}/findAllBookingsSelectedCourseAndSelectedYear/${fromDate}/toDate/${toDate}/selectedCourse/${selectedCourse}/selectedYear/${selectedYear}`, { params: options, observe: 'response' })
+        .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    }
+
+     // finding all bookings by a selected course, all years, within a date range and BookingUserdetails populated
+     findAllBookingsSelectedCourseAndAllYears(fromDate: string, toDate: string, selectedCourse: any): Observable<EntityArrayResponseType> {
+        const options = null;
+        return this.http.get<Booking[]>(`${this.resourceUrl}/findAllBookingsSelectedCourseAndAllYeara/${fromDate}/toDate/${toDate}/selectedCourse/${selectedCourse}`, { params: options, observe: 'response' })
         .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
