@@ -84,7 +84,7 @@ export class AdminBookingAssignPage implements OnInit {
       user.authorities.forEach(authority => {
         if (authority == "ROLE_TUTOR") {
           this.filterTutors.push(user);
-          console.log(this.filterTutors);
+          // console.log(this.filterTutors);
         }
       });
     });

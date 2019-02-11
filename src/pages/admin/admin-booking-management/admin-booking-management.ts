@@ -38,6 +38,10 @@ export class AdminBookingManagementPage implements OnInit {
   reverse: any;
   userInfos: Array<UserInfo>;
   filterTutors: Array<User> = [];
+  FortmattedDates: any = [];
+  value: any;
+  startTime: any;
+  endTime: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private bookingsService: BookingsService, private toastCtrl: ToastController, private userService: UserService, private semesterGroupService: SemesterGroupService, private subjectService: SubjectsService, private userInfoService: UserInfoService, private bookingService: BookingsService) {
   }
@@ -77,8 +81,8 @@ export class AdminBookingManagementPage implements OnInit {
       })
       .subscribe(
         (res: HttpResponse<User[]>) => {
-        this.findUserBookings = res.body;
-      },
+          this.findUserBookings = res.body;
+        },
         (error) => {
           console.error(error);
           let toast = this.toastCtrl.create({ message: 'Failed to load data', duration: 2000, position: 'middle' });
@@ -174,12 +178,42 @@ export class AdminBookingManagementPage implements OnInit {
     return result;
   }
 
+  getTimes(event: any) {
+    this.startTime = event;
+    for (let i = 0; i < this.FortmattedDates.length; i++) {
+      if (this.FortmattedDates[i] == event) {
+        this.endTime = this.FortmattedDates[i + 1];
+      }
+    }
+  }
+
   goToBooking(booking: Booking) {
+    let timeArray = [];
+    let filter = [];
+    this.FortmattedDates = [];
     this.selectedBooking = booking;
+    this.time = this.selectedBooking.requestTimes;
+    timeArray = this.time.split("&");
+    timeArray.forEach(times => {
+      times = times.split("|");
+      filter = filter.concat(times);
+    });
+
+    filter.forEach(element => {
+      this.FortmattedDates = this.FortmattedDates.concat(new Date(element));
+    });
+
     // this.dayOfWeek= this.selectedBooking.startTime.getDay() ==0 ? "Sunday" : this.selectedBooking.startTime.getDay()==1? "Monday" : this.selectedBooking.startTime.getDay()== 2 ? "Tuesday" : this.selectedBooking.startTime.getDay()== 3 ? "Wednesday" :  this.selectedBooking.startTime.getDay()== 4 ? "Thursday" :  this.selectedBooking.startTime.getDay()== 5 ? "Friday" : this.selectedBooking.startTime.getDay()== 6 ? "Saturday"  : void 0;
   }
 
   goToAssignTutorManually(selectedBooking: Booking) {
+    if (this.startTime != null || this.startTime != undefined) {
+      selectedBooking.startTime = this.startTime.toISOString();
+    }
+    if (this.endTime != null || this.endTime != undefined) {
+      selectedBooking.endTime = this.endTime.toISOString();
+    }
+
     this.navCtrl.push(adminBookingAssignPage, {
       selectedBooking: selectedBooking
     });
@@ -205,8 +239,7 @@ export class AdminBookingManagementPage implements OnInit {
 
   }
 
-  assignToTutor(selectedBooking: Booking, filterTutors: Array<User> = []) 
-  {
+  assignToTutor(selectedBooking: Booking, filterTutors: Array<User> = []) {
     let rand = filterTutors[Math.floor(Math.random() * filterTutors.length)];
     if (rand != null || rand != undefined) {
       selectedBooking.adminAcceptedId = rand.id;
