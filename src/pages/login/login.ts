@@ -3,7 +3,6 @@ import { Principal } from './../../providers/auth/principal.service';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, ToastController, App } from 'ionic-angular';
-import { MainPage } from '../pages';
 import { LoginService } from '../../providers/login/login.service';
 
 @IonicPage()

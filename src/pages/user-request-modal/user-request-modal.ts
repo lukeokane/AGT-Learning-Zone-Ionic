@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ViewController, List } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 import { Booking } from '../../class/Booking';
 import { Principal } from '../../providers/auth/principal.service';
 import { BookingUserDetails } from '../../class/BookingUserDetails';
