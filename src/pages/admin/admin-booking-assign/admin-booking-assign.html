@@ -15,32 +15,42 @@
     </ion-row>
   </ion-col>
   <ion-col>
-  <ion-row padding justify-content-center>
-    <ion-col padding col-5 style="border: 1px solid #CACED5;text-align: left" *ngFor="let tutor of filterTutors">
-      <br>
-      <ng-container *ngFor="let user of userInfos">
-        <ng-container *ngIf="tutor?.id == user?.userId">
-          <img class="avatar" *ngIf="tutor?.imageURL == null || tutor?.imageURL == undefined"
-            src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
-          <img class="avatar" *ngIf="tutor?.imageURL != null || tutor?.imageURL != undefined" src="user.imageURL">
-          {{tutor?.firstName}} {{tutor?.lastName}}
-          <hr>
-          &emsp;&emsp;&emsp;&emsp;{{'TUTOR' | translate}}
-          <br>
-          &emsp;&emsp;&emsp;&emsp;{{'SKILLS' | translate}} :
-          <ng-container *ngIf="user?.tutorSkills != null || user?.tutorSkills != undefined">
-            {{user?.tutorSkills}}
+    <ion-row padding justify-content-center>
+      <ion-col padding col-5 class="border" *ngFor="let tutor of filterTutors">
+        <ng-container *ngFor="let user of userInfos">
+          <ng-container *ngIf="tutor?.id == user?.userId">
+            <ion-row padding>
+              <ion-col col-2>
+                <div class="avatar">
+                  <img *ngIf="user.profileImageURL == null || user.profileImageURL == undefined"
+                    src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+                  <img *ngIf="user.profileImageURL != null || user.profileImageURL != undefined"
+                    src="assets/images/{{user.profileImageURL}}">
+                </div>
+              </ion-col>
+              <ion-col col-10>
+                {{tutor?.firstName}} {{tutor?.lastName}}
+                <br>
+                {{'TUTOR' | translate}}
+                <br>
+                {{'SKILLS' | translate}}:
+                <ng-container *ngIf="user?.tutorSkills != null || user?.tutorSkills != undefined">
+                  {{user?.tutorSkills}}
+                </ng-container>
+                <ng-container
+                  *ngIf="user?.tutorSkills == null || user?.tutorSkills == undefined || user?.tutorSkills ==''">
+                  No skills specified
+                </ng-container>
+                <br>
+                <hr>
+                <button style="float:right;background-color: #FE787B;color: white" (click)="ContinueAlert(tutor.id)"
+                  ion-button>{{'ASSIGN' | translate}}</button>
+              </ion-col>
+            </ion-row>
           </ng-container>
-          <ng-container *ngIf="user?.tutorSkills == null || user?.tutorSkills == undefined || user?.tutorSkills ==''">
-            No skills specified
-          </ng-container>
-          <hr>
-          <button style="float:right;background-color: #FE787B;color: white" (click)="ContinueAlert(tutor.id)"
-            ion-button>{{'ASSIGN' | translate}}</button>
         </ng-container>
-      </ng-container>
-    </ion-col>
-  </ion-row>
+      </ion-col>
+    </ion-row>
   </ion-col>
   <div class="row justify-content-center">
     <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
