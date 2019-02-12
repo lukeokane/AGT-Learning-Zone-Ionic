@@ -142,6 +142,10 @@ export class AdminBookingManagementPage implements OnInit {
     let filter = [];
     this.FortmattedDates = [];
     this.selectedBooking = booking;
+    if (this.selectedBooking.readByAdmin == false) {
+      booking.readByAdmin = true;
+      this.bookingService.saveBooking(booking);
+    }
     this.time = this.selectedBooking.requestTimes;
     timeArray = this.time.split("&");
     timeArray.forEach(times => {
@@ -152,8 +156,6 @@ export class AdminBookingManagementPage implements OnInit {
     filter.forEach(element => {
       this.FortmattedDates = this.FortmattedDates.concat(new Date(element));
     });
-
-    // this.dayOfWeek= this.selectedBooking.startTime.getDay() ==0 ? "Sunday" : this.selectedBooking.startTime.getDay()==1? "Monday" : this.selectedBooking.startTime.getDay()== 2 ? "Tuesday" : this.selectedBooking.startTime.getDay()== 3 ? "Wednesday" :  this.selectedBooking.startTime.getDay()== 4 ? "Thursday" :  this.selectedBooking.startTime.getDay()== 5 ? "Friday" : this.selectedBooking.startTime.getDay()== 6 ? "Saturday"  : void 0;
   }
 
   goToAssignTutorManually(selectedBooking: Booking) {
@@ -163,7 +165,6 @@ export class AdminBookingManagementPage implements OnInit {
     if (this.endTime != null || this.endTime != undefined) {
       selectedBooking.endTime = this.endTime.toISOString();
     }
-
     this.navCtrl.push(adminBookingAssignPage, {
       selectedBooking: selectedBooking
     });

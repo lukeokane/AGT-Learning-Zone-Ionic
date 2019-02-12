@@ -90,5 +90,10 @@
   "ASSIGN":"Assign Manually",
   "SELECT_A_BOOKING":"Select a Booking",
   "TUTOR":"Tutor",
-  "SKILLS":"Skills"
+  "SKILLS":"Skills",
+  "NO_COMMENT_TO_DISPLAY":"No comment to Display",
+  "RANDOMLY_ASSIGN_TUTOR":"Randomly Assign Tutor",
+  "NO_SUBJECT_SPECIFIED":"No Subject Specified",
+  "CHOOSE_TIMES":"Choose Times",
+  "NO_SKILLS_SPECIFIED":"No skills specified"
 }

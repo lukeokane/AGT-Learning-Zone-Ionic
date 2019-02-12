@@ -36,16 +36,16 @@ export class BookingsService {
     }
 
     saveBooking(booking: Booking): Booking {
-        let loading = this.loadingCtrl.create({
-            content: 'Saving Booking...'
-        });
-        loading.present();
+        // let loading = this.loadingCtrl.create({
+        //     content: 'Saving Booking...'
+        // });
+        // loading.present();
         this.update(booking).subscribe(data => {
             booking = data;
-            loading.dismiss();
+            // loading.dismiss();
             return booking;
         }, (error) => {
-            loading.dismiss();
+            // loading.dismiss();
             console.error(error);
         });
         return null;

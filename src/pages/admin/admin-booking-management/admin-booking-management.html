@@ -27,7 +27,8 @@
         <hr>
         <ion-list>
           <ion-item class="border-bottom" *ngFor="let booking of bookings;let i = index" (click)="goToBooking(booking)"
-            [style.backgroundColor]="selectedBooking == booking ? '#F6FFFF' : 'white' ">
+            [style.backgroundColor]="selectedBooking == booking ? '#F6FFFF' : '#FFFFFF' " 
+            [style.backgroundColor]="booking.readByAdmin == false ? '#FFC0CB' : '#FFFFFF' ">
             <ion-row>
               <ng-container *ngFor="let user of findUserBookings">
                 <ng-container *ngFor="let info of booking?.userInfos">
@@ -111,7 +112,7 @@
                 </ng-container>
               </ng-container>
               <ng-container *ngIf="selectedBooking?.subjectId == null || selectedBooking?.subjectId == undefined">
-                <button ion-button outline class="tags">No Subject Specified</button>
+                <button ion-button outline class="tags">{{'NO_SUBJECT_SPECIFIED' | translate}}</button>
               </ng-container>
             </ion-col>
           </ion-row>
@@ -124,7 +125,7 @@
             </ion-col>
             <ion-col>
               <select [(ngModel)]="value" (ngModelChange)="getTimes($event)">
-                <option [ngValue]="null" disabled [selected]="true">Choose Times</option>
+                <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_TIMES' | translate}}</option>
                 <ng-container *ngFor="let value of FortmattedDates; let i=index;let lst=last">
                   <option *ngIf="i % 2 == 0" [ngValue]="value">
                     {{value | date}} <span *ngIf="value.getHours() < 10">0</span>{{value.getHours()}}:<span
@@ -151,7 +152,7 @@
               {{selectedBooking?.userComments}}
               <ng-container
                 *ngIf="selectedBooking?.userComments == null || selectedBooking?.userComments  == undefined">
-                No comment to Display
+                {{'NO_COMMENT_TO_DISPLAY' | translate}}
               </ng-container>
             </ion-col>
             <ion-col col-2></ion-col>
@@ -167,7 +168,7 @@
             <ion-col col-3>
               <button ion-button
                 [disabled]="selectedBooking?.tutorAccepted == true || selectedBooking?.adminAcceptedId != null && selectedBooking?.tutorAcceptedId != null"
-                (click)="assignTutorRandomly(selectedBooking)" class="assignBtn">Randomly Assign Tutor</button>
+                (click)="assignTutorRandomly(selectedBooking)" class="assignBtn">{{'RANDOMLY_ASSIGN_TUTOR' | translate}}</button>
             </ion-col>
             <ion-col col-1></ion-col>
           </ion-row>

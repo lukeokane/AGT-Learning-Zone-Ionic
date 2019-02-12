@@ -64,7 +64,6 @@ export class AdminBookingAssignPage implements OnInit {
       this.userInfos = this.userInfos.filter(function (a) {
         return !this[a.id] && (this[a.id] = true);
       }, Object.create(null));
-      console.log(this.userInfos);
     })
   }
 
