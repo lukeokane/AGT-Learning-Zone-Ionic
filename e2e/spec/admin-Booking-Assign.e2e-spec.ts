@@ -1,4 +1,4 @@
-import { AdmingBookingAssignP } from './../pages/admin-booking-assign.po';
+import { AdmingBookingAssignP } from './../pages/admin-Booking-Assign.po';
 import { browser } from 'protractor';
 
 describe('AdmingBookingAssignPage', () => {
