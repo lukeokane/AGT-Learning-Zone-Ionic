@@ -30,6 +30,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { UserService } from '../services/User.provider';
 import { SubjectsService } from '../services/Subject.provider';
 import { TopicService } from '../services/Topic.provider';
+import { TooltipsModule } from 'ionic-tooltips';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -62,6 +63,7 @@ export function provideSettings(storage: Storage) {
     HttpClientModule,
     ChartsModule,
     NgbModule.forRoot(),
+    TooltipsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

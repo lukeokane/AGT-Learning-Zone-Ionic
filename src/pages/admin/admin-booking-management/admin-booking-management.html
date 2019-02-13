@@ -28,7 +28,9 @@
         <ion-list>
           <ion-item class="border-bottom" *ngFor="let booking of bookings;let i = index" (click)="goToBooking(booking)"
             [style.backgroundColor]="selectedBooking == booking ? '#F6FFFF' : '#FFFFFF' " 
-            [style.backgroundColor]="booking.readByAdmin == false ? '#FFC0CB' : '#FFFFFF' ">
+            [style.backgroundColor]="booking.readByAdmin == false ? '#FFC0CB' : '#FFFFFF' "
+            data-toggle="tooltip" data-placement="top" title="{{booking?.requestedBy}}"
+            >
             <ion-row>
               <ng-container *ngFor="let user of findUserBookings">
                 <ng-container *ngFor="let info of booking?.userInfos">
