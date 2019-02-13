@@ -1,9 +1,8 @@
-import { userHomePage, itlcHomePage, homePage } from './../pages';
+import { userHomePage, itlcHomePage, homePage, tutorHomePage } from './../pages';
 import { Principal } from './../../providers/auth/principal.service';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, ToastController, App } from 'ionic-angular';
-import { MainPage } from '../pages';
 import { LoginService } from '../../providers/login/login.service';
 
 @IonicPage()
@@ -53,6 +52,11 @@ export class LoginPage {
         return elem == "ROLE_ITLC";
       })) {
         this.app.getRootNavs()[0].setRoot(itlcHomePage);
+      }
+      else if (this.principal.userIdentity.authorities.some(function (elem) {
+        return elem == "ROLE_TUTOR";
+      })) {
+        this.app.getRootNavs()[0].setRoot(tutorHomePage);
       }
     }).catch(() => {
       // Unable to log in

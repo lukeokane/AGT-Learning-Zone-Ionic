@@ -35,7 +35,6 @@ export class AdminBookingAssignPage implements OnInit {
 
   ngOnInit() {
     this.initUsers();
-    this.initUserInfo();
   }
 
   initUsers() {
@@ -57,26 +56,19 @@ export class AdminBookingAssignPage implements OnInit {
         });
   }
 
-  initUserInfo() {
-    this.itemsPerPage = 32;
-    this.userInfoService.getAllUserInfos(
-      {
-        size: this.itemsPerPage,
-        sort: this.sort()
-      })
-      .subscribe(
-        (res: HttpResponse<UserInfo[]>) => {
-          this.onSuccess1(res.body, res.headers)
-        },
-        (error) => {
-          console.error(error);
-          let toast = this.toastCtrl.create({ message: 'Failed to load data', duration: 2000, position: 'middle' });
-          toast.present();
-        });
+  initUserInfo(userId: any) {
+    this.userInfos = [];
+
+    this.userInfoService.find(userId).subscribe((response) => {
+      this.userInfos.push(response);
+      this.userInfos = this.userInfos.filter(function (a) {
+        return !this[a.id] && (this[a.id] = true);
+      }, Object.create(null));
+    })
   }
 
   private onSuccess(data, headers) {
-    this.filterTutors =[];
+    this.filterTutors = [];
     this.totalItems = headers.get('X-Total-Count');
     this.queryCount = this.totalItems;
 
@@ -84,17 +76,10 @@ export class AdminBookingAssignPage implements OnInit {
       user.authorities.forEach(authority => {
         if (authority == "ROLE_TUTOR") {
           this.filterTutors.push(user);
-          console.log(this.filterTutors);
+          this.initUserInfo(user.id);
         }
       });
     });
-  }
-
-  private onSuccess1(data, headers) {
-    this.userInfos=[];
-    this.totalItems = headers.get('X-Total-Count');
-    this.queryCount = this.totalItems;
-    this.userInfos =data;
   }
 
   sort() {

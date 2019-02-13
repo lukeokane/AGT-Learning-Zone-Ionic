@@ -94,11 +94,13 @@ only screen and (                min-resolution: 2dppx) {
 }
 
 .alertCustomCss {
-  
   button
   {
     color: #3AAFA9 !important;
-    border: 2.5px solid #3AAFA9;
+    bottom: 50%;
+    right: 30%;
+    position: absolute;
+    border: 1.5px solid #3AAFA9;
   }
 
   alert-button-group

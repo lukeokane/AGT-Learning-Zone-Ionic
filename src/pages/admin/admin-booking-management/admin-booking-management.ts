@@ -10,8 +10,6 @@ import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { User } from '../../../class/User';
 import { Subject } from '../../../class/Subject';
-import { UserInfo } from '../../../class/UserInfo';
-import { UserInfoService } from '../../../services/UserInfo.provider';
 
 @IonicPage()
 @Component({
@@ -36,23 +34,25 @@ export class AdminBookingManagementPage implements OnInit {
   predicate: any = 'id';
   previousPage: any;
   reverse: any;
-  userInfos: Array<UserInfo>;
   filterTutors: Array<User> = [];
+  FortmattedDates: any = [];
+  value: any;
+  startTime: any;
+  endTime: any;
+  result = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private bookingsService: BookingsService, private toastCtrl: ToastController, private userService: UserService, private semesterGroupService: SemesterGroupService, private subjectService: SubjectsService, private userInfoService: UserInfoService, private bookingService: BookingsService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private bookingsService: BookingsService, private toastCtrl: ToastController, private userService: UserService, private semesterGroupService: SemesterGroupService, private subjectService: SubjectsService, private bookingService: BookingsService) {
   }
 
   ngOnInit() {
     this.initBooking();
     this.initUsersInfo();
-    this.initUserInfo();
-    this.initSemesterGroup();
-    this.initSubjects();
+    // this.initSubjects();
   }
 
   initBooking() {
     this.itemsPerPage = 10;
-    this.bookingsService.findBookingsPendingAdminApproval({
+    this.bookingsService.getAllBookingsPageable({
       page: this.page - 1,
       size: this.itemsPerPage,
       sort: this.sort()
@@ -68,73 +68,33 @@ export class AdminBookingManagementPage implements OnInit {
   }
 
   initUsersInfo() {
-    this.itemsPerPage = 32;
-    this.userService.getAllUsers(
-      {
-        page: this.page - 1,
-        size: this.itemsPerPage,
-        sort: this.sort()
-      })
-      .subscribe(
-        (res: HttpResponse<User[]>) => {
-        this.findUserBookings = res.body;
-      },
-        (error) => {
-          console.error(error);
-          let toast = this.toastCtrl.create({ message: 'Failed to load data', duration: 2000, position: 'middle' });
-          toast.present();
-        });
+    this.findUserBookings = [];
+    this.userService.query().subscribe((response) => {
+      this.findUserBookings = response;
+      // console.log(this.findUserBookings);
+    })
   }
 
-  initSemesterGroup() {
-    this.itemsPerPage = 64;
-    this.semesterGroupService.query1({
-      page: this.page - 1,
-      size: this.itemsPerPage
-    }).subscribe(
-      (res: HttpResponse<SemesterGroup[]>) => {
-        this.onSuccess1(res.body, res.headers)
-      },
-      (error) => {
-        console.error(error);
-        let toast = this.toastCtrl.create({ message: 'Failed to load data', duration: 2000, position: 'middle' });
-        toast.present();
-      });
+  initSemesterGroup(semesterGroupId: any) {
+    this.semesterGroups = [];
+    this.semesterGroupService.find(semesterGroupId).subscribe((response) => {
+      this.semesterGroups.push(response);
+      this.semesterGroups = this.semesterGroups.filter(function (a) {
+        return !this[a.id] && (this[a.id] = true);
+      }, Object.create(null));
+    })
   }
 
 
-  initSubjects() {
-    this.itemsPerPage = 125;
-    this.subjectService.query1({
-      page: this.page - 1,
-      size: this.itemsPerPage
-    }).subscribe(
-      (res: HttpResponse<Subject[]>) => {
-        this.onSuccess3(res.body, res.headers)
-      },
-      (error) => {
-        console.error(error);
-        let toast = this.toastCtrl.create({ message: 'Failed to load data', duration: 2000, position: 'middle' });
-        toast.present();
-      });
-  }
+  initSubjects(subjectId: any) {
+    this.subjects = [];
+    this.subjectService.find(subjectId).subscribe((response) => {
+      this.subjects.push(response);
+      this.subjects = this.subjects.filter(function (a) {
+        return !this[a.id] && (this[a.id] = true);
+      }, Object.create(null));
+    })
 
-  initUserInfo() {
-    this.itemsPerPage = 32;
-    this.userInfoService.getAllUserInfos(
-      {
-        size: this.itemsPerPage,
-        sort: this.sort()
-      })
-      .subscribe(
-        (res: HttpResponse<UserInfo[]>) => {
-          this.userInfos = res.body;
-        },
-        (error) => {
-          console.error(error);
-          let toast = this.toastCtrl.create({ message: 'Failed to load data', duration: 2000, position: 'middle' });
-          toast.present();
-        });
   }
 
   private onSuccess(data, headers) {
@@ -142,21 +102,14 @@ export class AdminBookingManagementPage implements OnInit {
     this.queryCount = this.totalItems;
     this.bookings = data;
 
+    this.bookings.forEach(booking => {
+      this.initSubjects(booking.subjectId);
+      booking.userInfos.forEach(userInfo => {
+        this.initSemesterGroup(userInfo.semesterGroupId);
+      });
+    });
+
     // console.log("Bookings", this.bookings);
-  }
-
-  onSuccess1(data, headers) {
-    this.totalItems = headers.get('X-Total-Count');
-    this.queryCount = this.totalItems;
-    this.semesterGroups = data;
-    // console.log("SemesterGroup", this.semesterGroups);
-  }
-
-  onSuccess3(data, headers) {
-    this.totalItems = headers.get('X-Total-Count');
-    this.queryCount = this.totalItems;
-    this.subjects = data;
-    // console.log("Subjects", this.subjects);
   }
 
   loadPage(page: number) {
@@ -174,12 +127,43 @@ export class AdminBookingManagementPage implements OnInit {
     return result;
   }
 
+  getTimes(event: any) {
+    this.startTime = event;
+    for (let i = 0; i < this.FortmattedDates.length; i++) {
+      if (this.FortmattedDates[i] == event) {
+        this.endTime = this.FortmattedDates[i + 1];
+      }
+    }
+  }
+
   goToBooking(booking: Booking) {
+    let timeArray = [];
+    let filter = [];
+    this.FortmattedDates = [];
     this.selectedBooking = booking;
-    // this.dayOfWeek= this.selectedBooking.startTime.getDay() ==0 ? "Sunday" : this.selectedBooking.startTime.getDay()==1? "Monday" : this.selectedBooking.startTime.getDay()== 2 ? "Tuesday" : this.selectedBooking.startTime.getDay()== 3 ? "Wednesday" :  this.selectedBooking.startTime.getDay()== 4 ? "Thursday" :  this.selectedBooking.startTime.getDay()== 5 ? "Friday" : this.selectedBooking.startTime.getDay()== 6 ? "Saturday"  : void 0;
+    if (this.selectedBooking.readByAdmin == false) {
+      booking.readByAdmin = true;
+      this.bookingService.saveBooking(booking);
+    }
+    this.time = this.selectedBooking.requestTimes;
+    timeArray = this.time.split("&");
+    timeArray.forEach(times => {
+      times = times.split("|");
+      filter = filter.concat(times);
+    });
+
+    filter.forEach(element => {
+      this.FortmattedDates = this.FortmattedDates.concat(new Date(element));
+    });
   }
 
   goToAssignTutorManually(selectedBooking: Booking) {
+    if (this.startTime != null || this.startTime != undefined) {
+      selectedBooking.startTime = this.startTime.toISOString();
+    }
+    if (this.endTime != null || this.endTime != undefined) {
+      selectedBooking.endTime = this.endTime.toISOString();
+    }
     this.navCtrl.push(adminBookingAssignPage, {
       selectedBooking: selectedBooking
     });
@@ -205,8 +189,7 @@ export class AdminBookingManagementPage implements OnInit {
 
   }
 
-  assignToTutor(selectedBooking: Booking, filterTutors: Array<User> = []) 
-  {
+  assignToTutor(selectedBooking: Booking, filterTutors: Array<User> = []) {
     let rand = filterTutors[Math.floor(Math.random() * filterTutors.length)];
     if (rand != null || rand != undefined) {
       selectedBooking.adminAcceptedId = rand.id;

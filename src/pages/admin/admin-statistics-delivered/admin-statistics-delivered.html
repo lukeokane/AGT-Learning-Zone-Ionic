@@ -26,7 +26,7 @@
               <ion-col size="36" size-sm>
                   <div>
                       <h4>Course</h4>
-                      <div>
+                      <div class="input-group-prepend">
                         <select class="form-control" class="input" [(ngModel)]="selectedCourse" [ngModelOptions]="{standalone: true}">
                           <option>Please select a course</option>
                           <option>all</option>
@@ -36,7 +36,7 @@
                     </div>
               </ion-col>
               <ion-col size="24" size-sm>
-                  <div>
+                  <div class="input-group-prepend">
                       <h4>Course year</h4>
                       <select class="form-control" name="year" id="year" class="input" [(ngModel)]="selectedYear" [ngModelOptions]="{standalone: true}">
                         <option value="one">All</option>

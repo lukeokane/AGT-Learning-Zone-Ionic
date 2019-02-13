@@ -3,7 +3,6 @@ import { IonicPage, NavController, ModalController, ToastController, App } from 
 import { FirstRunPage } from '../pages';
 import { Principal } from '../../providers/auth/principal.service';
 import { BookingsService } from '../../services/Booking.provider';
-import { Booking } from '../../class/Booking';
 
 /**
  * Generated class for the UserHomePage page.

@@ -1,10 +1,8 @@
 import { Topic } from './../class/Topic';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import { Api } from '../providers/api/api';
-import { createRequestOption } from './../providers/request-util';
-import { map } from 'rxjs/operators';
 
 type EntityArrayResponseType = HttpResponse<Topic[]>;
 
@@ -50,10 +48,10 @@ export class TopicService {
     /**
 * Convert a returned JSON object to Topic.
 */
-    private convertItemFromServer(object: Topic): Topic {
-        const copy: Topic = Object.assign({}, object);
-        return copy;
-    }
+    // private convertItemFromServer(object: Topic): Topic {
+    //     const copy: Topic = Object.assign({}, object);
+    //     return copy;
+    // }
 
 
 

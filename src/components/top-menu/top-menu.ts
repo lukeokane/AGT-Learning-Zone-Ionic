@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { PopoverController, App } from 'ionic-angular';
 import { AuthServerProvider } from '../../providers/auth/auth-jwt.service';
-import { loginPage, FirstRunPage } from '../../pages/pages';
+import { FirstRunPage } from '../../pages/pages';
 
 @Component({
   selector: 'top-menu',

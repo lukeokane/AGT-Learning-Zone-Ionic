@@ -11,6 +11,7 @@ type EntityArrayResponseType = HttpResponse<Booking[]>;
 
 @Injectable()
 export class BookingsService {
+    private resource = Api.API_URL;
     private resourceUrl = Api.API_URL + '/bookings';
 
     constructor(private http: HttpClient,public loadingCtrl: LoadingController) { }
@@ -39,35 +40,118 @@ export class BookingsService {
     }
 
     saveBooking(booking: Booking): Booking {
-        let loading = this.loadingCtrl.create({
-            content: 'Saving Booking...'
-        });
-        loading.present();
+        // let loading = this.loadingCtrl.create({
+        //     content: 'Saving Booking...'
+        // });
+        // loading.present();
         this.update(booking).subscribe(data => {
             booking = data;
-            loading.dismiss();
+            // loading.dismiss();
             return booking;
         }, (error) => {
-            loading.dismiss();
+            // loading.dismiss();
             console.error(error);
         });
         return null;
     }
 
-    findBookingsPendingAdminApproval(req?: any): Observable<HttpResponse<Booking[]>> {
+    getAllBookingsPageable(req?: any): Observable<HttpResponse<Booking[]>> {
         const options = createRequestOption(req);
         return this.http.get<Booking[]>(this.resourceUrl, { params: options, observe: 'response' })
             .map((res: HttpResponse<Booking[]>) => this.convertArrayResponse(res));
     }
 
-    findUserBookings(userId : number,req): Observable<any> {
-        const options = createRequestOption(req);
-        return this.http.get(`${this.resourceUrl}/userId /${userId }`,{ params: options, observe: 'response' }) .map((res: HttpResponse<Booking[]>) => this.convertArrayResponse(res));
+    updateBookingAcceptedByTutor(booking: Booking) {
+        return this.http.put(`${this.resourceUrl}/updateBookingAcceptedByTutor`, booking);
     }
 
-    findAllBookingsDistributionList(fromDate: string, toDate: string): Observable<EntityArrayResponseType> {
+    updateBookingAssignedToTutor(booking: Booking) {
+        return this.http.put(`${this.resourceUrl}/updateBookingAssignTutor`, booking);
+    }
+
+    updateBookingToCancelled(booking: Booking) {
+        return this.http.put(`${this.resourceUrl}/updateBookingCancelledByTutor`, booking);
+    }
+
+    updateBookingRejectedByTutor(booking: Booking) {
+        return this.http.put(`${this.resourceUrl}/updateBookingRejectedByTutor`, booking);
+    }
+
+    updateBookingRequestRejectedByAdmin(booking: Booking) {
+        return this.http.put(`${this.resourceUrl}/updateBookingRequestRejectedByAdmin`, booking);
+    }
+
+    getBooking(id: number): Observable<Booking> {
+        return this.http.get(`${this.resourceUrl}/${id}`);
+    }
+
+    getConfirmedBookings(): Observable<Booking> {
+        return this.http.get(`${this.resource}/bookingsConfirmed`);
+    }
+
+    getAllBookingsDetails(): Observable<Booking> {
+        return this.http.get(`${this.resource}/bookingsDetails`);
+    }
+
+    getBookingsLatestConfirmedChanges(startTimeMs: any) {
+        return this.http.get(`${this.resource}/bookingsLatestConfirmedChanges?startTimeMs=${startTimeMs}`);
+    }
+
+    getBookingsLatestDetailsChanges(startTimeMs: any) {
+        return this.http.get(`${this.resource}/bookingsLatestDetailsChanges?startTimeMs=${startTimeMs}`);
+    }
+
+    getBookingsPendingAdminApprovalChanges(startTimeMs: any) {
+        return this.http.get(`${this.resource}/bookingsLatestPendingApprovalChanges?startTimeMs=${startTimeMs}`);
+    }
+
+    getBookingsLatestTutorChanges(startTimeMs: any,userId:number) {
+        return this.http.get(`${this.resource}/bookingsLatestPendingApprovalChanges?startTimeMs=${startTimeMs}&userId=${userId}`);
+    }
+
+    getBookingsPendingAdminApproval()
+    {
+        return this.http.get(`${this.resource}/bookingsPendingApproval`);   
+    }
+
+    getTutorBookings(userId:number)
+    {
+        return this.http.get(`${this.resource}/bookingsTutors?userId=${userId}`);   
+    }
+
+    
+    // finding all bookings by course all, year all within a date range and with BookingUserdetails
+    findAllBookingsList(fromDate: string, toDate: string): Observable<EntityArrayResponseType> {
         const options = null;
         return this.http.get<Booking[]>(`${this.resourceUrl}/findAllBookingsList/${fromDate}/toDate/${toDate}`, { params: options, observe: 'response' })
+        .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    }
+
+    // finding all bookings by course all, year all within a date range and no BookingUserdetails
+    findAllBookingsDistributionList(fromDate: string, toDate: string): Observable<EntityArrayResponseType> {
+        const options = null;
+        return this.http.get<Booking[]>(`${this.resourceUrl}/findAllBookingsDistributionList/${fromDate}/toDate/${toDate}`, { params: options, observe: 'response' })
+        .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    }
+
+    // finding all bookings by course all, a selected year, within a date range and BookingUserdetails populated
+    findAllBookingsAllCoursesSelectedYear(fromDate: string, toDate: string, selectedYear: any): Observable<EntityArrayResponseType> {
+        const options = null;
+        return this.http.get<Booking[]>(`${this.resourceUrl}/findAllBookingsAllCoursesSelectedYear/${fromDate}/toDate/${toDate}/selectedYear/${selectedYear}`, { params: options, observe: 'response' })
+        .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    }
+
+    // finding all bookings by a selected course, a selected year, within a date range and BookingUserdetails populated
+    findAllBookingsSelectedCourseAndSelectedYear(fromDate: string, toDate: string, selectedCourse: any, selectedYear: any): Observable<EntityArrayResponseType> {
+        const options = null;
+        return this.http.get<Booking[]>(`${this.resourceUrl}/findAllBookingsSelectedCourseAndSelectedYear/${fromDate}/toDate/${toDate}/selectedCourse/${selectedCourse}/selectedYear/${selectedYear}`, { params: options, observe: 'response' })
+        .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    }
+
+     // finding all bookings by a selected course, all years, within a date range and BookingUserdetails populated
+     findAllBookingsSelectedCourseAndAllYears(fromDate: string, toDate: string, selectedCourse: any): Observable<EntityArrayResponseType> {
+        const options = null;
+        return this.http.get<Booking[]>(`${this.resourceUrl}/findAllBookingsSelectedCourseAndAllYeara/${fromDate}/toDate/${toDate}/selectedCourse/${selectedCourse}`, { params: options, observe: 'response' })
         .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
