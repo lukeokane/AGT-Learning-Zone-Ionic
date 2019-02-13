@@ -78,7 +78,7 @@ export class UserHomePage {
   slotClicked(dateSelected: Date, timeSelected: String) {
     var time = timeSelected.substring(0, 2);
     var timeInt = parseInt(time, 10);
-    var timeS1 = ""+timeInt;
+    var timeS1 = "" + timeInt;
     if (timeInt < 10) {
       timeS1 = "0" + timeSelected + "";
     }
@@ -120,8 +120,39 @@ export class UserHomePage {
       });
       profileModal.present();
     } else {
-      let profileModal = this.modalCtrl.create("UserJoinTutorialModalPage", { dateSelected: dateSelected, timeSelected: timeInt, bookings: this.bookings });
-      profileModal.present();
+      let i = this.bookings.findIndex(value => {
+        return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == s.substring(0, 19) : value.booking.startTime.toISOString() == s.substring(0, 19);
+      });
+      if (i != -1) {
+        console.log(this.bookings[i]);
+        let profileModal = this.modalCtrl.create("UserJoinTutorialModalPage", { dateSelected: dateSelected, timeSelected: timeInt, booking: this.bookings[i].booking });
+        profileModal.onDidDismiss(data => {
+          if (data != null && data != undefined) {
+            if (data.send == true) {
+              let toast = this.toastCtrl.create({
+                message: 'Your request is sent',
+                duration: 5000,
+                position: 'top',
+                showCloseButton: true,
+                closeButtonText: "Close"
+              });
+              toast.present();
+            }else{
+              let toast = this.toastCtrl.create({
+                message: 'Error occur, please try again later',
+                duration: 5000,
+                position: 'top',
+                showCloseButton: true,
+                closeButtonText: "Close"
+              });
+              toast.present();
+            }
+          }
+        });
+        profileModal.present();
+
+      }
+
 
     }
 

@@ -14,5 +14,44 @@
 
 
 <ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <h1>{{booking.title}}</h1>
+    </ion-row>
+    <ion-row>
+      Date: {{booking.startTime}}
+    </ion-row>
+    <ion-row>
+      {{booking.startTime}}
+    </ion-row>
+    <ion-row>
+      {{booking.endTime}}
+    </ion-row>
+    <ion-row>
+      Number of Students: {{getNoStudent()}}
+    </ion-row>
+    <ng-container *ngIf="checkBooked()">
+      <ion-row>
+        You have booked for this tutorial. Please come in on time
+      </ion-row>
+      <ion-row>
+        <ion-col col-12>
+          <button ion-button block class="cancel-btn" (click)="onClickCancel()">{{'OKAY_BUTTON' | translate}}</button>
+        </ion-col>
+      </ion-row>
+    </ng-container>
 
+    <ion-row *ngIf="!checkBooked()">
+
+      <ion-col col-6>
+
+        <button ion-button block class="cancel-btn" (click)="onClickCancel()">{{'CANCEL_BUTTON' | translate}}</button>
+      </ion-col>
+      <ion-col col-6>
+        <button ion-button block class="continue-btn" (click)="onClickRequest()">{{'REQUEST_BUTTON' | translate}}</button>
+
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
 </ion-content>
