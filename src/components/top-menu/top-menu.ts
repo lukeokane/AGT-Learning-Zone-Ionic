@@ -1,7 +1,8 @@
+import { LoginService } from './../../providers/login/login.service';
 import { Component } from '@angular/core';
-import { PopoverController, App } from 'ionic-angular';
+import { PopoverController, App, NavController } from 'ionic-angular';
 import { AuthServerProvider } from '../../providers/auth/auth-jwt.service';
-import { FirstRunPage } from '../../pages/pages';
+import { loginPage } from '../../pages/pages';
 
 @Component({
   selector: 'top-menu',
@@ -13,7 +14,10 @@ export class TopMenuComponent {
 
   constructor(public popoverCtrl: PopoverController,
     private authServerProvider: AuthServerProvider,
-    private app: App) {
+    private app: App,
+    private loginService:LoginService,
+    private navCtrl:NavController
+    ) {
   }
 
   showNotifications(myEvent) {
@@ -34,15 +38,17 @@ export class TopMenuComponent {
   }
   logout() {
     console.log("Logout: " );
+    this.loginService.logout();
+    this.navCtrl.setRoot(loginPage);
 
-    this.authServerProvider.logout().subscribe((data) => {
-      console.log("Logout: " + data);
-      // this.app.getRootNavs()[0].setRoot(loginPage);
-      var nav = this.app.getRootNav();
-      console.log(nav);
-      nav.setRoot(FirstRunPage);
-    }, (err) => {
-    });
+    // this.authServerProvider.logout().subscribe((data) => {
+    //   console.log("Logout: " + data);
+    //   // this.app.getRootNavs()[0].setRoot(loginPage);
+    //   var nav = this.app.getRootNav();
+    //   console.log(nav);
+    //   nav.setRoot(FirstRunPage);
+    // }, (err) => {
+    // });
   }
 
 }
