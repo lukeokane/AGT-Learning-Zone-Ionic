@@ -52,8 +52,7 @@ export class UserHomePage {
         this.account = account;
       }
     });
-    this.bookingService.query().subscribe(data => {
-      console.log(data);
+    this.bookingService.findConfirmedBooking().subscribe(data => {
       this.bookings = data;
     }, (erro) => {
       console.error(erro);
@@ -80,19 +79,40 @@ export class UserHomePage {
   slotClicked(dateSelected: Date, timeSelected: String) {
     var time = timeSelected.substring(0, 2);
     var timeInt = parseInt(time, 10);
-    let profileModal = this.modalCtrl.create("UserRequestModalPage", { dateSelected: dateSelected, timeSelected: timeInt });
+    let toast;
+    let profileModal = this.modalCtrl.create("UserRequestModalPage", { dateSelected: dateSelected, timeSelected: timeInt, bookings: this.bookings });
+
     profileModal.onDidDismiss(data => {
       if (data != undefined && data != null) {
-        if (data == true) {
-          let toast = this.toastCtrl.create({
-            message: 'Thank You! You will receive a confirmation e-mail when your request is approved',
-            duration: 5000,
-            position: 'top',
-            showCloseButton: true,
-            closeButtonText: "Close"
-          });
-          toast.present();
+        if (data.send) {
+          console.log(data.booking);
+          this.bookingService.create(data.booking).subscribe(data => {
+            console.log(data);
+            toast = this.toastCtrl.create({
+              message: 'Thank You! You will receive a confirmation e-mail when your request is approved',
+              duration: 5000,
+              position: 'top',
+              showCloseButton: true,
+              closeButtonText: "Close"
+            });
+            toast.present();
+
+          }, (erro) => {
+            toast = this.toastCtrl.create({
+              message: 'Your request is not sent. Please try again',
+              duration: 5000,
+              position: 'top',
+              showCloseButton: true,
+              closeButtonText: "Close"
+            });
+            toast.present();
+
+            console.error(erro);
+          })
+          // send to backend
+
         }
+
       }
     });
     profileModal.present();
@@ -158,12 +178,15 @@ export class UserHomePage {
       // this.bookings.push(temp);
       let found = this.bookings.find((value, index, array) => {
 
-        let t: boolean = typeof (value.startTime) == 'string' ? value.startTime.substring(11, 13) == time.substring(0, 2) : value.startTime.toISOString().substring(11, 13) == time.substring(0, 2);
-        let d: boolean = typeof (value.startTime) == 'string' ? value.startTime.substring(0, 11) == date.toISOString().substring(0, 11) : value.startTime.toISOString().substring(0, 11) == date.toISOString().substring(0, 11);
+        let t: boolean = typeof (value.booking.startTime) == 'string' ? value.booking.startTime.substring(11, 13) == time.substring(0, 2) : value.booking.startTime.toISOString().substring(11, 13) == time.substring(0, 2);
+        let d: boolean = typeof (value.booking.startTime) == 'string' ? value.booking.startTime.substring(0, 11) == date.toISOString().substring(0, 11) : value.booking.startTime.toISOString().substring(0, 11) == date.toISOString().substring(0, 11);
+        // let t: boolean =  value.booking.startTime.substring(11, 13) == time.substring(0, 2) ;
+        // let d: boolean = value.startTime.substring(0, 11) == date.toISOString().substring(0, 11) ;
+
         return t && d;
       });
       if (found != undefined) {
-        return found.title;
+        return found.booking.title;
       }
     }
 

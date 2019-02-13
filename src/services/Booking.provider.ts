@@ -31,6 +31,9 @@ export class BookingsService {
         return this.http.get(this.resourceUrl);
     }
 
+    findConfirmedBooking(): Observable<any> {
+        return this.http.get(Api.API_URL+"/bookingsConfirmed");
+    }
     delete(id: number): Observable<any> {
         return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response', responseType: 'text' });
     }
