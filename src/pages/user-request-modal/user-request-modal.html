@@ -16,7 +16,8 @@
 <ion-content padding>
   <ion-grid>
     <ion-row>
-      <h1>{{convertToString()}} </h1>
+      <!-- <h1>{{convertToString()}} </h1> -->
+      <!-- <h1>{{booking.title}}</h1> -->
     </ion-row>
     <ion-row>
       <ion-col col-12 class="form-border">
@@ -30,7 +31,7 @@
     </ion-row>
     <ion-row>
       <ion-col col-12 class="form-border">
-        <ion-select placeholder="Select Topics">
+        <ion-select placeholder="Select Topics" multiple [(ngModel)]="selectedTopic">
           <ion-option *ngFor="let t of topics " [value]="t.title">{{t.title}}</ion-option>
         </ion-select>
       </ion-col>
@@ -43,7 +44,7 @@
     </ion-row>
     <ion-row>
       <ion-col col-5 class="form-border" >
-        <ion-datetime [(ngModel)]="dateStart" (ngModelChange)="checkDateType($event)" display-format="DD/MMM/YYYY"></ion-datetime>
+        <ion-datetime [(ngModel)]="dateStart" display-format="DD/MMM/YYYY"></ion-datetime>
       </ion-col>
 
       <ion-col offset-2 col-5 class="form-border" >
@@ -52,8 +53,7 @@
 
     </ion-row>
     <ion-row>
-      <ion-textarea [(ngModel)]="booking.userComments" placeholder="Please provide some more detail about the
-    nature of your query...">
+      <ion-textarea [(ngModel)]="booking.userComments" placeholder="Please provide some more detail about your request...">
       </ion-textarea>
     </ion-row>
     <ion-row>
