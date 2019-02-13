@@ -6,7 +6,6 @@ import { Config, Nav, Platform } from 'ionic-angular';
 import { MainPage } from '../pages/pages';
 import { Settings } from '../providers/providers';
 import { Principal } from '../providers/auth/principal.service';
-import { runInContext } from 'vm';
 
 @Component({
   templateUrl: 'app.html'

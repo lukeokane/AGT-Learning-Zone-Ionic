@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { App, IonicPage, NavController, ModalController, ToastController } from 'ionic-angular';
+import { App, IonicPage, NavController, ModalController } from 'ionic-angular';
 import { Principal } from '../../providers/auth/principal.service';
 import { FirstRunPage } from '../pages';
 import { LoginService } from '../../providers/login/login.service';
@@ -30,7 +30,6 @@ export class HomePage implements OnInit {
     private app: App,
     private loginService: LoginService,
     private modalCtrl: ModalController,
-    private toastCtrl: ToastController,
     private bookingService: BookingsService) {
 
     this.today = new Date();

@@ -1,7 +1,6 @@
 import { LoginService } from './../../providers/login/login.service';
 import { Component } from '@angular/core';
-import { PopoverController, App, NavController } from 'ionic-angular';
-import { AuthServerProvider } from '../../providers/auth/auth-jwt.service';
+import { PopoverController, NavController } from 'ionic-angular';
 import { loginPage } from '../../pages/pages';
 
 @Component({
@@ -13,8 +12,6 @@ export class TopMenuComponent {
   text: string;
 
   constructor(public popoverCtrl: PopoverController,
-    private authServerProvider: AuthServerProvider,
-    private app: App,
     private loginService:LoginService,
     private navCtrl:NavController
     ) {

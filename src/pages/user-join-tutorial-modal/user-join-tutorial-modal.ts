@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { BookingService } from '../../providers/booking/booking.service';
 import { BookingsService } from '../../services/Booking.provider';
 import { Booking } from '../../class/Booking';
-import { Subject } from '../../class/Subject';
 import { Principal } from '../../providers/auth/principal.service';
 import { UserInfoService } from '../../services/UserInfo.provider';
 import { UserInfo } from '../../class/UserInfo';
