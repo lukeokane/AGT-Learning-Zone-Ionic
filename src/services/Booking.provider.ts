@@ -11,6 +11,7 @@ type EntityArrayResponseType = HttpResponse<Booking[]>;
 
 @Injectable()
 export class BookingsService {
+    private resource = Api.API_URL;
     private resourceUrl = Api.API_URL + '/bookings';
 
     constructor(private http: HttpClient,public loadingCtrl: LoadingController) { }
@@ -51,15 +52,68 @@ export class BookingsService {
         return null;
     }
 
-    findBookingsPendingAdminApproval(req?: any): Observable<HttpResponse<Booking[]>> {
+    getAllBookingsPageable(req?: any): Observable<HttpResponse<Booking[]>> {
         const options = createRequestOption(req);
         return this.http.get<Booking[]>(this.resourceUrl, { params: options, observe: 'response' })
             .map((res: HttpResponse<Booking[]>) => this.convertArrayResponse(res));
     }
 
-    findUserBookings(userId : number,req): Observable<any> {
-        const options = createRequestOption(req);
-        return this.http.get(`${this.resourceUrl}/userId /${userId }`,{ params: options, observe: 'response' }) .map((res: HttpResponse<Booking[]>) => this.convertArrayResponse(res));
+    updateBookingAcceptedByTutor(booking: Booking) {
+        return this.http.put(`${this.resourceUrl}/updateBookingAcceptedByTutor`, booking);
+    }
+
+    updateBookingAssignedToTutor(booking: Booking) {
+        return this.http.put(`${this.resourceUrl}/updateBookingAssignTutor`, booking);
+    }
+
+    updateBookingToCancelled(booking: Booking) {
+        return this.http.put(`${this.resourceUrl}/updateBookingCancelledByTutor`, booking);
+    }
+
+    updateBookingRejectedByTutor(booking: Booking) {
+        return this.http.put(`${this.resourceUrl}/updateBookingRejectedByTutor`, booking);
+    }
+
+    updateBookingRequestRejectedByAdmin(booking: Booking) {
+        return this.http.put(`${this.resourceUrl}/updateBookingRequestRejectedByAdmin`, booking);
+    }
+
+    getBooking(id: number): Observable<Booking> {
+        return this.http.get(`${this.resourceUrl}/${id}`);
+    }
+
+    getConfirmedBookings(): Observable<Booking> {
+        return this.http.get(`${this.resource}/bookingsConfirmed`);
+    }
+
+    getAllBookingsDetails(): Observable<Booking> {
+        return this.http.get(`${this.resource}/bookingsDetails`);
+    }
+
+    getBookingsLatestConfirmedChanges(startTimeMs: any) {
+        return this.http.get(`${this.resource}/bookingsLatestConfirmedChanges?startTimeMs=${startTimeMs}`);
+    }
+
+    getBookingsLatestDetailsChanges(startTimeMs: any) {
+        return this.http.get(`${this.resource}/bookingsLatestDetailsChanges?startTimeMs=${startTimeMs}`);
+    }
+
+    getBookingsPendingAdminApprovalChanges(startTimeMs: any) {
+        return this.http.get(`${this.resource}/bookingsLatestPendingApprovalChanges?startTimeMs=${startTimeMs}`);
+    }
+
+    getBookingsLatestTutorChanges(startTimeMs: any,userId:number) {
+        return this.http.get(`${this.resource}/bookingsLatestPendingApprovalChanges?startTimeMs=${startTimeMs}&userId=${userId}`);
+    }
+
+    getBookingsPendingAdminApproval()
+    {
+        return this.http.get(`${this.resource}/bookingsPendingApproval`);   
+    }
+
+    getTutorBookings(userId:number)
+    {
+        return this.http.get(`${this.resource}/bookingsTutors?userId=${userId}`);   
     }
 
     

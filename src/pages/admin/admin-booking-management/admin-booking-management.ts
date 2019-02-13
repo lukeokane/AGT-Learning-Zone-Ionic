@@ -10,7 +10,6 @@ import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { User } from '../../../class/User';
 import { Subject } from '../../../class/Subject';
-import { UserInfo } from '../../../class/UserInfo';
 
 @IonicPage()
 @Component({
@@ -53,7 +52,7 @@ export class AdminBookingManagementPage implements OnInit {
 
   initBooking() {
     this.itemsPerPage = 10;
-    this.bookingsService.findBookingsPendingAdminApproval({
+    this.bookingsService.getAllBookingsPageable({
       page: this.page - 1,
       size: this.itemsPerPage,
       sort: this.sort()
