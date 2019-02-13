@@ -16,54 +16,40 @@
 <ion-content padding>
   <ion-row>
     <ion-col col-1>
-        <ion-icon name="calendar"></ion-icon>
+      <ion-icon name="calendar"></ion-icon>
 
     </ion-col>
     <ion-col col-11>
-        Java - OOP, Interfaces Request
+        <h1> {{booking.title}}</h1>
 
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <div class="text-green"> Available Time Slot</div>
+  </ion-row>
+  <div *ngFor="let a of availableTimes; let i=index">
+    <ion-row>
+      <h2 class="date-color">{{days[a.date.getDay()]}}
+        {{a.date.getUTCDate()}}/{{a.date.getUTCMonth()}}/{{a.date.getUTCFullYear()}}</h2>
+    </ion-row>
+    <ion-row>
+      <ion-col [class]="checkSelected(t)" col-sm-3 *ngFor="let t of a.time" (click)="onSelectTimeSlot(t)">
+        {{t.startTime.getHours() }}:00 - {{t.endTime.getHours()}}:00
       </ion-col>
-  </ion-row>
-<h2 class="date-color">Tuesday 23/1/2018</h2>
-  <ion-row>
-<div class="text-green"> Available Time Slot</div>
-  </ion-row>
-
-  <ion-row>
-<ion-col class="time-slot-btn">
-    11:00 - 12:00
-</ion-col>
-<ion-col class="time-slot-btn">
-    14:00 - 15:00
-</ion-col>
-<ion-col class="time-slot-btn">
-    16:00 - 17:00
-</ion-col>
-  </ion-row>
-
-  <ion-row>
-
-  </ion-row>
-
-  <ion-row>
-
-  </ion-row>
-
-  <ion-row>
-
-  </ion-row>
-
-  <ion-row>
-
-  </ion-row>
-
-  <ion-row>
-      <button ion-button block class="cancel-btn">Cancel</button>
-
     </ion-row>
 
-  <ion-row>
-      <button ion-button block class="continue-btn"(click)="onClickRequest()">Request Tutorial</button>
+    <ion-row>
 
     </ion-row>
+  </div>
+
+  <ion-row>
+    <button ion-button block class="cancel-btn">Cancel</button>
+
+  </ion-row>
+
+  <ion-row>
+    <button ion-button block class="continue-btn" (click)="onClickRequest()">Request Tutorial</button>
+
+  </ion-row>
 </ion-content>
