@@ -1,3 +1,4 @@
+import { TranslateModule } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { ItlcModalCheckinPage } from './itlc-modal-checkin';
@@ -8,6 +9,7 @@ import { ItlcModalCheckinPage } from './itlc-modal-checkin';
   ],
   imports: [
     IonicPageModule.forChild(ItlcModalCheckinPage),
+    TranslateModule.forChild()
   ],
 })
 export class ItlcModalCheckinPageModule {}
