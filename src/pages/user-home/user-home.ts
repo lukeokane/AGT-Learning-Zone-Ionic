@@ -78,39 +78,53 @@ export class UserHomePage {
   slotClicked(dateSelected: Date, timeSelected: String) {
     var time = timeSelected.substring(0, 2);
     var timeInt = parseInt(time, 10);
-    let toast;
-    let profileModal = this.modalCtrl.create("UserRequestModalPage", { dateSelected: dateSelected, timeSelected: timeInt, bookings: this.bookings });
+    var timeS1 = ""+timeInt;
+    if (timeInt < 10) {
+      timeS1 = "0" + timeSelected + "";
+    }
+    let s = dateSelected.toISOString().substring(0, 10) + "T" + timeS1 + ":00:00Z";
+    if (!(this.bookings.some((value, index, array) => {
+      return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == s.substring(0, 19) : value.booking.startTime.toISOString() == s.substring(0, 19);
+    }))) {
+      let toast;
+      let profileModal = this.modalCtrl.create("UserRequestModalPage", { dateSelected: dateSelected, timeSelected: timeInt, bookings: this.bookings });
 
-    profileModal.onDidDismiss(data => {
-      if (data != undefined && data != null) {
-        if (data.send) {
-          this.bookingService.create(data.booking).subscribe(data => {
-            toast = this.toastCtrl.create({
-              message: 'Thank You! You will receive a confirmation e-mail when your request is approved',
-              duration: 5000,
-              position: 'top',
-              showCloseButton: true,
-              closeButtonText: "Close"
-            });
-            toast.present();
+      profileModal.onDidDismiss(data => {
+        if (data != undefined && data != null) {
+          if (data.send) {
+            this.bookingService.create(data.booking).subscribe(data => {
+              toast = this.toastCtrl.create({
+                message: 'Thank You! You will receive a confirmation e-mail when your request is approved',
+                duration: 5000,
+                position: 'top',
+                showCloseButton: true,
+                closeButtonText: "Close"
+              });
+              toast.present();
 
-          }, (erro) => {
-            toast = this.toastCtrl.create({
-              message: 'Your request is not sent. Please try again',
-              duration: 5000,
-              position: 'top',
-              showCloseButton: true,
-              closeButtonText: "Close"
-            });
-            toast.present();
-            console.error(erro);
-          })
-          // send to backend
+            }, (erro) => {
+              toast = this.toastCtrl.create({
+                message: 'Your request is not sent. Please try again',
+                duration: 5000,
+                position: 'top',
+                showCloseButton: true,
+                closeButtonText: "Close"
+              });
+              toast.present();
+              console.error(erro);
+            })
+            // send to backend
 
+          }
         }
-      }
-    });
-    profileModal.present();
+      });
+      profileModal.present();
+    } else {
+      let profileModal = this.modalCtrl.create("UserJoinTutorialModalPage", { dateSelected: dateSelected, timeSelected: timeInt, bookings: this.bookings });
+      profileModal.present();
+
+    }
+
   }
   timeConvertedToInt(time: String) {
     var timeSub = time.substring(0, 2);

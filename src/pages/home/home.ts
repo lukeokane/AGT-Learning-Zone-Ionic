@@ -3,6 +3,7 @@ import { App, IonicPage, NavController, ModalController, ToastController } from 
 import { Principal } from '../../providers/auth/principal.service';
 import { FirstRunPage } from '../pages';
 import { LoginService } from '../../providers/login/login.service';
+import { BookingsService } from '../../services/Booking.provider';
 
 @IonicPage()
 @Component({
@@ -21,6 +22,7 @@ export class HomePage implements OnInit {
   currentDate: Date;
   time: String[] = ["09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "13:00 PM", "14:00 PM", "15:00 PM", "16:00 PM", "17:00 PM", "18:00 PM"];
 
+  bookings: Array<any>;
 
 
   constructor(public navCtrl: NavController,
@@ -28,7 +30,8 @@ export class HomePage implements OnInit {
     private app: App,
     private loginService: LoginService,
     private modalCtrl: ModalController,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,
+    private bookingService: BookingsService) {
 
     this.today = new Date();
     this.generateDate(this.today);
@@ -43,6 +46,11 @@ export class HomePage implements OnInit {
         this.account = account;
       }
     });
+    this.bookingService.findConfirmedBooking().subscribe(data => {
+      this.bookings = data;
+    }, (erro) => {
+      console.error(erro);
+    })
   }
 
   isAuthenticated() {
@@ -69,22 +77,23 @@ export class HomePage implements OnInit {
     return "" + this.days[date.getDay()] + " " + date.getDate() + "/" + (date.getMonth() + 1);
   }
   slotClicked(dateSelected: Date, timeSelected: String) {
+
     var time = timeSelected.substring(0, 2);
     var timeInt = parseInt(time, 10);
-    let profileModal = this.modalCtrl.create("UserRequestModalPage", { dateSelected: dateSelected, timeSelected: timeInt });
+    var timeS1 = "" + timeInt;
+    if (timeInt < 10) {
+      timeS1 = "0" + timeSelected + "";
+    }
+    let s = dateSelected.toISOString().substring(0, 10) + "T" + timeS1 + ":00:00Z";
+
+    if (this.bookings.some((value, index, array) => {
+      return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == s.substring(0, 19) : value.booking.startTime.toISOString() == s.substring(0, 19);
+    })) {
+
+    }
+    let profileModal = this.modalCtrl.create("AdminCheckBookingDetailsModalPage", { dateSelected: dateSelected, timeSelected: timeInt });
     profileModal.onDidDismiss(data => {
-      if (data != undefined && data != null) {
-        if (data == true) {
-          let toast = this.toastCtrl.create({
-            message: 'Thank You! You will receive a confirmation e-mail when your request is approved',
-            duration: 5000,
-            position: 'top',
-            showCloseButton:true,
-            closeButtonText:"Close"
-          });
-          toast.present();
-        }
-      }
+
     });
     profileModal.present();
   }
@@ -94,8 +103,6 @@ export class HomePage implements OnInit {
     return timeInt;
   }
   checkMatchTime(time: String) {
-    //this line for testing only
-    // this.today.setHours(11);
     var timeInt = this.timeConvertedToInt(time);
     var hr = this.today.getHours();
     if (timeInt == hr) {
@@ -137,5 +144,18 @@ export class HomePage implements OnInit {
     lastSun.setTime(lastSun.getTime() - (24 * 60 * 60 * 1000));
     this.generateDate(lastSun);
   }
+  checkBooking(time: String, date: Date) {
+    if (this.bookings != undefined && this.bookings != null) {
+      let found = this.bookings.find((value, index, array) => {
 
+        let t: boolean = typeof (value.booking.startTime) == 'string' ? value.booking.startTime.substring(11, 13) == time.substring(0, 2) : value.booking.startTime.toISOString().substring(11, 13) == time.substring(0, 2);
+        let d: boolean = typeof (value.booking.startTime) == 'string' ? value.booking.startTime.substring(0, 11) == date.toISOString().substring(0, 11) : value.booking.startTime.toISOString().substring(0, 11) == date.toISOString().substring(0, 11);
+        return t && d;
+      });
+      if (found != undefined) {
+        return found.booking.title;
+      }
+    }
+
+  }
 }
