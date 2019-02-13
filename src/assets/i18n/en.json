@@ -95,5 +95,9 @@
   "RANDOMLY_ASSIGN_TUTOR":"Randomly Assign Tutor",
   "NO_SUBJECT_SPECIFIED":"No Subject Specified",
   "CHOOSE_TIMES":"Choose Times",
-  "NO_SKILLS_SPECIFIED":"No skills specified"
+  "NO_SKILLS_SPECIFIED":"No skills specified",
+
+  "DATE_RANGE":"Date Range",
+  "AVAILABLE_TIME_SLOT":"Available Time Slot",
+  "REQUEST_TUTORIAL":"Request Tutorial"
 }
