@@ -29,7 +29,6 @@ export class AdminBookingAssignPage implements OnInit {
   constructor(public navCtrl: NavController, public navParams: NavParams, private userService: UserService, private toastCtrl: ToastController, private userInfoService: UserInfoService, private bookingService: BookingsService, private alertCtrl: AlertController) {
     if (this.navParams.get("selectedBooking") != null || this.navParams.get("selectedBooking") != undefined) {
       this.selectedBooking = this.navParams.get("selectedBooking");
-      console.log("Selected booking to assign to tutor : ", this.selectedBooking);
     }
   }
 

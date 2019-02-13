@@ -47,7 +47,6 @@ export class AdminBookingManagementPage implements OnInit {
   ngOnInit() {
     this.initBooking();
     this.initUsersInfo();
-    // this.initSubjects();
   }
 
   initBooking() {
@@ -71,7 +70,6 @@ export class AdminBookingManagementPage implements OnInit {
     this.findUserBookings = [];
     this.userService.query().subscribe((response) => {
       this.findUserBookings = response;
-      // console.log(this.findUserBookings);
     })
   }
 
@@ -108,8 +106,6 @@ export class AdminBookingManagementPage implements OnInit {
         this.initSemesterGroup(userInfo.semesterGroupId);
       });
     });
-
-    // console.log("Bookings", this.bookings);
   }
 
   loadPage(page: number) {
