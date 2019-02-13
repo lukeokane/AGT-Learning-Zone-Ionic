@@ -40,20 +40,12 @@ export class UserRequestTimeslotPage {
     this.selectedTime = new Array();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UserRequestTimeslotPage');
-  }
-
   onClickRequest() {
     this.convertAllSelectedTime();
     let confirmModal = this.modalCtrl.create("UserRequestSendTutorialPage", { booking: this.booking });
     confirmModal.onDidDismiss(data => {
       // return send ; true=send
       if (data != undefined && data != null) {
-        // if (data == true) {
-        //   //send to backend
-
-        // }
         this.viewCtrl.dismiss({send:data,booking:this.booking});
       }
     });
@@ -78,7 +70,6 @@ export class UserRequestTimeslotPage {
     } else {
       this.selectedTime.splice(i, 1);
     }
-    console.log(this.selectedTime);
   }
   checkSelected(t: AvailableTime) {
     if (this.selectedTime.some(value => t.startTime.toISOString().substring(0, 21) == value.startTime.toISOString().substring(0, 21))) {
@@ -87,5 +78,8 @@ export class UserRequestTimeslotPage {
       return "time-slot-btn";
     }
 
+  }
+  onClickCancel() {
+    this.viewCtrl.dismiss({back:true});
   }
 }

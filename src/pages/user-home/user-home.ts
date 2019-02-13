@@ -84,9 +84,7 @@ export class UserHomePage {
     profileModal.onDidDismiss(data => {
       if (data != undefined && data != null) {
         if (data.send) {
-          console.log(data.booking);
           this.bookingService.create(data.booking).subscribe(data => {
-            console.log(data);
             toast = this.toastCtrl.create({
               message: 'Thank You! You will receive a confirmation e-mail when your request is approved',
               duration: 5000,
@@ -105,13 +103,11 @@ export class UserHomePage {
               closeButtonText: "Close"
             });
             toast.present();
-
             console.error(erro);
           })
           // send to backend
 
         }
-
       }
     });
     profileModal.present();
@@ -172,16 +168,10 @@ export class UserHomePage {
     // console.log(d.toISOString().substring(11,13));//return 11 or 12
     //2019-02-10T22:16:37.213Z
     if (this.bookings != undefined && this.bookings != null) {
-      // let temp = this.bookings[0];
-      // this.bookings = new Array<any>();
-      // this.bookings.push(temp);
       let found = this.bookings.find((value, index, array) => {
 
         let t: boolean = typeof (value.booking.startTime) == 'string' ? value.booking.startTime.substring(11, 13) == time.substring(0, 2) : value.booking.startTime.toISOString().substring(11, 13) == time.substring(0, 2);
         let d: boolean = typeof (value.booking.startTime) == 'string' ? value.booking.startTime.substring(0, 11) == date.toISOString().substring(0, 11) : value.booking.startTime.toISOString().substring(0, 11) == date.toISOString().substring(0, 11);
-        // let t: boolean =  value.booking.startTime.substring(11, 13) == time.substring(0, 2) ;
-        // let d: boolean = value.startTime.substring(0, 11) == date.toISOString().substring(0, 11) ;
-
         return t && d;
       });
       if (found != undefined) {
