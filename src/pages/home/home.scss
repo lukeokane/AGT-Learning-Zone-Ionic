@@ -137,11 +137,32 @@ width: 100px;
     cursor: pointer;
 }
 .container-date{
+    margin: 5px;
     padding: 2px;
     border-radius:2px; 
     border:1px solid #D7DAE2;
-            width: 10%;
-}
+    width: 10%;
+    display: inline-block;
 
+}
+.relative-div{
+    display: inline-block;
+    position: relative;
+    margin-left: 20%;
+}
+.font-change{
+    font-size: 28px;
+}
+.mobile-week{
+    width:87%; 
+    padding-left: 10%;
+    display:inline-block;
+}
+.change-date-button{
+    width:5%; 
+    display:inline-block;
+    cursor: pointer;
+
+}
     
 }

@@ -81,4 +81,7 @@ export class UserJoinTutorialModalPage {
       return value.userId == this.userId;
     })
   }
+  getTimeSubString(s:String,first,last){
+    return s.substring(first,last);
+  }
 }

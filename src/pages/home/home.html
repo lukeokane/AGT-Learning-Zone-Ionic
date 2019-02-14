@@ -25,27 +25,31 @@
       </ion-col>
       <ion-col>
         <div *ngIf="screenWidth>=800">
-          <div class="container-date">
-            <span class="date-change" (click)="onPreWeek()">Previous</span> <span style="color:#D7DAE2">|</span>
-            <span class="date-change" (click)="onNextWeek()"> Next</span>
+          <h2 class="text-colour-darkgrey">Weekly Timetable</h2>
+          <div>
+            <div class="container-date">
+              <span class="date-change" (click)="onPreWeek()">Previous</span> <span style="color:#D7DAE2">|</span>
+              <span class="date-change" (click)="onNextWeek()"> Next</span>
+            </div>
+          <div class="relative-div">
+            <span class="text-colour-darkgrey font-change">Week {{getWeekNumber(currentDate)}}: {{getStartEndDate()}}
+            </span>
           </div>
-
-          <span>Week {{getWeekNumber(currentDate)}}: {{getStartEndDate()}} </span>
+        </div>
         </div>
         <div *ngIf="screenWidth<800">
-          <span class="width:15%; display:inline-block; cursor:pointer" (click)="onPreWeek()">
+          <span class="text-colour-darkgrey change-date-button" (click)="onPreWeek()">
             <ion-icon name="arrow-back"></ion-icon>
           </span>
-          <span class="width:70%; display:inline-block;">
-            <b>Week {{getWeekNumber(currentDate)}}</b>
+          <span class="text-colour-darkgrey mobile-week">
+            <b>Week {{getWeekNumber(currentDate)}}: </b>
             {{getStartEndDate()}}
           </span>
-          <span class="width:15%; display:inline-block cursor:pointer" (click)="onNextWeek()">
+          <span class="text-colour-darkgrey change-date-button" (click)="onNextWeek()">
             <ion-icon name="arrow-forward"></ion-icon>
 
           </span>
         </div>
-
         <table class="tg">
           <tr>
             <th class="tg-date"></th>
