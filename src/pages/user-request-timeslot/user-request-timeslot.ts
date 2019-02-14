@@ -38,6 +38,8 @@ export class UserRequestTimeslotPage {
     this.availableTimes = this.navParams.get("availableTimes");
 
     this.selectedTime = new Array();
+    let at = this.availableTimes[0].time;
+    this.selectedTime.push(at[0]);
   }
 
   onClickRequest() {
@@ -81,5 +83,8 @@ export class UserRequestTimeslotPage {
   }
   onClickCancel() {
     this.viewCtrl.dismiss({back:true});
+  }
+  checkValid(){
+    return this.selectedTime.length==0;
   }
 }

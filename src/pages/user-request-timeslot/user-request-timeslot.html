@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>user-request-timeslot</ion-title>
+    <!-- <ion-title>user-request-timeslot</ion-title> -->
   </ion-navbar>
 
 </ion-header>
@@ -20,7 +20,7 @@
 
     </ion-col>
     <ion-col col-11>
-        <h1> {{booking.title}}</h1>
+        <h2 class="text-colour-darkgrey"> {{booking.title}}</h2>
 
     </ion-col>
   </ion-row>
@@ -29,8 +29,8 @@
   </ion-row>
   <div *ngFor="let a of availableTimes; let i=index">
     <ion-row>
-      <h2 class="date-color">{{days[a.date.getDay()]}}
-        {{a.date.getUTCDate()}}/{{a.date.getUTCMonth()}}/{{a.date.getUTCFullYear()}}</h2>
+      <h3 class="date-color">{{days[a.date.getDay()]}}
+        {{a.date.getUTCDate()}}/{{a.date.getUTCMonth()}}/{{a.date.getUTCFullYear()}}</h3>
     </ion-row>
     <ion-row>
       <ion-col [class]="checkSelected(t)" col-sm-3 *ngFor="let t of a.time" (click)="onSelectTimeSlot(t)">
@@ -49,7 +49,7 @@
   </ion-row>
 
   <ion-row>
-    <button ion-button block class="continue-btn" (click)="onClickRequest()">{{'REQUEST_TUTORIAL' | translate}}</button>
+    <button ion-button block class="continue-btn" (click)="onClickRequest()" [disabled]="checkValid()">{{'REQUEST_TUTORIAL' | translate}}</button>
 
   </ion-row>
 </ion-content>
