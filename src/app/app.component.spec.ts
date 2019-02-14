@@ -1,3 +1,4 @@
+import { MainPage } from './../pages/pages';
 import { async, TestBed } from '@angular/core/testing';
 import { Config, IonicModule, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -62,6 +63,6 @@ describe('MyApp Component', () => {
   });
 
   it('should show tabs page', () => {
-    expect(component.rootPage).toEqual('HomePage');
+    expect(component.rootPage).toEqual(MainPage);
   });
 });
