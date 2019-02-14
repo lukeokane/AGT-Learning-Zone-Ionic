@@ -39,7 +39,6 @@
     "bootstrap": "^4.2.1",
     "chart.js": "^2.7.3",
     "ionic-angular": "3.9.2",
-    "ionic-tooltips": "^2.0.1",
     "ionicons": "3.0.0",
     "moment": "^2.14.1",
     "ng-jhipster": "0.4.5",
