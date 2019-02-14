@@ -21,68 +21,71 @@
       </div>
       <!-- <button on-click="debug()">Click me </button> -->
       <form (submit)="generateChart()">
-        <ion-grid>
-            <ion-row>
-              <ion-col size="36" size-sm>
+          <ion-grid>
+            <ion-row text-center>
+              <ion-col size="18" size-sm>
+                <div class="headers">
+                  <h4>Course</h4>
                   <div>
-                      <h4>Course</h4>
-                      <div class="input-group-prepend">
-                        <select class="form-control" class="input" [(ngModel)]="selectedCourse" [ngModelOptions]="{standalone: true}">
-                          <option>Please select a course</option>
-                          <option>all</option>
-                          <option *ngFor="let course of courses; trackBy: id;let i = index;" class="form-control" class="text-center">{{course?.title}} {{course?.code}}</option>
-                        </select>
-                      </div>
-                    </div>
-              </ion-col>
-              <ion-col size="24" size-sm>
-                  <div class="input-group-prepend">
-                      <h4>Course year</h4>
-                      <select class="form-control" name="year" id="year" class="input" [(ngModel)]="selectedYear" [ngModelOptions]="{standalone: true}">
-                        <option value="one">All</option>
-                        <option value="one">1</option>
-                        <option value="two">2</option>
-                        <option value="three">3</option>
-                        <option value="four">4</option>
-                      </select>
-                    </div>
+                    <select class="form-control" class="input" [(ngModel)]="selectedCourse" [ngModelOptions]="{standalone: true}">
+                      <option>Please select a course</option>
+                      <option>all</option>
+                      <option *ngFor="let course of courses; trackBy: id;let i = index;" class="form-control" class="text-center">{{course?.title}}
+                        {{course?.code}}</option>
+                    </select>
+                  </div>
+                </div>
               </ion-col>
               <ion-col size="12" size-sm>
-                  <div>
-                      <h4>Filter by Start date</h4>
-                      <div>
-                        <div class="input-group-prepend">
-                          <!-- <span class="input-group-text">from</span> -->
-                        </div>
-                        <input type="date" class="form-control" name="start" [(ngModel)]="fromDate" [ngModelOptions]="{standalone: true}"
-                          required />
-                      </div>
-                    </div>
+                <div>
+                  <h4>Course year</h4>
+                  <select class="form-control" name="year" id="year" class="input" [(ngModel)]="selectedYear"
+                    [ngModelOptions]="{standalone: true}">
+                    <option value="all">All</option>
+                    <option>1</option>
+                    <option value="two">2</option>
+                    <option value="three">3</option>
+                    <option value="four">4</option>
+                  </select>
+                </div>
               </ion-col>
               <ion-col size="12" size-sm>
+                <div>
+                  <h4>Start date</h4>
                   <div>
-                      <div>
-                        <div class="input-group-append">
-                          <!-- <span class="input-group-text">To</span> -->
-                          <h4>End date</h4>
-                        </div>
-                        <input type="date" class="form-control" name="end" [(ngModel)]="toDate" [ngModelOptions]="{standalone: true}"
-                          required />
-                      </div>
+                    <div class="input-group-prepend">
+                      <!-- <span class="input-group-text">from</span> -->
                     </div>
+                    <input type="date" class="form-control" name="start" [(ngModel)]="fromDate" [ngModelOptions]="{standalone: true}"
+                      required />
+                  </div>
+                </div>
               </ion-col>
               <ion-col size="12" size-sm>
+                <div>
                   <div>
-                      <h4>Action</h4>
-                      <button type="submit" class="btn btn-info btn-sm">
-                        <!-- <fa-icon [icon]="'eye'"></fa-icon> -->
-                        <span class="d-none d-md-inline">View</span>
-                      </button>
+                    <h4>End date</h4>
+                    <div class="input-group-append">
+                      <!-- <span class="input-group-text">To</span> -->
                     </div>
-                </ion-col>
+                    <input type="date" class="form-control" name="end" [(ngModel)]="toDate" [ngModelOptions]="{standalone: true}"
+                      required />
+                  </div>
+                </div>
+              </ion-col>
+              <ion-col size="12" size-sm>
+                <div>
+                  <h4>Action</h4>
+                  <button *ngIf="fromDate != undefined && toDate != undefined && selectedCourse != undefined && selectedYear != undefined"
+                    type="submit" class="btn btn-info btn-sm">
+                    <!-- <fa-icon [icon]="'eye'"></fa-icon> -->
+                    <span class="d-none d-md-inline">View</span>
+                  </button>
+                </div>
+              </ion-col>
             </ion-row>
           </ion-grid>
-      </form>
+        </form>
 
     <div class="row">
         <div class="col-md-12">
