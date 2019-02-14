@@ -13,12 +13,12 @@ describe('UserHomePage', () => {
     it('should show the calendar for user', () => {
         expect(UserHomePage.userCalendar.isPresent());
     });
-    it('should click a slot and display modal to request tutorial', () => {
-        const firstSlot = UserHomePage.getSlotButton().get(0);
-        firstSlot.click();
-        expect(UserHomePage.getRequestModal().isDisplayed()).toBeTruthy();
+    // it('should click a slot and display modal to request tutorial', () => {
+    //     const firstSlot = UserHomePage.getSlotButton().get(0);
+    //     firstSlot.click();
+    //     expect(UserHomePage.getRequestModal().isDisplayed()).toBeTruthy();
     
-    });
+    // });
 
 
 
