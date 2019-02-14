@@ -187,7 +187,7 @@ export class UserHomePage {
     return Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
   }
   getStartEndDate() {
-    return this.dates[0].getDate() + " " + this.months[this.dates[0].getMonth()] + " - " + this.dates[6].getDate() + " " + this.months[this.dates[6].getMonth()];
+    return this.dates[0].getDate() + " " + this.months[this.dates[0].getMonth()] + " - " + this.dates[this.dates.length-1].getDate() + " " + this.months[this.dates[this.dates.length-1].getMonth()];
   }
   getMonday(d: Date) {
     d = new Date(d);
@@ -196,7 +196,7 @@ export class UserHomePage {
     return new Date(d.setDate(diff));
   }
   onNextWeek() {
-    var nextMonday = new Date(this.dates[6].getTime());
+    var nextMonday = new Date(this.dates[this.dates.length-1].getTime());
     nextMonday.setTime(nextMonday.getTime() + (24 * 60 * 60 * 1000));
     this.generateDate(nextMonday);
 

@@ -1,8 +1,17 @@
 <top-menu></top-menu>
 <ion-content padding>
   <ion-grid>
+    <ion-row *ngIf="screenWidth<800">
+      <button ion-button id="menu_button" menuToggle>
+        <div class="border-menu">
+          <div class="bar1"></div>
+          <div class="bar2"></div>
+          <div class="bar3" [style.margin-left]="20"></div>
+        </div>
+      </button>
+    </ion-row>
     <ion-row align-items-stretch>
-      <ion-col col-1>
+      <ion-col col-1 *ngIf="screenWidth>=800">
         <button ion-button id="menu_button" menuToggle>
           <div class="border-menu">
             <div class="bar1"></div>
@@ -11,65 +20,74 @@
           </div>
         </button>
       </ion-col>
-      <ng-container id="user-calendar">
-        <ion-col>
-          <div *ngIf="screenWidth>=800">
-              <h2 class="text-colour-darkgrey">Weekly Timetable</h2>
-            <div>
-              <div class="container-date">
-                <span class="date-change text-colour-darkgrey" (click)="onPreWeek()">Previous</span> <span
-                  style="color:#D7DAE2">|</span>
-                <span class="date-change text-colour-darkgrey" (click)="onNextWeek()"> Next</span>
-              </div>
-              <div class="relative-div">
-                <span class="text-colour-darkgrey font-change">Week {{getWeekNumber(currentDate)}}: {{getStartEndDate()}} </span>
-              </div>
+
+      <ion-col>
+        <div *ngIf="screenWidth>=800">
+          <h2 class="text-colour-darkgrey">Weekly Timetable</h2>
+          <div>
+            <div class="container-date">
+              <span class="date-change text-colour-darkgrey" (click)="onPreWeek()">Previous</span> <span
+                style="color:#D7DAE2">|</span>
+              <span class="date-change text-colour-darkgrey" (click)="onNextWeek()"> Next</span>
             </div>
-
-
+            <div class="relative-div">
+              <span class="text-colour-darkgrey font-change">Week {{getWeekNumber(currentDate)}}:
+                {{getStartEndDate()}} </span>
+            </div>
           </div>
-          <div *ngIf="screenWidth<800">
-            <span class="text-colour-darkgrey change-date-button" (click)="onPreWeek()">
-              <ion-icon name="arrow-back"></ion-icon>
-            </span>
-            <span class="text-colour-darkgrey mobile-week">
-              <b>Week {{getWeekNumber(currentDate)}}: </b>
-              {{getStartEndDate()}}
-            </span>
-            <span class="text-colour-darkgrey change-date-button" (click)="onNextWeek()">
-              <ion-icon name="arrow-forward"></ion-icon>
 
-            </span>
-          </div>
+
+        </div>
+        <div *ngIf="screenWidth<800">
+          <span class="text-colour-darkgrey change-date-button" (click)="onPreWeek()">
+            <ion-icon name="arrow-back"></ion-icon>
+          </span>
+          <span class="text-colour-darkgrey mobile-week">
+            <b>Week {{getWeekNumber(currentDate)}}: </b>
+            {{getStartEndDate()}}
+          </span>
+          <span class="text-colour-darkgrey change-date-button" (click)="onNextWeek()">
+            <ion-icon name="arrow-forward"></ion-icon>
+
+          </span>
+        </div>
+        <ion-scroll scrollX="true">
 
           <table class="tg">
             <tr>
               <th class="tg-date"></th>
-              <th class="tg-date" *ngFor="let date of dates">{{convertDateToString(date)}}</th>
+              <ng-container *ngFor="let date of dates; let i=index;">
+                <th class="tg-date" *ngIf="i!=5 && i!=6">{{convertDateToString(date)}}</th>
+
+              </ng-container>
             </tr>
-            <tr *ngFor="let t of time;let i = index">
+
+            <tr *ngFor="let t of time;">
               <td *ngIf="!checkMatchTime(t)" class="tg-time">{{t}}</td>
               <td *ngIf="checkMatchTime(t)" class="tg-time"><b>{{t}}</b></td>
               <ng-container *ngFor="let date of dates; let i =index">
-                <td *ngIf="i==0" class="tg-slot" (click)="slotClicked(date,t)">
-                  <div class="strike" *ngIf="checkMatchTime(t) && checkMatchDate(date)">
-                    <span class="dot"></span>
-                  </div>
-                  <div class="showBooking">{{checkBooking(t,date)}}</div>
-                </td>
-                <td *ngIf="i!=0" class="tg-slot" (click)="slotClicked(date,t)">
+                <ng-container *ngIf="i!=5 && i!=6">
+                  <td *ngIf="i==0" class="tg-slot" (click)="slotClicked(date,t)">
+                    <div class="strike" *ngIf="checkMatchTime(t) && checkMatchDate(date)">
+                      <span class="dot"></span>
+                    </div>
+                    <div class="showBooking">{{checkBooking(t,date)}}</div>
+                  </td>
+                  <td *ngIf="i!=0" class="tg-slot" (click)="slotClicked(date,t)">
 
-                  <div class="strike" *ngIf="checkMatchTime(t) && checkMatchDate(date)">
-                    <span class="dot-transparent "></span>
-                  </div>
-                  <div class="showBooking">{{checkBooking(t,date)}}</div>
+                    <div class="strike" *ngIf="checkMatchTime(t) && checkMatchDate(date)">
+                      <span class="dot-transparent "></span>
+                    </div>
+                    <div class="showBooking">{{checkBooking(t,date)}}</div>
 
-                </td>
+                  </td>
+                </ng-container>
+
               </ng-container>
             </tr>
           </table>
-        </ion-col>
-      </ng-container>
+        </ion-scroll>
+      </ion-col>
     </ion-row>
 
   </ion-grid>
