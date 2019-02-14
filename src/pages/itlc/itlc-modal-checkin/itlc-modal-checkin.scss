@@ -2,4 +2,9 @@ page-itlc-modal-checkin {
 .center{
     text-align:center;
 }
+canvas.drawing, canvas.drawingBuffer {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
 }
