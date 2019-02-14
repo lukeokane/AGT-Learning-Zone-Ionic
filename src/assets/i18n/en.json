@@ -77,5 +77,6 @@
   "NO_SKILLS_SPECIFIED": "No skills specified",
   "DATE_RANGE": "Date Range",
   "AVAILABLE_TIME_SLOT": "Available Time Slot",
-  "REQUEST_TUTORIAL": "Request Tutorial"
+  "REQUEST_TUTORIAL": "Request Tutorial",
+  "SCAN_STUDENT_CARD":"Scan Student Card"
 }
