@@ -1,4 +1,4 @@
-import { browser, element, by } from 'protractor';
+import { browser, element, by, ElementFinder } from 'protractor';
 import { Page } from './app.po';
 
 export class UserHomeP extends Page {
@@ -13,5 +13,12 @@ export class UserHomeP extends Page {
     }
     getHomePageTag() {
         return element(by.tagName('home-page'));
-      }
+    }
+    getSlotButton() {
+        return element.all(by.css('.tg-slot'));
+    }
+    getRequestModal(): ElementFinder {
+        return element(by.tagName('user-request-modal'));
+    }
+
 }
