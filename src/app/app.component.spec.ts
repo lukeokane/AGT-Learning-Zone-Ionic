@@ -1,4 +1,6 @@
-import { MainPage } from './../pages/pages';
+import { HttpClientModule } from '@angular/common/http';
+import { AccountService } from './../providers/auth/account.service';
+import { Principal } from './../providers/auth/principal.service';
 import { async, TestBed } from '@angular/core/testing';
 import { Config, IonicModule, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -35,6 +37,7 @@ describe('MyApp Component', () => {
         declarations: [MyApp],
         imports: [
           IonicModule.forRoot(MyApp),
+          HttpClientModule,
           TranslateModule.forRoot({
             loader: { provide: TranslateLoader, useClass: JsonTranslationLoader }
           }),
@@ -43,6 +46,8 @@ describe('MyApp Component', () => {
             driverOrder: ['localstorage'],
           })],
         providers: [
+          Principal,
+          AccountService,
           {provide: StatusBar, useFactory: () => StatusBarMock.instance()},
           {provide: SplashScreen, useFactory: () => SplashScreenMock.instance()},
           {provide: Platform, useFactory: () => PlatformMock.instance()},
@@ -63,6 +68,6 @@ describe('MyApp Component', () => {
   });
 
   it('should show tabs page', () => {
-    expect(component.rootPage).toEqual(MainPage);
+    expect(component.rootPage).toEqual('HomePage');
   });
 });
