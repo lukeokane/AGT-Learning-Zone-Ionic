@@ -65,5 +65,12 @@ export class ItlcModalCheckinPage implements OnInit {
         }
       }
     });
+
+
+    Quagga.onDetected(function (result) {
+      console.log("Barcode detected : [" + result.codeResult.code + "]", result);
+      Quagga.stop();
+
+    });
   }
 }
