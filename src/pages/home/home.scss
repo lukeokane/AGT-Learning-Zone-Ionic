@@ -14,8 +14,7 @@ page-home {
         background-color: transparent;
         color: black;
         box-shadow: none;
-
-    
+        border: none;
     }
     
     .border-menu {
@@ -164,5 +163,8 @@ width: 100px;
     cursor: pointer;
 
 }
-    
+ion-scroll {
+    white-space: nowrap;
+    height: 500px;
+}  
 }

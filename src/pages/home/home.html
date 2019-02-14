@@ -13,8 +13,17 @@
 <top-menu></top-menu>
 <ion-content padding>
   <ion-grid>
+    <ion-row *ngIf="screenWidth<800">
+      <button ion-button id="menu_button" menuToggle>
+        <div class="border-menu">
+          <div class="bar1"></div>
+          <div class="bar2"></div>
+          <div class="bar3" [style.margin-left]="20"></div>
+        </div>
+      </button>
+    </ion-row>
     <ion-row align-items-stretch>
-      <ion-col col-1>
+      <ion-col col-1 *ngIf="screenWidth>=800">
         <button ion-button id="menu_button" menuToggle>
           <div class="border-menu">
             <div class="bar1"></div>
@@ -31,11 +40,11 @@
               <span class="date-change" (click)="onPreWeek()">Previous</span> <span style="color:#D7DAE2">|</span>
               <span class="date-change" (click)="onNextWeek()"> Next</span>
             </div>
-          <div class="relative-div">
-            <span class="text-colour-darkgrey font-change">Week {{getWeekNumber(currentDate)}}: {{getStartEndDate()}}
-            </span>
+            <div class="relative-div">
+              <span class="text-colour-darkgrey font-change">Week {{getWeekNumber(currentDate)}}: {{getStartEndDate()}}
+              </span>
+            </div>
           </div>
-        </div>
         </div>
         <div *ngIf="screenWidth<800">
           <span class="text-colour-darkgrey change-date-button" (click)="onPreWeek()">
@@ -50,32 +59,42 @@
 
           </span>
         </div>
-        <table class="tg">
-          <tr>
-            <th class="tg-date"></th>
-            <th class="tg-date" *ngFor="let date of dates">{{convertDateToString(date)}}</th>
-          </tr>
-          <tr *ngFor="let t of time;let i = index">
-            <td *ngIf="!checkMatchTime(t)" class="tg-time">{{t}}</td>
-            <td *ngIf="checkMatchTime(t)" class="tg-time"><b>{{t}}</b></td>
-            <ng-container *ngFor="let date of dates; let i =index">
-              <td *ngIf="i==0" class="tg-slot" (click)="slotClicked(date,t)">
-                <div class="strike" *ngIf="checkMatchTime(t) && checkMatchDate(date)">
-                  <span class="dot"></span>
-                </div>
-                <div class="showBooking">{{checkBooking(t,date)}}</div>
-              </td>
-              <td *ngIf="i!=0" class="tg-slot" (click)="slotClicked(date,t)">
+        <ion-scroll scrollX="true">
 
-                <div class="strike" *ngIf="checkMatchTime(t) && checkMatchDate(date)">
-                  <span class="dot-transparent "></span>
-                </div>
-                <div class="showBooking">{{checkBooking(t,date)}}</div>
+          <table class="tg">
+            <tr>
+              <th class="tg-date"></th>
+              <ng-container *ngFor="let date of dates; let i = index">
+                <th class="tg-date" *ngIf="i!=5 && i!=6">{{convertDateToString(date)}}</th>
 
-              </td>
+              </ng-container>
+            </tr>
+            <ng-container *ngFor="let t of time;">
+              <tr>
+                <td *ngIf="!checkMatchTime(t)" class="tg-time">{{t}}</td>
+                <td *ngIf="checkMatchTime(t)" class="tg-time"><b>{{t}}</b></td>
+                <ng-container *ngFor="let date of dates; let i =index">
+                  <ng-container *ngIf="i!=5 && i!=6">
+                    <td *ngIf="i==0" class="tg-slot" (click)="slotClicked(date,t)">
+                      <div class="strike" *ngIf="checkMatchTime(t) && checkMatchDate(date)">
+                        <span class="dot"></span>
+                      </div>
+                      <div class="showBooking">{{checkBooking(t,date)}}</div>
+                    </td>
+                    <td *ngIf="i!=0" class="tg-slot" (click)="slotClicked(date,t)">
+
+                      <div class="strike" *ngIf="checkMatchTime(t) && checkMatchDate(date)">
+                        <span class="dot-transparent "></span>
+                      </div>
+                      <div class="showBooking">{{checkBooking(t,date)}}</div>
+                    </td>
+                  </ng-container>
+                </ng-container>
+              </tr>
             </ng-container>
-          </tr>
-        </table>
+          </table>
+        </ion-scroll>
+
       </ion-col>
     </ion-row>
 
