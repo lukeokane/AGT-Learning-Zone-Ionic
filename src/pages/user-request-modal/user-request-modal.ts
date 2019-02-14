@@ -39,7 +39,10 @@ export class UserRequestModalPage implements OnInit {
   selectedTopic: any;
   bookings: Array<any>;
   availableTimes: Array<{ date: Date, time: Array<AvailableTime> }>;
-
+  minDate;
+  maxDate
+  dateEndMinDate;
+  dateEndMaxDate
   constructor(public navCtrl: NavController,
     public navParams: NavParams, private modalCtrl: ModalController,
     private viewCtrl: ViewController,
@@ -51,6 +54,12 @@ export class UserRequestModalPage implements OnInit {
     this.dateSelected = this.navParams.get("dateSelected");
     this.timeSelected = this.navParams.get("timeSelected");
     this.bookings = this.navParams.get("bookings");
+    this.selectedTopic = new Array();
+    this.minDate = new Date().toISOString();
+    this.maxDate = this.getDateAfterDay(new Date(),14).toISOString();
+    this.dateEndMaxDate = this.getDateAfterDay(new Date(),14).toISOString();
+    this.dateEndMinDate = new Date().toISOString();
+
   }
   ngOnInit() {
     this.initBooking();
@@ -77,6 +86,11 @@ export class UserRequestModalPage implements OnInit {
     this.booking.startTime = new Date(1970, 1, 1, 0, 0, 0, 0);
     this.booking.endTime = new Date(1970, 1, 1, 0, 0, 0, 0);
     this.booking.modifiedTimestamp = new Date();
+  }
+  changeStartDate() {
+    this.dateEndMinDate = this.dateStart;
+    this.dateEndMaxDate = this.getDateAfterDay(new Date(this.dateStart),14).toISOString();
+    this.dateEnd = "";
   }
   initUserInfo(refresher?) {
     this.userInfoService.find(this.userId).subscribe((response) => {
@@ -131,11 +145,11 @@ export class UserRequestModalPage implements OnInit {
   onClickContinue() {
     this.initAvailableTime();
     let sTopic = "";
-    this.topics.forEach(value => {
-      sTopic = sTopic + value.title + " ";
-    })
+    // this.selectedTopic.forEach(value => {
+    //   sTopic = sTopic + value.title + " ";
+    // })
     this.booking.subject = this.subjects.find(x => x.id == this.booking.subjectId);
-    this.booking.title = this.booking.subject.title + " - " + sTopic;
+    this.booking.title = this.booking.subject.title ;
     let timeSlotModal = this.modalCtrl.create("UserRequestTimeslotPage", { booking: this.booking, dateStart: this.dateStart, dateEnd: this.dateEnd, availableTimes: this.availableTimes });
     timeSlotModal.onDidDismiss(data => {
       console.log(data);
@@ -154,7 +168,7 @@ export class UserRequestModalPage implements OnInit {
   }
   initAvailableTime() {
     this.availableTimes = new Array();
-    var timeS1 = "";
+    var timeS1 = ""+this.timeSelected;
     if (this.timeSelected < 10) {
       timeS1 = "0" + this.timeSelected + "";
     }
@@ -185,7 +199,7 @@ export class UserRequestModalPage implements OnInit {
       }
       d3.setUTCHours(hr);
       let availableTime: AvailableTime = new AvailableTime();
-      if ((hr >= 9 && hr <= 18) && (day != 6 && day != 0)) {
+      if ((hr >= 9 && hr <= 17) && (day != 6 && day != 0)) {
         if (this.bookings != undefined && this.bookings != null) {
           if (!(this.bookings.some((value, index, array) => {
             return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == d3.toISOString().substring(0, 19) : value.booking.startTime.toISOString() == d3.toISOString().substring(0, 19);
@@ -221,5 +235,12 @@ export class UserRequestModalPage implements OnInit {
 
 
     }
+  }
+  checkValid() {
+    return this.selectedTopic.length == 0 || this.booking.subjectId == null || this.booking.subjectId == undefined || this.dateStart == null || this.dateStart == "" || this.dateStart == undefined || this.dateEnd == null || this.dateEnd == undefined || this.dateEnd == "";
+  }
+  getDateAfterDay(date,noOfDay) {
+    var answer = new Date(date.getTime() + noOfDay* 24 * 60 * 60 * 1000);
+    return answer;
   }
 }

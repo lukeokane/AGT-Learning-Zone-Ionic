@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>userRequestModal</ion-title>
+    <!-- <ion-title>userRequestModal</ion-title> -->
   </ion-navbar>
 
 </ion-header>
@@ -37,18 +37,18 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-label>
+      <ion-label class="text-colour-darkgrey">
         <ion-icon name="calendar"></ion-icon>
-        {{'DATE_RANGE' | translate}}
+        <span class="padding-left-size"> {{'DATE_RANGE' | translate}}</span>
       </ion-label>
     </ion-row>
     <ion-row>
       <ion-col col-5 class="form-border" >
-        <ion-datetime [(ngModel)]="dateStart" display-format="DD/MMM/YYYY"></ion-datetime>
+        <ion-datetime [(ngModel)]="dateStart" display-format="DD/MMM/YYYY" [min]="minDate"  [max]="maxDate" (ionChange)="changeStartDate()" ></ion-datetime>
       </ion-col>
 
       <ion-col offset-2 col-5 class="form-border" >
-        <ion-datetime  [(ngModel)]="dateEnd" display-format="DD/MMM/YYYY"></ion-datetime>
+        <ion-datetime  [(ngModel)]="dateEnd" display-format="DD/MMM/YYYY" [min]="dateEndMinDate" [max]="dateEndMaxDate" [disabled]="dateStart==null||dateStart==undefined"></ion-datetime>
       </ion-col>
 
     </ion-row>
@@ -57,9 +57,9 @@
       </ion-textarea>
     </ion-row>
     <ion-row>
-      <ion-label>
+      <ion-label class="text-colour-darkgrey">
         <ion-icon name="alert" style="color:#FE787B"></ion-icon>
-        {{'LEVEL_OF_IMPORTANCE' | translate}}
+        <span class="padding-left-size"> {{'LEVEL_OF_IMPORTANCE' | translate}}</span>
       </ion-label>
     </ion-row>
     <ion-row>
@@ -85,8 +85,7 @@
         <button ion-button block class="cancel-btn" (click)="onClickCancel()">{{'CANCEL_BUTTON' | translate}}</button>
       </ion-col>
       <ion-col col-6>
-        <button ion-button block class="continue-btn" (click)="onClickContinue()">{{'CONTINUE' | translate}}</button>
-
+        <button ion-button block class="continue-btn" (click)="onClickContinue()" [disabled]="checkValid()">{{'CONTINUE' | translate}}</button>
       </ion-col>
     </ion-row>
 
