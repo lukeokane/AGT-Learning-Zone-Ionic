@@ -39,21 +39,20 @@
                 </ng-container>
                 <ng-container
                   *ngIf="user?.tutorSkills == null || user?.tutorSkills == undefined || user?.tutorSkills ==''">
-                 {{'NO_SKILLS_SPECIFIED' | translate}}
+                  {{'NO_SKILLS_SPECIFIED' | translate}}
                 </ng-container>
                 <br>
                 <hr>
-                <button class="alert" (click)="ContinueAlert(tutor.id)"
-                  ion-button>{{'ASSIGN' | translate}}</button>
+                <button class="alert" (click)="ContinueAlert(tutor.id)" ion-button>{{'ASSIGN' | translate}}</button>
               </ion-col>
             </ion-row>
           </ng-container>
         </ng-container>
       </ion-col>
     </ion-row>
+    <div class="row justify-content-center">
+      <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
+        [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+    </div>
   </ion-col>
-  <div class="row justify-content-center">
-    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
-      [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
-  </div>
 </ion-content>

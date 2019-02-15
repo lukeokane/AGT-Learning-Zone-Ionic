@@ -20,17 +20,17 @@
         <ion-row>
           <ion-col></ion-col>
           <ion-col col-11>
-            &nbsp;<i class="fa fa-search"></i>
-            <input padding type="text" placeholder="Search Subject, Topic or Name">
+            <!-- &nbsp;<i class="fa fa-search"></i> -->
+            <!-- <input padding type="text" placeholder="Search Subject, Topic or Name"> -->
+            <input>
           </ion-col>
         </ion-row>
         <hr>
         <ion-list>
           <ion-item class="border-bottom" *ngFor="let booking of bookings;let i = index" (click)="goToBooking(booking)"
-            [style.backgroundColor]="selectedBooking == booking ? '#F6FFFF' : '#FFFFFF' " 
-            [style.backgroundColor]="booking.readByAdmin == false ? '#FFC0CB' : '#FFFFFF' "
-            data-toggle="tooltip" data-placement="top" title="{{booking?.requestedBy}}"
-            >
+            [style.backgroundColor]="selectedBooking == booking ? '#F6FFFF' : '#FFFFFF' "
+            [style.backgroundColor]="booking.readByAdmin == false ? '#FFC0CB' : '#FFFFFF' " data-toggle="tooltip"
+            data-placement="top" title="{{booking?.requestedBy}}">
             <ion-row>
               <ng-container *ngFor="let user of findUserBookings">
                 <ng-container *ngFor="let info of booking?.userInfos">
@@ -79,14 +79,14 @@
                   src="assets/images/{{info.profileImageURL}}">
               </ion-avatar>
               <h6>&emsp;&emsp;&emsp;{{user?.firstName}} {{user?.lastName}}</h6>
-              &nbsp;&emsp;&emsp;&emsp;{{user?.email}} -
+              &nbsp;&emsp;&emsp;&emsp;{{user?.email}} 
             </ng-container>
           </ng-container>
         </ng-container>
-        <ng-container *ngFor="let semesterGroup of semesterGroups">
+        <ng-container *ngFor="let semesterGroup of semesterGroups;let lst = last">
           <ng-container *ngFor="let info of selectedBooking?.userInfos">
             <ng-container *ngIf="semesterGroup?.id == info?.semesterGroupId">
-              {{semesterGroup?.title}}
+                - {{semesterGroup?.title}} 
             </ng-container>
           </ng-container>
         </ng-container>
@@ -106,12 +106,16 @@
                 style="background-color:#FFFF99">{{selectedBooking?.importanceLevel}}</span>
             </ion-col>
             <ion-col>
-              <ng-container *ngIf="selectedBooking?.subjectId != null && selectedBooking.subjectId != undefined">
+              <ng-container *ngIf="selectedBooking?.subjectId != null && selectedBooking?.subjectId != undefined">
                 <ng-container *ngFor="let subject of subjects">
                   <ng-container *ngIf="selectedBooking?.subjectId == subject?.id">
                     <button ion-button outline class="tags">{{subject?.title}}</button> &nbsp;
+                    -
                   </ng-container>
                 </ng-container>
+              </ng-container>
+              <ng-container *ngFor="let topic of selectedBooking?.topics">
+                <button ion-button outline class="tags">{{topic?.title}}</button> &nbsp;
               </ng-container>
               <ng-container *ngIf="selectedBooking?.subjectId == null || selectedBooking?.subjectId == undefined">
                 <button ion-button outline class="tags">{{'NO_SUBJECT_SPECIFIED' | translate}}</button>

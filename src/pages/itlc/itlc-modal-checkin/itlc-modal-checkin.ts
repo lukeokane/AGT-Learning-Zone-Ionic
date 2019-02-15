@@ -8,7 +8,6 @@ import Quagga from 'quagga';
   templateUrl: 'itlc-modal-checkin.html',
 })
 export class ItlcModalCheckinPage implements OnInit {
-  result:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -22,14 +21,14 @@ export class ItlcModalCheckinPage implements OnInit {
         target: document.querySelector('#scanner'),
         constraints: {
           width: 550,
-          height: 280,
-          facing: "environment"
-        }
-      },
+          height: 290,
+          facingMode: "user",
+        },
+      },			           
       decoder: {
         readers: [
           "code_39_reader",
-          "code_39_vin_reader"
+          "code_39_vin_reader",
         ],
       },
 
@@ -40,7 +39,6 @@ export class ItlcModalCheckinPage implements OnInit {
       }
 
       Quagga.start();
-
     });
 
     Quagga.onProcessed(function (result) {
@@ -54,26 +52,30 @@ export class ItlcModalCheckinPage implements OnInit {
           result.boxes.filter(function (box) {
             return box !== result.box;
           }).forEach(function (box) {
-            Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: "green", lineWidth: 2 });
+            Quagga.ImageDebug.drawPath(box, { x: 0, y: 3 }, drawingCtx, { color: "green", lineWidth: 2 });
           });
         }
 
         if (result.box) {
-          Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, { color: "#00F", lineWidth: 2 });
+          Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 3 }, drawingCtx, { color: "#00F", lineWidth: 2 });
         }
 
         if (result.codeResult && result.codeResult.code) {
-          Quagga.ImageDebug.drawPath(result.line, { x: 'x', y: 'y' }, drawingCtx, { color: 'red', lineWidth: 3 });
+          Quagga.ImageDebug.drawPath(result.line, { x: 'x', y: 'y' }, drawingCtx, { color: 'red', lineWidth: 1 });
         }
       }
     });
 
 
     Quagga.onDetected(function (result) {
-      console.log("Barcode detected : [" + result.codeResult.code + "]", result);
-      this.result = document.querySelector(".found").innerHTML = result.codeResult.code;
+      console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
+      document.querySelector(".found").innerHTML = result.codeResult.code;
       Quagga.stop();
-
     });
   }
+
+  ionViewWillLeave() {
+    Quagga.stop();
+  }
+
 }

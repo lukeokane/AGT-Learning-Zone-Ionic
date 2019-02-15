@@ -3,6 +3,7 @@ import { BookingUserDetails } from "./BookingUserDetails";
 import { Subject } from "./Subject";
 import { UserInfo } from "./UserInfo";
 import { Notification } from "./Notification";
+import { Topic } from "./Topic";
 
 export class Booking {
 
@@ -26,7 +27,8 @@ export class Booking {
         public subjectId?:number,
         public modifiedTimestamp?:Date,
         public requestTimes?:string,
-        public readByAdmin?:boolean
+        public readByAdmin?:boolean,
+        public topics?:Array<Topic>
     )
     { }
 
