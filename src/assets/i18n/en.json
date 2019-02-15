@@ -78,5 +78,8 @@
   "DATE_RANGE": "Date Range",
   "AVAILABLE_TIME_SLOT": "Available Time Slot",
   "REQUEST_TUTORIAL": "Request Tutorial",
-  "SCAN_STUDENT_CARD":"Scan Student Card"
+  "SCAN_STUDENT_CARD":"Scan Student Card",
+  "BARCODE_RESULT":"Barcode Result",
+  "CHECK_IN":"Check In",
+  "SCAN_AGAIN":"Scan Again"
 }

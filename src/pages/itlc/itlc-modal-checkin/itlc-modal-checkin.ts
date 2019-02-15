@@ -8,6 +8,7 @@ import Quagga from 'quagga';
   templateUrl: 'itlc-modal-checkin.html',
 })
 export class ItlcModalCheckinPage implements OnInit {
+  result:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
@@ -28,6 +29,7 @@ export class ItlcModalCheckinPage implements OnInit {
       decoder: {
         readers: [
           "code_39_reader",
+          "code_39_vin_reader"
         ],
       },
 
@@ -69,6 +71,7 @@ export class ItlcModalCheckinPage implements OnInit {
 
     Quagga.onDetected(function (result) {
       console.log("Barcode detected : [" + result.codeResult.code + "]", result);
+      this.result = document.querySelector(".found").innerHTML = result.codeResult.code;
       Quagga.stop();
 
     });
