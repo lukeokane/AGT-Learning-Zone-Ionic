@@ -1,7 +1,19 @@
-
 <top-menu></top-menu>
 <ion-content padding>
-
-  <button ion-button class="btn"  outline (click)="goToCheckInPage()">{{'CHECK_IN' | translate}}</button>
-
+  <ion-col col-1>
+    <ion-row>
+      <ion-col col-1>
+        <button ion-button id="menu_button" menuToggle>
+          <div class="border-menu">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3" [style.margin-left]="20"></div>
+          </div>
+        </button>
+      </ion-col>
+      <ion-col>
+          <button ion-button class="btn" outline (click)="goToCheckInPage()"><i class="fas fa-barcode"></i> &nbsp;{{'CHECK_IN' | translate}}</button>
+        </ion-col>
+    </ion-row>
+  </ion-col>
 </ion-content>
