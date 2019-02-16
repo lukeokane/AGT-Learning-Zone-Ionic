@@ -33,15 +33,46 @@ page-user-home {
     .tg  {
         // border-collapse:collapse;
         // border-spacing:0;
-        width: 1000px; 
+        width: 90%;
         table-layout: fixed;}
-    .tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
-    .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
-    .tg .tg-date{background-color:#f5f6fa;border-color:#eaf0f4;text-align:left;vertical-align:top}  
-    .tg .tg-slot{border-color:#eaf0f4;text-align:left;vertical-align:top;
+    .tg td{
+        font-family:Arial, sans-serif;
+        font-size:15px;padding:10px 5px;
+        border-style:solid;
+        border-width:1px;
+        overflow:hidden;
+        word-break:normal;
+        border-color:black;}
+    .tg th{
+        font-family:Arial, sans-serif;
+        font-size:15px;
+        font-weight:normal;
+        padding:10px 5px;
+        border-style:solid;
+        border-width:1px;
+        overflow:hidden;
+        word-break:normal;
+        border-color:black;}
+
+    .tg .tg-date{
+        background-color:#f5f6fa;
+        border-color:#eaf0f4;
+        text-align:left;
+        vertical-align:top}  
+
+    .tg .tg-slot{
+        border-color:#eaf0f4;
+        text-align:left;
+        vertical-align:top;
         padding: 0px;cursor: pointer;}
-.tg .tg-slot-passed{border-color:#eaf0f4;text-align:left;vertical-align:top;
-    padding: 0px;cursor: pointer; background-color: #FE787B; opacity: 0.7;
+
+.tg .tg-slot-passed{
+    border-color:#eaf0f4;
+    text-align:left;
+    vertical-align:top;
+    padding: 0px;cursor: pointer; 
+    background-color: #FE787B; 
+    opacity: 0.7;
 }
     .tg .tg-time{border-color:#eaf0f4;text-align:left;vertical-align:top}
 
@@ -172,6 +203,6 @@ color:#4D4F5C;
 }
 ion-scroll {
     white-space: nowrap;
-    height: 100vh;
+    height: 1000px;
 }
 }
