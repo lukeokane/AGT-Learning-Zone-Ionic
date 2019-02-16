@@ -25,10 +25,13 @@
         <div *ngIf="screenWidth>=800">
           <h2 class="text-colour-darkgrey">Weekly Timetable</h2>
           <div>
-            <div class="container-date">
-              <span class="date-change text-colour-darkgrey" (click)="onPreWeek()">Previous</span> <span
-                style="color:#D7DAE2">|</span>
-              <span class="date-change text-colour-darkgrey" (click)="onNextWeek()"> Next</span>
+                <div class="container-date">
+              <!-- <span class="date-change text-colour-darkgrey" (click)="onPreWeek()">Previous</span>
+              
+              <span class="date-change text-colour-darkgrey" (click)="onNextWeek()"> Next</span> -->
+              <button (click)="onPreWeek()" class="date-change-btn text-colour-darkgrey">Previous</button>
+              <button (click)="onNextWeek()" class="date-change-btn text-colour-darkgrey">Next</button>
+
             </div>
             <div class="relative-div">
               <span class="text-colour-darkgrey font-change">Week {{getWeekNumber(currentDate)}}:
