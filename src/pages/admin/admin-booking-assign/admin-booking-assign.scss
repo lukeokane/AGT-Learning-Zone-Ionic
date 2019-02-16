@@ -31,9 +31,9 @@ page-admin-booking-assign {
         border-radius:50%;
     }
     .scroll{
-        overflow-x: auto;
+        overflow-y: hidden;
+        overflow-x: hidden;
         height: 500px;
-        border-right: 0.2px solid #F0F0F0;
     }
 
     .border{
@@ -42,6 +42,12 @@ page-admin-booking-assign {
 
     .border:hover{
         background-color: #DEF2F1 !important;
+    }
+
+    .alert{
+        float:right;
+        background-color: #FE787B;
+        color: white;
     }
 
 }

@@ -37,7 +37,7 @@ export class AdminBookingAssignPage implements OnInit {
   }
 
   initUsers() {
-    this.itemsPerPage = 9;
+    this.itemsPerPage = 7;
     this.userService.getAllUsers(
       {
         page: this.page - 1,
@@ -58,12 +58,14 @@ export class AdminBookingAssignPage implements OnInit {
   initUserInfo(userId: any) {
     this.userInfos = [];
 
-    this.userInfoService.find(userId).subscribe((response) => {
-      this.userInfos.push(response);
-      this.userInfos = this.userInfos.filter(function (a) {
-        return !this[a.id] && (this[a.id] = true);
-      }, Object.create(null));
-    })
+    if (userId != null || userId != undefined) {
+      this.userInfoService.find(userId).subscribe((response) => {
+        this.userInfos.push(response);
+        this.userInfos = this.userInfos.filter(function (a) {
+          return !this[a.id] && (this[a.id] = true);
+        }, Object.create(null));
+      })
+    }
   }
 
   private onSuccess(data, headers) {

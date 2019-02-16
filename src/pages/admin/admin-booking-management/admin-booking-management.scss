@@ -38,7 +38,7 @@ page-admin-booking-management {
     .scroll {
         overflow-y: auto;
         overflow-x: hidden;
-        height: 420px;
+        height: 450px;
       }
     
     .timePos{
@@ -114,5 +114,9 @@ page-admin-booking-management {
 
   img {
     border-radius: 50%;
+  }
+
+  .importance{
+    background-color:#FFFF99;
   }
 }

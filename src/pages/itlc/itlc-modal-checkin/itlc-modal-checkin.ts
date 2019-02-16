@@ -20,14 +20,15 @@ export class ItlcModalCheckinPage implements OnInit {
         type: "LiveStream",
         target: document.querySelector('#scanner'),
         constraints: {
-          width: 550,
-          height: 280,
-          facing: "environment"
-        }
-      },
+          width: 570,
+          height: 290,
+          facingMode: "user",
+        },
+      },			           
       decoder: {
         readers: [
           "code_39_reader",
+          "code_39_vin_reader",
         ],
       },
 
@@ -38,7 +39,6 @@ export class ItlcModalCheckinPage implements OnInit {
       }
 
       Quagga.start();
-
     });
 
     Quagga.onProcessed(function (result) {
@@ -52,7 +52,7 @@ export class ItlcModalCheckinPage implements OnInit {
           result.boxes.filter(function (box) {
             return box !== result.box;
           }).forEach(function (box) {
-            Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: "green", lineWidth: 2 });
+            Quagga.ImageDebug.drawPath(box, { x: 0, y: 3 }, drawingCtx, { color: "green", lineWidth: 2 });
           });
         }
 
@@ -61,9 +61,21 @@ export class ItlcModalCheckinPage implements OnInit {
         }
 
         if (result.codeResult && result.codeResult.code) {
-          Quagga.ImageDebug.drawPath(result.line, { x: 'x', y: 'y' }, drawingCtx, { color: 'red', lineWidth: 3 });
+          Quagga.ImageDebug.drawPath(result.line, { x: 'x', y: 'y' }, drawingCtx, { color: 'red', lineWidth: 1 });
         }
       }
     });
+
+
+    Quagga.onDetected(function (result) {
+      console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
+      document.querySelector(".found").innerHTML = result.codeResult.code;
+      Quagga.stop();
+    });
   }
+
+  ionViewWillLeave() {
+    Quagga.stop();
+  }
+
 }

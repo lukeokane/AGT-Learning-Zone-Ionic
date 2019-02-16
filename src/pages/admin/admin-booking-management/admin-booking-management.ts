@@ -75,24 +75,27 @@ export class AdminBookingManagementPage implements OnInit {
 
   initSemesterGroup(semesterGroupId: any) {
     this.semesterGroups = [];
-    this.semesterGroupService.find(semesterGroupId).subscribe((response) => {
-      this.semesterGroups.push(response);
-      this.semesterGroups = this.semesterGroups.filter(function (a) {
-        return !this[a.id] && (this[a.id] = true);
-      }, Object.create(null));
-    })
+    if (semesterGroupId != null || semesterGroupId != undefined) {
+      this.semesterGroupService.find(semesterGroupId).subscribe((response) => {
+        this.semesterGroups.push(response);
+        this.semesterGroups = this.semesterGroups.filter(function (a) {
+          return !this[a.id] && (this[a.id] = true);
+        }, Object.create(null));
+      })
+    }
   }
 
 
   initSubjects(subjectId: any) {
     this.subjects = [];
-    this.subjectService.find(subjectId).subscribe((response) => {
-      this.subjects.push(response);
-      this.subjects = this.subjects.filter(function (a) {
-        return !this[a.id] && (this[a.id] = true);
-      }, Object.create(null));
-    })
-
+    if (subjectId != null || subjectId != undefined) {
+      this.subjectService.find(subjectId).subscribe((response) => {
+        this.subjects.push(response);
+        this.subjects = this.subjects.filter(function (a) {
+          return !this[a.id] && (this[a.id] = true);
+        }, Object.create(null));
+      })
+    }
   }
 
   private onSuccess(data, headers) {
@@ -142,12 +145,13 @@ export class AdminBookingManagementPage implements OnInit {
       this.bookingService.saveBooking(booking);
     }
     this.time = this.selectedBooking.requestTimes;
-    timeArray = this.time.split("&");
-    timeArray.forEach(times => {
-      times = times.split("|");
-      filter = filter.concat(times);
-    });
-
+    if (this.time != null || this.time != undefined) {
+      timeArray = this.time.split("&");
+      timeArray.forEach(times => {
+        times = times.split("|");
+        filter = filter.concat(times);
+      });
+    }
     filter.forEach(element => {
       this.FortmattedDates = this.FortmattedDates.concat(new Date(element));
     });

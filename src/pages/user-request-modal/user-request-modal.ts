@@ -144,7 +144,7 @@ export class UserRequestModalPage implements OnInit {
 
   onClickContinue() {
     this.initAvailableTime();
-    let sTopic = "";
+    // let sTopic = "";
     // this.selectedTopic.forEach(value => {
     //   sTopic = sTopic + value.title + " ";
     // })
