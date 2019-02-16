@@ -25,11 +25,12 @@
         <div *ngIf="screenWidth>=800">
           <h2 class="text-colour-darkgrey">Weekly Timetable</h2>
           <div>
-                <div class="container-date">
+            <div class="container-date">
               <!-- <span class="date-change text-colour-darkgrey" (click)="onPreWeek()">Previous</span>
               
               <span class="date-change text-colour-darkgrey" (click)="onNextWeek()"> Next</span> -->
-              <button ion-button (click)="onPreWeek()" [disabled]="checkPreviousDisabled()" class="date-change-btn text-colour-darkgrey">Previous</button>
+              <button ion-button (click)="onPreWeek()" [disabled]="checkPreviousDisabled()"
+                class="date-change-btn text-colour-darkgrey">Previous</button>
               <button ion-button (click)="onNextWeek()" class="date-change-btn text-colour-darkgrey">Next</button>
 
             </div>
