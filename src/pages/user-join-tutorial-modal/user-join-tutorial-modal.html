@@ -32,9 +32,9 @@
       Number of Students: {{getNoStudent()}}
     </ion-row>
     <ng-container *ngIf="checkBooked()">
-      <ion-row class="text-colour-darkgrey">
-        You have booked for this tutorial. Please come in on time
-      </ion-row>
+      <ion-row class="text-colour-darkgrey" style="text-align:center;margin: 0 auto;">
+        <span><b> You are attending this booking </b> </span>
+              </ion-row>
       <ion-row>
         <ion-col col-12>
           <button ion-button block class="cancel-btn" (click)="onClickCancel()">{{'OKAY_BUTTON' | translate}}</button>
