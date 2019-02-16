@@ -1,4 +1,12 @@
 page-user-home {
+    .scroll-content {
+        overflow: hidden;
+      }
+    //   @media screen and (max-height: 610px) {
+    //     .scroll-content {
+    //         overflow:scroll;
+    //       }
+    //   }
     .text-colour-darkgrey{
         color:#4D4F5C;
     }
@@ -39,6 +47,9 @@ page-user-home {
             .tg  {
                 width: 1000px;
             }
+            .scroll-content {
+                overflow: hidden;
+              }
           }
           
     .tg td{
@@ -210,5 +221,6 @@ color:#4D4F5C;
 ion-scroll {
     white-space: nowrap;
     height: 1000px;
+    // width: 1000px;
 }
 }

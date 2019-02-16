@@ -1,4 +1,7 @@
 page-home {
+    .scroll-content {
+        overflow: hidden;
+      }
 //layout
 // ion-grid {
 //     height: 100%;
@@ -168,6 +171,6 @@ width: 100px;
 }
 ion-scroll {
     white-space: nowrap;
-    height: 500px;
+    height: 1000px;
 }  
 }

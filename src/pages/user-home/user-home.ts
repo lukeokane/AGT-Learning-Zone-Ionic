@@ -232,12 +232,12 @@ export class UserHomePage {
       timeS1 = "0" + timeInt + "";
     }
     var timeInt2 = timeInt + 1;
-    var timeS2 = "" + timeInt;
+    var timeS2 = "" + timeInt2;
     if (timeInt2 < 10) {
       timeS2 = "0" + timeInt2 + "";
     }
     let s = dateSelected.toISOString().substring(0, 10) + "T" + timeS1 + ":00:00Z";
-    let s2 = dateSelected.toISOString().substring(0, 10) + "T" + timeS1 + ":00:00Z";
+    let s2 = dateSelected.toISOString().substring(0, 10) + "T" + timeS2 + ":00:00Z";
     return { s, s2 }
   }
   checkPassTime(dateSelected: Date, timeSelected: String) {
