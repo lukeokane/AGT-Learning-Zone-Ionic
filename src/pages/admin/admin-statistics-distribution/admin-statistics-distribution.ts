@@ -153,26 +153,22 @@ export class AdminStatisticsDistributionPage {
     for (let booking of this.bookings) {
       for (let subject of this.subjects) {
         if (booking.subjectId == subject.id) {
-          //  console.log(subject.title);
           if (this.checkDuplicates(subject.title) == false) {
-            this.labels.push(subject.title); // pushing to a postion in the array if there is no duplicate entry
+            this.labels.push(subject.title); 
             this.data[this.pos] = 1;
             this.pos++;
 
           }
           else {
-            // there is allready this subject in the array and now i need to increment number array postion by 1
-            // find position of subject and increment by 1
+     
             this.posData = this.findPosSubject(subject.title);
             this.data[this.posData]++;
           }
         }
       }
     }
-    //console.log(this.labels);
-    //console.log(this.data);
   }
-
+  
   findPosSubject(title: string): number {
 
     for (this.inc = 0; this.inc < this.labels.length; this.inc++) {
