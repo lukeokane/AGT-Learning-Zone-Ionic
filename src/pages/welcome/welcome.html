@@ -9,7 +9,7 @@
     <ion-navbar>
     </ion-navbar>
 </ion-header>
-<ion-content>
+<ion-content overflow-scroll="false">
     <ion-row *ngIf="getScreenSize() < 1280">
         <ion-col>
             <img src="assets/imgs/LandingImg.png" style="opacity:0.6;width:100%">
@@ -34,7 +34,7 @@
             mentors ensure that you achieve your best!
         </ion-col>
     </ion-row>
-    <br><br><br>
+    <br>
     <ion-row class="align-center">
         <ion-col>
             <button padding ion-button round class="continueBtn" (click)="login()" id="signIn">
