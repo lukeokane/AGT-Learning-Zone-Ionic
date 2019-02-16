@@ -51,7 +51,7 @@ export class AdminBookingManagementPage implements OnInit {
   }
 
   initBooking() {
-    this.itemsPerPage = 10;
+    this.itemsPerPage = 20;
     this.bookingsService.getAllBookingsPageable({
       page: this.page - 1,
       size: this.itemsPerPage,
