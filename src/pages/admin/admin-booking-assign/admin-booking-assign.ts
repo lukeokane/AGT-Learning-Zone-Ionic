@@ -8,6 +8,7 @@ import { IonicPage, NavController, NavParams, ToastController, AlertController }
 import { User } from '../../../class/User';
 import { UserInfo } from '../../../class/UserInfo';
 import { BookingsService } from '../../../services/Booking.provider';
+import { Principal } from '../../../providers/auth/principal.service';
 
 @IonicPage()
 @Component({
@@ -25,14 +26,27 @@ export class AdminBookingAssignPage implements OnInit {
   page: number;
   totalItems: any;
   queryCount: any;
+  adminId:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private userService: UserService, private toastCtrl: ToastController, private userInfoService: UserInfoService, private bookingService: BookingsService, private alertCtrl: AlertController) {
+  constructor(
+    public navCtrl: NavController,
+     public navParams: NavParams,
+      private userService: UserService, 
+      private toastCtrl: ToastController,
+       private userInfoService: UserInfoService,
+        private bookingService: BookingsService, 
+        private alertCtrl: AlertController,
+        private principal: Principal,
+        ) {
     if (this.navParams.get("selectedBooking") != null || this.navParams.get("selectedBooking") != undefined) {
       this.selectedBooking = this.navParams.get("selectedBooking");
     }
+
   }
 
   ngOnInit() {
+    this.adminId = this.principal.getUserId();
+    // console.log("admin id  ",this.adminId);
     this.initUsers();
   }
 
@@ -128,11 +142,10 @@ export class AdminBookingAssignPage implements OnInit {
 
 
   assignToTutor(tutorId: number) {
-    if (tutorId != null || tutorId != undefined) {
-      this.selectedBooking.adminAcceptedId = tutorId;
-    }
+    // console.log("tutor ",tutorId);
+    // console.log("booking id",this.selectedBooking.id);
     if (this.selectedBooking != null || this.selectedBooking != undefined) {
-      this.bookingService.saveBooking(this.selectedBooking);
+      this.bookingService.updateBookingAcceptedTutorAssigned(this.selectedBooking,this.selectedBooking.id,this.adminId,tutorId);
       this.navCtrl.push(homePage);
     }
   }
