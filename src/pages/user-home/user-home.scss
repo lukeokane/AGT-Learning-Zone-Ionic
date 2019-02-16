@@ -35,6 +35,12 @@ page-user-home {
         // border-spacing:0;
         width: 90%;
         table-layout: fixed;}
+        @media screen and (max-width: 1080px) {
+            .tg  {
+                width: 1000px;
+            }
+          }
+          
     .tg td{
         font-family:Arial, sans-serif;
         font-size:15px;padding:10px 5px;

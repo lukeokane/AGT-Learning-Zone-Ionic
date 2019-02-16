@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 import { Booking } from '../../class/Booking';
 import { Principal } from '../../providers/auth/principal.service';
-import { BookingUserDetails } from '../../class/BookingUserDetails';
 import { UserInfoService } from '../../services/UserInfo.provider';
 import { Subject } from '../../class/Subject';
 import { SemesterGroupService } from '../../services/SemesterGroup.provider';
@@ -12,6 +11,7 @@ import { OrdinalScale } from '../../class/OrdinalScale';
 import { UserInfo } from '../../class/UserInfo';
 import { Notification } from '../../class/Notification';
 import { AvailableTime } from '../../class/AvailableTime';
+import { BookingUserDetails } from '../../class/BookingUserDetails';
 
 /**
  * Generated class for the UserRequestModalPage page.
@@ -29,7 +29,6 @@ export class UserRequestModalPage implements OnInit {
   s1: Date;
   s2: any;
   booking: Booking;
-  userDetails: BookingUserDetails;
   userId: any;
   subjects: Array<Subject>;
   topics: Array<Topic>;
@@ -67,7 +66,6 @@ export class UserRequestModalPage implements OnInit {
   }
   initBooking() {
     this.booking = new Booking();
-    this.userDetails = new BookingUserDetails();
     this.booking.userInfos = new Array<UserInfo>();
     this.booking.tutorAccepted = false;
     this.booking.cancelled = false;
@@ -100,8 +98,6 @@ export class UserRequestModalPage implements OnInit {
       if (typeof (refresher) !== 'undefined') {
         refresher.complete();
       }
-      this.userDetails.userInfo = userInfo;
-      this.booking.bookingUserDetails.push(this.userDetails);
       var semesterGroupId = userInfo.semesterGroupId;
       this.initSubject(semesterGroupId);
     },
@@ -123,7 +119,9 @@ export class UserRequestModalPage implements OnInit {
     )
   }
   initTopic(subjectId) {
+    console.log(subjectId);
     this.topicService.getAllTopicsBySubjectId(subjectId).subscribe((response) => {
+      console.log(this.topics);
       this.topics = response;
 
     })

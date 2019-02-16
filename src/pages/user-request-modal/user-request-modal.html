@@ -31,8 +31,8 @@
     </ion-row>
     <ion-row>
       <ion-col col-11 class="form-border">
-        <ion-select placeholder="Select Topics" multiple [(ngModel)]="selectedTopic">
-          <ion-option *ngFor="let t of topics " [value]="t.title">{{t.title}}</ion-option>
+        <ion-select placeholder="Select Topics" multiple [(ngModel)]="booking.topics">
+          <ion-option *ngFor="let t of topics " [value]="t">{{t.title}}</ion-option>
         </ion-select>
       </ion-col>
     </ion-row>
