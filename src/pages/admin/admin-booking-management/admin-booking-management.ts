@@ -40,6 +40,7 @@ export class AdminBookingManagementPage implements OnInit {
   startTime: any;
   endTime: any;
   result = [];
+  empty:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private bookingsService: BookingsService, private toastCtrl: ToastController, private userService: UserService, private semesterGroupService: SemesterGroupService, private subjectService: SubjectsService, private bookingService: BookingsService) {
   }
@@ -189,8 +190,13 @@ export class AdminBookingManagementPage implements OnInit {
 
   }
 
+
   assignToTutor(selectedBooking: Booking, filterTutors: Array<User> = []) {
     let rand = filterTutors[Math.floor(Math.random() * filterTutors.length)];
+    if(selectedBooking.userComments == '')
+    {
+      this.empty = true;
+    }
     if (rand != null || rand != undefined) {
       selectedBooking.adminAcceptedId = rand.id;
     }

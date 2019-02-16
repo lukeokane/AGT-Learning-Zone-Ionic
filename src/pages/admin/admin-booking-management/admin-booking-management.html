@@ -156,8 +156,8 @@
             <ion-col col-9>
               {{selectedBooking?.userComments}}
               <ng-container
-                *ngIf="selectedBooking?.userComments == null || selectedBooking?.userComments  == undefined">
-                {{'NO_COMMENT_TO_DISPLAY' | translate}}
+                *ngIf="selectedBooking?.userComments == null || selectedBooking?.userComments  == undefined || empty">
+                {{'NO_COMMENT' | translate}}
               </ng-container>
             </ion-col>
             <ion-col col-2></ion-col>
