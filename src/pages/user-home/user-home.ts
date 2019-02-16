@@ -76,30 +76,18 @@ export class UserHomePage {
     return "" + this.days[date.getDay()] + " " + date.getDate() + "/" + (date.getMonth() + 1);
   }
   slotClicked(dateSelected: Date, timeSelected: String) {
-    var time = timeSelected.substring(0, 2);
-    var timeInt = parseInt(time, 10);
-    var timeS1 = "" + timeInt;
-    if (timeInt < 10) {
-      timeS1 = "0" + timeInt + "";
-    }
-    var timeInt2 = timeInt + 1;
-    var timeS2 = "" + timeInt;
-    if (timeInt2 < 10) {
-      timeS2 = "0" + timeInt2 + "";
-    }
-    let s = dateSelected.toISOString().substring(0, 10) + "T" + timeS1 + ":00:00Z";
-    let s2 = dateSelected.toISOString().substring(0, 10) + "T" + timeS1 + ":00:00Z";
-
+    let s1 = this.getStartAndEndDate(dateSelected, timeSelected).s;
+    let s2 = this.getStartAndEndDate(dateSelected, timeSelected).s2;
     if (new Date() >= new Date(s2)) {
       console.log("BIG");
     }
     else {
 
       if (!(this.bookings.some((value, index, array) => {
-        return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == s.substring(0, 19) : value.booking.startTime.toISOString() == s.substring(0, 19);
+        return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == s1.substring(0, 19) : value.booking.startTime.toISOString() == s1.substring(0, 19);
       }))) {
         let toast;
-        let profileModal = this.modalCtrl.create("UserRequestModalPage", { dateSelected: dateSelected, timeSelected: timeInt, bookings: this.bookings });
+        let profileModal = this.modalCtrl.create("UserRequestModalPage", { s1: s1, s2: s2, bookings: this.bookings });
 
         profileModal.onDidDismiss(data => {
           if (data != undefined && data != null) {
@@ -133,10 +121,10 @@ export class UserHomePage {
         profileModal.present();
       } else {
         let i = this.bookings.findIndex(value => {
-          return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == s.substring(0, 19) : value.booking.startTime.toISOString() == s.substring(0, 19);
+          return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == s1.substring(0, 19) : value.booking.startTime.toISOString() == s1.substring(0, 19);
         });
         if (i != -1) {
-          let profileModal = this.modalCtrl.create("UserJoinTutorialModalPage", { dateSelected: dateSelected, timeSelected: timeInt, booking: this.bookings[i].booking });
+          let profileModal = this.modalCtrl.create("UserJoinTutorialModalPage", { booking: this.bookings[i].booking });
           profileModal.onDidDismiss(data => {
             if (data != null && data != undefined) {
               if (data.send == true) {
@@ -235,5 +223,35 @@ export class UserHomePage {
       }
     }
 
+  }
+  getStartAndEndDate(dateSelected: Date, timeSelected: String) {
+    var time = timeSelected.substring(0, 2);
+    var timeInt = parseInt(time, 10);
+    var timeS1 = "" + timeInt;
+    if (timeInt < 10) {
+      timeS1 = "0" + timeInt + "";
+    }
+    var timeInt2 = timeInt + 1;
+    var timeS2 = "" + timeInt;
+    if (timeInt2 < 10) {
+      timeS2 = "0" + timeInt2 + "";
+    }
+    let s = dateSelected.toISOString().substring(0, 10) + "T" + timeS1 + ":00:00Z";
+    let s2 = dateSelected.toISOString().substring(0, 10) + "T" + timeS1 + ":00:00Z";
+    return { s, s2 }
+  }
+  checkPassTime(dateSelected: Date, timeSelected: String) {
+    let s1 = this.getStartAndEndDate(dateSelected, timeSelected).s;
+    let s2 = this.getStartAndEndDate(dateSelected, timeSelected).s2;
+    if (new Date() >= new Date(s2)) {
+      return 'tg-slot-passed';
+    }else{
+      return 'tg-slot'
+    }
+  }
+  checkPreviousDisabled(){
+    if(this.today.getTime()>this.dates[0].getTime()){
+      return true;
+    }
   }
 }

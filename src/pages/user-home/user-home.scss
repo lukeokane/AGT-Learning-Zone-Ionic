@@ -39,8 +39,10 @@ page-user-home {
     .tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
     .tg .tg-date{background-color:#f5f6fa;border-color:#eaf0f4;text-align:left;vertical-align:top}  
     .tg .tg-slot{border-color:#eaf0f4;text-align:left;vertical-align:top;
-        padding: 0px;
-cursor: pointer;}
+        padding: 0px;cursor: pointer;}
+.tg .tg-slot-passed{border-color:#eaf0f4;text-align:left;vertical-align:top;
+    padding: 0px;cursor: pointer; background-color: #FE787B; opacity: 0.7;
+}
     .tg .tg-time{border-color:#eaf0f4;text-align:left;vertical-align:top}
 
 .showBooking{
@@ -138,6 +140,7 @@ padding: 5px;
 margin: 2px;
 text-align: center;
 display: inline-block;
+color:#4D4F5C;
 }
 .container-date{
     // margin: 5px;
@@ -169,6 +172,6 @@ display: inline-block;
 }
 ion-scroll {
     white-space: nowrap;
-    height: 500px;
+    height: 100vh;
 }
 }

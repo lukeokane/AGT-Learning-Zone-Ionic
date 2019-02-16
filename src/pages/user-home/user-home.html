@@ -29,8 +29,8 @@
               <!-- <span class="date-change text-colour-darkgrey" (click)="onPreWeek()">Previous</span>
               
               <span class="date-change text-colour-darkgrey" (click)="onNextWeek()"> Next</span> -->
-              <button (click)="onPreWeek()" class="date-change-btn text-colour-darkgrey">Previous</button>
-              <button (click)="onNextWeek()" class="date-change-btn text-colour-darkgrey">Next</button>
+              <button ion-button (click)="onPreWeek()" [disabled]="checkPreviousDisabled()" class="date-change-btn text-colour-darkgrey">Previous</button>
+              <button ion-button (click)="onNextWeek()" class="date-change-btn text-colour-darkgrey">Next</button>
 
             </div>
             <div class="relative-div">
@@ -70,13 +70,13 @@
               <td *ngIf="checkMatchTime(t)" class="tg-time"><b>{{t}}</b></td>
               <ng-container *ngFor="let date of dates; let i =index">
                 <ng-container *ngIf="i!=5 && i!=6">
-                  <td *ngIf="i==0" class="tg-slot" (click)="slotClicked(date,t)">
+                  <td *ngIf="i==0" [class]="checkPassTime(date,t)" (click)="slotClicked(date,t)">
                     <div class="strike" *ngIf="checkMatchTime(t) && checkMatchDate(date)">
                       <span class="dot"></span>
                     </div>
                     <div class="showBooking">{{checkBooking(t,date)}}</div>
                   </td>
-                  <td *ngIf="i!=0" class="tg-slot" (click)="slotClicked(date,t)">
+                  <td *ngIf="i!=0" [class]="checkPassTime(date,t)" (click)="slotClicked(date,t)">
 
                     <div class="strike" *ngIf="checkMatchTime(t) && checkMatchDate(date)">
                       <span class="dot-transparent "></span>

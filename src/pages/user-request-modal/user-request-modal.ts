@@ -26,8 +26,8 @@ import { AvailableTime } from '../../class/AvailableTime';
   templateUrl: 'user-request-modal.html',
 })
 export class UserRequestModalPage implements OnInit {
-  dateSelected: Date;
-  timeSelected: any;
+  s1: Date;
+  s2: any;
   booking: Booking;
   userDetails: BookingUserDetails;
   userId: any;
@@ -51,8 +51,8 @@ export class UserRequestModalPage implements OnInit {
     private topicService: TopicService,
     private semesterGroupService: SemesterGroupService) {
     this.availableTimes = new Array();
-    this.dateSelected = this.navParams.get("dateSelected");
-    this.timeSelected = this.navParams.get("timeSelected");
+    this.s1 = this.navParams.get("s1");
+    this.s2 = this.navParams.get("s2");
     this.bookings = this.navParams.get("bookings");
     this.selectedTopic = new Array();
     this.minDate = new Date().toISOString();
@@ -168,19 +168,8 @@ export class UserRequestModalPage implements OnInit {
   }
   initAvailableTime() {
     this.availableTimes = new Array();
-    var timeS1 = ""+this.timeSelected;
-    if (this.timeSelected < 10) {
-      timeS1 = "0" + this.timeSelected + "";
-    }
-    let s = this.dateSelected.toISOString().substring(0, 10) + "T" + timeS1 + ":00:00Z";
-    var timeInt = this.timeSelected + 1;
-    var time = "" + timeInt;
-    if (timeInt < 10) {
-      time = "0" + timeInt + "";
-    }
-    let s2 = this.dateSelected.toISOString().substring(0, 10) + "T" + time + ":00:00Z";
-    let at = new AvailableTime(new Date(s), new Date(s2));
-    this.availableTimes.push({ date: new Date(s), time: [at] });
+    let at = new AvailableTime(new Date(this.s1), new Date(this.s2));
+    this.availableTimes.push({ date: new Date(this.s1), time: [at] });
     // this.dateStart = "2019-02-18T00:00:00Z";
     // this.dateEnd = "2019-02-20T00:00:00Z";
 
@@ -190,7 +179,6 @@ export class UserRequestModalPage implements OnInit {
     let day = d3.getDay();
     d3.setUTCHours(9);
     let hr = d3.getUTCHours() - 1;
-    let exit = 0;
     let added = true;
     while (!(d1.getUTCFullYear() == d3.getUTCFullYear() && d1.getUTCMonth() == d3.getUTCMonth() && d1.getUTCDate() == d3.getUTCDate())) {
       // while (exit < 20) {
@@ -231,8 +219,6 @@ export class UserRequestModalPage implements OnInit {
         added = false;
         hr = d3.getUTCHours();
       }
-      exit++;
-
 
     }
   }
