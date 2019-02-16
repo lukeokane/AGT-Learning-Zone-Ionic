@@ -73,6 +73,7 @@ export class UserRequestModalPage implements OnInit {
     this.booking.readByAdmin = false;
     this.booking.tutorRejectedCount = 0;
     this.booking.userComments = "";
+    this.booking.topics=new Array<Topic>();
     let now = new Date();
     this.booking.modifiedTimestamp = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds()));
     // console.log(this.booking.modifiedTimestamp.toISOString());
@@ -119,9 +120,7 @@ export class UserRequestModalPage implements OnInit {
     )
   }
   initTopic(subjectId) {
-    console.log(subjectId);
     this.topicService.getAllTopicsBySubjectId(subjectId).subscribe((response) => {
-      console.log(this.topics);
       this.topics = response;
 
     })
@@ -139,7 +138,12 @@ export class UserRequestModalPage implements OnInit {
 
     }
   }
-
+  onSubjectChange(){
+    this.booking.subject = this.subjects.find(x => x.id == this.booking.subjectId);
+    console.log(this.booking.subject);
+    this.topics=this.booking.subject.topics;
+    this.booking.topics=new Array();
+  }
   onClickContinue() {
     this.initAvailableTime();
     // let sTopic = "";
@@ -148,6 +152,8 @@ export class UserRequestModalPage implements OnInit {
     // })
     this.booking.subject = this.subjects.find(x => x.id == this.booking.subjectId);
     this.booking.title = this.booking.subject.title ;
+    console.log(this.booking.subject);
+
     let timeSlotModal = this.modalCtrl.create("UserRequestTimeslotPage", { booking: this.booking, dateStart: this.dateStart, dateEnd: this.dateEnd, availableTimes: this.availableTimes });
     timeSlotModal.onDidDismiss(data => {
       console.log(data);
@@ -221,7 +227,7 @@ export class UserRequestModalPage implements OnInit {
     }
   }
   checkValid() {
-    return this.selectedTopic.length == 0 || this.booking.subjectId == null || this.booking.subjectId == undefined || this.dateStart == null || this.dateStart == "" || this.dateStart == undefined || this.dateEnd == null || this.dateEnd == undefined || this.dateEnd == "";
+    return this.booking.topics.length == 0 || this.booking.subjectId == null || this.booking.subjectId == undefined || this.dateStart == null || this.dateStart == "" || this.dateStart == undefined || this.dateEnd == null || this.dateEnd == undefined || this.dateEnd == "";
   }
   getDateAfterDay(date,noOfDay) {
     var answer = new Date(date.getTime() + noOfDay* 24 * 60 * 60 * 1000);

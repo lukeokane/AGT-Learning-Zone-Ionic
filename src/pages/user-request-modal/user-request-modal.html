@@ -21,7 +21,7 @@
     </ion-row>
     <ion-row>
       <ion-col col-11 class="form-border">
-        <ion-select placeholder="Select Subjects" [(ngModel)]="booking.subjectId">
+        <ion-select placeholder="Select Subjects" [(ngModel)]="booking.subjectId" (ionChange)="onSubjectChange()">
           <ion-option *ngFor="let s of subjects " [value]="s.id">{{s.title}}</ion-option>
         </ion-select>
       </ion-col>
