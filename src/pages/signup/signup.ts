@@ -22,7 +22,7 @@ import { Semester } from '../../class/Semester';
 })
 export class SignupPage implements OnInit {
   // The account fields for the signup form
-  account: { login: string, email: string, firstName: string, lastName: string, password: string, langKey: string, course: string, year: number, semesterGroup: string } = {
+  account: { login: string, email: string, firstName: string, lastName: string, password: string, langKey: string, course: string, year: number, semesterGroupId: number } = {
     login: '',
     email: '',
     firstName: '',
@@ -31,7 +31,7 @@ export class SignupPage implements OnInit {
     langKey: 'en',
     course: '',
     year: 0,
-    semesterGroup: ''
+    semesterGroupId: 0
   };
 
   // Our translated text strings
@@ -54,6 +54,8 @@ export class SignupPage implements OnInit {
   queryCount: any;
   itemsPerPage: any;
 
+  selectedSemId: number;
+  selectedYear: CourseYear;
   constructor(public navCtrl: NavController,
     public user: User,
     public toastCtrl: ToastController,
@@ -199,6 +201,12 @@ export class SignupPage implements OnInit {
   }
 
   doSignup() {
+    this.account.semesterGroupId = this.selectedSemId;
+    this.account.year = this.selectedYear.id;
+    console.log(this.account);
+    console.log(this.selectedSemId);
+    console.log(this.selectedYear);
+
     // set login to same as email
     this.account.login = this.account.email;
     // Attempt to login in through our User service
