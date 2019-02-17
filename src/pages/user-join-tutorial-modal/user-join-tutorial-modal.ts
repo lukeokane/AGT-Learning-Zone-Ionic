@@ -22,6 +22,7 @@ export class UserJoinTutorialModalPage {
   userId: any;
   booking: Booking;
   userInfo: UserInfo;
+  topicsString: String;
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private viewCtrl: ViewController,
@@ -35,6 +36,10 @@ export class UserJoinTutorialModalPage {
       if (this.booking.userInfos == null || this.booking.userInfos == undefined) {
         this.booking.userInfos = new Array();
       }
+      this.topicsString = "";
+      this.booking.topics.forEach(value => {
+        this.topicsString = this.topicsString + value.title + " ";
+      })
     }
 
   }
@@ -44,7 +49,7 @@ export class UserJoinTutorialModalPage {
   }
   initBooking() {
     this.bookingsService.getBooking(this.booking.id).subscribe((response) => {
-      this.booking=response;
+      this.booking = response;
     },
       (error) => {
         console.error(error);
@@ -81,7 +86,7 @@ export class UserJoinTutorialModalPage {
       return value.userId == this.userId;
     })
   }
-  getTimeSubString(s:String,first,last){
-    return s.substring(first,last);
+  getTimeSubString(s: String, first, last) {
+    return s.substring(first, last);
   }
 }
