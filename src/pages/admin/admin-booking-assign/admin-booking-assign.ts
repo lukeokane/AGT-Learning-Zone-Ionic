@@ -152,6 +152,8 @@ export class AdminBookingAssignPage implements OnInit {
     // console.log("booking id ",this.selectedBooking.id);
 
     if (this.selectedBooking != null || this.selectedBooking != undefined) {
+      this.selectedBooking.tutorAccepted =true;
+      this.selectedBooking.tutorAcceptedId=tutorId;
       this.bookingService.saveBooking(this.selectedBooking);
       this.bookingService.updateBookingAcceptedTutorAssigned(this.selectedBooking,this.selectedBooking.id,this.adminId,tutorId);
       this.navCtrl.push(homePage);
