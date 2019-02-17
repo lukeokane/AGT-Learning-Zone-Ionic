@@ -36,9 +36,12 @@ export class UserJoinTutorialModalPage {
       if (this.booking.userInfos == null || this.booking.userInfos == undefined) {
         this.booking.userInfos = new Array();
       }
-      this.topicsString = "";
-      this.booking.topics.forEach(value => {
-        this.topicsString = this.topicsString + value.title + " ";
+      this.topicsString = "- ";
+      this.booking.topics.forEach((value, index, array) => {
+        this.topicsString = this.topicsString + value.title;
+        if (index != this.booking.topics.length - 1) {
+          this.topicsString = this.topicsString + ", ";
+        }
       })
     }
 
