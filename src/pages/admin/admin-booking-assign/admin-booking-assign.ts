@@ -8,7 +8,6 @@ import { IonicPage, NavController, NavParams, ToastController, AlertController }
 import { User } from '../../../class/User';
 import { UserInfo } from '../../../class/UserInfo';
 import { BookingsService } from '../../../services/Booking.provider';
-import { Principal } from '../../../providers/auth/principal.service';
 
 @IonicPage()
 @Component({
@@ -35,8 +34,7 @@ export class AdminBookingAssignPage implements OnInit {
       private toastCtrl: ToastController,
        private userInfoService: UserInfoService,
         private bookingService: BookingsService, 
-        private alertCtrl: AlertController,
-        private principal: Principal,
+        private alertCtrl: AlertController
         ) {
     if (this.navParams.get("selectedBooking") != null || this.navParams.get("selectedBooking") != undefined) {
       this.selectedBooking = this.navParams.get("selectedBooking");
