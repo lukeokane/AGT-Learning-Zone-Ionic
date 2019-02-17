@@ -18,17 +18,17 @@
     <ion-row>
       <h2 class="text-colour-darkgrey" style="text-align:center;margin: 0 auto;">{{booking.title}} {{topicsString}}</h2>
     </ion-row>
-    <ion-row class="text-colour-darkgrey">
+    <ion-row class="text-colour-darkgrey"  style="text-align:center;margin: 0 auto;">
       Date: {{getTimeSubString(booking.startTime,0,10)}}
     </ion-row>
-    <ion-row>
+    <ion-row  style="text-align:center;margin: 0 auto;">
       <ion-icon name="calendar"></ion-icon>
       <span class="padding-left-size text-colour-darkgrey">
           {{getTimeSubString(booking.startTime,11,16)}} - {{getTimeSubString(booking.endTime,11,16)}}
       </span>
     </ion-row>
 
-    <ion-row class="text-colour-darkgrey">
+    <ion-row class="text-colour-darkgrey"  style="text-align:center;margin: 0 auto;">
       Number of Students: {{getNoStudent()}}
     </ion-row>
     <ng-container *ngIf="checkBooked()">
