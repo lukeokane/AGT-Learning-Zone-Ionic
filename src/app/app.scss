@@ -131,3 +131,7 @@ only screen and (                min-resolution: 2dppx) {
 .text-colour-darkgrey{
   color:#4D4F5C;
 }
+
+.no-scroll .scroll-content{
+  overflow: hidden;
+}

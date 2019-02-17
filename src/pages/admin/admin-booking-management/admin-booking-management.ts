@@ -40,7 +40,7 @@ export class AdminBookingManagementPage implements OnInit {
   startTime: any;
   endTime: any;
   result = [];
-  empty:any;
+  empty:boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private bookingsService: BookingsService, private toastCtrl: ToastController, private userService: UserService, private semesterGroupService: SemesterGroupService, private subjectService: SubjectsService, private bookingService: BookingsService) {
   }
@@ -129,6 +129,7 @@ export class AdminBookingManagementPage implements OnInit {
 
   getTimes(event: any) {
     this.startTime = event;
+    this.FortmattedDates = this.FortmattedDates.sort((a, b) => a - b); // For ascending sort
     for (let i = 0; i < this.FortmattedDates.length; i++) {
       if (this.FortmattedDates[i] == event) {
         this.endTime = this.FortmattedDates[i + 1];
