@@ -36,7 +36,11 @@ export class UserJoinTutorialModalPage {
       if (this.booking.userInfos == null || this.booking.userInfos == undefined) {
         this.booking.userInfos = new Array();
       }
-      this.topicsString = "- ";
+      this.topicsString = "";
+      if(this.booking.topics.length==0){
+        this.topicsString = "Not Specified";
+
+      }
       this.booking.topics.forEach((value, index, array) => {
         this.topicsString = this.topicsString + value.title;
         if (index != this.booking.topics.length - 1) {

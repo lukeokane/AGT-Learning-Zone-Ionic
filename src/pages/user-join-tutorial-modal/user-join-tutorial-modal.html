@@ -16,20 +16,26 @@
 <ion-content padding>
   <ion-grid class="padding-grid">
     <ion-row>
-      <h2 class="text-colour-darkgrey" style="text-align:center;margin: 0 auto;">{{booking.title}} {{topicsString}}</h2>
+      <h2 class="text-colour-darkgrey" style="text-align:center;margin: 0 auto;">{{booking.title}}</h2>
     </ion-row>
     <ion-row class="text-colour-darkgrey"  style="text-align:center;margin: 0 auto;">
-      Date: {{getTimeSubString(booking.startTime,0,10)}}
-    </ion-row>
-    <ion-row  style="text-align:center;margin: 0 auto;">
-      <ion-icon name="calendar"></ion-icon>
-      <span class="padding-left-size text-colour-darkgrey">
-          {{getTimeSubString(booking.startTime,11,16)}} - {{getTimeSubString(booking.endTime,11,16)}}
+      <span>Date: <b> {{getTimeSubString(booking.startTime,0,10)}}</b></span>&nbsp;at&nbsp;<span class="text-colour-darkgrey">
+          <b>{{getTimeSubString(booking.startTime,11,16)}} - {{getTimeSubString(booking.endTime,11,16)}}</b>
       </span>
     </ion-row>
+    <!-- <ion-icon name="calendar"></ion-icon> -->
+    <!-- <ion-row  style="text-align:center;margin: 0 auto;">
+      <ion-icon name="calendar"></ion-icon>
+      <span class="padding-left-size text-colour-darkgrey">
+          <b>{{getTimeSubString(booking.startTime,11,16)}} - {{getTimeSubString(booking.endTime,11,16)}}</b>
+      </span>
+    </ion-row> -->
 
     <ion-row class="text-colour-darkgrey"  style="text-align:center;margin: 0 auto;">
       Number of Students: {{getNoStudent()}}
+    </ion-row>
+    <ion-row class="text-colour-darkgrey"  style="text-align:center;margin: 0 auto;">
+      Topics being covered: {{topicsString}}
     </ion-row>
     <ng-container *ngIf="checkBooked()">
       <ion-row class="text-colour-darkgrey" style="text-align:center;margin: 0 auto;">
