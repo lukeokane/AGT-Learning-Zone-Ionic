@@ -146,10 +146,7 @@ export class UserRequestModalPage implements OnInit {
   }
   onClickContinue() {
     this.initAvailableTime();
-    // let sTopic = "";
-    // this.selectedTopic.forEach(value => {
-    //   sTopic = sTopic + value.title + " ";
-    // })
+
     this.booking.subject = this.subjects.find(x => x.id == this.booking.subjectId);
     this.booking.title = this.booking.subject.title ;
     console.log(this.booking.subject);
