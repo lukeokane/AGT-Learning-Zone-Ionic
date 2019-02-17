@@ -45,13 +45,13 @@ export class AdminBookingAssignPage implements OnInit {
   }
 
   ngOnInit() {
-    this.adminId = this.principal.getUserId();
+    // this.adminId = this.principal.getUserId();
     // console.log("admin id  ",this.adminId);
     this.initUsers();
   }
 
   initUsers() {
-    this.itemsPerPage = 7;
+    this.itemsPerPage =  10;
     this.userService.getAllUsers(
       {
         page: this.page - 1,
@@ -144,8 +144,13 @@ export class AdminBookingAssignPage implements OnInit {
   assignToTutor(tutorId: number) {
     // console.log("tutor ",tutorId);
     // console.log("booking id",this.selectedBooking.id);
+    if(tutorId != null || tutorId != undefined)
+    {
+      this.selectedBooking.adminAcceptedId = tutorId;
+    }
+
     if (this.selectedBooking != null || this.selectedBooking != undefined) {
-      this.bookingService.updateBookingAcceptedTutorAssigned(this.selectedBooking,this.selectedBooking.id,this.adminId,tutorId);
+      this.bookingService.saveBooking(this.selectedBooking);
       this.navCtrl.push(homePage);
     }
   }

@@ -130,9 +130,9 @@
             </ion-col>
             <ion-col>
               <select [(ngModel)]="value" (ngModelChange)="getTimes($event)">
-                <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_TIMES' | translate}}</option>
+                <option *ngIf="startTime == null || startTime == undefined " [ngValue]="value" disabled [selected]="true">{{'CHOOSE_TIMES' | translate}}</option>
                 <ng-container *ngFor="let value of FortmattedDates; let i=index;let lst=last">
-                  <option *ngIf="i % 2 == 0" [ngValue]="value" [selected]="value">
+                  <option *ngIf="i % 2 == 0"  [ngValue]="value">
                     {{value | date}} <span *ngIf="value.getHours() < 10">0</span>{{value.getHours()}}:<span
                       *ngIf="value.getMinutes() < 10">0</span>{{value.getMinutes()}}
                     - {{FortmattedDates[i+1] | date}}
@@ -156,7 +156,7 @@
             <ion-col col-9>
               {{selectedBooking?.userComments}}
               <ng-container
-                *ngIf="selectedBooking?.userComments == null || selectedBooking?.userComments  == undefined || empty">
+                *ngIf="selectedBooking?.userComments == null || selectedBooking?.userComments  == undefined || !empty">
                 {{'NO_COMMENT' | translate}}
               </ng-container>
             </ion-col>
