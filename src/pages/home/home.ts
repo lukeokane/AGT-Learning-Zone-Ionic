@@ -31,9 +31,10 @@ export class HomePage implements OnInit {
     private loginService: LoginService,
     private modalCtrl: ModalController,
     private bookingService: BookingsService) {
-
     this.today = new Date();
-    this.generateDate(this.today);
+    let d = new Date();
+    d.setUTCHours(0);
+    this.generateDate(d);
     this.screenWidth = window.screen.width;
   }
 
@@ -124,7 +125,7 @@ export class HomePage implements OnInit {
     return Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
   }
   getStartEndDate() {
-    return this.dates[0].getDate() + " " + this.months[this.dates[0].getMonth()] + " - " + this.dates[this.dates.length-1].getDate() + " " + this.months[this.dates[this.dates.length-1].getMonth()];
+    return this.dates[0].getDate() + " " + this.months[this.dates[0].getMonth()] + " - " + this.dates[this.dates.length - 1].getDate() + " " + this.months[this.dates[this.dates.length - 1].getMonth()];
   }
   getMonday(d: Date) {
     d = new Date(d);
@@ -133,7 +134,7 @@ export class HomePage implements OnInit {
     return new Date(d.setDate(diff));
   }
   onNextWeek() {
-    var nextMonday = new Date(this.dates[this.dates.length-1].getTime());
+    var nextMonday = new Date(this.dates[this.dates.length - 1].getTime());
     nextMonday.setTime(nextMonday.getTime() + (24 * 60 * 60 * 1000));
     this.generateDate(nextMonday);
 
@@ -173,8 +174,12 @@ export class HomePage implements OnInit {
     let s2 = dateSelected.toISOString().substring(0, 10) + "T" + timeS1 + ":00:00Z";
     return { s, s2 }
   }
-  checkPreviousDisabled(){
-    if(this.today.getTime()>this.dates[0].getTime()){
+  checkPreviousDisabled() {
+    console.log(this.today.getTime());
+    console.log(this.today);
+    console.log(this.dates[0].getTime());
+    console.log(this.dates[0]);
+    if (this.today.getTime() > this.dates[0].getTime()) {
       return true;
     }
   }
@@ -183,7 +188,7 @@ export class HomePage implements OnInit {
     let s2 = this.getStartAndEndDate(dateSelected, timeSelected).s2;
     if (new Date() >= new Date(s2)) {
       return 'tg-slot-passed';
-    }else{
+    } else {
       return 'tg-slot'
     }
   }
