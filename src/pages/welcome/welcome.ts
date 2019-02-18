@@ -23,4 +23,10 @@ export class WelcomePage {
   signup() {
     this.navCtrl.push('SignupPage');
   }
+
+  
+  getScreenSize() {
+    return window.innerWidth;
+  }
+
 }

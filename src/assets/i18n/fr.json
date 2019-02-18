@@ -44,5 +44,21 @@
 
   "CARDS_TITLE": "Social",
 
-  "SEARCH_TITLE": "Recherche"
+  "SEARCH_TITLE": "Recherche",
+
+  "FORGOT_PASSWORD":"Mot de passe oublié",
+  "CONTINUE":"Continuer",
+  "WELCOME_TO_ITLC":"Bienvenue chez ITLC",
+  
+  "CHOOSE_A_COURSE":"Choisissez un cours",
+  "YEAR":"Année",
+  "CHOOSE_A_GROUP":"Choisissez un groupe",
+  "CHOOSE_A_YEAR":"Choisissez une année",
+
+  "MANAGE_BOOKING":"Gérer la réservation",
+  "LEVEL_OF_IMPORTANCE":"Niveau d'importance",
+  "TIME_AND_DATE":"Heure et date",
+  "COMMENTS":"commentaires",
+  "ASSIGN":"Attribuer",
+  "SELECT_A_BOOKING":"Sélectionnez une réservation"
 }

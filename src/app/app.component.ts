@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Config, Nav, Platform } from 'ionic-angular';
 import { MainPage } from '../pages/pages';
 import { Settings } from '../providers/providers';
+import { Principal } from '../providers/auth/principal.service';
 
 @Component({
   templateUrl: 'app.html'
@@ -16,17 +17,21 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   pages: any[] = [
-    { title: 'Welcome', component: 'WelcomePage' },
-    { title: 'Tabs', component: 'TabsPage' },
-    { title: 'Login', component: 'LoginPage' },
-    { title: 'Signup', component: 'SignupPage' },
-    { title: 'Menu', component: 'MenuPage' },
-    { title: 'Settings', component: 'SettingsPage' },
-    { title: 'Entities', component: 'EntityPage' }
+    // { title: 'Welcome', component: 'WelcomePage' },
+    // { title: 'Tabs', component: 'TabsPage' },
+    { title: 'Home', component: 'HomePage', role: "ROLE_ADMIN" },
+    { title: 'Manage Bookings', component: 'AdminBookingManagementPage', role: "ROLE_ADMIN" },
+    // { title: 'Signup', component: 'SignupPage' },
+    // { title: 'Menu', component: 'MenuPage' },
+    { title: 'Statistics', component: 'AdminStatisticsPage', role: "ROLE_ADMIN" },
+    { title: 'Settings', component: 'SettingsPage', role: "ROLE_ADMIN" },
+    { title: 'Home', component: 'UserHomePage', role: "ROLE_USER" },
+    { title: 'My Booking', component: 'UserMyBookingPage', role: "ROLE_USER" }
   ];
 
   constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config,
-              private statusBar: StatusBar, private splashScreen: SplashScreen) {
+    private statusBar: StatusBar, private splashScreen: SplashScreen,
+    private principal: Principal) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -35,7 +40,24 @@ export class MyApp {
     });
     this.initTranslate();
   }
+  checkAdminRole(p) {
+    if (this.principal.userIdentity != undefined && this.principal.userIdentity != null) {
+      if (this.principal.userIdentity.authorities.some(value => {
+        return value == "ROLE_ADMIN";
+      })) {
+        if (p.role == "ROLE_ADMIN") {
+          return true;
+        }
+      } else {
+        return this.principal.userIdentity.authorities.some(value => {
+          return value == p.role;
+        });
+      }
 
+    } else {
+      return false;
+    }
+  }
   initTranslate() {
     // Set the default language for translation strings, and the current language.
     this.translate.setDefaultLang('en');

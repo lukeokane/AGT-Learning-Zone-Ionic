@@ -1,3 +1,5 @@
+import { Booking } from './Booking';
+import { UserInfo } from './UserInfo';
 import { OrdinalScale } from "./OrdinalScale";
 
 export class BookingUserDetails {
@@ -9,7 +11,9 @@ export class BookingUserDetails {
         public userCheckInTime?:Date,
         public userCheckOutTime?:Date,
         public userCancelled?:boolean,
-        public tutorRejected?:boolean
+        public tutorRejected?:boolean,
+        public userInfo?:UserInfo,
+        public booking?:Booking
     )
     { }
 

@@ -1,7 +1,8 @@
+import { userHomePage, itlcHomePage, homePage, tutorHomePage } from './../pages';
+import { Principal } from './../../providers/auth/principal.service';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { IonicPage, NavController, ToastController } from 'ionic-angular';
-import { MainPage } from '../pages';
+import { IonicPage, NavController, ToastController, App } from 'ionic-angular';
 import { LoginService } from '../../providers/login/login.service';
 
 @IonicPage()
@@ -23,7 +24,10 @@ export class LoginPage {
   constructor(public navCtrl: NavController,
     public loginService: LoginService,
     public toastCtrl: ToastController,
-    public translateService: TranslateService) {
+    public translateService: TranslateService,
+    private principal: Principal,
+    private app: App
+  ) {
 
     this.translateService.get('LOGIN_ERROR').subscribe((value) => {
       this.loginErrorString = value;
@@ -32,15 +36,38 @@ export class LoginPage {
 
   // Attempt to login in through our User service
   doLogin() {
-    this.loginService.login(this.account).then((response) => {
-      this.navCtrl.push(MainPage);
-    }, (err) => {
+    this.loginService.login(this.account).then(() => {
+
+      if (this.principal.userIdentity.authorities.some(function (elem) {
+        return elem == "ROLE_ADMIN";
+      })) {
+        this.app.getRootNavs()[0].setRoot(homePage);
+      }
+      else if (this.principal.userIdentity.authorities.some(function (elem) {
+        return elem == "ROLE_USER";
+      })) {
+        this.app.getRootNavs()[0].setRoot(userHomePage);
+      }
+      else if (this.principal.userIdentity.authorities.some(function (elem) {
+        return elem == "ROLE_ITLC";
+      })) {
+        this.app.getRootNavs()[0].setRoot(itlcHomePage);
+      }
+      else if (this.principal.userIdentity.authorities.some(function (elem) {
+        return elem == "ROLE_TUTOR";
+      })) {
+        this.app.getRootNavs()[0].setRoot(tutorHomePage);
+      }
+    }).catch(() => {
       // Unable to log in
       this.account.password = '';
       let toast = this.toastCtrl.create({
         message: this.loginErrorString,
-        duration: 3000,
-        position: 'top'
+        duration: 4000,
+        position: 'bottom',
+        showCloseButton: true,
+        closeButtonText: 'Got it!',
+        cssClass: "toastCSS",
       });
       toast.present();
     });

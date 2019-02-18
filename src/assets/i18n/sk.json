@@ -27,9 +27,6 @@
   "TUTORIAL_SLIDE3_DESCRIPTION": "Potrebujete pomoc? Prečítajte si Super Starter README, v ktorom je popísaný komplený návod",
 
   "TUTORIAL_SLIDE4_TITLE": "Ste pripravený?",
-
-
-
   "WELCOME_INTRO": "Prvý krok vašej novej Ionic aplikácie.",
 
   "SETTINGS_TITLE": "Nastavenia",
@@ -39,17 +36,9 @@
   "SETTINGS_OPTION4": "Možnosť 4",
 
   "SETTINGS_PROFILE_BUTTON": "Upraviť profil",
-
-
   "SETTINGS_PAGE_PROFILE": "Profil",
 
-
   "WELCOME_TITLE": "Vitajte",
-
-
-
-
-
   "LOGIN_TITLE": "Prihlásenie",
   "LOGIN_ERROR": "Nedá sa prihlásiť. Skotrolujte zadané informácie a skuste to znova.",
   "LOGIN_BUTTON": "Prihlásiť",
@@ -62,10 +51,6 @@
   "ITEM_CREATE_TITLE": "Nová položka",
   "ITEM_CREATE_CHOOSE_IMAGE": "Pridať obrázok",
 
-
-
-
-
   "ITEM_NAME_PLACEHOLDER": "Názov",
   "ITEM_ABOUT_PLACEHOLDER": "O položke",
 
@@ -76,5 +61,21 @@
   "CARDS_TITLE": "Soc. siete",
 
   "SEARCH_TITLE": "Hľadať",
-  "SEARCH_PLACEHOLDER": "Napíšte hľadaný výraz, e.g. \"Donald Duck\""
+  "SEARCH_PLACEHOLDER": "Napíšte hľadaný výraz, e.g. \"Donald Duck\"",
+
+  "FORGOT_PASSWORD":"Zabudol si heslo",
+  "CONTINUE":"ďalej",
+  "WELCOME_TO_ITLC":"Vitajte v ITLC",
+  
+  "CHOOSE_A_COURSE":"Vyberte kurz",
+  "YEAR":"rok",
+  "CHOOSE_A_GROUP":"Vyberte skupinu",
+  "CHOOSE_A_YEAR":"Vyberte rok",
+
+  "MANAGE_BOOKING":"Správa rezervácie",
+  "LEVEL_OF_IMPORTANCE":"Úroveň dôležitosti",
+  "TIME_AND_DATE":"Čas a dátum",
+  "COMMENTS":"Komentáre",
+  "ASSIGN":"Priradiť",
+  "SELECT_A_BOOKING":"Vyberte rezerváciu"
 }

@@ -1,3 +1,5 @@
+import { Booking } from './Booking';
+import { UserInfo } from './UserInfo';
 export class Notification {
 
     constructor(
@@ -5,7 +7,10 @@ export class Notification {
         public timestamp?:Date,
         public message?:string,
         public senderImageURL?:string,
-        public read?:boolean
+        public read?:boolean,
+        public sender?:UserInfo,
+        public receiver?:UserInfo,
+        public booking?:Booking
     )
     { }
 

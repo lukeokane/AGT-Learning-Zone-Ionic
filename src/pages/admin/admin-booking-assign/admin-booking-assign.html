@@ -1,18 +1,59 @@
-<!--
-  Generated template for the AdminBookingAssignPage page.
+<top-menu></top-menu>
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>admin-booking-assign</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-
+<ion-content class="scroll">
+  <ion-col col-1>
+    <ion-row>
+      <ion-col col-1>
+        <button ion-button id="menu_button" menuToggle>
+          <div class="border-menu">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3" [style.margin-left]="20"></div>
+          </div>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-col>
+  <ion-col>
+    <ion-row padding justify-content-center>
+      <ion-col padding col-5 class="border" *ngFor="let tutor of filterTutors">
+        <ng-container *ngFor="let user of userInfos">
+          <ng-container *ngIf="tutor?.id == user?.userId">
+            <ion-row padding>
+              <ion-col col-2>
+                <div class="avatar">
+                  <img *ngIf="user.profileImageURL == null || user.profileImageURL == undefined"
+                    src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+                  <img *ngIf="user.profileImageURL != null || user.profileImageURL != undefined"
+                    src="assets/images/{{user.profileImageURL}}">
+                </div>
+              </ion-col>
+              <ion-col col-10>
+                {{tutor?.firstName}} {{tutor?.lastName}}
+                <br>
+                {{'TUTOR' | translate}}
+                <br>
+                {{'SKILLS' | translate}}:
+                <ng-container *ngIf="user?.tutorSkills != null || user?.tutorSkills != undefined">
+                  {{user?.tutorSkills}}
+                </ng-container>
+                <ng-container
+                  *ngIf="user?.tutorSkills == null || user?.tutorSkills == undefined || user?.tutorSkills ==''">
+                  {{'NO_SKILLS_SPECIFIED' | translate}}
+                </ng-container>
+                <br>
+                <hr>
+                <button class="alert" (click)="ContinueAlert(tutor.id)" ion-button>{{'ASSIGN' | translate}}</button>
+              </ion-col>
+            </ion-row>
+          </ng-container>
+        </ng-container>
+      </ion-col>
+      <ion-col *ngIf="filterTutors.length != 7" col-5></ion-col>
+    </ion-row>
+  </ion-col>
 </ion-content>
+<div class="row justify-content-center">
+  <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
+    [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+</div>

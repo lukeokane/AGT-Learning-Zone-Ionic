@@ -44,5 +44,21 @@
 
   "CARDS_TITLE": "Socialno",
 
-  "SEARCH_TITLE": "Iskanje"
+  "SEARCH_TITLE": "Iskanje",
+  
+  "FORGOT_PASSWORD":"Ste pozabili geslo",
+  "CONTINUE":"Nadaljuj",
+  "WELCOME_TO_ITLC":"Dobrodošli v ITLC",
+  
+  "CHOOSE_A_COURSE":"Izberite tečaj",
+  "YEAR":"Leto",
+  "CHOOSE_A_GROUP":"Izberite skupino",
+  "CHOOSE_A_YEAR":"Izberite leto",
+
+  "MANAGE_BOOKING":"Upravljanje rezervacije",
+  "LEVEL_OF_IMPORTANCE":"Raven pomembnosti",
+  "TIME_AND_DATE":"Čas in datum",
+  "COMMENTS":"Komentarji",
+  "ASSIGN":"Dodeli",
+  "SELECT_A_BOOKING":"Izberite rezervacijo"
 }

@@ -3,11 +3,11 @@ import { Page } from './app.po';
 
 export class LoginPage extends Page {
     // todo: figure out why more than one element exists
-    username = element.all(by.name('username')).get(1);
-    password = element.all(by.name('password')).get(1);
-    loginButton = element(by.id('login'));
-    signInButton = element(by.id('signIn'));
-    logoutButton = element(by.id('logout'));
+    username = element(by.name('username'));
+    password = element(by.name('password'));
+    loginButton = element(by.buttonText('Continue'));
+    signInButton = element(by.buttonText('Sign in'));
+    // logoutButton = element(by.id('logout'));
     header = element.all(by.css('ion-title')).get(1);
 
     getHeader() {
@@ -46,7 +46,7 @@ export class LoginPage extends Page {
         this.loginButton.click();
     }
 
-    logout() {
-        return this.logoutButton.click();
-    }
+    // logout() {
+    //     return this.logoutButton.click();
+    // }
 }

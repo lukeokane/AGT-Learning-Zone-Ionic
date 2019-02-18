@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import { Api } from '../providers/api/api';
+import { map } from 'rxjs/operators';
+
+type EntityArrayResponseType = HttpResponse<Course[]>;
 
 @Injectable()
 export class CourseService {
@@ -28,6 +31,21 @@ export class CourseService {
 
     delete(id: number): Observable<any> {
         return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response', responseType: 'text' });
+    }
+    
+    findAllCoursesList(req?: any): Observable<EntityArrayResponseType> {
+        const options = null;
+        return this.http.get<Course[]>(`${this.resourceUrl}/findAllCoursesList`, { params: options, observe: 'response' })
+        .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+    }
+
+    protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
+        if (res.body) {
+            res.body.forEach((course: Course) => {
+                // notification.timestamp = notification.timestamp != null ? moment(notification.timestamp) : null;
+            });
+        }
+        return res;
     }
 
 }

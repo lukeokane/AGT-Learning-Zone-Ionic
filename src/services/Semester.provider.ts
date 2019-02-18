@@ -1,3 +1,4 @@
+import { createRequestOption } from './../providers/request-util';
 import { Semester } from './../class/Semester';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
@@ -29,5 +30,33 @@ export class SemesterService {
     delete(id: number): Observable<any> {
         return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response', responseType: 'text' });
     }
+
+
+    query1( req?: any): Observable<HttpResponse<Semester[]>> {
+        const options = createRequestOption(req);
+        return this.http.get<Semester[]>(this.resourceUrl, { params: options, observe: 'response' })
+            .map((res: HttpResponse<Semester[]>) => this.convertArrayResponse(res));
+    }
+
+    private convertArrayResponse(res: HttpResponse<Semester[]>): HttpResponse<Semester[]> {
+        const jsonResponse: Semester[] = res.body;
+        const body: Semester[] = [];
+        if (jsonResponse != undefined && jsonResponse != null) {
+            for (let i = 0; i < jsonResponse.length; i++) {
+                body.push(this.convertItemFromServer(jsonResponse[i]));
+            }
+        }
+        return res.clone({ body });
+    }
+
+    /**
+* Convert a returned JSON object to Semester.
+*/
+    private convertItemFromServer(object: Semester): Semester {
+        const copy: Semester = Object.assign({}, object);
+        return copy;
+    }
+
+
 
 }

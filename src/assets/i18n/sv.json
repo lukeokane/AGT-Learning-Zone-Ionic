@@ -44,5 +44,21 @@
 
   "CARDS_TITLE": "Socialt",
 
-  "SEARCH_TITLE": "Sök"
+  "SEARCH_TITLE": "Sök",
+
+  "FORGOT_PASSWORD":"Glömt ditt lösenord",
+  "CONTINUE":"Fortsätta",
+  "WELCOME_TO_ITLC":"Välkommen till ITLC",
+  
+  "CHOOSE_A_COURSE":"Välj en kurs",
+  "YEAR":"År",
+  "CHOOSE_A_GROUP":"Välj en grupp",
+  "CHOOSE_A_YEAR":"Välj ett år",
+
+  "MANAGE_BOOKING":"Hantera bokning",
+  "LEVEL_OF_IMPORTANCE":"Nivå av betydelse",
+  "TIME_AND_DATE":"Tid och datum",
+  "COMMENTS":"kommentarer",
+  "ASSIGN":"Tilldela",
+  "SELECT_A_BOOKING":"Välj en bokning"
 }

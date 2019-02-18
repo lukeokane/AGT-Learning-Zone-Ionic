@@ -1,0 +1,17 @@
+<ion-header>
+
+  <ion-navbar class="center">
+    <ion-title>{{'SCAN_STUDENT_CARD' | translate}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding overflow-scroll="false" >
+  <div id="scanner">
+    <video autoplay="true" preload="auto"></video>
+    <canvas class="drawingBuffer"></canvas>
+    <p>{{'BARCODE_RESULT' | translate}}: <span class="found"></span>
+    </p>
+  </div>
+</ion-content>

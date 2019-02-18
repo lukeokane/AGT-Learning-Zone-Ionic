@@ -48,17 +48,17 @@
                 </select> -->
                 <i class="inside fa fa-desktop"></i>
                 <select padding class="input" (ngModel)="account.course" (ngModelChange)="initCourseYear($event)" name="course">
-                  <option [ngValue]="null" disabled [selected]="true">Choose a Course</option>
+                  <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_A_COURSE' | translate}}</option>
                   <option *ngFor="let value of courses; let i=index" [ngValue]="value">
-                    Year - {{value?.title}}
+                    {{'YEAR' | translate}} - {{value?.title}}
                 </select>
               </ion-col>
             </ion-row>
             <ion-row *ngIf="FilteredYears.length > 0 && FilteredYears != null && FilteredYears != undefined">
               <ion-col>
                 <i class="inside fa fa-calendar"></i>
-                <select padding class="input" (ngModel)="account.year" (ngModelChange)="initSemester($event)" name="year">
-                  <option [ngValue]="null" disabled [selected]="true">Choose a Year</option>
+                <select padding class="input" [(ngModel)]="selectedYear" (ngModelChange)="initSemester($event)" name="year">
+                  <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_A_YEAR' | translate}}</option>
                   <option *ngFor="let value of FilteredYears; let i=index" [ngValue]="value">
                     {{value?.courseYear}}
                 </select>
@@ -67,9 +67,9 @@
             <ion-row *ngIf="FilteredSemesterGroup != null && FilteredSemesterGroup != undefined">
               <ion-col>
                 <i class="inside fa fa-users"></i>
-                <select padding class="input" (ngModel)="account.semesterGroup" name="semesterGroup">
-                  <option [ngValue]="null" disabled [selected]="true">Choose a Group</option>
-                  <option *ngFor="let value of FilteredSemesterGroup; let i=index" [ngValue]="value">
+                <select padding class="input" [(ngModel)]="selectedSemId" name="semesterGroup">
+                  <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_A_GROUP' | translate}}</option>
+                  <option *ngFor="let value of FilteredSemesterGroup; let i=index" [value]="value.id">
                     {{value?.title}}
                 </select>
               </ion-col>
@@ -121,7 +121,7 @@
         <ion-col>
           <i class="inside fa fa-desktop"></i>
           <select padding class="inputReg" (ngModel)="account.course" (ngModelChange)="initCourseYear($event)" name="course">
-            <option [ngValue]="null" disabled [selected]="true">Choose a Course</option>
+            <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_A_YEAR' | translate}}</option>
             <option *ngFor="let value of courses; let i=index" [ngValue]="value">
               {{value?.title}}
           </select>
@@ -130,8 +130,8 @@
       <ion-row class="align" *ngIf="FilteredYears.length > 0 && FilteredYears != null && FilteredYears != undefined">
         <ion-col>
           <i class="inside fa fa-calendar"></i>
-          <select padding class="inputReg" (ngModel)="account.year" (ngModelChange)="initSemester($event)" name="year">
-            <option [ngValue]="null" disabled [selected]="true">Choose a Year</option>
+          <select padding class="inputReg" [(ngModel)]="selectedYear" (ngModelChange)="initSemester($event)" name="year">
+            <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_A_YEAR' | translate}}</option>
             <option *ngFor="let value of FilteredYears; let i=index" [ngValue]="value">
              Year - {{value?.courseYear}}
           </select>
@@ -140,9 +140,9 @@
       <ion-row class="align" *ngIf="FilteredSemesterGroup != null && FilteredSemesterGroup != undefined">
         <ion-col>
           <i class="inside fa fa-users"></i>
-          <select padding class="inputReg" (ngModel)="account.semesterGroup" name="semesterGroup">
-            <option [ngValue]="null" disabled [selected]="true">Choose a Group</option>
-            <option *ngFor="let value of FilteredSemesterGroup; let i=index" [ngValue]="value">
+          <select padding class="inputReg" [(ngModel)]="selectedSemId" name="semesterGroup">
+            <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_A_GROUP' | translate}}</option>
+            <option *ngFor="let value of FilteredSemesterGroup; let i=index" [value]="value.id">
               {{value?.title}}
           </select>
         </ion-col>
@@ -150,7 +150,7 @@
       <br>
       <ion-row>
         <ion-col class="align">
-          <button ion-button round class="signUpButton">{{ 'SIGNUP_BUTTON' | translate }}</button>
+          <button ion-button round class="signUpButton" (click)="doSignup()">{{ 'SIGNUP_BUTTON' | translate }}</button>
         </ion-col>
       </ion-row>
     </ng-container>

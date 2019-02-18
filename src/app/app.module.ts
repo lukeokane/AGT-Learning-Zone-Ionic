@@ -1,4 +1,6 @@
-import { Notification } from './../class/Notification';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserInfoService } from './../services/UserInfo.provider';
+import { BookingsService } from './../services/Booking.provider';
 import { SemesterService } from './../services/Semester.provider';
 import { CourseService } from './../services/Course.provider';
 import { SemesterGroupService } from './../services/SemesterGroup.provider';
@@ -18,13 +20,16 @@ import { MyApp } from './app.component';
 import { LoginService } from '../providers/login/login.service';
 import { Principal } from '../providers/auth/principal.service';
 import { AccountService } from '../providers/auth/account.service';
-import { NotificationService } from '../providers/Notification/notification.service';
+import { NotificationService } from '../providers/notification/notification.service';
 import { AuthServerProvider } from '../providers/auth/auth-jwt.service';
 import { LocalStorageService, SessionStorageService } from 'ngx-webstorage';
 import { AuthInterceptor } from '../providers/auth/auth-interceptor';
 import { EntityPageModule } from '../pages/entities/entity.module';
 import { ComponentsModule } from '../components/components.module';
-import { PopoverNotificationPage } from '../pages/popover-notification/popover-notification';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { UserService } from '../services/User.provider';
+import { SubjectsService } from '../services/Subject.provider';
+import { TopicService } from '../services/Topic.provider';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -49,13 +54,14 @@ export function provideSettings(storage: Storage) {
 
 @NgModule({
   declarations: [
-    MyApp ,
-    PopoverNotificationPage
+    MyApp
   ],
   imports: [
     BrowserModule,
     ComponentsModule,
     HttpClientModule,
+    ChartsModule,
+    NgbModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -69,8 +75,7 @@ export function provideSettings(storage: Storage) {
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp  ,
-    PopoverNotificationPage
+    MyApp
   ],
   providers: [
     Api,
@@ -86,6 +91,11 @@ export function provideSettings(storage: Storage) {
     CourseYearService,
     SemesterGroupService,
     SemesterService,
+    BookingsService,
+    UserService,
+    SubjectsService,
+    UserInfoService,
+    TopicService,
     Camera,
     SplashScreen,
     StatusBar,

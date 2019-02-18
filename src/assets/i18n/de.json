@@ -52,5 +52,21 @@
   "CARDS_TITLE": "Social",
 
   "SEARCH_TITLE": "Suche",
-  "SEARCH_PLACEHOLDER": "Suche in der Artikel-Liste, z.B. \"Donald Duck\""
+  "SEARCH_PLACEHOLDER": "Suche in der Artikel-Liste, z.B. \"Donald Duck\"",
+
+  "FORGOT_PASSWORD":"Passwort vergessen",
+  "CONTINUE":"Fortsetzen",
+  "WELCOME_TO_ITLC":"Willkommen bei ITLC",
+  
+  "CHOOSE_A_COURSE":"Kurs auswählen",
+  "YEAR":"Jahr",
+  "CHOOSE_A_GROUP":"Wähle eine Gruppe",
+  "CHOOSE_A_YEAR":"",
+
+  "MANAGE_BOOKING":"Wähle ein Jahr",
+  "LEVEL_OF_IMPORTANCE":"Wichtigkeit",
+  "TIME_AND_DATE":"Zeit und Datum",
+  "COMMENTS":"Bemerkungen",
+  "ASSIGN":"Zuordnen",
+  "SELECT_A_BOOKING":"Wählen Sie eine Buchung aus"
 }

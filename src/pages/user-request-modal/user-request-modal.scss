@@ -1,0 +1,67 @@
+page-user-request-modal {
+//priority style
+
+p {
+    width: 100%; 
+    text-align: center; 
+    // border-bottom: 1px solid #92E1DE; 
+    // line-height: 0.1em;
+    // margin: 10px 0 10px; 
+ } 
+ 
+ p span { 
+    //  background:#fff; 
+     padding:0 20px; 
+     display: inline;
+ }
+ .priority-btn{
+color:#FFCDA5;
+cursor: pointer;
+ }
+
+ //form style
+
+ .form-border
+{
+    margin:5px;
+    border: 1px solid  #92E1DE;
+    border-radius:1em;
+    background-color: #F6FFFF;
+}
+// .select-icon,.select-md .select-icon{
+//     float: right;;
+//     // position: fixed;
+// }
+ion-select{
+    max-width:100%;
+}
+ion-textarea {
+    margin:5px;
+    border: 1px solid  #92E1DE;
+}
+ion-button{
+    box-shadow:unset;
+    -webkit-box-shadow:unset;
+}
+.button-md:hover:not(.disable-hover) {
+    background-color: #92E1DE;
+}
+.cancel-btn{
+border:1px solid #FFCDA5;
+color:#FE787B;
+background-color: white;
+}
+.continue-btn{
+    background-color: #FE787B;
+    color: white;
+}
+.toolbar-background-md{
+    background-color:#202D31;
+}
+.padding-left-size{
+    padding-left: 10px;
+}
+.extra-padding{
+    padding: 5px;
+}
+}

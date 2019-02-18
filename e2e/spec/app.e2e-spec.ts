@@ -20,7 +20,7 @@ describe('App', () => {
 
     it('should have the correct title', () => {
       page.getTitle().then(title => {
-        expect(title).toEqual('Ionic App');
+        expect(title).toEqual('The Learning Zone');
       });
     });
   });

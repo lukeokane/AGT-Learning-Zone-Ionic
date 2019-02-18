@@ -1,12 +1,67 @@
-<ion-header>
+<!-- <ion-header>
     <ion-navbar>
         <ion-title>
             Welcome, Java Hipster!
         </ion-title>
     </ion-navbar>
+</ion-header> -->
+<ion-header>
+    <ion-navbar>
+    </ion-navbar>
 </ion-header>
+<ion-content>
+    <ion-row *ngIf="getScreenSize() < 1280">
+        <ion-col>
+            <img src="assets/imgs/LandingImg.png" style="opacity:0.6;width:100%">
+        </ion-col>
+    </ion-row>
+    <ion-row *ngIf="getScreenSize() >= 1280" style="text-align:center">
+        <ion-col>
+            <img src="assets/imgs/LandingImg.png" style="width:40%;opacity:0.6">
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col class="text">
+            <h1>IT Learning Center</h1>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col class="text">
+            The ITLC's main aim is to help you achieve
+            better grades. It is a great resource if you
+            want to learn more about or get a quick
+            refresher on different subjects.
+            <ng-container *ngIf="getScreenSize() >= 1280">
+                <br>Our friendly
+                mentors ensure that you achieve your best!
+            </ng-container>
+            <ng-container *ngIf="getScreenSize() < 1280">
+                Our Friendly
+                mentors ensure that you achieve your best!
+            </ng-container>
+        </ion-col>
+    </ion-row>
+    <br><br>
+    <ion-row class="align-center">
+        <ion-col>
+            <button *ngIf="getScreenSize() >= 1280" padding ion-button round class="continueBtnDeskTop" (click)="login()" id="signIn">
+                {{'LOGIN' | translate}}
+            </button>
+            <button *ngIf="getScreenSize() < 1280" padding ion-button round class="continueBtnDeskMob" (click)="login()" id="signIn">
+                {{'LOGIN' | translate}}
+            </button>
+        </ion-col>
+    </ion-row>
+    <ion-row class="align-center">
+        <ion-col>
+            <button *ngIf="getScreenSize() >= 1280" padding ion-button round class="continueBtnDeskTop" (click)="signup()">{{ 'SIGNUP' | translate }}</button>
+            <button *ngIf="getScreenSize() < 1280" padding ion-button round class="continueBtnDeskMob" (click)="signup()">{{ 'SIGNUP' | translate }}</button>
 
-<ion-content padding>
+        </ion-col>
+    </ion-row>
+</ion-content>
+
+<!-- <ion-content padding>
     <span class="hipster"></span>
     <div>
         <button ion-button block (click)="login()" id="signIn">{{ 'LOGIN' | translate }}</button>
@@ -15,4 +70,4 @@
         <button ion-button block (click)="signup()">{{ 'SIGNUP' | translate }}</button>
 
     </div>
-</ion-content>
+</ion-content> -->
