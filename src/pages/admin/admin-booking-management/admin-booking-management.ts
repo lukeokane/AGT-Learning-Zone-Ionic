@@ -103,6 +103,7 @@ export class AdminBookingManagementPage implements OnInit {
     this.totalItems = headers.get('X-Total-Count');
     this.queryCount = this.totalItems;
     this.bookings = data;
+    console.log("Bookings ", this.bookings);
 
     this.bookings.forEach(booking => {
       this.initSubjects(booking.subjectId);

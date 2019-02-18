@@ -40,13 +40,17 @@ export class AdminBookingAssignPage implements OnInit {
         ) {
     if (this.navParams.get("selectedBooking") != null || this.navParams.get("selectedBooking") != undefined) {
       this.selectedBooking = this.navParams.get("selectedBooking");
+      console.log("SELECTED BOOKING", this.selectedBooking);
     }
 
   }
 
   ngOnInit() {
-    this.adminId = this.principal.getUserId();
-    // console.log("admin id  ",this.adminId);
+    if(this.principal != null || this.principal != undefined)
+    {
+      this.adminId = this.principal.getUserId();
+    }
+    console.log("admin id  ",this.adminId);
     this.initUsers();
   }
 

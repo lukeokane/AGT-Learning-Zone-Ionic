@@ -33,13 +33,32 @@
             data-placement="top" title="{{booking?.requestedBy}}">
             <ion-row>
               <ng-container *ngFor="let user of findUserBookings">
-                <ng-container *ngFor="let info of booking?.userInfos">
-                  <ng-container *ngIf="user?.id == info?.userId">
+                <ng-container *ngIf="booking?.userInfos.length == 1">
+                  <ng-container *ngFor="let info of booking?.userInfos">
+                    <ng-container *ngIf="user?.id == info?.userId">
+                      <ion-col class="avatar" col-2>&nbsp;&nbsp;
+                        <img *ngIf="info.profileImageURL == null || info.profileImageURL == undefined"
+                          src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+                        <img *ngIf="info.profileImageURL != null || info.profileImageURL != undefined"
+                          src="assets/images/{{info.profileImageURL}}">
+                      </ion-col>
+                      <ion-col col-6 class="top">&nbsp;&nbsp;{{user?.firstName}} {{user?.lastName}}</ion-col>
+                      <ion-col col-2></ion-col>
+                    </ng-container>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+              <ng-container *ngFor="let user of findUserBookings">
+                <ng-container *ngIf="booking?.userInfos.length > 1">
+                  <!-- <ng-container *ngFor="let info of booking?.userInfos;let i=index"> -->
+                  <ng-container *ngIf="user?.id == booking?.userInfos[booking?.userInfos.length -1]?.userId">
                     <ion-col class="avatar" col-2>&nbsp;&nbsp;
-                      <img *ngIf="info.profileImageURL == null || info.profileImageURL == undefined"
+                      <img
+                        *ngIf="booking?.userInfos[booking?.userInfos.length -1]?.profileImageURL == null || booking?.userInfos[booking?.userInfos.length -1]?.profileImageURL == undefined"
                         src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
-                      <img *ngIf="info.profileImageURL != null || info.profileImageURL != undefined"
-                        src="assets/images/{{info.profileImageURL}}">
+                      <img
+                        *ngIf="booking?.userInfos[booking?.userInfos.length - 1]?.profileImageURL != null || booking?.userInfos[booking?.userInfos.length -1]?.profileImageURL != undefined"
+                        src="assets/images/{{booking?.userInfos[booking?.userInfos.length -1]?.profileImageURL}}">
                     </ion-col>
                     <ion-col col-6 class="top">&nbsp;&nbsp;{{user?.firstName}} {{user?.lastName}}</ion-col>
                     <ion-col col-2></ion-col>
@@ -68,28 +87,58 @@
     <ng-container *ngIf="selectedBooking != null && selectedBooking != undefined">
       <ion-col col-8>
         <br>
-        <ng-container *ngFor="let user of findUserBookings">
-          <ng-container *ngFor="let info of selectedBooking?.userInfos">
-            <ng-container *ngIf="user?.id == info?.userId">
-              <ion-avatar class="avatar">
-                <br><br><br>
-                <img *ngIf="info.profileImageURL == null || info.profileImageURL == undefined"
-                  src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
-                <img *ngIf="info.profileImageURL != null || info.profileImageURL != undefined"
-                  src="assets/images/{{info.profileImageURL}}">
-              </ion-avatar>
-              <h6>&emsp;&emsp;&emsp;{{user?.firstName}} {{user?.lastName}}</h6>
-              &nbsp;&emsp;&emsp;&emsp;{{user?.email}} 
+        <ng-container *ngIf="selectedBooking.userInfos.length ==1">
+          <ng-container *ngFor="let user of findUserBookings">
+            <ng-container *ngFor="let info of selectedBooking?.userInfos">
+              <ng-container *ngIf="user?.id == info?.userId">
+                <ion-avatar class="avatar">
+                  <br><br><br>
+                  <img *ngIf="info.profileImageURL == null || info.profileImageURL == undefined"
+                    src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+                  <img *ngIf="info.profileImageURL != null || info.profileImageURL != undefined"
+                    src="assets/images/{{info.profileImageURL}}">
+                </ion-avatar>
+                <h6>&emsp;&emsp;&emsp;{{user?.firstName}} {{user?.lastName}}</h6>
+                &nbsp;&emsp;&emsp;&emsp;{{user?.email}}
+              </ng-container>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngFor="let semesterGroup of semesterGroups;let lst = last">
+            <ng-container *ngFor="let info of selectedBooking?.userInfos">
+              <ng-container *ngIf="semesterGroup?.id == info?.semesterGroupId">
+                - {{semesterGroup?.title}}
+              </ng-container>
             </ng-container>
           </ng-container>
         </ng-container>
-        <ng-container *ngFor="let semesterGroup of semesterGroups;let lst = last">
-          <ng-container *ngFor="let info of selectedBooking?.userInfos">
-            <ng-container *ngIf="semesterGroup?.id == info?.semesterGroupId">
-                - {{semesterGroup?.title}} 
-            </ng-container>
-          </ng-container>
+        <ng-container *ngIf="selectedBooking.userInfos.length > 1">
+          <ion-row>
+            <ion-col col-1></ion-col>
+            <ion-col *ngFor="let info of selectedBooking?.userInfos">
+              <ng-container *ngFor="let user of findUserBookings">
+                <ng-container *ngIf="user?.id == info?.userId">
+                  <ion-avatar class="avatar">
+                    <br><br><br>
+                    <img *ngIf="info.profileImageURL == null || info.profileImageURL == undefined"
+                      src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+                    <img *ngIf="info.profileImageURL != null || info.profileImageURL != undefined"
+                      src="assets/images/{{info.profileImageURL}}">
+                  </ion-avatar>
+                  <h6>&emsp;&emsp;&emsp;{{user?.firstName}} {{user?.lastName}}</h6>
+                  &nbsp;&emsp;&emsp;&emsp;{{user?.email}}
+                </ng-container>
+              </ng-container>
+            </ion-col>
+            <ion-col></ion-col>
+          </ion-row>
         </ng-container>
+        <!-- <ng-container *ngFor="let semesterGroup of semesterGroups;let lst = last">
+              <ng-container *ngFor="let info of selectedBooking?.userInfos">
+                <ng-container *ngIf="semesterGroup?.id == info?.semesterGroupId">
+                  - {{semesterGroup?.title}}
+                </ng-container>
+              </ng-container>
+            </ng-container> -->
         <hr>
         <div class="theme">
           <br>
@@ -130,9 +179,10 @@
             </ion-col>
             <ion-col>
               <select [(ngModel)]="value" (ngModelChange)="getTimes($event)">
-                <option *ngIf="startTime == null || startTime == undefined " [ngValue]="value" disabled [selected]="true">{{'CHOOSE_TIMES' | translate}}</option>
+                <option *ngIf="startTime == null || startTime == undefined " [ngValue]="value" disabled
+                  [selected]="true">{{'CHOOSE_TIMES' | translate}}</option>
                 <ng-container *ngFor="let value of FortmattedDates; let i=index;let lst=last">
-                  <option *ngIf="i % 2 == 0"  [ngValue]="value">
+                  <option *ngIf="i % 2 == 0" [ngValue]="value">
                     {{value | date}} <span *ngIf="value.getHours() < 10">0</span>{{value.getHours()}}:<span
                       *ngIf="value.getMinutes() < 10">0</span>{{value.getMinutes()}}
                     - {{FortmattedDates[i+1] | date}}
