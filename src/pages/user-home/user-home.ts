@@ -39,7 +39,9 @@ export class UserHomePage {
     private bookingService: BookingsService) {
 
     this.today = new Date();
-    this.generateDate(this.today);
+    let d = new Date();
+    d.setUTCHours(0);
+    this.generateDate(d);
     this.screenWidth = window.screen.width;
   }
 
@@ -245,12 +247,12 @@ export class UserHomePage {
     let s2 = this.getStartAndEndDate(dateSelected, timeSelected).s2;
     if (new Date() >= new Date(s2)) {
       return 'tg-slot-passed';
-    }else{
+    } else {
       return 'tg-slot'
     }
   }
-  checkPreviousDisabled(){
-    if(this.today.getTime()>this.dates[0].getTime()){
+  checkPreviousDisabled() {
+    if (this.today.getTime() > this.dates[0].getTime()) {
       return true;
     }
   }
