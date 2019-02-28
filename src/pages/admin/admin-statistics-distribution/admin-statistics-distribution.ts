@@ -25,9 +25,9 @@ export class AdminStatisticsDistributionPage {
   toDate: any;
   fromDate: any;
   selectedYear: string;
+  selectedCourse: string;
   courses: Course[];
   subjects: Subject[];
-  selectedCourse: string;
   bookings: Array<Booking>;
   labels: string[] = [];
   data: number[] = [];

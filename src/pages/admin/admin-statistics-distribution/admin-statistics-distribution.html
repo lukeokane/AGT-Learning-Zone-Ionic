@@ -19,7 +19,6 @@
       Tutorial Distribution
     </p>
   </div>
-  <!-- <button on-click="debug()">Click me </button> -->
   <form (submit)="generateChart()">
     <ion-grid>
       <ion-row text-center>
@@ -43,9 +42,9 @@
               [ngModelOptions]="{standalone: true}">
               <option value="all">All</option>
               <option>1</option>
-              <option value="two">2</option>
-              <option value="three">3</option>
-              <option value="four">4</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
             </select>
           </div>
         </ion-col>
@@ -54,7 +53,6 @@
             <h4>Start date</h4>
             <div>
               <div class="input-group-prepend">
-                <!-- <span class="input-group-text">from</span> -->
               </div>
               <input type="date" class="form-control" name="start" [(ngModel)]="fromDate" [ngModelOptions]="{standalone: true}"
                 required />
@@ -66,7 +64,6 @@
             <div>
               <h4>End date</h4>
               <div class="input-group-append">
-                <!-- <span class="input-group-text">To</span> -->
               </div>
               <input type="date" class="form-control" name="end" [(ngModel)]="toDate" [ngModelOptions]="{standalone: true}"
                 required />

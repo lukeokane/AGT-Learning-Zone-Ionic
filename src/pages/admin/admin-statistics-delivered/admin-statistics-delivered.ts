@@ -22,11 +22,11 @@ import { DatePipe } from '@angular/common';
 })
 export class AdminStatisticsDeliveredPage {
 
-  toDate: string;
-  fromDate: string;
-  selectedYear: any;
+  toDate: any;
+  fromDate: any;
+  selectedYear: string;
+  selectedCourse: string;
   courses: Course[];
-  selectedCourse: Course;
   bookings: Array<Booking>;
   months: Array<any> = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
   monthsName: Array<string> = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -34,6 +34,8 @@ export class AdminStatisticsDeliveredPage {
   pos: number = 0;
   label: any ='Tutorials Delivered';
   lineChartDataFinal: Array<any> = [];
+  barChartLegend = true;
+  barChartType = 'bar';
   
   // public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
@@ -45,7 +47,7 @@ export class AdminStatisticsDeliveredPage {
 
   ];
 
-
+  
   public lineChartLabels2: Array<any> = [];
 
   public lineChartOptions: any = {
@@ -91,6 +93,39 @@ export class AdminStatisticsDeliveredPage {
 
     if (this.selectedCourse == "all" && this.selectedYear == "all") {
       this.bookingsService.findAllBookingsDistributionList(this.fromDate, this.toDate).subscribe(data => {
+        this.bookings = data.body;
+        console.log(this.bookings);
+        this.filterBookingsByDate();
+      }, error => {
+        console.log(error);
+      });
+    }
+
+    if (this.selectedCourse == "all" && this.selectedYear != "all") {
+      console.log("got here all courses and a selected year");
+      this.bookingsService.findAllBookingsAllCoursesSelectedYear(this.fromDate, this.toDate, this.selectedYear).subscribe(data => {
+        this.bookings = data.body;
+        console.log(this.bookings);
+        this.filterBookingsByDate();
+      }, error => {
+        console.log(error);
+      });
+    }
+
+    if (this.selectedCourse != "all" && this.selectedYear != "all") {
+      console.log("got here seleceted course and selected year");
+      this.bookingsService.findAllBookingsSelectedCourseAndSelectedYear(this.fromDate, this.toDate, this.selectedCourse, this.selectedYear).subscribe(data => {
+        this.bookings = data.body;
+        console.log(this.bookings);
+        this.filterBookingsByDate();
+      }, error => {
+        console.log(error);
+      });
+    }
+
+    if (this.selectedCourse != "all" && this.selectedYear == "all") {
+      console.log("got here seleceted course and all years");
+      this.bookingsService.findAllBookingsSelectedCourseAndAllYears(this.fromDate, this.toDate, this.selectedCourse).subscribe(data => {
         this.bookings = data.body;
         console.log(this.bookings);
         this.filterBookingsByDate();

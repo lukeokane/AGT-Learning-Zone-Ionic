@@ -21,6 +21,7 @@ export class Booking {
         public tutorRejectedCount?:number,
         public cancelled?:boolean,
         public bookingUserDetails?: Array<BookingUserDetails>,
+        public bookingUserDetailsDTO?: Array<BookingUserDetails>,
         public subject?:Subject,
         public userInfos?: Array<UserInfo>,
         public notifications?:Array<Notification>,

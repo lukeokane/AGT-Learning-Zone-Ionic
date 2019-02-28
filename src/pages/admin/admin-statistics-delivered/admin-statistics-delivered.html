@@ -43,9 +43,9 @@
                   [ngModelOptions]="{standalone: true}">
                   <option value="all">All</option>
                   <option>1</option>
-                  <option value="two">2</option>
-                  <option value="three">3</option>
-                  <option value="four">4</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
                 </select>
               </div>
             </ion-col>
@@ -90,7 +90,7 @@
     <div class="row">
         <ng-container *ngIf="lineChartDataFinal.length > 0">
         <div class="col-md-12">
-          <div style="display: block;">
+          <!-- <div style="display: block;">
           <canvas baseChart width="1400" height="500"
                       [datasets]="lineChartData"
                       [labels]="lineChartLabels2"
@@ -99,7 +99,18 @@
                       [legend]="lineChartLegend"
                       [chartType]="lineChartType"
                       (chartHover)="chartHovered($event)"></canvas>
-          </div>
+          </div> -->
+          <div>
+              <div style="display: block">
+                <canvas baseChart
+                        [datasets]="lineChartData"
+                        [labels]="lineChartLabels2"
+                        [options]="lineChartOptions"
+                        [legend]="barChartLegend"
+                        [chartType]="barChartType">
+                </canvas>
+              </div>
+            </div>
         </div>
         </ng-container>
       </div>
