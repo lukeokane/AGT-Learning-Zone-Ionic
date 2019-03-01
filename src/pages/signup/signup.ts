@@ -79,7 +79,6 @@ export class SignupPage implements OnInit {
   ngOnInit() {
     this.initCourses();
     this.initCourseYear(event);
-    this.initSemester(event);
   }
 
 

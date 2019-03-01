@@ -99,8 +99,8 @@ export class UserRequestModalPage implements OnInit {
       if (typeof (refresher) !== 'undefined') {
         refresher.complete();
       }
-      var semesterGroupId = userInfo.semesterGroupId;
-      this.initSubject(semesterGroupId);
+      // var semesterGroupId = userInfo.semesterGroupId;
+      // this.initSubject(semesterGroupId);
     },
       (error) => {
         console.error(error);
