@@ -1,6 +1,4 @@
-import { SubjectsService } from './../../../services/Subject.provider';
-import { SemesterGroupService } from './../../../services/SemesterGroup.provider';
-import { SemesterGroup } from './../../../class/SemesterGroup';
+import { SubjectsService } from './../../../services/Subject.provider';;
 import { UserService } from './../../../services/User.provider';
 import { HttpResponse } from '@angular/common/http';
 import { BookingsService } from './../../../services/Booking.provider';
@@ -29,7 +27,6 @@ export class AdminBookingManagementPage implements OnInit {
   totalItems: any;
   queryCount: any;
   findUserBookings: Array<User>;
-  semesterGroups: Array<SemesterGroup>;
   subjects: Array<Subject>;
   predicate: any = 'id';
   previousPage: any;
@@ -42,7 +39,7 @@ export class AdminBookingManagementPage implements OnInit {
   result = [];
   empty:boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private bookingsService: BookingsService, private toastCtrl: ToastController, private userService: UserService, private semesterGroupService: SemesterGroupService, private subjectService: SubjectsService, private bookingService: BookingsService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private bookingsService: BookingsService, private toastCtrl: ToastController, private userService: UserService, private subjectService: SubjectsService, private bookingService: BookingsService) {
   }
 
   ngOnInit() {
@@ -75,15 +72,15 @@ export class AdminBookingManagementPage implements OnInit {
   }
 
   initSemesterGroup(semesterGroupId: any) {
-    this.semesterGroups = [];
-    if (semesterGroupId != null || semesterGroupId != undefined) {
-      this.semesterGroupService.find(semesterGroupId).subscribe((response) => {
-        this.semesterGroups.push(response);
-        this.semesterGroups = this.semesterGroups.filter(function (a) {
-          return !this[a.id] && (this[a.id] = true);
-        }, Object.create(null));
-      })
-    }
+    // this.semesterGroups = [];
+    // if (semesterGroupId != null || semesterGroupId != undefined) {
+    //   this.semesterGroupService.find(semesterGroupId).subscribe((response) => {
+    //     this.semesterGroups.push(response);
+    //     this.semesterGroups = this.semesterGroups.filter(function (a) {
+    //       return !this[a.id] && (this[a.id] = true);
+    //     }, Object.create(null));
+    //   })
+    // }
   }
 
 
@@ -108,7 +105,7 @@ export class AdminBookingManagementPage implements OnInit {
     this.bookings.forEach(booking => {
       this.initSubjects(booking.subjectId);
       booking.userInfos.forEach(userInfo => {
-        this.initSemesterGroup(userInfo.semesterGroupId);
+        // this.initSemesterGroup(userInfo.semesterGroupId);
       });
     });
   }

@@ -1,9 +1,7 @@
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserInfoService } from './../services/UserInfo.provider';
 import { BookingsService } from './../services/Booking.provider';
-import { SemesterService } from './../services/Semester.provider';
 import { CourseService } from './../services/Course.provider';
-import { SemesterGroupService } from './../services/SemesterGroup.provider';
 import { CourseYearService } from './../services/CourseYear.provider';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -89,8 +87,6 @@ export function provideSettings(storage: Storage) {
     SessionStorageService,
     CourseService,
     CourseYearService,
-    SemesterGroupService,
-    SemesterService,
     BookingsService,
     UserService,
     SubjectsService,

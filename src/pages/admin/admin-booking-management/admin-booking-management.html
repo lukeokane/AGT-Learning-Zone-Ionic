@@ -103,13 +103,13 @@
               </ng-container>
             </ng-container>
           </ng-container>
-          <ng-container *ngFor="let semesterGroup of semesterGroups;let lst = last">
+          <!-- <ng-container *ngFor="let semesterGroup of semesterGroups;let lst = last">
             <ng-container *ngFor="let info of selectedBooking?.userInfos">
               <ng-container *ngIf="semesterGroup?.id == info?.semesterGroupId">
                 - {{semesterGroup?.title}}
               </ng-container>
             </ng-container>
-          </ng-container>
+          </ng-container> -->
         </ng-container>
         <ng-container *ngIf="selectedBooking.userInfos.length > 1">
           <ion-row>

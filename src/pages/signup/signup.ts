@@ -1,6 +1,5 @@
 import { HttpResponse } from '@angular/common/http';
 import { CourseService } from './../../services/Course.provider';
-import { SemesterGroupService } from './../../services/SemesterGroup.provider';
 import { CourseYear } from './../../class/CourseYear';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -8,11 +7,8 @@ import { IonicPage, NavController, ToastController } from 'ionic-angular';
 
 import { User } from '../../providers/providers';
 import { MainPage } from '../pages';
-import { SemesterGroup } from '../../class/SemesterGroup';
 import { CourseYearService } from '../../services/CourseYear.provider';
 import { Course } from '../../class/Course';
-import { SemesterService } from '../../services/Semester.provider';
-import { Semester } from '../../class/Semester';
 
 
 @IonicPage()
@@ -39,15 +35,13 @@ export class SignupPage implements OnInit {
   private signupSuccessString: string;
   private existingUserError: string;
   private invalidPasswordError: string;
-  semester: Array<Semester>;
-  semesterGroup: Array<SemesterGroup>;
+
   courseYears: Array<CourseYear>;
   FilteredYears: Array<CourseYear>;
   courses: Array<Course>;
   arr: Array<Course>;
   newArr: any;
-  FilteredSemesters: Array<Semester> = [];
-  FilteredSemesterGroup: Array<SemesterGroup>;
+
   page: number;
   data: any;
   totalItems: any;
@@ -61,9 +55,7 @@ export class SignupPage implements OnInit {
     public toastCtrl: ToastController,
     public translateService: TranslateService,
     private courseService: CourseService,
-    private courseYearService: CourseYearService,
-    private semesterService: SemesterService,
-    private semesterGroupService: SemesterGroupService,
+    private courseYearService: CourseYearService
   ) {
 
     this.translateService.get(['SIGNUP_ERROR', 'SIGNUP_SUCCESS',
@@ -126,77 +118,77 @@ export class SignupPage implements OnInit {
   }
 
   initSemester(event: any, refresher?) {
-    this.itemsPerPage = 30;
-    this.FilteredSemesters = [];
-    if (event != null && event != undefined) {
-      this.arr = [event];
-    }
+    // this.itemsPerPage = 30;
+    // this.FilteredSemesters = [];
+    // if (event != null && event != undefined) {
+    //   this.arr = [event];
+    // }
 
-    this.semesterService.query1({
-      page: this.page - 1,
-      size: this.itemsPerPage
-    }).subscribe(
-      (res: HttpResponse<Semester[]>) => {
-        this.onSuccess(res.body, res.headers, this.arr)
-      },
-      (error) => {
-        console.error(error);
-        let toast = this.toastCtrl.create({ message: 'Failed to load data', duration: 2000, position: 'middle' });
-        toast.present();
-      });
+    // this.semesterService.query1({
+    //   page: this.page - 1,
+    //   size: this.itemsPerPage
+    // }).subscribe(
+    //   (res: HttpResponse<Semester[]>) => {
+    //     this.onSuccess(res.body, res.headers, this.arr)
+    //   },
+    //   (error) => {
+    //     console.error(error);
+    //     let toast = this.toastCtrl.create({ message: 'Failed to load data', duration: 2000, position: 'middle' });
+    //     toast.present();
+    //   });
   }
 
 
   private onSuccess(data, headers, arr) {
-    this.semester = [];
-    this.arr = arr;
-    this.totalItems = headers.get('X-Total-Count');
-    this.queryCount = this.totalItems;
-    this.semester = data;
-    for (let i = 0; i < this.semester.length; i++) {
-      if (this.arr != null && this.arr != undefined) {
-        if (this.semester[i].courseYearId == this.arr[0].id) {
-          Array.of(this.semester[i]);
-          this.FilteredSemesters.push(this.semester[i]);
-        }
-      }
-    }
-    if (this.FilteredSemesters != null && this.FilteredSemesters != undefined && this.FilteredSemesters.length > 0) {
-      this.initSemesterGroups(this.FilteredSemesters);
-    }
+    // this.semester = [];
+    // this.arr = arr;
+    // this.totalItems = headers.get('X-Total-Count');
+    // this.queryCount = this.totalItems;
+    // this.semester = data;
+    // for (let i = 0; i < this.semester.length; i++) {
+    //   if (this.arr != null && this.arr != undefined) {
+    //     if (this.semester[i].courseYearId == this.arr[0].id) {
+    //       Array.of(this.semester[i]);
+    //       this.FilteredSemesters.push(this.semester[i]);
+    //     }
+    //   }
+    // }
+    // if (this.FilteredSemesters != null && this.FilteredSemesters != undefined && this.FilteredSemesters.length > 0) {
+    //   this.initSemesterGroups(this.FilteredSemesters);
+    // }
 
   }
 
   initSemesterGroups(event, refresher?) {
-    this.itemsPerPage = 64;
+    // this.itemsPerPage = 64;
 
-    this.semesterGroupService.query1({
-      page: this.page - 1,
-      size: this.itemsPerPage
-    }).subscribe(
-      (res: HttpResponse<SemesterGroup[]>) => {
-        this.onSuccess1(res.body, res.headers, event)
-      },
-      (error) => {
-        console.error(error);
-        let toast = this.toastCtrl.create({ message: 'Failed to load data', duration: 2000, position: 'middle' });
-        toast.present();
-      });
+    // this.semesterGroupService.query1({
+    //   page: this.page - 1,
+    //   size: this.itemsPerPage
+    // }).subscribe(
+    //   (res: HttpResponse<SemesterGroup[]>) => {
+    //     this.onSuccess1(res.body, res.headers, event)
+    //   },
+    //   (error) => {
+    //     console.error(error);
+    //     let toast = this.toastCtrl.create({ message: 'Failed to load data', duration: 2000, position: 'middle' });
+    //     toast.present();
+    //   });
   }
 
   private onSuccess1(data, headers, event) {
-    this.totalItems = headers.get('X-Total-Count');
-    this.FilteredSemesterGroup = [];
-    this.semesterGroup = data;
-    for (let i = 0; i < this.semesterGroup.length; i++) {
-      if (event != null && event != undefined) {
-        if (this.semesterGroup[i].semesterId == event[0].id) {
-          if (this.FilteredSemesterGroup.indexOf(this.semesterGroup[i]) == -1) {
-            this.FilteredSemesterGroup.push(this.semesterGroup[i]);
-          }
-        }
-      }
-    }
+    // this.totalItems = headers.get('X-Total-Count');
+    // this.FilteredSemesterGroup = [];
+    // this.semesterGroup = data;
+    // for (let i = 0; i < this.semesterGroup.length; i++) {
+    //   if (event != null && event != undefined) {
+    //     if (this.semesterGroup[i].semesterId == event[0].id) {
+    //       if (this.FilteredSemesterGroup.indexOf(this.semesterGroup[i]) == -1) {
+    //         this.FilteredSemesterGroup.push(this.semesterGroup[i]);
+    //       }
+    //     }
+    //   }
+    // }
   }
 
   doSignup() {

@@ -4,7 +4,6 @@ import { Booking } from '../../class/Booking';
 import { Principal } from '../../providers/auth/principal.service';
 import { UserInfoService } from '../../services/UserInfo.provider';
 import { Subject } from '../../class/Subject';
-import { SemesterGroupService } from '../../services/SemesterGroup.provider';
 import { Topic } from '../../class/Topic';
 import { TopicService } from '../../services/Topic.provider';
 import { OrdinalScale } from '../../class/OrdinalScale';
@@ -47,8 +46,7 @@ export class UserRequestModalPage implements OnInit {
     private viewCtrl: ViewController,
     private principal: Principal,
     private userInfoService: UserInfoService,
-    private topicService: TopicService,
-    private semesterGroupService: SemesterGroupService) {
+    private topicService: TopicService) {
     this.availableTimes = new Array();
     this.s1 = this.navParams.get("s1");
     this.s2 = this.navParams.get("s2");
@@ -109,15 +107,15 @@ export class UserRequestModalPage implements OnInit {
       });
   }
   initSubject(semesterGroupId) {
-    this.semesterGroupService.find(semesterGroupId).subscribe((response) => {
-      this.subjects = response.subjects;
-      let subjectsId: number[] = new Array(this.subjects.length)
-      for (let i = 0; i < this.subjects.length; i++) {
-        subjectsId[i] = this.subjects[i].id;
-      }
-      this.initTopic(subjectsId);
-    }
-    )
+    // this.semesterGroupService.find(semesterGroupId).subscribe((response) => {
+    //   this.subjects = response.subjects;
+    //   let subjectsId: number[] = new Array(this.subjects.length)
+    //   for (let i = 0; i < this.subjects.length; i++) {
+    //     subjectsId[i] = this.subjects[i].id;
+    //   }
+    //   this.initTopic(subjectsId);
+    // }
+    // )
   }
   initTopic(subjectId) {
     this.topicService.getAllTopicsBySubjectId(subjectId).subscribe((response) => {
