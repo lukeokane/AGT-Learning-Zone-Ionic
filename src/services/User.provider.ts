@@ -37,6 +37,12 @@ export class UserService {
             .map((res: HttpResponse<User[]>) => this.convertArrayResponse(res));
     }
 
+    getAllTutorsPendingActivation(req?: any) {
+        const options = createRequestOption(req);
+        return this.http.get<User[]>(`${this.resourceUrl}/tutors/activation`, { params: options, observe: 'response' })
+            .map((res: HttpResponse<User[]>) => this.convertArrayResponse(res));
+    }
+
     private convertArrayResponse(res: HttpResponse<User[]>): HttpResponse<User[]> {
         const jsonResponse: User[] = res.body;
         const body: User[] = [];

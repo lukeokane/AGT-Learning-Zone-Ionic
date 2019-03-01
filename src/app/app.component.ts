@@ -20,6 +20,7 @@ export class MyApp {
     // { title: 'Welcome', component: 'WelcomePage' },
     // { title: 'Tabs', component: 'TabsPage' },
     { title: 'Home', component: 'HomePage', role: "ROLE_ADMIN" },
+    { title: 'Approve Tutor', component: 'AdminApproveTutorPage', role: "ROLE_ADMIN" },
     { title: 'Manage Bookings', component: 'AdminBookingManagementPage', role: "ROLE_ADMIN" },
     // { title: 'Signup', component: 'SignupPage' },
     // { title: 'Menu', component: 'MenuPage' },
