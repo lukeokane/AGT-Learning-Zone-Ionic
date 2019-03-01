@@ -2,7 +2,7 @@ import { SubjectsService } from './../../../services/Subject.provider';;
 import { UserService } from './../../../services/User.provider';
 import { HttpResponse } from '@angular/common/http';
 import { BookingsService } from './../../../services/Booking.provider';
-import { homePage, adminBookingAssignPage } from './../../pages';
+import { adminBookingAssignPage } from './../../pages';
 import { Booking } from './../../../class/Booking';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
@@ -70,19 +70,6 @@ export class AdminBookingManagementPage implements OnInit {
       this.findUserBookings = response;
     })
   }
-
-  initSemesterGroup(semesterGroupId: any) {
-    // this.semesterGroups = [];
-    // if (semesterGroupId != null || semesterGroupId != undefined) {
-    //   this.semesterGroupService.find(semesterGroupId).subscribe((response) => {
-    //     this.semesterGroups.push(response);
-    //     this.semesterGroups = this.semesterGroups.filter(function (a) {
-    //       return !this[a.id] && (this[a.id] = true);
-    //     }, Object.create(null));
-    //   })
-    // }
-  }
-
 
   initSubjects(subjectId: any) {
     this.subjects = [];
@@ -169,41 +156,7 @@ export class AdminBookingManagementPage implements OnInit {
     });
   }
 
-  assignTutorRandomly(selectedBooking: Booking) {
-    this.userService.query().subscribe(
-      (response) => {
-        response.forEach(user => {
-          user.authorities.forEach(authority => {
-            if (authority == "ROLE_TUTOR") {
-              this.filterTutors = this.filterTutors.concat(user);
-            }
-          });
-        });
-        this.assignToTutor(selectedBooking, this.filterTutors);
-      },
-      (error) => {
-        console.error(error);
-        let toast = this.toastCtrl.create({ message: 'Failed to load data', duration: 2000, position: 'middle' });
-        toast.present();
-      });
 
-  }
-
-
-  assignToTutor(selectedBooking: Booking, filterTutors: Array<User> = []) {
-    let rand = filterTutors[Math.floor(Math.random() * filterTutors.length)];
-    if(selectedBooking.userComments == '')
-    {
-      this.empty = true;
-    }
-    if (rand != null || rand != undefined) {
-      selectedBooking.adminAcceptedId = rand.id;
-    }
-    if (selectedBooking != null || selectedBooking != undefined) {
-      this.bookingService.saveBooking(selectedBooking);
-      this.navCtrl.push(homePage);
-    }
-  }
 
 
 }

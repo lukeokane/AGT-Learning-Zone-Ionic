@@ -103,13 +103,6 @@
               </ng-container>
             </ng-container>
           </ng-container>
-          <!-- <ng-container *ngFor="let semesterGroup of semesterGroups;let lst = last">
-            <ng-container *ngFor="let info of selectedBooking?.userInfos">
-              <ng-container *ngIf="semesterGroup?.id == info?.semesterGroupId">
-                - {{semesterGroup?.title}}
-              </ng-container>
-            </ng-container>
-          </ng-container> -->
         </ng-container>
         <ng-container *ngIf="selectedBooking.userInfos.length > 1">
           <ion-row>
@@ -132,13 +125,6 @@
             <ion-col></ion-col>
           </ion-row>
         </ng-container>
-        <!-- <ng-container *ngFor="let semesterGroup of semesterGroups;let lst = last">
-              <ng-container *ngFor="let info of selectedBooking?.userInfos">
-                <ng-container *ngIf="semesterGroup?.id == info?.semesterGroupId">
-                  - {{semesterGroup?.title}}
-                </ng-container>
-              </ng-container>
-            </ng-container> -->
         <hr>
         <div class="theme">
           <br>
@@ -220,12 +206,6 @@
                 (click)="goToAssignTutorManually(selectedBooking)" class="assignBtn">{{'ASSIGN' |
                 translate}}</button>
             </ion-col>
-            <!-- <ion-col col-3>
-              <button ion-button
-                [disabled]="selectedBooking?.tutorAccepted == true || selectedBooking?.adminAcceptedId != null && selectedBooking?.tutorAcceptedId != null"
-                (click)="assignTutorRandomly(selectedBooking)" class="assignBtn">{{'RANDOMLY_ASSIGN_TUTOR' | translate}}</button>
-            </ion-col> -->
-            <!-- <ion-col col-1></ion-col> -->
           </ion-row>
         </div>
       </ion-col>
