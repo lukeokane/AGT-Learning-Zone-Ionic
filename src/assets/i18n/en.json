@@ -82,5 +82,8 @@
   "BARCODE_RESULT":"Barcode Result",
   "CHECK_IN":"Check In",
   "SCAN_AGAIN":"Scan Again",
-  "APPROVE":"Approve"
+  "APPROVE":"Approve",
+  "REGISTER_AS_STUDENT":"Register as Student",
+  "REGISTER_AS_TUTOR":"Register as Tutor",
+  "ADD_TUTORS":"Add Tutors"
 }

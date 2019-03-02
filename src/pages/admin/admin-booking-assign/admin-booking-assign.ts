@@ -55,7 +55,7 @@ export class AdminBookingAssignPage implements OnInit {
   }
 
   initUsers() {
-    this.itemsPerPage =  10;
+    this.itemsPerPage =  20;
     this.userService.getAllUsers(
       {
         page: this.page - 1,
@@ -92,12 +92,15 @@ export class AdminBookingAssignPage implements OnInit {
     this.queryCount = this.totalItems;
 
     data.forEach(user => {
+      if(user.activated == true)
+      {
       user.authorities.forEach(authority => {
         if (authority == "ROLE_TUTOR") {
           this.filterTutors.push(user);
           this.initUserInfo(user.id);
         }
       });
+    }
     });
   }
 

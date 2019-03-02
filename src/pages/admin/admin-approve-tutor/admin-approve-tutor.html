@@ -11,16 +11,18 @@
           </div>
         </button>
       </ion-col>
+      <ion-col>
+        <h1 class="tutors">{{'ADD_TUTORS' | translate}}</h1>
+      </ion-col>
     </ion-row>
   </ion-col>
   <ion-col>
-    
   </ion-col>
   <ion-col padding>
     <ion-row padding justify-content-center>
       <ion-col padding col-5 *ngFor="let tutor of tutors">
-        <ion-row padding>
-          <ion-col class="border" padding col-10>
+        <ion-row class="border" padding>
+          <ion-col padding col-10>
             <span class="bold">
               {{'FIRST_NAME' | translate}}:
             </span>
@@ -31,7 +33,10 @@
             </span>
             {{tutor?.lastName}}
             <hr>
-            <button class="btn" (click)="approveTutor(tutor)" ion-button>{{'APPROVE' | translate}}</button>
+            <button class="btn" (click)="approveTutor(tutor)" ion-button>
+              {{'APPROVE' | translate}} &nbsp;
+              <i class="fa fa-check"></i>
+            </button>
           </ion-col>
         </ion-row>
       </ion-col>

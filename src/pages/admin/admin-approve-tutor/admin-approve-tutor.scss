@@ -24,7 +24,7 @@ page-admin-approve-tutor {
     }
 
     .border{
-        border: 1px solid #CACED5;
+        border: 1px solid #DEF2F1;
     }
 
     .border:hover{
@@ -45,5 +45,10 @@ page-admin-approve-tutor {
         float:right;
         background-color: #FE787B;
         color: white;
+    }
+
+    .tutors{
+        text-align: center;
+        color: #FFB478;
     }
 }

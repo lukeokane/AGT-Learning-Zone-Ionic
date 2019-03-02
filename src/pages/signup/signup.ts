@@ -1,5 +1,3 @@
-import { Principal } from './../../providers/auth/principal.service';
-import { UserInfo } from './../../class/UserInfo';
 import { CourseService } from './../../services/Course.provider';
 import { CourseYear } from './../../class/CourseYear';
 import { Component, OnInit } from '@angular/core';
@@ -10,7 +8,6 @@ import { User } from '../../providers/providers';
 import { MainPage } from '../pages';
 import { CourseYearService } from '../../services/CourseYear.provider';
 import { Course } from '../../class/Course';
-import { UserInfoService } from '../../services/UserInfo.provider';
 
 
 @IonicPage()
@@ -58,8 +55,6 @@ export class SignupPage implements OnInit {
     public translateService: TranslateService,
     private courseService: CourseService,
     private courseYearService: CourseYearService,
-    private userInfoService: UserInfoService,
-    private principal: Principal
   ) {
 
     this.translateService.get(['SIGNUP_ERROR', 'SIGNUP_SUCCESS',

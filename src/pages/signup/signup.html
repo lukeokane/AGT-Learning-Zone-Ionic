@@ -41,8 +41,8 @@
                 <select padding [(ngModel)]="roleType" class="input" (ngModelChange)="roleTypes($event)"
                   name="registerType">
                   <option *ngIf="roleType == null || roleType == undefined" [ngValue]="roleType" [selected]="true" disabled>Choose Registration Type</option>
-                  <option value="ROLE_USER">Register as Student</option>
-                  <option value="ROLE_TUTOR">Register as Tutor
+                  <option value="ROLE_USER">{{'REGISTER_AS_STUDENT' | translate}}</option>
+                  <option value="ROLE_TUTOR">{{'REGISTER_AS_TUTOR' | translate}}
                 </select>
               </ion-col>
             </ion-row>
@@ -120,8 +120,8 @@
           <i class="inside fa fa-user"></i>
           <select padding [(ngModel)]="roleType" class="inputReg" (ngModelChange)="roleTypes($event)" name="registerType">
             <option *ngIf="roleType == null || roleType == undefined" [ngValue]="roleType" [selected]="true" disabled>Choose Registration Type</option>
-            <option value="ROLE_USER">Register as Student</option>
-            <option value="ROLE_TUTOR">Register as Tutor
+            <option value="ROLE_USER">{{'REGISTER_AS_STUDENT' | translate}}</option>
+            <option value="ROLE_TUTOR">{{'REGISTER_AS_STUDENT' | translate}}
           </select>
         </ion-col>
       </ion-row>
