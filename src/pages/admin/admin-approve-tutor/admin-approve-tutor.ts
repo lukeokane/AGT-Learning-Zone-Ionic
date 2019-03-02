@@ -3,6 +3,7 @@ import { HttpResponse } from '@angular/common/http';
 import { UserService } from './../../../services/User.provider';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { homePage } from '../../pages';
 
 @IonicPage()
 @Component({
@@ -73,6 +74,13 @@ export class AdminApproveTutorPage implements OnInit{
       this.previousPage = page;
       this.initUsers();
     }
+  }
+
+  approveTutor(tutor : User)
+  {
+    tutor.activated=true;
+    this.userService.saveUser(tutor);
+    this.navCtrl.push(homePage);
   }
 
 

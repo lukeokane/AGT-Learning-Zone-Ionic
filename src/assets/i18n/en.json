@@ -81,5 +81,6 @@
   "SCAN_STUDENT_CARD":"Scan Student Card",
   "BARCODE_RESULT":"Barcode Result",
   "CHECK_IN":"Check In",
-  "SCAN_AGAIN":"Scan Again"
+  "SCAN_AGAIN":"Scan Again",
+  "APPROVE":"Approve"
 }

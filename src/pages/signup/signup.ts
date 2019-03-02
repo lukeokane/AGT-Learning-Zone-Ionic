@@ -1,3 +1,5 @@
+import { Principal } from './../../providers/auth/principal.service';
+import { UserInfo } from './../../class/UserInfo';
 import { CourseService } from './../../services/Course.provider';
 import { CourseYear } from './../../class/CourseYear';
 import { Component, OnInit } from '@angular/core';
@@ -8,6 +10,7 @@ import { User } from '../../providers/providers';
 import { MainPage } from '../pages';
 import { CourseYearService } from '../../services/CourseYear.provider';
 import { Course } from '../../class/Course';
+import { UserInfoService } from '../../services/UserInfo.provider';
 
 
 @IonicPage()
@@ -17,7 +20,8 @@ import { Course } from '../../class/Course';
 })
 export class SignupPage implements OnInit {
   // The account fields for the signup form
-  account: { login: string, email: string, firstName: string, lastName: string, password: string, langKey: string, courseId: number, year: number,authorities: any[] } = {
+  account: { id: number, login: string, email: string, firstName: string, lastName: string, password: string, langKey: string, courseId: number, year: number, authorities: any[] } = {
+    id: 0,
     login: '',
     email: '',
     firstName: '',
@@ -45,7 +49,7 @@ export class SignupPage implements OnInit {
   queryCount: any;
   itemsPerPage: any;
   selectedYear: CourseYear;
-  selectedCourse :Course;
+  selectedCourse: Course;
   roleType: any;
 
   constructor(public navCtrl: NavController,
@@ -53,7 +57,9 @@ export class SignupPage implements OnInit {
     public toastCtrl: ToastController,
     public translateService: TranslateService,
     private courseService: CourseService,
-    private courseYearService: CourseYearService
+    private courseYearService: CourseYearService,
+    private userInfoService: UserInfoService,
+    private principal: Principal
   ) {
 
     this.translateService.get(['SIGNUP_ERROR', 'SIGNUP_SUCCESS',
@@ -119,14 +125,16 @@ export class SignupPage implements OnInit {
     if (this.roleType == "ROLE_TUTOR") {
       this.account.authorities = ['ROLE_TUTOR'];
       this.account.year = null;
+      this.signupSuccessString = "Please wait your Request is being processed";
     }
     else if (this.roleType == "ROLE_USER") {
       this.account.authorities = ['ROLE_USER'];
       this.account.year = this.selectedYear.id;
-      this.account.courseId=this.selectedCourse.id;
+      this.account.courseId = this.selectedCourse.id;
     }
-
+  
     this.account.login = this.account.email;
+
     this.user.signup(this.account).subscribe(() => {
       let toast = this.toastCtrl.create({
         message: this.signupSuccessString,

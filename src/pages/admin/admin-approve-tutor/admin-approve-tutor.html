@@ -1,5 +1,5 @@
 <top-menu></top-menu>
-<ion-content padding>
+<ion-content padding class="scroll">
   <ion-col col-1>
     <ion-row>
       <ion-col col-1>
@@ -13,5 +13,33 @@
       </ion-col>
     </ion-row>
   </ion-col>
-
+  <ion-col>
+    
+  </ion-col>
+  <ion-col padding>
+    <ion-row padding justify-content-center>
+      <ion-col padding col-5 *ngFor="let tutor of tutors">
+        <ion-row padding>
+          <ion-col class="border" padding col-10>
+            <span class="bold">
+              {{'FIRST_NAME' | translate}}:
+            </span>
+            {{tutor?.firstName}}
+            <br>
+            <span class="bold">
+              {{'LAST_NAME' | translate}} :
+            </span>
+            {{tutor?.lastName}}
+            <hr>
+            <button class="btn" (click)="approveTutor(tutor)" ion-button>{{'APPROVE' | translate}}</button>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col *ngIf="tutors.length % 2 == 1" col-5></ion-col>
+    </ion-row>
+  </ion-col>
 </ion-content>
+<div class="row justify-content-center">
+  <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true"
+    [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+</div>

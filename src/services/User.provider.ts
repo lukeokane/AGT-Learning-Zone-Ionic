@@ -61,6 +61,16 @@ export class UserService {
         const copy: User = Object.assign({}, object);
         return copy;
     }
+    
+    saveUser(user: User): User {
+        this.update(user).subscribe(data => {
+            user = data;
+            return user;
+        }, (error) => {
+            console.error(error);
+        });
+        return null;
+    }
 
 
 }

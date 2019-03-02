@@ -22,4 +22,28 @@ page-admin-approve-tutor {
     .bar3 {
         width: 25px;
     }
+
+    .border{
+        border: 1px solid #CACED5;
+    }
+
+    .border:hover{
+        background-color: #DEF2F1 !important;
+    }
+
+    .scroll{
+        overflow-y: hidden;
+        overflow-x: hidden;
+        height: 500px;
+    }
+
+    .bold{
+        font-weight: bold;
+    }
+
+    .btn{
+        float:right;
+        background-color: #FE787B;
+        color: white;
+    }
 }
