@@ -101,7 +101,7 @@ export class AdminStatisticsDistributionPage {
 
     if (this.selectedCourse == "all" && this.selectedYear == "all") {
       console.log("got here selected course all selected year all");
-      this.bookingsService.findAllBookingsDistributionList(this.fromDate, this.toDate).subscribe(data => {
+      this.bookingsService.findAllBookingsList(this.fromDate, this.toDate).subscribe(data => {
         this.bookings = data.body;
         console.log(this.bookings);
         this.filterBookings();

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-//import { CourseService } from '../../../providers/course/course.service';
 import { CourseService } from '../../../services/Course.provider';
 import { Course } from '../../../class/Course';
 import { BookingsService } from '../../../services/Booking.provider';
@@ -32,22 +31,24 @@ export class AdminStatisticsDeliveredPage {
   monthsName: Array<string> = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   inc: number;
   pos: number = 0;
-  label: any ='Tutorials Delivered';
+  label: any = 'Tutorials Delivered';
   lineChartDataFinal: Array<any> = [];
   barChartLegend = true;
   barChartType = 'bar';
-  
+  courseId: number;
+  id: number;
+
   // public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
 
-  public lineChartData2: Array<any> = [0,0,0,0,0,0,0,0,0,0,0,0];
+  public lineChartData2: Array<any> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   public lineChartData: Array<any> = [
     { data: this.lineChartData2, label: 'Tutorials Delivered' }
 
   ];
 
-  
+
   public lineChartLabels2: Array<any> = [];
 
   public lineChartOptions: any = {
@@ -92,7 +93,7 @@ export class AdminStatisticsDeliveredPage {
   generateChart() {
 
     if (this.selectedCourse == "all" && this.selectedYear == "all") {
-      this.bookingsService.findAllBookingsDistributionList(this.fromDate, this.toDate).subscribe(data => {
+      this.bookingsService.findAllBookingsList(this.fromDate, this.toDate).subscribe(data => {
         this.bookings = data.body;
         console.log(this.bookings);
         this.filterBookingsByDate();
@@ -114,7 +115,9 @@ export class AdminStatisticsDeliveredPage {
 
     if (this.selectedCourse != "all" && this.selectedYear != "all") {
       console.log("got here seleceted course and selected year");
-      this.bookingsService.findAllBookingsSelectedCourseAndSelectedYear(this.fromDate, this.toDate, this.selectedCourse, this.selectedYear).subscribe(data => {
+      this.courseId = this.getCourseId(this.selectedCourse);
+      console.log(this.courseId);
+      this.bookingsService.findAllBookingsSelectedCourseAndSelectedYear(this.fromDate, this.toDate, this.courseId, this.selectedYear).subscribe(data => {
         this.bookings = data.body;
         console.log(this.bookings);
         this.filterBookingsByDate();
@@ -144,7 +147,7 @@ export class AdminStatisticsDeliveredPage {
             this.lineChartLabels2.push(this.monthsName[this.inc]); // pushing to a postion in the array if there is no duplicate entry
           }
           this.lineChartData2[this.inc]++;
-        } 
+        }
       }
     }
     console.log(this.lineChartData2);
@@ -159,10 +162,10 @@ export class AdminStatisticsDeliveredPage {
     return date;
   }
 
-  combineArrays(){
-        this.lineChartDataFinal.push(this.lineChartData2);
-        this.lineChartDataFinal.push(this.label);
-        console.log(this.lineChartDataFinal);
+  combineArrays() {
+    this.lineChartDataFinal.push(this.lineChartData2);
+    this.lineChartDataFinal.push(this.label);
+    console.log(this.lineChartDataFinal);
   }
 
   checkDuplicates(month: any): boolean {
@@ -174,14 +177,24 @@ export class AdminStatisticsDeliveredPage {
     return false;
   }
 
-  filterLineChartData(){
-    for (this.pos = 0; this.pos < this.lineChartData2.length; this.pos++){
-       if(this.lineChartData2[this.pos]==0) {
+  filterLineChartData() {
+    for (this.pos = 0; this.pos < this.lineChartData2.length; this.pos++) {
+      if (this.lineChartData2[this.pos] == 0) {
         this.lineChartData2.splice(this.pos, 1);
         this.pos = 0
-       }
+      }
     }
-     console.log(this.lineChartData2);
+    console.log(this.lineChartData2);
+  }
+
+  getCourseId(selectedCourse): number {
+    for (let course of this.courses) {
+       if(course.title==selectedCourse){
+         this.id = course.id
+         console.log(this.id);
+       }
+    } 
+    return this.id;
   }
 
 }

@@ -87,7 +87,7 @@ export class AdminStatisticsHoursPage {
     // this.barChartDataStudent = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
     if (this.selectedCourse == "all" && this.selectedYear == "all") {
-      this.bookingsService.findAllBookingsDistributionList(this.fromDate, this.toDate).subscribe(data => {
+      this.bookingsService.findAllBookingsList(this.fromDate, this.toDate).subscribe(data => {
         this.bookings = data.body;
         console.log(this.bookings);
         this.filterBookingsByDate();
