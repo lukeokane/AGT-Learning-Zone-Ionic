@@ -7,6 +7,7 @@ import { BookingsService } from '../../../services/Booking.provider';
 import { Booking } from '../../../class/Booking';
 import { DatePipe } from '@angular/common';
 import { ExcelService } from '../../../services/excel.service';
+import { BookingUserDetails } from '../../../class/BookingUserDetails';
 
 /**
  * Generated class for the AdminStatisticsHoursPage page.
@@ -28,6 +29,7 @@ export class AdminStatisticsHoursPage {
   selectedCourse: string;
   courses: Course[];
   bookings: Array<Booking>;
+  bookingsStudents: BookingUserDetails[][];
   months: Array<any> = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
   monthsName: Array<string> = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   inc: number;
@@ -142,6 +144,9 @@ export class AdminStatisticsHoursPage {
           this.barChartDataStudent[this.inc] += this.tutorialLengthHours * booking.bookingUserDetailsDTO.length + 1;
         }
       }
+      // if(booking.bookingUserDetailsDTO != null || booking.bookingUserDetailsDTO!= undefined){
+      //   this.bookingsStudents.push(booking.bookingUserDetailsDTO);
+      // }
     }
     console.log(this.barChartDataTutor);
     console.log(this.barChartDataStudent);
@@ -195,5 +200,7 @@ export class AdminStatisticsHoursPage {
 
   exportAsXLSX():void {
     this.excelService.exportAsExcelFile(this.bookings, 'sample');
+    //this.excelService.exportAsExcelFile(this.bookingsStudents, 'sample');
+    console.log(this.bookingsStudents);
   }
 }

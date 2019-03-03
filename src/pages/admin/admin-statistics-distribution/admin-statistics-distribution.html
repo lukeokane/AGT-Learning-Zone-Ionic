@@ -78,6 +78,7 @@
               <!-- <fa-icon [icon]="'eye'"></fa-icon> -->
               <span class="d-none d-md-inline">View</span>
             </button>
+            <button  *ngIf="labels.length > 0" (click)="exportAsXLSX()">   <span class="btn btn-info btn-sm">Download as XLS</span></button>
           </div>
         </ion-col>
       </ion-row>
@@ -87,10 +88,14 @@
     <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"
       (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
   </div> -->
+  <br>
+  <br>
+  <br>
+  <br>
   <div>
       <ng-container *ngIf="data.length > 0">
           <div style="display: block">
-              <canvas baseChart [data]="data" [labels]="labels" [chartType]="doughnutChartType"
+              <canvas baseChart [data]="data" [labels]="labels" [chartType]="doughnutChartType" [options]="barChartOptions"
                 (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
             </div>
       </ng-container>

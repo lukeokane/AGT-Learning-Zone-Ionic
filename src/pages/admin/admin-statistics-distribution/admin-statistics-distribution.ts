@@ -7,6 +7,7 @@ import { BookingsService } from '../../../services/Booking.provider';
 import { Booking } from '../../../class/Booking';
 import { SubjectsService } from '../../../services/Subject.provider';
 import { Subject } from '../../../class/Subject';
+import { ExcelService } from '../../../services/excel.service';
 
 /**
  * Generated class for the AdminStatisticsDistributionPage page.
@@ -36,6 +37,9 @@ export class AdminStatisticsDistributionPage {
   inc: number;
 
   public doughnutChartType: string = 'doughnut';
+  public barChartOptions:any = {
+    legend: {position: 'right'}
+  }
 
   // events
   public chartClicked(e: any): void {
@@ -51,7 +55,8 @@ export class AdminStatisticsDistributionPage {
     public navParams: NavParams,
     private courseService: CourseService,
     private bookingsService: BookingsService,
-    private subjectsService: SubjectsService) {
+    private subjectsService: SubjectsService,
+    private excelService: ExcelService) {
   }
 
   ionViewDidLoad() {
@@ -185,6 +190,10 @@ export class AdminStatisticsDistributionPage {
       }
     }
     return false;
+  }
+
+  exportAsXLSX():void {
+    this.excelService.exportAsExcelFile(this.bookings, 'sample');
   }
 
 }

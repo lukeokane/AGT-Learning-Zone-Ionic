@@ -5,6 +5,7 @@ import { Course } from '../../../class/Course';
 import { BookingsService } from '../../../services/Booking.provider';
 import { Booking } from '../../../class/Booking';
 import { DatePipe } from '@angular/common';
+import { ExcelService } from '../../../services/excel.service';
 
 
 /**
@@ -71,7 +72,8 @@ export class AdminStatisticsDeliveredPage {
     public navParams: NavParams,
     private courseService: CourseService,
     private bookingsService: BookingsService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private excelService: ExcelService
   ) {
   }
 
@@ -195,6 +197,10 @@ export class AdminStatisticsDeliveredPage {
        }
     } 
     return this.id;
+  }
+
+  exportAsXLSX():void {
+    this.excelService.exportAsExcelFile(this.bookings, 'sample');
   }
 
 }
