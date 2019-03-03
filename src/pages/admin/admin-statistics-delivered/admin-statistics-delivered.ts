@@ -38,6 +38,8 @@ export class AdminStatisticsDeliveredPage {
   barChartType = 'bar';
   courseId: number;
   id: number;
+  chartGenerated: boolean = false;
+  
 
   // public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
@@ -156,6 +158,7 @@ export class AdminStatisticsDeliveredPage {
     console.log(this.lineChartLabels2);
     this.filterLineChartData();
     this.combineArrays();
+    this.chartGenerated = true;
   }
 
 
@@ -201,6 +204,10 @@ export class AdminStatisticsDeliveredPage {
 
   exportAsXLSX():void {
     this.excelService.exportAsExcelFile(this.bookings, 'sample');
+  }
+ 
+  refreshPage() {
+    this.navCtrl.push("AdminStatisticsDeliveredPage");
   }
 
 }

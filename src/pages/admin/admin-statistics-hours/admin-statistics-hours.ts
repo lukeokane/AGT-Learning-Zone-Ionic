@@ -41,6 +41,7 @@ export class AdminStatisticsHoursPage {
   pos2: number = 0;
   tutorialLengthHours: any;
   diffHours: any;
+  chartGenerated: boolean = false;
   public barChartType = 'bar';
   public barChartLegend = true;
   public barChartOptions = {
@@ -153,6 +154,7 @@ export class AdminStatisticsHoursPage {
     console.log(this.barChartLabels2);
     this.filterTutorChartData();
     this.filterStudentChartData();
+    this.chartGenerated = true;
   }
 
   getMonth(dateTime) {
@@ -198,9 +200,13 @@ export class AdminStatisticsHoursPage {
     }
   }
 
-  exportAsXLSX():void {
+  exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.bookings, 'sample');
     //this.excelService.exportAsExcelFile(this.bookingsStudents, 'sample');
     console.log(this.bookingsStudents);
+  }
+
+  refreshPage() {
+    this.navCtrl.push("AdminStatisticsHoursPage");
   }
 }

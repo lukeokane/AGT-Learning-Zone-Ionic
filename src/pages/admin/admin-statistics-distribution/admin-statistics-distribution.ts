@@ -35,6 +35,7 @@ export class AdminStatisticsDistributionPage {
   pos: number = 0;
   posData: number = 0;
   inc: number;
+  chartGenerated: boolean = false;
 
   public doughnutChartType: string = 'doughnut';
   public barChartOptions:any = {
@@ -172,6 +173,7 @@ export class AdminStatisticsDistributionPage {
         }
       }
     }
+    this.chartGenerated = true;
   }
   
   findPosSubject(title: string): number {
@@ -194,6 +196,10 @@ export class AdminStatisticsDistributionPage {
 
   exportAsXLSX():void {
     this.excelService.exportAsExcelFile(this.bookings, 'sample');
+  }
+
+  refreshPage() {
+    this.navCtrl.push("AdminStatisticsDistributionPage");
   }
 
 }
