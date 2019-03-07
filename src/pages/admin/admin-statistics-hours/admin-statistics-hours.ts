@@ -42,6 +42,8 @@ export class AdminStatisticsHoursPage {
   tutorialLengthHours: any;
   diffHours: any;
   chartGenerated: boolean = false;
+  courseId: number;
+  id: number;
   public barChartType = 'bar';
   public barChartLegend = true;
   public barChartOptions = {
@@ -112,7 +114,9 @@ export class AdminStatisticsHoursPage {
 
     if (this.selectedCourse != "all" && this.selectedYear != "all") {
       console.log("got here seleceted course and selected year");
-      this.bookingsService.findAllBookingsSelectedCourseAndSelectedYear(this.fromDate, this.toDate, this.selectedCourse, this.selectedYear).subscribe(data => {
+      this.courseId = this.getCourseId(this.selectedCourse);
+      console.log(this.courseId);
+      this.bookingsService.findAllBookingsSelectedCourseAndSelectedYear(this.fromDate, this.toDate, this.courseId, this.selectedYear).subscribe(data => {
         this.bookings = data.body;
         console.log(this.bookings);
         this.filterBookingsByDate();
@@ -145,9 +149,7 @@ export class AdminStatisticsHoursPage {
           this.barChartDataStudent[this.inc] += this.tutorialLengthHours * booking.bookingUserDetailsDTO.length + 1;
         }
       }
-      // if(booking.bookingUserDetailsDTO != null || booking.bookingUserDetailsDTO!= undefined){
-      //   this.bookingsStudents.push(booking.bookingUserDetailsDTO);
-      // }
+    
     }
     console.log(this.barChartDataTutor);
     console.log(this.barChartDataStudent);
@@ -198,6 +200,16 @@ export class AdminStatisticsHoursPage {
         this.pos2 = 0
       }
     }
+  }
+
+  getCourseId(selectedCourse): number {
+    for (let course of this.courses) {
+       if(course.title==selectedCourse){
+         this.id = course.id
+         console.log(this.id);
+       }
+    } 
+    return this.id;
   }
 
   exportAsXLSX(): void {

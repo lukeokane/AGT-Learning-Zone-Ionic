@@ -36,6 +36,8 @@ export class AdminStatisticsDistributionPage {
   posData: number = 0;
   inc: number;
   chartGenerated: boolean = false;
+  courseId: number;
+  id: number;
 
   public doughnutChartType: string = 'doughnut';
   public barChartOptions:any = {
@@ -129,7 +131,9 @@ export class AdminStatisticsDistributionPage {
 
     if (this.selectedCourse != "all" && this.selectedYear != "all") {
       console.log("got here seleceted course and selected year");
-      this.bookingsService.findAllBookingsSelectedCourseAndSelectedYear(this.fromDate, this.toDate, this.selectedCourse, this.selectedYear).subscribe(data => {
+      this.courseId = this.getCourseId(this.selectedCourse);
+      console.log(this.courseId);
+      this.bookingsService.findAllBookingsSelectedCourseAndSelectedYear(this.fromDate, this.toDate, this.courseId, this.selectedYear).subscribe(data => {
         this.bookings = data.body;
         console.log(this.bookings);
         this.filterBookings();
@@ -200,6 +204,16 @@ export class AdminStatisticsDistributionPage {
 
   refreshPage() {
     this.navCtrl.push("AdminStatisticsDistributionPage");
+  }
+
+  getCourseId(selectedCourse): number {
+    for (let course of this.courses) {
+       if(course.title==selectedCourse){
+         this.id = course.id
+         console.log(this.id);
+       }
+    } 
+    return this.id;
   }
 
 }
