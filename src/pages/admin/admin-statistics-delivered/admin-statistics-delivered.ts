@@ -5,6 +5,7 @@ import { Course } from '../../../class/Course';
 import { BookingsService } from '../../../services/Booking.provider';
 import { Booking } from '../../../class/Booking';
 import { DatePipe } from '@angular/common';
+import { ExcelService } from '../../../services/excel.service';
 
 
 /**
@@ -37,6 +38,8 @@ export class AdminStatisticsDeliveredPage {
   barChartType = 'bar';
   courseId: number;
   id: number;
+  chartGenerated: boolean = false;
+  
 
   // public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
@@ -71,7 +74,8 @@ export class AdminStatisticsDeliveredPage {
     public navParams: NavParams,
     private courseService: CourseService,
     private bookingsService: BookingsService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private excelService: ExcelService
   ) {
   }
 
@@ -128,7 +132,8 @@ export class AdminStatisticsDeliveredPage {
 
     if (this.selectedCourse != "all" && this.selectedYear == "all") {
       console.log("got here seleceted course and all years");
-      this.bookingsService.findAllBookingsSelectedCourseAndAllYears(this.fromDate, this.toDate, this.selectedCourse).subscribe(data => {
+      this.courseId = this.getCourseId(this.selectedCourse);
+      this.bookingsService.findAllBookingsSelectedCourseAndAllYears(this.fromDate, this.toDate, this.courseId).subscribe(data => {
         this.bookings = data.body;
         console.log(this.bookings);
         this.filterBookingsByDate();
@@ -154,6 +159,7 @@ export class AdminStatisticsDeliveredPage {
     console.log(this.lineChartLabels2);
     this.filterLineChartData();
     this.combineArrays();
+    this.chartGenerated = true;
   }
 
 
@@ -195,6 +201,14 @@ export class AdminStatisticsDeliveredPage {
        }
     } 
     return this.id;
+  }
+
+  exportAsXLSX():void {
+    this.excelService.exportAsExcelFile(this.bookings, 'sample');
+  }
+ 
+  refreshPage() {
+    this.navCtrl.push("AdminStatisticsDeliveredPage");
   }
 
 }

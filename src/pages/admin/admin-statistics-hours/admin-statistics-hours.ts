@@ -7,6 +7,7 @@ import { BookingsService } from '../../../services/Booking.provider';
 import { Booking } from '../../../class/Booking';
 import { DatePipe } from '@angular/common';
 import { ExcelService } from '../../../services/excel.service';
+import { BookingUserDetails } from '../../../class/BookingUserDetails';
 
 /**
  * Generated class for the AdminStatisticsHoursPage page.
@@ -28,6 +29,7 @@ export class AdminStatisticsHoursPage {
   selectedCourse: string;
   courses: Course[];
   bookings: Array<Booking>;
+  bookingsStudents: BookingUserDetails[][];
   months: Array<any> = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
   monthsName: Array<string> = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   inc: number;
@@ -39,6 +41,9 @@ export class AdminStatisticsHoursPage {
   pos2: number = 0;
   tutorialLengthHours: any;
   diffHours: any;
+  chartGenerated: boolean = false;
+  courseId: number;
+  id: number;
   public barChartType = 'bar';
   public barChartLegend = true;
   public barChartOptions = {
@@ -109,7 +114,9 @@ export class AdminStatisticsHoursPage {
 
     if (this.selectedCourse != "all" && this.selectedYear != "all") {
       console.log("got here seleceted course and selected year");
-      this.bookingsService.findAllBookingsSelectedCourseAndSelectedYear(this.fromDate, this.toDate, this.selectedCourse, this.selectedYear).subscribe(data => {
+      this.courseId = this.getCourseId(this.selectedCourse);
+      console.log(this.courseId);
+      this.bookingsService.findAllBookingsSelectedCourseAndSelectedYear(this.fromDate, this.toDate, this.courseId, this.selectedYear).subscribe(data => {
         this.bookings = data.body;
         console.log(this.bookings);
         this.filterBookingsByDate();
@@ -120,7 +127,9 @@ export class AdminStatisticsHoursPage {
 
     if (this.selectedCourse != "all" && this.selectedYear == "all") {
       console.log("got here seleceted course and all years");
-      this.bookingsService.findAllBookingsSelectedCourseAndAllYears(this.fromDate, this.toDate, this.selectedCourse).subscribe(data => {
+      this.courseId = this.getCourseId(this.selectedCourse);
+      console.log(this.courseId);
+      this.bookingsService.findAllBookingsSelectedCourseAndAllYears(this.fromDate, this.toDate, this.courseId).subscribe(data => {
         this.bookings = data.body;
         console.log(this.bookings);
         this.filterBookingsByDate();
@@ -142,12 +151,14 @@ export class AdminStatisticsHoursPage {
           this.barChartDataStudent[this.inc] += this.tutorialLengthHours * booking.bookingUserDetailsDTO.length + 1;
         }
       }
+    
     }
     console.log(this.barChartDataTutor);
     console.log(this.barChartDataStudent);
     console.log(this.barChartLabels2);
     this.filterTutorChartData();
     this.filterStudentChartData();
+    this.chartGenerated = true;
   }
 
   getMonth(dateTime) {
@@ -193,7 +204,23 @@ export class AdminStatisticsHoursPage {
     }
   }
 
-  exportAsXLSX():void {
+  getCourseId(selectedCourse): number {
+    for (let course of this.courses) {
+       if(course.title==selectedCourse){
+         this.id = course.id
+         console.log(this.id);
+       }
+    } 
+    return this.id;
+  }
+
+  exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.bookings, 'sample');
+    //this.excelService.exportAsExcelFile(this.bookingsStudents, 'sample');
+    console.log(this.bookingsStudents);
+  }
+
+  refreshPage() {
+    this.navCtrl.push("AdminStatisticsHoursPage");
   }
 }
