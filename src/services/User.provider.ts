@@ -43,6 +43,11 @@ export class UserService {
             .map((res: HttpResponse<User[]>) => this.convertArrayResponse(res));
     }
 
+    getUserByLogin(login :string)
+    {
+        return this.http.get(`${this.resourceUrl}/${login}`);
+    }
+
     private convertArrayResponse(res: HttpResponse<User[]>): HttpResponse<User[]> {
         const jsonResponse: User[] = res.body;
         const body: User[] = [];

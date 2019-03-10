@@ -29,8 +29,10 @@
         <ion-list>
           <ion-item class="border-bottom" *ngFor="let booking of bookings;let i = index" (click)="goToBooking(booking)"
             [style.backgroundColor]="selectedBooking == booking ? '#F6FFFF' : '#FFFFFF' "
-            [style.backgroundColor]="booking.readByAdmin == false ? '#FFC0CB' : '#FFFFFF' " data-toggle="tooltip"
-            data-placement="top" title="{{booking?.requestedBy}}">
+            [style.font-weight]="booking.readByAdmin == false ? 'bold' : 'none' "  data-toggle="tooltip"
+            data-placement="top" title="{{booking?.requestedBy}}"
+            [style.border-left]="booking.readByAdmin == false ? '4px solid #0A7DD9' : 'black' "
+            >
             <ion-row>
               <ng-container *ngFor="let user of findUserBookings">
                 <ng-container *ngIf="booking?.userInfos.length == 1">
@@ -66,14 +68,14 @@
                 </ng-container>
               </ng-container>
             </ion-row>
-            <ion-row>
+            <ion-row [style.color]="booking.readByAdmin == false ? '#0A7DD9' : 'black' ">
               <ion-col col-2></ion-col>
-              <ion-col col-6>&nbsp;
+              <ion-col col-6 >&nbsp;
                 {{(booking?.title | slice :0:15) + (booking?.title?.length > 15 ?
                 '...' : '')}}
               </ion-col>
               <ion-col col-4>
-                <span class="timePos">{{booking?.modifiedTimestamp | date}}</span>
+                &nbsp;<span style="font-size:12px">{{booking?.modifiedTimestamp | date}}</span>
               </ion-col>
             </ion-row>
           </ion-item>

@@ -9,10 +9,27 @@ import Quagga from 'quagga';
 })
 export class ItlcModalCheckinPage implements OnInit {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  user: any;
+  barcode: any;
+
+  constructor(
+    public navParams: NavParams,
+    public navCtrl: NavController,
+  ) { }
 
   ngOnInit() {
+    let video: any = document.getElementById('video');
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
+        video.srcObject = stream;
+        video.play();
+      });
+    }
+
+    // Elements for taking the snapshot
+    let canvas: any = document.getElementById('canvas');
+    let context: any = canvas.getContext('2d');
+    video = document.getElementById('video');
 
     Quagga.init({
       inputStream: {
@@ -24,7 +41,7 @@ export class ItlcModalCheckinPage implements OnInit {
           height: 290,
           facingMode: "user",
         },
-      },			           
+      },
       decoder: {
         readers: [
           "code_39_reader",
@@ -67,15 +84,16 @@ export class ItlcModalCheckinPage implements OnInit {
     });
 
 
-    Quagga.onDetected(function (result) {
+    Quagga.onDetected((result) => {
       console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
       document.querySelector(".found").innerHTML = result.codeResult.code;
+      context.drawImage(video, 0, 0, 570, 290);
       Quagga.stop();
-    });
-  }
-
-  ionViewWillLeave() {
-    Quagga.stop();
+    },
+    );
   }
 
 }
+
+
+
