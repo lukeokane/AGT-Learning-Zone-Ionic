@@ -85,5 +85,7 @@
   "APPROVE":"Approve",
   "REGISTER_AS_STUDENT":"Register as Student",
   "REGISTER_AS_TUTOR":"Register as Tutor",
-  "ADD_TUTORS":"Add Tutors"
+  "ADD_TUTORS":"Add Tutors",
+  "CHECKIN_SUCCESSFULL":"Check-in Successful",
+  "WE_HOPE_YOU_ENJOY_YOUR_TIME_AT_THE_LEARNING_ZONE":"We hope you enjoy you time at The Learning Zone"
 }

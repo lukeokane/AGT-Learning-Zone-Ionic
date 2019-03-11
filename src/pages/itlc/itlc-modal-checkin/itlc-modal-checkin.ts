@@ -1,3 +1,4 @@
+import { UserService } from './../../../services/User.provider';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import Quagga from 'quagga';
@@ -8,13 +9,13 @@ import Quagga from 'quagga';
   templateUrl: 'itlc-modal-checkin.html',
 })
 export class ItlcModalCheckinPage implements OnInit {
-
-  user: any;
-  barcode: any;
+  login: any;
+  user:any;
 
   constructor(
     public navParams: NavParams,
     public navCtrl: NavController,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -38,7 +39,7 @@ export class ItlcModalCheckinPage implements OnInit {
         target: document.querySelector('#scanner'),
         constraints: {
           width: 570,
-          height: 290,
+          height: 260,
           facingMode: "user",
         },
       },
@@ -86,11 +87,25 @@ export class ItlcModalCheckinPage implements OnInit {
 
     Quagga.onDetected((result) => {
       console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
-      document.querySelector(".found").innerHTML = result.codeResult.code;
-      context.drawImage(video, 0, 0, 570, 290);
+      // document.querySelector(".found").innerHTML = result.codeResult.code;
+      this.login =result.codeResult.code;
+      context.drawImage(video, 0, 0, 570, 260);
       Quagga.stop();
+      this.checkInUserDetails(this.login);
     },
     );
+
+
+  }
+
+  checkInUserDetails(barcode :any)
+  { 
+    this.userService.getUserByLogin(barcode).subscribe(user => {
+      this.user= user;
+      console.log(this.user);
+    }, (error) => {
+      console.error(error);
+    });;
   }
 
 }
