@@ -29,7 +29,7 @@
         <ion-list>
           <ion-item class="border-bottom" *ngFor="let booking of bookings;let i = index" (click)="goToBooking(booking)"
             [style.backgroundColor]="selectedBooking == booking ? '#F6FFFF' : '#FFFFFF' "
-            [style.font-weight]="booking.readByAdmin == false ? 'bold' : 'none' "  data-toggle="tooltip"
+            [style.font-weight]="booking.readByAdmin == false ? 'bold' : 'normal' "  data-toggle="tooltip"
             data-placement="top" title="{{booking?.requestedBy}}"
             [style.border-left]="booking.readByAdmin == false ? '4px solid #0A7DD9' : 'black' "
             >
@@ -71,7 +71,7 @@
             <ion-row [style.color]="booking.readByAdmin == false ? '#0A7DD9' : 'black' ">
               <ion-col col-2></ion-col>
               <ion-col col-6 >&nbsp;
-                {{(booking?.title | slice :0:15) + (booking?.title?.length > 15 ?
+                {{(booking?.title | slice :0:13) + (booking?.title?.length > 13 ?
                 '...' : '')}}
               </ion-col>
               <ion-col col-4>
@@ -151,7 +151,7 @@
                 </ng-container>
               </ng-container>
               <ng-container *ngFor="let topic of selectedBooking?.topics">
-                <button ion-button outline class="tags">-{{topic?.title}}</button> &nbsp;
+                <button ion-button outline class="tags">{{topic?.title}}</button> &nbsp;
               </ng-container>
               <ng-container *ngIf="selectedBooking?.subjectId == null || selectedBooking?.subjectId == undefined">
                 <button ion-button outline class="tags">{{'NO_SUBJECT_SPECIFIED' | translate}}</button>
