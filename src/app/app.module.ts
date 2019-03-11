@@ -1,3 +1,4 @@
+import { BookingUserDetailService } from './../services/BookingUserDetails.provider';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserInfoService } from './../services/UserInfo.provider';
 import { BookingsService } from './../services/Booking.provider';
@@ -92,6 +93,7 @@ export function provideSettings(storage: Storage) {
     SubjectsService,
     UserInfoService,
     TopicService,
+    BookingUserDetailService,
     Camera,
     SplashScreen,
     StatusBar,
