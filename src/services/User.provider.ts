@@ -48,6 +48,11 @@ export class UserService {
         return this.http.get(`${this.resourceUrl}/${login}`);
     }
 
+    deleteUserByLogin(login:string)
+    {
+        return this.http.delete(`${this.resourceUrl}/${login}`);
+    }
+
     private convertArrayResponse(res: HttpResponse<User[]>): HttpResponse<User[]> {
         const jsonResponse: User[] = res.body;
         const body: User[] = [];

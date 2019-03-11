@@ -83,5 +83,11 @@ export class AdminApproveTutorPage implements OnInit{
     this.navCtrl.push(homePage);
   }
 
+  rejectTutor(login : string)
+  {
+    this.userService.deleteUserByLogin(login).subscribe();
+    this.navCtrl.push(homePage);
+  }
+
 
 }

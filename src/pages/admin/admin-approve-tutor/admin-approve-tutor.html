@@ -50,6 +50,10 @@ reject tutor : delete
               {{'APPROVE' | translate}} &nbsp;
               <i class="fa fa-check"></i>
             </button>
+            <button class="btnReject" (click)="rejectTutor(tutor.login)" ion-button>
+              {{'Reject' | translate}} &nbsp;
+              <i class="fa fa-times"></i>
+            </button>
           </ion-col>
         </ion-row>
       </ion-col>
