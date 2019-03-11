@@ -1,4 +1,8 @@
-<top-menu></top-menu>
+reject tutor : delete 
+	->userinfo link it up
+	
+	
+	<top-menu></top-menu>
 <ion-content padding class="scroll">
   <ion-col col-1>
     <ion-row>
@@ -22,9 +26,17 @@
     <ion-row padding justify-content-center>
       <ion-col padding col-5 *ngFor="let tutor of tutors">
         <ion-row class="border" padding>
+          <div class="avatar">
+              <img src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+          </div>
           <ion-col padding col-10>
             <span class="bold">
-              {{'FIRST_NAME' | translate}}:
+              {{'EMAIL' | translate}} :
+            </span>
+            {{tutor?.email}}
+            <br>
+            <span class="bold">
+              {{'FIRST_NAME' | translate}} :
             </span>
             {{tutor?.firstName}}
             <br>
@@ -32,6 +44,7 @@
               {{'LAST_NAME' | translate}} :
             </span>
             {{tutor?.lastName}}
+            <br>
             <hr>
             <button class="btn" (click)="approveTutor(tutor)" ion-button>
               {{'APPROVE' | translate}} &nbsp;
