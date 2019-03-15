@@ -40,10 +40,6 @@ export class AdminStatisticsDeliveredPage {
   id: number;
   chartGenerated: boolean = false;
   
-
-  // public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-
   public lineChartData2: Array<any> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   public lineChartData: Array<any> = [
@@ -204,7 +200,7 @@ export class AdminStatisticsDeliveredPage {
   }
 
   exportAsXLSX():void {
-    this.excelService.exportAsExcelFile(this.bookings, 'sample');
+    this.excelService.exportAsExcelFile(this.bookings, 'Bookings');
   }
  
   refreshPage() {

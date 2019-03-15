@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-//import { CourseService } from '../../../providers/course/course.service';
 import { CourseService } from '../../../services/Course.provider';
 import { Course } from '../../../class/Course';
 import { BookingsService } from '../../../services/Booking.provider';
@@ -29,7 +28,8 @@ export class AdminStatisticsHoursPage {
   selectedCourse: string;
   courses: Course[];
   bookings: Array<Booking>;
-  bookingsStudents: BookingUserDetails[][];
+  bookingsStudent: BookingUserDetails[];
+  bookingsStudents: BookingUserDetails[] = [];
   months: Array<any> = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
   monthsName: Array<string> = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   inc: number;
@@ -87,9 +87,6 @@ export class AdminStatisticsHoursPage {
   }
 
   generateChart() {
-
-    // this.barChartDataTutor = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    // this.barChartDataStudent = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
     if (this.selectedCourse == "all" && this.selectedYear == "all") {
       this.bookingsService.findAllBookingsList(this.fromDate, this.toDate).subscribe(data => {
@@ -151,7 +148,7 @@ export class AdminStatisticsHoursPage {
           this.barChartDataStudent[this.inc] += this.tutorialLengthHours * booking.bookingUserDetailsDTO.length + 1;
         }
       }
-    
+
     }
     console.log(this.barChartDataTutor);
     console.log(this.barChartDataStudent);
@@ -159,6 +156,7 @@ export class AdminStatisticsHoursPage {
     this.filterTutorChartData();
     this.filterStudentChartData();
     this.chartGenerated = true;
+    this.getBookingUserDetails();
   }
 
   getMonth(dateTime) {
@@ -206,17 +204,29 @@ export class AdminStatisticsHoursPage {
 
   getCourseId(selectedCourse): number {
     for (let course of this.courses) {
-       if(course.title==selectedCourse){
-         this.id = course.id
-         console.log(this.id);
-       }
-    } 
+      if (course.title == selectedCourse) {
+        this.id = course.id
+        //console.log(this.id);
+      }
+    }
     return this.id;
   }
 
+  getBookingUserDetails() {
+    for (let booking of this.bookings) {
+      for (let But of booking.bookingUserDetailsDTO) {
+        if (booking.bookingUserDetailsDTO !== undefined) {
+          this.bookingsStudents.push(But);
+        }
+      }
+
+    }
+    console.log(this.bookingsStudents);
+  }
+
   exportAsXLSX(): void {
-    this.excelService.exportAsExcelFile(this.bookings, 'sample');
-    //this.excelService.exportAsExcelFile(this.bookingsStudents, 'sample');
+    this.excelService.exportAsExcelFile(this.bookings, 'Bookings');
+    this.excelService.exportAsExcelFile(this.bookingsStudents, 'Students Attended');
     console.log(this.bookingsStudents);
   }
 
