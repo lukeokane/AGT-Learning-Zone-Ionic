@@ -39,6 +39,7 @@ export class AdminStatisticsDeliveredPage {
   courseId: number;
   id: number;
   chartGenerated: boolean = false;
+  chartLine: boolean = true;
   
   public lineChartData2: Array<any> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
@@ -206,6 +207,13 @@ export class AdminStatisticsDeliveredPage {
   refreshPage() {
     this.navCtrl.push("AdminStatisticsDeliveredPage");
   }
+
+  toggleChartLine(){
+       this.chartLine = false;
+  }
+  toggleChartBar(){
+    this.chartLine = true;
+}
 
 }
 
