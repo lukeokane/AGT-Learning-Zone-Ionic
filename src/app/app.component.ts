@@ -25,7 +25,7 @@ export class MyApp {
     // { title: 'Signup', component: 'SignupPage' },
     // { title: 'Menu', component: 'MenuPage' },
     { title: 'Statistics', component: 'AdminStatisticsPage', role: "ROLE_ADMIN" },
-    { title: 'Settings', component: 'SettingsPage', role: "ROLE_ADMIN" },
+    { title: 'Settings', component: 'AdminSettingsPage', role: "ROLE_ADMIN" },
     { title: 'Home', component: 'UserHomePage', role: "ROLE_USER" },
     { title: 'My Booking', component: 'UserMyBookingPage', role: "ROLE_USER" }
   ];

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CalendarService } from '../../../services/Calendar.provider';
 
 /**
  * Generated class for the AdminSettingsPage page.
@@ -14,12 +15,35 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'admin-settings.html',
 })
 export class AdminSettingsPage {
+  names:Array<string>;
+  page:String;
+  dateStart: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public calendarService: CalendarService) {
+    this.page='set-date';
+    this.names=["Set Academic Date"];
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminSettingsPage');
+    this.calendarService.get().subscribe(data => {
+      console.log(data);
+    }, (erro) => {
+      this.dateStart = erro.error.text;
+      console.error(erro.error.text);
+    });
   }
+  itemSelected(name:String){
+    this.page=name;
 
+  }
+  saveChanges(){
+    console.log("dat start "+ this.dateStart);
+    this.calendarService.edit(this.dateStart).subscribe(data => {
+      console.log(data);
+    }, (erro) => {
+      this.dateStart = erro.error.text;
+      console.error(erro.error.text);
+    })
+  }
 }
