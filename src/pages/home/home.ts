@@ -89,13 +89,20 @@ export class HomePage implements OnInit {
     if (this.bookings.some((value, index, array) => {
       return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == s.substring(0, 19) : value.booking.startTime.toISOString() == s.substring(0, 19);
     })) {
-
+      let profileModal = this.modalCtrl.create("AdminCheckBookingDetailsModalPage", { dateSelected: dateSelected, timeSelected: timeInt });
+      profileModal.onDidDismiss(data => {
+  
+      });
+      profileModal.present();
+    }else{
+      //Admin Add Booking
+      let addBookingModal = this.modalCtrl.create("AdminAddBookingModalPage", { dateSelected: dateSelected, timeSelected: timeInt });
+      addBookingModal.onDidDismiss(data => {
+  
+      });
+      addBookingModal.present();
     }
-    let profileModal = this.modalCtrl.create("AdminCheckBookingDetailsModalPage", { dateSelected: dateSelected, timeSelected: timeInt });
-    profileModal.onDidDismiss(data => {
 
-    });
-    profileModal.present();
   }
   timeConvertedToInt(time: String) {
     var timeSub = time.substring(0, 2);
