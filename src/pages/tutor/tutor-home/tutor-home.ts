@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, App } from 'ionic-angular';
+import { Principal } from '../../../providers/auth/principal.service';
+import { LoginService } from '../../../providers/login/login.service';
+import { BookingsService } from '../../../services/Booking.provider';
+import { FirstRunPage } from '../../pages';
 
 /**
  * Generated class for the TutorHomePage page.
