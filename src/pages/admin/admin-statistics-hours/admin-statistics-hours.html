@@ -100,10 +100,9 @@
   <br>
   <br>
  
-  <button *ngIf="barChartLabels2.length > 0" type="submit" class="btn btn-info btn-sm">
-      <!-- <fa-icon [icon]="'eye'"></fa-icon> -->
+  <!-- <button *ngIf="barChartLabels2.length > 0" type="submit" class="btn btn-info btn-sm">
       <span class="d-none d-md-inline">View table</span>
-    </button>
+    </button> -->
   <div *ngIf="barChartLabels2.length > 0" class="table-responsive">
     <table class="table table-striped">
       <thead>
@@ -125,7 +124,6 @@
       </thead>
       <tbody>
           <tr *ngFor="let booking of bookings; trackBy: trackId;let i = index;">
-              <!-- <td><a [routerLink]="['../audio-scripts', script.id ]">{{script?.id}}</a></td> -->
               <td class="text-center">{{booking?.id}}</td>
               <td class="text-center">{{booking.title}}</td>
               <td class="text-center">{{booking.requestedBy}}</td>

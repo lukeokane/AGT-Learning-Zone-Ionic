@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-//import { CourseService } from '../../../providers/course/course.service';
 import { CourseService } from '../../../services/Course.provider';
 import { Course } from '../../../class/Course';
 import { BookingsService } from '../../../services/Booking.provider';
@@ -102,11 +101,6 @@ export class AdminStatisticsDistributionPage {
 
   generateChart() {
 
-    // this.data.length=0;
-    // this.labels.length=0;
-    //this.data = this.data.filter(el => !this.data.splice(el));
-    //this.labels = this.labels.filter(el => !this.labels.splice(el));
-
     if (this.selectedCourse == "all" && this.selectedYear == "all") {
       console.log("got here selected course all selected year all");
       this.bookingsService.findAllBookingsList(this.fromDate, this.toDate).subscribe(data => {
@@ -201,7 +195,7 @@ export class AdminStatisticsDistributionPage {
   }
 
   exportAsXLSX():void {
-    this.excelService.exportAsExcelFile(this.bookings, 'sample');
+    this.excelService.exportAsExcelFile(this.bookings, 'Bookings');
   }
 
   refreshPage() {
