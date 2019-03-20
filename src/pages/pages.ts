@@ -20,3 +20,5 @@ export const userHomePage="UserHomePage";
 export const itlcHomePage="ItlcHomePage";
 export const itlcModalCheckinPage="ItlcModalCheckinPage";
 export const tutorHomePage="TutorHomePage";
+export const adminEditBooking="AdminEditBookingPage";
+

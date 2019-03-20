@@ -2,7 +2,7 @@ import { SubjectsService } from './../../../services/Subject.provider';;
 import { UserService } from './../../../services/User.provider';
 import { HttpResponse } from '@angular/common/http';
 import { BookingsService } from './../../../services/Booking.provider';
-import { adminBookingAssignPage } from './../../pages';
+import { adminBookingAssignPage,adminEditBooking } from './../../pages';
 import { Booking } from './../../../class/Booking';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
@@ -157,6 +157,10 @@ export class AdminBookingManagementPage implements OnInit {
   }
 
 
-
+  goToEditBooking(selectedBooking: Booking){
+    this.navCtrl.push(adminEditBooking, {
+      selectedBooking: selectedBooking
+    });
+  }
 
 }
