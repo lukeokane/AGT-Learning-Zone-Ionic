@@ -202,6 +202,9 @@
           <ion-row>
             <ion-col col-8></ion-col>
             <ion-col col-3>
+                <button ion-button *ngIf="!(selectedBooking?.tutorAccepted == true || selectedBooking?.adminAcceptedId != null && selectedBooking?.tutorAcceptedId != null)"
+                (click)="goToRejectBooking(selectedBooking)" class="assignBtn">{{'REJECT' |
+                translate}}</button>
               <button ion-button
                 [disabled]="selectedBooking?.tutorAccepted == true || selectedBooking?.adminAcceptedId != null && selectedBooking?.tutorAcceptedId != null"
                 (click)="goToAssignTutorManually(selectedBooking)" class="assignBtn">{{'ASSIGN' |

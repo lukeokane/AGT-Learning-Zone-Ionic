@@ -162,5 +162,8 @@ export class AdminBookingManagementPage implements OnInit {
       selectedBooking: selectedBooking
     });
   }
+  goToRejectBooking(selectedBooking: Booking){
+    //call api
+  }
 
 }
