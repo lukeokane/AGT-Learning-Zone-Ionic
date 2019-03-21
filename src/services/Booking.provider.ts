@@ -31,7 +31,10 @@ export class BookingsService {
     query(req?: any): Observable<any> {
         return this.http.get(this.resourceUrl);
     }
-
+    
+    updateBooking(booking: Booking): Observable<any> {
+        return this.http.put(`${this.resourceUrl}/edit`,booking);
+    }
     updateBookingAcceptedTutorAssigned(booking: Booking,bookingId,adminId,tutorId): Observable<any> {
         return this.http.put(`${this.resourceUrl}/updateBookingAcceptedTutorAssigned`,{},{params:{bookingId:bookingId,adminId:adminId,tutorId:tutorId}});
     }

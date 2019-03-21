@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Booking } from '../../../../class/Booking';
+import { BookingService } from '../../../../providers/booking/booking.service';
+import { BookingsService } from '../../../../services/Booking.provider';
 
 /**
  * Generated class for the AdminEditBookingPage page.
@@ -17,15 +19,28 @@ import { Booking } from '../../../../class/Booking';
 export class AdminEditBookingPage {
   selectedBooking: Booking;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, 
+    public bookingsService:BookingsService,
+    public navParams: NavParams) {
     if (this.navParams.get("selectedBooking") != null || this.navParams.get("selectedBooking") != undefined) {
       this.selectedBooking = this.navParams.get("selectedBooking");
       console.log("SELECTED BOOKING", this.selectedBooking);
+    }else{
+      
     }
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminEditBookingPage');
   }
-
+  submitEdit(){
+    this.bookingsService.updateBooking(this.selectedBooking).subscribe(data => {
+    console.log(data);
+    }, (erro) => {
+      console.error(erro);
+    })
+  }
+  cancel(){
+    this.navCtrl.pop();
+  }
 }
