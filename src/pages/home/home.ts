@@ -182,10 +182,6 @@ export class HomePage implements OnInit {
     return { s, s2 }
   }
   checkPreviousDisabled() {
-    console.log(this.today.getTime());
-    console.log(this.today);
-    console.log(this.dates[0].getTime());
-    console.log(this.dates[0]);
     if (this.today.getTime() > this.dates[0].getTime()) {
       return true;
     }

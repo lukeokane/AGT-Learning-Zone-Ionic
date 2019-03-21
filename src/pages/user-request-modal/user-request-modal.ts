@@ -11,6 +11,9 @@ import { UserInfo } from '../../class/UserInfo';
 import { Notification } from '../../class/Notification';
 import { AvailableTime } from '../../class/AvailableTime';
 import { BookingUserDetails } from '../../class/BookingUserDetails';
+import { SubjectsService } from '../../services/Subject.provider';
+import { CourseYearService } from '../../services/CourseYear.provider';
+import { CourseYear } from '../../class/CourseYear';
 
 /**
  * Generated class for the UserRequestModalPage page.
@@ -29,6 +32,9 @@ export class UserRequestModalPage implements OnInit {
   s2: any;
   booking: Booking;
   userId: any;
+  userCourseYear: any;
+  userCourse: any;
+  courseYears: Array<CourseYear>;
   subjects: Array<Subject>;
   topics: Array<Topic>;
   dateStart: any;
@@ -40,12 +46,15 @@ export class UserRequestModalPage implements OnInit {
   minDate;
   maxDate
   dateEndMinDate;
-  dateEndMaxDate
+  dateEndMaxDate;
+  selectedYear;
   constructor(public navCtrl: NavController,
     public navParams: NavParams, private modalCtrl: ModalController,
     private viewCtrl: ViewController,
     private principal: Principal,
     private userInfoService: UserInfoService,
+    private courseYearService: CourseYearService,
+    private subjectsService: SubjectsService,
     private topicService: TopicService) {
     this.availableTimes = new Array();
     this.s1 = this.navParams.get("s1");
@@ -56,6 +65,7 @@ export class UserRequestModalPage implements OnInit {
     this.maxDate = this.getDateAfterDay(new Date(), 14).toISOString();
     this.dateEndMaxDate = this.getDateAfterDay(new Date(), 14).toISOString();
     this.dateEndMinDate = new Date().toISOString();
+    this.courseYears = new Array();
 
   }
   ngOnInit() {
@@ -97,8 +107,10 @@ export class UserRequestModalPage implements OnInit {
       if (typeof (refresher) !== 'undefined') {
         refresher.complete();
       }
-      // var semesterGroupId = userInfo.semesterGroupId;
-      // this.initSubject(semesterGroupId);
+      this.userCourseYear = userInfo.courseYearId
+
+      this.initYear();
+      // this.initSubject();
     },
       (error) => {
         console.error(error);
@@ -106,17 +118,46 @@ export class UserRequestModalPage implements OnInit {
         // toast.present();
       });
   }
-  initSubject(semesterGroupId) {
-    // this.semesterGroupService.find(semesterGroupId).subscribe((response) => {
-    //   this.subjects = response.subjects;
-    //   let subjectsId: number[] = new Array(this.subjects.length)
-    //   for (let i = 0; i < this.subjects.length; i++) {
-    //     subjectsId[i] = this.subjects[i].id;
-    //   }
-    //   this.initTopic(subjectsId);
-    // }
-    // )
+  initYear() {
+    this.courseYearService.find(this.userCourseYear).subscribe((response) => {
+      this.subjects = response.subjects;
+      this.userCourse = response.courseId;
+
+      let subjectsId: number[] = new Array(this.subjects.length)
+      for (let i = 0; i < this.subjects.length; i++) {
+        subjectsId[i] = this.subjects[i].id;
+      }
+      this.initTopic(subjectsId);
+
+    });
+    this.courseYearService.query().subscribe((response: Array<CourseYear>) => {
+      console.log(response);
+      for (let i = 0; i < response.length; i++) {
+        if (response[i].courseId == this.userCourse) {
+          this.courseYears.push(response[i]);
+        }
+      }
+
+      // let subjectsId: number[] = new Array(this.subjects.length)
+      // for (let i = 0; i < this.subjects.length; i++) {
+      //   subjectsId[i] = this.subjects[i].id;
+      // }
+      // this.initTopic(subjectsId);
+    }
+    );
   }
+  // initSubject() {
+  //   this.subjectsService.query().subscribe((response) => {
+  //     console.log(response);
+  //     this.subjects = response;
+  //     let subjectsId: number[] = new Array(this.subjects.length)
+  //     for (let i = 0; i < this.subjects.length; i++) {
+  //       subjectsId[i] = this.subjects[i].id;
+  //     }
+  //     this.initTopic(subjectsId);
+  //   }
+  //   )
+  // }
   initTopic(subjectId) {
     this.topicService.getAllTopicsBySubjectId(subjectId).subscribe((response) => {
       this.topics = response;
@@ -137,10 +178,21 @@ export class UserRequestModalPage implements OnInit {
     }
   }
   onSubjectChange() {
-    this.booking.subject = this.subjects.find(x => x.id == this.booking.subjectId);
-    console.log(this.booking.subject);
-    this.topics = this.booking.subject.topics;
-    this.booking.topics = new Array();
+    if (this.booking.subjectId != -1) {
+      this.booking.subject = this.subjects.find(x => x.id == this.booking.subjectId);
+      console.log(this.booking.subject);
+      this.topics = this.booking.subject.topics;
+      this.booking.topics = new Array();
+    } else {
+      this.topics = new Array();
+      this.booking.topics = new Array();
+    }
+
+  }
+  onYearChange() {
+    this.courseYearService.find(this.selectedYear).subscribe((response) => {
+      this.subjects = response.subjects;
+    });
   }
   onClickContinue() {
     this.initAvailableTime();
@@ -206,7 +258,7 @@ export class UserRequestModalPage implements OnInit {
               } else {
                 this.availableTimes[this.availableTimes.length - 1].time.push(availableTime);
               }
-            }else{
+            } else {
               added = true;
             }
           }
@@ -228,7 +280,11 @@ export class UserRequestModalPage implements OnInit {
     }
   }
   checkValid() {
-    return this.booking.topics.length == 0 || this.booking.subjectId == null || this.booking.subjectId == undefined || this.dateStart == null || this.dateStart == "" || this.dateStart == undefined || this.dateEnd == null || this.dateEnd == undefined || this.dateEnd == "";
+    let invalid = false;
+    if (this.booking.subjectId != -1 && this.booking.topics.length == 0) {
+      invalid = true;
+    }
+    return invalid || this.booking.subjectId == null || this.booking.subjectId == undefined || this.dateStart == null || this.dateStart == "" || this.dateStart == undefined || this.dateEnd == null || this.dateEnd == undefined || this.dateEnd == "";
   }
   getDateAfterDay(date, noOfDay) {
     var answer = new Date(date.getTime() + noOfDay * 24 * 60 * 60 * 1000);

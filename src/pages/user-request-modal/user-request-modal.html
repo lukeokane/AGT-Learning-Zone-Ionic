@@ -18,11 +18,19 @@
     <ion-row>
       <!-- <h1>{{convertToString()}} </h1> -->
       <!-- <h1>{{booking.title}}</h1> -->
+      <ion-col col-11 class="form-border">
+        <ion-select placeholder="Select Year" [(ngModel)]="selectedYear" (ionChange)="onYearChange()">
+          <ion-option *ngFor="let c of courseYears " [value]="c.id">{{c.courseYear}}</ion-option>
+
+        </ion-select>
+      </ion-col>
     </ion-row>
     <ion-row>
       <ion-col col-11 class="form-border">
         <ion-select placeholder="Select Subjects" [(ngModel)]="booking.subjectId" (ionChange)="onSubjectChange()">
           <ion-option *ngFor="let s of subjects " [value]="s.id">{{s.title}}</ion-option>
+          <ion-option [value]="-1">Others</ion-option>
+
         </ion-select>
       </ion-col>
     </ion-row>
@@ -33,6 +41,8 @@
       <ion-col col-11 class="form-border">
         <ion-select placeholder="Select Topics" multiple [(ngModel)]="booking.topics">
           <ion-option *ngFor="let t of topics " [value]="t">{{t.title}}</ion-option>
+          <ion-option >Others</ion-option>
+
         </ion-select>
       </ion-col>
     </ion-row>
@@ -59,11 +69,11 @@
     <ion-row>
       <ion-col col-11>
 
-      <ion-textarea [(ngModel)]="booking.userComments"
-        placeholder="Please provide some more detail about your request...">
-      </ion-textarea>
-              
-    </ion-col>
+        <ion-textarea [(ngModel)]="booking.userComments"
+          placeholder="Please provide some more detail about your request...">
+        </ion-textarea>
+
+      </ion-col>
     </ion-row>
     <ion-row>
       <ion-col col-12>
