@@ -67,6 +67,11 @@ export class BookingsService {
             .map((res: HttpResponse<Booking[]>) => this.convertArrayResponse(res));
     }
 
+    updateBookingForCancellation(bookingID:number)
+    {
+        return this.http.delete(`${this.resourceUrl}/cancelBooking/${bookingID}`, { observe: 'response', responseType: 'text' });
+    }
+
     updateBookingAcceptedByTutor(booking: Booking) {
         return this.http.put(`${this.resourceUrl}/updateBookingAcceptedByTutor`, booking);
     }

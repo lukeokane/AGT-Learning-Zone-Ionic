@@ -30,5 +30,8 @@ export class MessagesService {
         return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response', responseType: 'text' });
     }
 
+    getAllMessagesByTag(tag:string){
+        return this.http.delete(`${this.resourceUrl}/getByTag/${tag}`, { observe: 'response', responseType: 'text' });
+    }
 
 }
