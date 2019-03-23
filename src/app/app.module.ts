@@ -1,3 +1,4 @@
+import { MessagesService } from './../services/Message.provider';
 import { BookingUserDetailService } from './../services/BookingUserDetails.provider';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserInfoService } from './../services/UserInfo.provider';
@@ -95,6 +96,7 @@ export function provideSettings(storage: Storage) {
     UserInfoService,
     TopicService,
     BookingUserDetailService,
+    MessagesService,
     CalendarService,
     Camera,
     SplashScreen,
