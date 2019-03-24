@@ -5,7 +5,7 @@ import { BookingsService } from './../../../services/Booking.provider';
 import { adminBookingAssignPage,adminEditBooking } from './../../pages';
 import { Booking } from './../../../class/Booking';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
 import { User } from '../../../class/User';
 import { Subject } from '../../../class/Subject';
 
@@ -39,7 +39,7 @@ export class AdminBookingManagementPage implements OnInit {
   result = [];
   empty:boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private bookingsService: BookingsService, private toastCtrl: ToastController, private userService: UserService, private subjectService: SubjectsService, private bookingService: BookingsService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private bookingsService: BookingsService, private toastCtrl: ToastController, private userService: UserService, private subjectService: SubjectsService, private bookingService: BookingsService,private modalCtrl:ModalController) {
   }
 
   ngOnInit() {
@@ -164,6 +164,18 @@ export class AdminBookingManagementPage implements OnInit {
   }
   goToRejectBooking(selectedBooking: Booking){
     //call api
+  }
+
+  goToCancelBooking(selectedBooking:Booking)
+  {
+    
+    let profileModal = this.modalCtrl.create("AdminCancelBookingPage",selectedBooking);
+    profileModal.onDidDismiss(data => {
+      if (data != undefined && data != null) {
+        
+      }
+    });
+    profileModal.present();
   }
 
 }
