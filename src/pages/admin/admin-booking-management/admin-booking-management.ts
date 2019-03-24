@@ -168,14 +168,8 @@ export class AdminBookingManagementPage implements OnInit {
 
   goToCancelBooking(selectedBooking:Booking)
   {
-    
-    let profileModal = this.modalCtrl.create("AdminCancelBookingPage",selectedBooking);
-    profileModal.onDidDismiss(data => {
-      if (data != undefined && data != null) {
-        
-      }
-    });
-    profileModal.present();
+    let cancelModal = this.modalCtrl.create("AdminCancelBookingPage",{selectedBooking:selectedBooking});
+    cancelModal.present();
   }
 
 }

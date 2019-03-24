@@ -29,11 +29,15 @@
       </select>
     </ion-col>
   </ion-row>
-
+  <ion-row>
+    <ion-col *ngIf="message == 'other'">
+      <input class="inputReg" padding type="text"  name="message" placeholder="Message">
+    </ion-col>
+  </ion-row>
   <ion-row style="text-align:center;padding-top:120px">
     <ion-col>
       <button ion-button>Cancel</button>
-      <button ion-button>Continue</button>
+      <button ion-button [disabled]="message == null || message == undefined" (click)="confirmCancellation(message)">Continue</button>
     </ion-col>
   </ion-row>
 
