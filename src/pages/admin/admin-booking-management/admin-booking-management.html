@@ -203,8 +203,6 @@
           <ion-row>
             <ion-col col-8></ion-col>
             <ion-col col-4>
-                <button ion-button (click)="goToCancelBooking(selectedBooking)" class="assignBtn">{{'CANCEL' |
-                translate}}</button>
                 <button ion-button *ngIf="!(selectedBooking?.tutorAccepted == true || selectedBooking?.adminAcceptedId != null && selectedBooking?.tutorAcceptedId != null)"
                 (click)="goToRejectBooking(selectedBooking)" class="assignBtn">{{'REJECT' |
                 translate}}</button>
