@@ -48,7 +48,8 @@ export class AdminEditBookingPage {
 
   goToCancelBooking(selectedBooking:Booking)
   {
-    let cancelModal = this.modalCtrl.create("AdminCancelBookingPage",{selectedBooking:selectedBooking});
+    let tag = "cancelBooking";
+    let cancelModal = this.modalCtrl.create("AdminCancelBookingPage",{selectedBooking:selectedBooking,tag:tag});
     cancelModal.present();
   }
 }
