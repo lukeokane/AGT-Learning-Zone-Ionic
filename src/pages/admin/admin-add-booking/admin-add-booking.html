@@ -34,6 +34,22 @@
           </ion-select>
         </ion-col>
       </ion-row> -->
+      <ion-row>
+          <ion-col col-12>
+            <ion-label class="text-colour-darkgrey">
+              <ion-icon name="calendar"></ion-icon>
+              <span class="padding-left-size"> {{'DATE' | translate}}</span>
+            </ion-label>
+          </ion-col>
+        </ion-row>
+      <ion-row>
+          <ion-col col-12>
+            <ion-label class="text-colour-darkgrey">
+              <ion-icon name="calendar"></ion-icon>
+              <span class="padding-left-size"> {{'TIME' | translate}}</span>
+            </ion-label>
+          </ion-col>
+        </ion-row>
   <ion-row>
     <ion-col col-5 class="form-border">
       <ion-datetime [(ngModel)]="dateStart" display-format="DD/MMM/YYYY HH:mm" [min]="minDate"
