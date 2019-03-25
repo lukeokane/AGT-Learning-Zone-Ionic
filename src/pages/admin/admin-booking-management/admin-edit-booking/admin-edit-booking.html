@@ -14,7 +14,7 @@
 
 
 <ion-content padding>
-  <ng-container *ngIf="selectedBooking !=null && selectedBooking!=underfined">
+  <ng-container *ngIf="selectedBooking !=null && selectedBooking!=undefined">
     <h1>{{selectedBooking.title}}</h1>
     <h2 *ngFor="let topic of selectedBooking.topics">{{topic.title}}</h2>
 
@@ -27,6 +27,7 @@
     <h1>User</h1>
     <h2 *ngFor="let user of selectedBooking.userInfos">{{user.profileImageURL}}</h2>
   <button ion-button (click)="submitEdit()">Submit</button>
+  <button ion-button (click)="goToCancelBooking(selectedBooking)" class="assignBtn">Cancel Booking</button>
   <button ion-button (click)="cancel()">Cancel</button>
 
   </ng-container>

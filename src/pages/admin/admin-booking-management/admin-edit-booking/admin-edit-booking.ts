@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { Booking } from '../../../../class/Booking';
 import { BookingService } from '../../../../providers/booking/booking.service';
 import { BookingsService } from '../../../../services/Booking.provider';
@@ -21,7 +21,9 @@ export class AdminEditBookingPage {
 
   constructor(public navCtrl: NavController, 
     public bookingsService:BookingsService,
-    public navParams: NavParams) {
+    public navParams: NavParams,
+    private modalCtrl:ModalController
+    ) {
     if (this.navParams.get("selectedBooking") != null || this.navParams.get("selectedBooking") != undefined) {
       this.selectedBooking = this.navParams.get("selectedBooking");
       console.log("SELECTED BOOKING", this.selectedBooking);
@@ -42,5 +44,12 @@ export class AdminEditBookingPage {
   }
   cancel(){
     this.navCtrl.pop();
+  }
+
+  goToCancelBooking(selectedBooking:Booking)
+  {
+    let tag = "cancelBooking";
+    let cancelModal = this.modalCtrl.create("AdminCancelBookingPage",{selectedBooking:selectedBooking,tag:tag});
+    cancelModal.present();
   }
 }

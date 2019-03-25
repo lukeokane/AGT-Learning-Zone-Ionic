@@ -162,13 +162,11 @@ export class AdminBookingManagementPage implements OnInit {
       selectedBooking: selectedBooking
     });
   }
-  goToRejectBooking(selectedBooking: Booking){
-    //call api
-  }
-
+  
   goToCancelBooking(selectedBooking:Booking)
   {
-    let cancelModal = this.modalCtrl.create("AdminCancelBookingPage",{selectedBooking:selectedBooking});
+    let tag:string = "rejectBooking";
+    let cancelModal = this.modalCtrl.create("AdminCancelBookingPage",{selectedBooking:selectedBooking,tag:tag});
     cancelModal.present();
   }
 

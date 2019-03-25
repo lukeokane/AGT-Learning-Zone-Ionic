@@ -27,6 +27,10 @@ export class AdminCancelBookingPage implements OnInit {
     if (navParams.get('selectedBooking') != null || navParams.get('selectedBooking') != undefined) {
       this.booking = navParams.get('selectedBooking');
     }
+    if (navParams.get('tag') != null || navParams.get('tag') != undefined) {
+      this.tag = navParams.get('tag');
+    }
+    console.log("Tag", this.tag);
   }
 
   ngOnInit() {
@@ -34,9 +38,7 @@ export class AdminCancelBookingPage implements OnInit {
   }
 
   initMessages() {
-    this.tag = "cancelBooking";
     this.messageService.query().subscribe(data => {
-
       data.forEach(message => {
         if (message.tag == this.tag) {
           this.messages.push(message);
@@ -46,6 +48,7 @@ export class AdminCancelBookingPage implements OnInit {
   }
 
   confirmCancellation(message:Message) {
+    this.booking.cancelled=true;
     this.bookingDetails.booking= this.booking;
     if(this.other != null || this.other != undefined)
     {
@@ -57,6 +60,7 @@ export class AdminCancelBookingPage implements OnInit {
     else{
       this.bookingDetails.message = message;
     }
+
     this.bookingService.updateBooking(this.bookingDetails).subscribe(data => {
       console.log("result ", data);
       this.navCtrl.push(adminBookingManagementPage);

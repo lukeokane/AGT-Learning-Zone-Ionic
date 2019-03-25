@@ -11,7 +11,8 @@
   <ion-row></ion-row>
   <ion-row>
     <ion-col>
-      <h3>Cancelling reason</h3>
+      <h3 *ngIf="tag == 'cancelBooking'">Cancelling reason</h3>
+      <h3 *ngIf="tag == 'rejectBooking'">Rejecting reason</h3>
     </ion-col>
   </ion-row>
   <ion-row style="text-align:center;padding-top:50px">
