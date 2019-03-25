@@ -46,6 +46,7 @@ export class AdminCancelBookingPage implements OnInit {
   }
 
   confirmCancellation(message:Message) {
+    this.booking.cancelled=true;
     this.bookingDetails.booking= this.booking;
     if(this.other != null || this.other != undefined)
     {
