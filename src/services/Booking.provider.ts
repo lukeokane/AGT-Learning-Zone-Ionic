@@ -1,3 +1,4 @@
+import { BookingDetails } from './../class/BookingDetails';
 import { Booking } from './../class/Booking';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
@@ -65,6 +66,12 @@ export class BookingsService {
         const options = createRequestOption(req);
         return this.http.get<Booking[]>(this.resourceUrl, { params: options, observe: 'response' })
             .map((res: HttpResponse<Booking[]>) => this.convertArrayResponse(res));
+    }
+
+
+    updateBookingEdited(bookingDetails:BookingDetails)
+    {
+        return this.http.put(`${this.resourceUrl}/edit`, bookingDetails);
     }
 
     updateBookingForCancellation(bookingID:number)

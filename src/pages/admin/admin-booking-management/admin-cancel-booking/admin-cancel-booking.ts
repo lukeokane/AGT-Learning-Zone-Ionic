@@ -1,8 +1,11 @@
+import { BookingDetails } from './../../../../class/BookingDetails';
 import { Booking } from './../../../../class/Booking';
 import { MessagesService } from './../../../../services/Message.provider';
 import { Message } from './../../../../class/Message';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { BookingsService } from '../../../../services/Booking.provider';
+import { adminBookingManagementPage } from '../../../pages';
 
 @IonicPage()
 @Component({
@@ -12,12 +15,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class AdminCancelBookingPage implements OnInit {
 
   messages: Array<Message> = [];
-  message: any;
+  messageReason: string;
+  message:Message;
   tag: string;
-  other: any;
   booking: Booking;
+  bookingDetails:BookingDetails = new BookingDetails();
+  change:any;
+  other:string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private messageService: MessagesService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private messageService: MessagesService,private bookingService:BookingsService,private viewCtrl:ViewController) {
     if (navParams.get('selectedBooking') != null || navParams.get('selectedBooking') != undefined) {
       this.booking = navParams.get('selectedBooking');
     }
@@ -39,8 +45,31 @@ export class AdminCancelBookingPage implements OnInit {
     }, error => console.log(error));
   }
 
-  confirmCancellation(message: string) {
-    console.log("MESSAGE IS ", message);
+  confirmCancellation(message:Message) {
+    this.bookingDetails.booking= this.booking;
+    if(this.other != null || this.other != undefined)
+    {
+      this.message=new Message();
+      this.message.tag=this.tag;
+      this.message.reason= this.other;
+      this.bookingDetails.message = this.message;
+    }
+    else{
+      this.bookingDetails.message = message;
+    }
+    this.bookingService.updateBooking(this.bookingDetails).subscribe(data => {
+      console.log("result ", data);
+      this.navCtrl.push(adminBookingManagementPage);
+    }, error => console.log(error));
+    
   }
 
+changes(event:any)
+{
+  this.change = event;
+}
+
+dismiss() {
+  this.viewCtrl.dismiss();
+}
 }

@@ -1,3 +1,4 @@
+import { Message } from './Message';
 import { OrdinalScale } from "./OrdinalScale";
 import { BookingUserDetails } from "./BookingUserDetails";
 import { Subject } from "./Subject";
@@ -30,7 +31,7 @@ export class Booking {
         public requestTimes?:string,
         public readByAdmin?:boolean,
         public topics?:Array<Topic>
-    )
+        )
     { }
 
 }

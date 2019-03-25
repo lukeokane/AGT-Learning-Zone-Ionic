@@ -4,16 +4,26 @@ page-admin-cancel-booking {
     background-color: #FFF0E4;
     color:#717171;
     border:2px solid #FFB478; 
-    font-size: 14px !important;
-    width: 83%;
-  }
+    font-size: 13px !important;
+    width: 80%;
+    height:37px; 
+    }
 
   input{
-    font-size: 14px !important;
-    width: 83%;
+    font-size: 13px !important;
+    width: 80%;
     background-color:#FFF0E4 !important;   
     border:2px solid #FFB478; 
     color:#717171;
+    height:37px; 
   }
+ 
+  .btn{
+    background-color:#FE787B;
+}
+
+.scroll-content {
+  overflow: hidden;
+}
 
 }

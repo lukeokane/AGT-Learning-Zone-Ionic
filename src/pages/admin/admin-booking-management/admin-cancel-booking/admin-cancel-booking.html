@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Cancel Booking</ion-title>
+    <ion-title></ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -11,12 +11,12 @@
   <ion-row></ion-row>
   <ion-row>
     <ion-col>
-      <h4>Cancelling reason</h4>
+      <h3>Cancelling reason</h3>
     </ion-col>
   </ion-row>
-  <ion-row style="text-align:center;padding-top:60px">
+  <ion-row style="text-align:center;padding-top:50px">
     <ion-col>
-      <select padding [(ngModel)]="message">
+      <select [(ngModel)]="message" (ngModelChange)="changes($event)">
         <option [ngValue]="" disabled [selected]="true">Choose an option</option>
         <ng-container *ngFor="let message of messages">
           <option [ngValue]="message">
@@ -30,14 +30,14 @@
     </ion-col>
   </ion-row>
   <ion-row>
-    <ion-col *ngIf="message == 'other'">
-      <input class="inputReg" padding type="text"  name="message" placeholder="Message">
+    <ion-col *ngIf="change == 'other'">
+      <input [(ngModel)]="other" type="text" name="other" placeholder=" Type reason here..">
     </ion-col>
   </ion-row>
-  <ion-row style="text-align:center;padding-top:120px">
+  <ion-row style="text-align:center;padding-top:80px">
     <ion-col>
-      <button ion-button>Cancel</button>
-      <button ion-button [disabled]="message == null || message == undefined" (click)="confirmCancellation(message)">Continue</button>
+      <button class="btn" ion-button (click)="dismiss()">Cancel</button>
+      <button class="btn" ion-button [disabled]="message == null || message == undefined" (click)="confirmCancellation(message)">Continue</button>
     </ion-col>
   </ion-row>
 
