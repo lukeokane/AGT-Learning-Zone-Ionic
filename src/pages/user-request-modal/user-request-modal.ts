@@ -54,7 +54,6 @@ export class UserRequestModalPage implements OnInit {
     private principal: Principal,
     private userInfoService: UserInfoService,
     private courseYearService: CourseYearService,
-    private subjectsService: SubjectsService,
     private topicService: TopicService) {
     this.availableTimes = new Array();
     this.s1 = this.navParams.get("s1");
