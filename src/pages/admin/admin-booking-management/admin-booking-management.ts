@@ -2,7 +2,7 @@ import { SubjectsService } from './../../../services/Subject.provider';;
 import { UserService } from './../../../services/User.provider';
 import { HttpResponse } from '@angular/common/http';
 import { BookingsService } from './../../../services/Booking.provider';
-import { adminBookingAssignPage,adminEditBooking } from './../../pages';
+import { adminBookingAssignPage,adminEditBooking, adminAddBookingPage } from './../../pages';
 import { Booking } from './../../../class/Booking';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
@@ -172,4 +172,12 @@ export class AdminBookingManagementPage implements OnInit {
     cancelModal.present();
   }
 
+  onAddBooking(){
+    let bookingModal = this.modalCtrl.create(adminAddBookingPage);
+    bookingModal.onDidDismiss(data => {
+     
+    });
+    bookingModal.present();
+    
+  }
 }
