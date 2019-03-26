@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>admin-add-booking</ion-title>
+    <ion-title>{{'ADD_BOOKING'|translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -35,7 +35,7 @@
       <ion-col col-11 class="form-border">
         <ion-select placeholder="Select Subjects" [(ngModel)]="booking.subjectId" (ionChange)="onSubjectChange()">
           <ion-option *ngFor="let s of subjects " [value]="s.id">{{s.title}}</ion-option>
-          <ion-option [value]="-1">Others</ion-option>
+          <ion-option [value]="-1">{{ 'OTHERS' |translate}}</ion-option>
 
         </ion-select>
       </ion-col>
@@ -45,7 +45,7 @@
       <ion-col col-11 class="form-border">
         <ion-select placeholder="Select Topics" multiple [(ngModel)]="booking.topics">
           <ion-option *ngFor="let t of topics " [value]="t">{{t.title}}</ion-option>
-          <ion-option>Others</ion-option>
+          <ion-option>{{ 'OTHERS' |translate}}</ion-option>
 
         </ion-select>
       </ion-col>
@@ -103,17 +103,17 @@
     <ion-row>
       <p>
         <span>
-          Low
+          {{'LOW'|translate}}
           <ion-icon [name]="booking.importanceLevel!='LOW' ? 'radio-button-off' :'radio-button-on'" class="priority-btn"
             (click)="onClickPriority(1)"></ion-icon>
         </span>
         <span>
-          Medium
+          {{'MEDIUM'|translate}}
           <ion-icon [name]="booking.importanceLevel!='MEDIUM' ? 'radio-button-off' :'radio-button-on'"
             class="priority-btn" (click)="onClickPriority(2)"></ion-icon>
         </span>
         <span>
-          High
+          {{'HIGH'|translate}}
           <ion-icon [name]="booking.importanceLevel!='HIGH' ? 'radio-button-off' :'radio-button-on'"
             class="priority-btn" (click)="onClickPriority(3)"></ion-icon>
         </span>

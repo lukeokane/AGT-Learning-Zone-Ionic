@@ -49,6 +49,7 @@
   "EDIT_BUTTON": "Edit",
   "DONE_BUTTON": "Done",
   "CANCEL_BUTTON": "Cancel",
+  "SUBMIT_BUTTON": "Submit",
   "DELETE_BUTTON": "Delete",
   "OKAY_BUTTON": "Okay",
   "REQUEST_BUTTON": "Request",
@@ -92,6 +93,12 @@
   "EDIT": "Edit",
   "ADD_BOOKING": " Add Booking",
   "DATE": "Date",
-  "Time": "Time",
-  "CREATE_BUTTONe": "Create"
+  "TIME": "Time",
+  "CREATE_BUTTONe": "Create",
+  "OTHERS": "Others",
+  "LOW": "Low",
+  "MEDIUM": "Medium",
+  "HIGH": "High",
+  "CANCEL_BOOKING": "Cancel Booking"
+
 }

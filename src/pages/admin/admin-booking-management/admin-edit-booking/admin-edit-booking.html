@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>admin-edit-booking</ion-title>
+    <ion-title>{{'EDIT' | translate}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -66,9 +66,10 @@
       </ion-col>
     </ion-row>
 
-    <button ion-button (click)="submitEdit()">Submit</button>
-    <button ion-button (click)="goToCancelBooking(selectedBooking)" class="assignBtn">Cancel Booking</button>
-    <button ion-button (click)="cancel()">Cancel</button>
+    <button ion-button (click)="submitEdit()">{{'SUBMIT_BUTTON' | translate}}</button>
+    <button ion-button (click)="goToCancelBooking(selectedBooking)"
+      class="assignBtn">{{'CANCEL_BOOKING' | translate}}</button>
+    <button ion-button (click)="cancel()">{{'CANCEL_BUTTON' | translate}}</button>
 
   </ng-container>
 
