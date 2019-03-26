@@ -14,8 +14,24 @@
 
 
 <ion-content padding>
-<ion-grid>
-      <!-- <ion-row>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-11 class="form-border">
+        <ion-select placeholder="Select Course" [(ngModel)]="selectedCourse" (ionChange)="onCourseChange()">
+          <ion-option *ngFor="let c of courses; let i =index" [value]="i">{{c.title}}</ion-option>
+
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-11 class="form-border">
+        <ion-select placeholder="Select Year" [(ngModel)]="selectedYear" (ionChange)="onYearChange()">
+          <ion-option *ngFor="let c of courseYears; let i =index" [value]="i">{{c.courseYear}}</ion-option>
+
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    <ion-row>
       <ion-col col-11 class="form-border">
         <ion-select placeholder="Select Subjects" [(ngModel)]="booking.subjectId" (ionChange)="onSubjectChange()">
           <ion-option *ngFor="let s of subjects " [value]="s.id">{{s.title}}</ion-option>
@@ -25,46 +41,106 @@
       </ion-col>
     </ion-row>
 
+    <ion-row *ngIf="booking.subjectId!=null && booking.subjectId !=-1">
+      <ion-col col-11 class="form-border">
+        <ion-select placeholder="Select Topics" multiple [(ngModel)]="booking.topics">
+          <ion-option *ngFor="let t of topics " [value]="t">{{t.title}}</ion-option>
+          <ion-option>Others</ion-option>
+
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="booking.subjectId ==-1">
+      <ion-col col-11>
+        <ion-textarea [(ngModel)]="booking.userComments"
+          placeholder="Please provide some more detail for the request...">
+        </ion-textarea>
+      </ion-col>
+    </ion-row>
+
     <ion-row>
-        <ion-col col-11 class="form-border">
-          <ion-select placeholder="Select Topics" multiple [(ngModel)]="booking.topics">
-            <ion-option *ngFor="let t of topics " [value]="t">{{t.title}}</ion-option>
-            <ion-option >Others</ion-option>
-  
-          </ion-select>
-        </ion-col>
-      </ion-row> -->
-      <ion-row>
-          <ion-col col-12>
-            <ion-label class="text-colour-darkgrey">
-              <ion-icon name="calendar"></ion-icon>
-              <span class="padding-left-size"> {{'DATE' | translate}}</span>
-            </ion-label>
-          </ion-col>
-        </ion-row>
-      <ion-row>
-          <ion-col col-12>
-            <ion-label class="text-colour-darkgrey">
-              <ion-icon name="calendar"></ion-icon>
-              <span class="padding-left-size"> {{'TIME' | translate}}</span>
-            </ion-label>
-          </ion-col>
-        </ion-row>
-  <ion-row>
-    <ion-col col-5 class="form-border">
-      <ion-datetime [(ngModel)]="dateStart" display-format="DD/MMM/YYYY HH:mm" [min]="minDate"
-        (ionChange)="changeStartDate()"></ion-datetime>
-    </ion-col>
+      <ion-col col-12>
+        <ion-label class="text-colour-darkgrey">
+          <ion-icon name="calendar"></ion-icon>
+          <!-- {{'DATE' | translate}} -->
+          <span class="padding-left-size"> Date</span>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12 class="form-border">
+        <ion-datetime [(ngModel)]="date" display-format="DD/MMM/YYYY" [min]="minDate"></ion-datetime>
+      </ion-col>
 
-    <ion-col offset-2 col-5 class="form-border">
-      <ion-datetime [(ngModel)]="dateEnd" display-format="DD/MMM/YYYY HH:mm" [min]="dateEndMinDate" 
-        [disabled]="dateStart==null||dateStart==undefined"></ion-datetime>
-    </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <ion-label class="text-colour-darkgrey">
+          <ion-icon name="calendar"></ion-icon>
+          <!-- {{'TIME' | translate}} -->
+          <span class="padding-left-size">Time</span>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-5 class="form-border">
+        <ion-datetime [(ngModel)]="timeStart" display-format="HH:mm" pickerFormat="HH:mm"
+          (ionChange)="changeStartDate()"></ion-datetime>
+      </ion-col>
 
-  </ion-row>
+      <ion-col offset-2 col-5 class="form-border">
+        <ion-datetime [(ngModel)]="timeEnd" display-format="HH:mm" pickerFormat="HH:mm" [min]="dateEndMinDate"
+          [disabled]="timeStart==null||timeStart==undefined"></ion-datetime>
+      </ion-col>
 
-  <ion-row>
-    <button ion-button (click)="onCreateBooking()">Create</button>
-  </ion-row>
-</ion-grid>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <ion-label class="text-colour-darkgrey">
+          <ion-icon name="alert" style="color:#FE787B"></ion-icon>
+          <!-- <span class="padding-left-size"> {{'LEVEL_OF_IMPORTANCE' | translate}}</span> -->
+          <span class="padding-left-size"> LEVEL_OF_IMPORTANCE</span>
+
+        </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <p>
+        <span>
+          Low
+          <ion-icon [name]="booking.importanceLevel!='LOW' ? 'radio-button-off' :'radio-button-on'" class="priority-btn"
+            (click)="onClickPriority(1)"></ion-icon>
+        </span>
+        <span>
+          Medium
+          <ion-icon [name]="booking.importanceLevel!='MEDIUM' ? 'radio-button-off' :'radio-button-on'"
+            class="priority-btn" (click)="onClickPriority(2)"></ion-icon>
+        </span>
+        <span>
+          High
+          <ion-icon [name]="booking.importanceLevel!='HIGH' ? 'radio-button-off' :'radio-button-on'"
+            class="priority-btn" (click)="onClickPriority(3)"></ion-icon>
+        </span>
+      </p>
+
+    </ion-row>
+
+    <ion-row>
+
+      <ion-col col-6>
+        <!-- <button ion-button block class="cancel-btn" (click)="onClickCancel()">{{'CANCEL_BUTTON' | translate}}</button> -->
+
+        <button ion-button block class="cancel-btn" (click)="onClickCancel()">CANCEL_BUTTON</button>
+      </ion-col>
+      <ion-col col-6>
+        <button ion-button block class="continue-btn" (click)="onCreateBooking()"
+          [disabled]="checkValid()">CREATE_BUTTON</button>
+        <!-- <button ion-button block class="continue-btn" (click)="onCreateBooking()"
+          [disabled]="checkValid()">{{'CREATE_BUTTON' | translate}}</button> -->
+      </ion-col>
+    </ion-row>
+
+
+
+  </ion-grid>
 </ion-content>
