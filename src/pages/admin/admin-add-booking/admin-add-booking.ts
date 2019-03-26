@@ -44,8 +44,8 @@ export class AdminAddBookingPage {
     this.date = new Date().toISOString();
     let tomorrow = new Date();
     tomorrow.setDate(new Date().getDate()+1);
-    this.minDate = tomorrow.toISOString();
-    // this.minTime = new Date().toISOString();
+    this.minDate = new Date().toISOString();
+    this.minTime = tomorrow.toISOString();
   }
 
   ionViewDidLoad() {
