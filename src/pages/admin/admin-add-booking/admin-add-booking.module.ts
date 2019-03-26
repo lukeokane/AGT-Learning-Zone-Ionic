@@ -1,3 +1,4 @@
+import { TranslateModule } from '@ngx-translate/core';
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { AdminAddBookingPage } from './admin-add-booking';
@@ -8,6 +9,7 @@ import { AdminAddBookingPage } from './admin-add-booking';
   ],
   imports: [
     IonicPageModule.forChild(AdminAddBookingPage),
+    TranslateModule.forChild()
   ],
 })
 export class AdminAddBookingPageModule {}

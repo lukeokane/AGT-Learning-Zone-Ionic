@@ -120,7 +120,7 @@ export class SignupPage implements OnInit {
     if (this.roleType == "ROLE_TUTOR") {
       this.account.authorities = ['ROLE_TUTOR'];
       this.account.year = null;
-      this.signupSuccessString = "Please wait your Request is being processed";
+      this.signupSuccessString = "An ITLC staff member will handle your registering request";
     }
     else if (this.roleType == "ROLE_USER") {
       this.account.authorities = ['ROLE_USER'];
@@ -133,8 +133,9 @@ export class SignupPage implements OnInit {
     this.user.signup(this.account).subscribe(() => {
       let toast = this.toastCtrl.create({
         message: this.signupSuccessString,
-        duration: 3000,
-        position: 'top'
+        duration: 8000,
+        position: 'top',
+        cssClass: 'toastcolor'
       });
       toast.present();
       this.navCtrl.push(MainPage);
@@ -150,8 +151,9 @@ export class SignupPage implements OnInit {
       }
       let toast = this.toastCtrl.create({
         message: displayError,
-        duration: 3000,
-        position: 'middle'
+        duration: 8000,
+        position: 'middle',
+        cssClass: 'toastcolor'
       });
       toast.present();
     });
