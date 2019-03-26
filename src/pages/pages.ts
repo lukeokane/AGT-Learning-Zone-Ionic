@@ -22,5 +22,5 @@ export const itlcModalCheckinPage="ItlcModalCheckinPage";
 export const tutorHomePage="TutorHomePage";
 export const adminEditBooking="AdminEditBookingPage";
 export const adminAddBookingPage="AdminAddBookingPage";
-
+export const adminApproveTutorPage="AdminApproveTutorPage";
 
