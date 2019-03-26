@@ -1,8 +1,4 @@
-reject tutor : delete 
-	->userinfo link it up
-	
-	
-	<top-menu></top-menu>
+<top-menu></top-menu>
 <ion-content padding class="scroll">
   <ion-col col-1>
     <ion-row>
@@ -63,7 +59,7 @@ reject tutor : delete
   <ion-row *ngIf="tutors.length ==0" class="align">
     <ion-col col-1></ion-col>
     <ion-col>
-      <h4>No tutor requests!</h4>
+      <h4>{{'NO_TUTOR_REQUESTS' | translate}}!</h4>
     </ion-col>
   </ion-row>
 </ion-content>
