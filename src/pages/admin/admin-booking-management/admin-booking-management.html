@@ -204,11 +204,15 @@
             <ion-col col-8></ion-col>
             <ion-col col-4>
                 <button ion-button (click)="goToCancelBooking(selectedBooking)" class="assignBtn">{{'REJECT' |
-                translate}}</button>
+                translate}}
+                &nbsp; <i class="fa fa-times"></i>
+              </button>
               <button ion-button
                 [disabled]="selectedBooking?.tutorAccepted == true || selectedBooking?.adminAcceptedId != null && selectedBooking?.tutorAcceptedId != null"
-                (click)="goToAssignTutorManually(selectedBooking)" class="assignBtn">{{'ASSIGN' |
-                translate}}</button>
+                (click)="goToAssignTutorManually(selectedBooking)" class="btn">{{'ASSIGN' |
+                translate}} &nbsp;
+                <i class="fa fa-calendar-plus"></i>
+              </button>
               <button ion-button *ngIf="selectedBooking?.tutorAccepted == true || selectedBooking?.adminAcceptedId != null && selectedBooking?.tutorAcceptedId != null"
                 (click)="goToEditBooking(selectedBooking)" class="assignBtn">{{'EDIT' |
                 translate}}</button>
