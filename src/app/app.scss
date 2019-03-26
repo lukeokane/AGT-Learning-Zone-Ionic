@@ -135,3 +135,8 @@ only screen and (                min-resolution: 2dppx) {
 .no-scroll .scroll-content{
   overflow: hidden;
 }
+
+.toastcolor .toast-message {
+  background-color:#FFB478;
+  text-align: center;
+}    
