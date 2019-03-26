@@ -1,28 +1,31 @@
 page-itlc-home {
-    #menu_button{
+    #menu_button {
         background-color: transparent;
         color: black;
-        box-shadow: none;    
+        box-shadow: none;
     }
-    
+
     .border-menu {
         display: inline-block;
         cursor: pointer;
     }
-    
-    .bar1, .bar2, .bar3 {
+
+    .bar1,
+    .bar2,
+    .bar3 {
         width: 35px;
         height: 5px;
         background-color: #DEF2F1;
         border: 1px solid #3AAFA9;
         margin: 6px 0;
-    
+
     }
-    
+
     .bar3 {
         width: 25px;
     }
-    .btn{
+
+    .btn {
         border-color: #3AAFA9;
         color: #3AAFA9;
     }

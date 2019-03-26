@@ -1,25 +1,30 @@
 page-user-request-send-tutorial {
-.icon-checkmark{
-// background-color: #F6FFFF;
-color:#3AAFA9;
-}
-.icon-close{
-    color:#FE787B;
-}
-ion-icon{
-    font-size: 500%;
-    vertical-align: middle;
-    cursor: pointer;
-}
-.confirm-text{
-    color: #717171;
-}
-.big-check-mark{
-    font-size: 1400%;
-    color:#3AAFA9;
-    cursor: unset;
-}
-.toolbar-background-md{
-    background-color:#202D31;
-}
+    .icon-checkmark {
+        // background-color: #F6FFFF;
+        color: #3AAFA9;
+    }
+
+    .icon-close {
+        color: #FE787B;
+    }
+
+    ion-icon {
+        font-size: 500%;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+
+    .confirm-text {
+        color: #717171;
+    }
+
+    .big-check-mark {
+        font-size: 1400%;
+        color: #3AAFA9;
+        cursor: unset;
+    }
+
+    .toolbar-background-md {
+        background-color: #202D31;
+    }
 }

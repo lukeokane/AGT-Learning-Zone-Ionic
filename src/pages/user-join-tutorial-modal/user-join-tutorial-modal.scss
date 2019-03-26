@@ -1,24 +1,29 @@
 page-user-join-tutorial-modal {
-    .cancel-btn{
-        border:1px solid #FFCDA5;
-        color:#FE787B;
+    .cancel-btn {
+        border: 1px solid #FFCDA5;
+        color: #FE787B;
         background-color: white;
-        }
-        .continue-btn{
-            background-color: #FE787B;
-            color: white;
-        }
-        .toolbar-background-md{
-            background-color:#202D31;
-        }
-        .padding-left-size{
-            padding-left: 10px;
-        }
-        .padding-grid{
-            padding: 10px;
-        }
-        ion-row{
-            padding-top: 5px;
-            padding-bottom: 10px;
-        }
+    }
+
+    .continue-btn {
+        background-color: #FE787B;
+        color: white;
+    }
+
+    .toolbar-background-md {
+        background-color: #202D31;
+    }
+
+    .padding-left-size {
+        padding-left: 10px;
+    }
+
+    .padding-grid {
+        padding: 10px;
+    }
+
+    ion-row {
+        padding-top: 5px;
+        padding-bottom: 10px;
+    }
 }
