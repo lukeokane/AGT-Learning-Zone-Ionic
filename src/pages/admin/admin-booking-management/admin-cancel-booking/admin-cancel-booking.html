@@ -7,25 +7,25 @@
 </ion-header>
 
 
-<ion-content style="text-align:center" padding>
+<ion-content class="align" padding>
   <ion-row></ion-row>
   <ion-row>
     <ion-col>
-      <h3 *ngIf="tag == 'cancelBooking'">Cancelling reason</h3>
-      <h3 *ngIf="tag == 'rejectBooking'">Rejecting reason</h3>
+      <h3 *ngIf="tag == 'cancelBooking'">{{'CANCELLING_REASON' | translate}}</h3>
+      <h3 *ngIf="tag == 'rejectBooking'">{{'REJECTING_REASON' | translate}}</h3>
     </ion-col>
   </ion-row>
-  <ion-row style="text-align:center;padding-top:50px">
+  <ion-row class="inputPos">
     <ion-col>
       <select [(ngModel)]="message" (ngModelChange)="changes($event)">
-        <option [ngValue]="" disabled [selected]="true">Choose an option</option>
+        <option [ngValue]="" disabled [selected]="true">{{'CHOOSE_AN_OPTION' | translate}}</option>
         <ng-container *ngFor="let message of messages">
           <option [ngValue]="message">
-            {{message.reason}}
+            {{message?.reason}}
           </option>
         </ng-container>
         <option value="other">
-          Other
+          {{'OTHER' | translate}}
         </option>
       </select>
     </ion-col>
@@ -35,10 +35,10 @@
       <input [(ngModel)]="other" type="text" name="other" placeholder=" Type reason here..">
     </ion-col>
   </ion-row>
-  <ion-row style="text-align:center;padding-top:80px">
+  <ion-row class="btnPos">
     <ion-col>
-      <button class="btn" ion-button (click)="dismiss()">Cancel</button>
-      <button class="btn" ion-button [disabled]="message == null || message == undefined" (click)="confirmCancellation(message)">Continue</button>
+      <button class="btn" ion-button (click)="dismiss()">{{'CANCEL' | translate}}</button>
+      <button class="btn" ion-button [disabled]="message == null || message == undefined" (click)="confirmCancellation(message)">{{'CONTINUE' | translate}}</button>
     </ion-col>
   </ion-row>
 

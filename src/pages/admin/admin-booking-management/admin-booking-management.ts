@@ -2,7 +2,7 @@ import { SubjectsService } from './../../../services/Subject.provider';;
 import { UserService } from './../../../services/User.provider';
 import { HttpResponse } from '@angular/common/http';
 import { BookingsService } from './../../../services/Booking.provider';
-import { adminBookingAssignPage,adminEditBooking, adminAddBookingPage } from './../../pages';
+import { adminBookingAssignPage, adminEditBooking, adminAddBookingPage, adminCancelBookingPage } from './../../pages';
 import { Booking } from './../../../class/Booking';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
@@ -166,7 +166,7 @@ export class AdminBookingManagementPage implements OnInit {
   goToCancelBooking(selectedBooking:Booking)
   {
     let tag:string = "rejectBooking";
-    let cancelModal = this.modalCtrl.create("AdminCancelBookingPage",{selectedBooking:selectedBooking,tag:tag});
+    let cancelModal = this.modalCtrl.create(adminCancelBookingPage,{selectedBooking:selectedBooking,tag:tag});
     cancelModal.present();
   }
 

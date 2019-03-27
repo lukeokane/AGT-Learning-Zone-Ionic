@@ -1,3 +1,4 @@
+import { adminCancelBookingPage } from './../../../pages';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { Booking } from '../../../../class/Booking';
@@ -102,7 +103,7 @@ export class AdminEditBookingPage implements OnInit {
 
   goToCancelBooking(selectedBooking: Booking) {
     let tag = "cancelBooking";
-    let cancelModal = this.modalCtrl.create("AdminCancelBookingPage", { selectedBooking: selectedBooking, tag: tag });
+    let cancelModal = this.modalCtrl.create(adminCancelBookingPage, { selectedBooking: selectedBooking, tag: tag });
     cancelModal.present();
   }
 }

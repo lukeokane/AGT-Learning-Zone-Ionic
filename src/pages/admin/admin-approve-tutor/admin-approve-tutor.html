@@ -1,8 +1,4 @@
-reject tutor : delete 
-	->userinfo link it up
-	
-	
-	<top-menu></top-menu>
+<top-menu></top-menu>
 <ion-content padding class="scroll">
   <ion-col col-1>
     <ion-row>
@@ -60,6 +56,12 @@ reject tutor : delete
       <ion-col *ngIf="tutors.length % 2 == 1" col-5></ion-col>
     </ion-row>
   </ion-col>
+  <ion-row *ngIf="tutors.length ==0" class="align">
+    <ion-col col-1></ion-col>
+    <ion-col>
+      <h4>{{'NO_TUTOR_REQUESTS' | translate}}!</h4>
+    </ion-col>
+  </ion-row>
 </ion-content>
 <div class="row justify-content-center">
   <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true"

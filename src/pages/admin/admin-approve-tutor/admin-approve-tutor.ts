@@ -1,9 +1,10 @@
+
+import { adminApproveTutorPage } from './../../pages';
 import { User } from './../../../class/User';
 import { HttpResponse } from '@angular/common/http';
 import { UserService } from './../../../services/User.provider';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
-import { homePage } from '../../pages';
 
 @IonicPage()
 @Component({
@@ -80,13 +81,13 @@ export class AdminApproveTutorPage implements OnInit{
   {
     tutor.activated=true;
     this.userService.saveUser(tutor);
-    this.navCtrl.push(homePage);
+    this.navCtrl.push(adminApproveTutorPage);
   }
 
   rejectTutor(login : string)
   {
     this.userService.deleteUserByLogin(login).subscribe();
-    this.navCtrl.push(homePage);
+    this.navCtrl.push(adminApproveTutorPage);
   }
 
 

@@ -99,6 +99,11 @@
   "LOW": "Low",
   "MEDIUM": "Medium",
   "HIGH": "High",
-  "CANCEL_BOOKING": "Cancel Booking"
+  "CANCEL_BOOKING": "Cancel Booking",
+  "OTHER":"Other",
+  "CHOOSE_AN_OPTION":"Choose an option",
+  "CANCELLING_REASON":"Cancelling reason",
+  "REJECTING_REASON":"Rejecting reason",
+  "NO_TUTOR_REQUESTS":"No tutor requests"
 
 }
