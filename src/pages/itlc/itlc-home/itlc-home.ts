@@ -33,6 +33,7 @@ export class ItlcHomePage {
     d.setUTCHours(0);
     this.generateDate(d);
     this.screenWidth = window.screen.width;
+    console.log("time "+ this.time);
   }
 
 
@@ -82,6 +83,7 @@ export class ItlcHomePage {
       this.dates.push(temp);
       monday.setTime(monday.getTime() + (24 * 60 * 60 * 1000));
     }
+    console.log(this.dates);
 
   }
   convertDateToString(date: Date) {
