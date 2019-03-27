@@ -52,8 +52,7 @@
     </ion-row>
     <ion-row *ngIf="booking.subjectId ==-1">
       <ion-col col-11>
-        <ion-textarea [(ngModel)]="booking.userComments"
-          placeholder="Please provide some more detail for the request...">
+        <ion-textarea [(ngModel)]="booking.userComments" placeholder="Enter the booking title here”...">
         </ion-textarea>
       </ion-col>
     </ion-row>
@@ -122,13 +121,15 @@
 
     <ion-row>
 
+
+      <ion-col col-6>
+        <button ion-button block class="continue-btn" (click)="onCreateBooking()"
+          [disabled]="checkValid()">{{'ADD_BOOKING_BUTTON' | translate}}</button>
+      </ion-col>
       <ion-col col-6>
         <button ion-button block class="cancel-btn" (click)="onClickCancel()">{{'CANCEL_BUTTON' | translate}}</button>
       </ion-col>
       <ion-col col-6>
-
-        <button ion-button block class="continue-btn" (click)="onCreateBooking()"
-          [disabled]="checkValid()">{{'CREATE_BUTTON' | translate}}</button>
       </ion-col>
     </ion-row>
 
