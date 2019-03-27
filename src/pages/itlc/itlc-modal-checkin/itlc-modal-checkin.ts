@@ -1,3 +1,4 @@
+import { Booking } from './../../../class/Booking';
 import { UserService } from './../../../services/User.provider';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -11,12 +12,16 @@ import Quagga from 'quagga';
 export class ItlcModalCheckinPage implements OnInit {
   login: any;
   user:any;
-
+  selectedBooking:Booking;
   constructor(
     public navParams: NavParams,
     public navCtrl: NavController,
     private userService: UserService
-  ) { }
+  ) {
+    if (navParams.get('selectedBooking') != null || navParams.get('selectedBooking') != undefined) {
+      this.selectedBooking = navParams.get('selectedBooking');
+    }
+   }
 
   ngOnInit() {
     let video: any = document.getElementById('video');
@@ -25,6 +30,8 @@ export class ItlcModalCheckinPage implements OnInit {
         video.srcObject = stream;
         video.play();
       });
+
+      console.log("Booking passed", this.selectedBooking);
     }
 
     // Elements for taking the snapshot
