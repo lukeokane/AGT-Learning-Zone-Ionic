@@ -8,6 +8,9 @@
 
 
 <ion-content style="text-align:center !important" padding overflow-scroll="false">
+  <ion-row *ngIf="selectedBooking != null || selectedBooking != undefined">
+    <ion-col></ion-col>
+  </ion-row>
   <div id="scanner">
     <video id="video" autoplay="true" preload="auto"></video>
     <canvas id="canvas" class="drawingBuffer"></canvas>

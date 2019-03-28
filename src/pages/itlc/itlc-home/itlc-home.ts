@@ -1,5 +1,6 @@
+import { ItlcModalPage } from './../../itlc-modal/itlc-modal';
 import { Booking } from './../../../class/Booking';
-import { itlcModalCheckinPage, FirstRunPage } from './../../pages';
+import { FirstRunPage } from './../../pages';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, App } from 'ionic-angular';
 import { LoginService } from '../../../providers/login/login.service';
@@ -101,7 +102,7 @@ export class ItlcHomePage {
 
      if(this.selectedBooking != null || this.selectedBooking != undefined)
     {
-    let checkinModal = this.modalCtrl.create(itlcModalCheckinPage,{selectedBooking:this.selectedBooking});
+    let checkinModal = this.modalCtrl.create("ItlcModalPage",{selectedBooking:this.selectedBooking});
     checkinModal.present();
     }
   }
