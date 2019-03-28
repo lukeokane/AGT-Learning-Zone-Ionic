@@ -1,24 +1,30 @@
 <ion-header>
 
   <ion-navbar class="center">
-      <button class="cancelBtn" ion-button (click)="cancel()">{{'CANCEL' | translate}}</button>
-    <h3>&nbsp; &nbsp;{{'SCAN_STUDENT_CARD' | translate}}</h3>
+    <button class="cancelBtn" ion-button (click)="cancel()">{{'CANCEL' | translate}}</button>
+    <h3>&nbsp;Present your student card &nbsp;<i class="far fa-id-card"></i></h3>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content style="text-align:center !important" padding overflow-scroll="false">
-  <ion-row *ngIf="selectedBooking != null || selectedBooking != undefined">
-    <ion-col></ion-col>
-  </ion-row>
   <div id="scanner">
     <video id="video" autoplay="true" preload="auto"></video>
     <canvas id="canvas" class="drawingBuffer"></canvas>
   </div>
-  <div padding  *ngIf="user != null || user != undefined">
+  <div padding *ngIf="user != null || user != undefined">
     <h5 style="font-weight: bold"> {{'WELCOME_TITLE' | translate}} {{user?.firstName}}!</h5>
     <h6 *ngIf="login != null || login != undefined">{{login}} - {{'CHECKIN_SUCCESSFULL' | translate}}</h6>
     <h6>{{'WE_HOPE_YOU_ENJOY_YOUR_TIME_AT_THE_LEARNING_ZONE' | translate}}</h6>
     <button class="btn" ion-button (click)="checkIn()">{{'CONTINUE' | translate}}</button>
   </div>
+  <h6 (click)="manualCheckIn()"><span>Don't have a student card?</span></h6>
+  <ion-row *ngIf="clicked == true">
+    <ion-col col-4></ion-col>
+    <form>
+      <ion-col><br><input  style="border:1px solid black;padding: 3px;padding-right:15px" placeholder="Enter student ID" type="text" id="input_id" value=""></ion-col>
+    </form>
+    <ion-col> <button class="btn" ion-button type="button" value="Submit" (click)="checkInManual()">{{'CONTINUE' | translate}}</button>
+    </ion-col>
+  </ion-row>
 </ion-content>

@@ -16,6 +16,7 @@ export class ItlcModalCheckinPage implements OnInit {
   login: any;
   user:any;
   selectedBooking:Booking = new Booking();
+  clicked:boolean=false;
   constructor(
     public navParams: NavParams,
     public navCtrl: NavController,
@@ -135,6 +136,26 @@ export class ItlcModalCheckinPage implements OnInit {
   cancel()
   {
     this.viewCtrl.dismiss();
+  }
+
+  manualCheckIn()
+  {
+    this.clicked=true;
+  }
+  checkInManual()
+  {
+    let id = (<HTMLInputElement>document.getElementById("input_id")).value;
+    let bookingUserDetails
+    bookingUserDetails= new BookingUserDetails();
+    if(this.selectedBooking != null || this.selectedBooking != undefined)
+    {
+    this.bookingUserDetailService.updateBookingUserDetailsForCheckIn(this.selectedBooking.id,id,bookingUserDetails).subscribe(data => {
+      console.log("data",data);
+      this.navCtrl.push(itlcHomePage);
+    }, (error) => {
+      console.error(error);
+    });
+  }
   }
 }
 
