@@ -111,7 +111,7 @@ export class UserRequestModalPage implements OnInit {
   typeChange() {
     if (this.selectedType == "EVENT") {
       this.selectTutotrial = false;
-      this.booking.subjectId = -1;
+      // this.booking.subjectId = -1;
       this.booking.topics = [];
       this.subjectNull = true;
 
@@ -217,6 +217,9 @@ export class UserRequestModalPage implements OnInit {
     });
   }
   onClickContinue() {
+    if(this.selectedType == "EVENT"){
+      this.booking.subjectId=-1;
+    }
     if(this.booking.topics[0] =="OTHERS"){
       this.booking.topics=[];
     }

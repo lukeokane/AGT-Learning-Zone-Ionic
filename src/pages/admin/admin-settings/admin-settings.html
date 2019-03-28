@@ -18,8 +18,8 @@
     <ion-row>
       <ion-col col-2>
         <ion-list>
-          <button ion-item *ngFor="let name of names" (click)="itemSelected(name)">
-            {{ name }}
+          <button ion-item *ngFor="let name of names" (click)="itemSelected(name.page)">
+            {{ name.name }}
           </button>
         </ion-list>
       </ion-col>
