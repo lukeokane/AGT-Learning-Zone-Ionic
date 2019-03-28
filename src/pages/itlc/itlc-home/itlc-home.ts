@@ -1,3 +1,4 @@
+import { Booking } from './../../../class/Booking';
 import { itlcModalCheckinPage, FirstRunPage } from './../../pages';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, App } from 'ionic-angular';
@@ -22,7 +23,7 @@ export class ItlcHomePage {
   today: Date;
   currentDate: Date;
   time: String[] = ["09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "13:00 PM", "14:00 PM", "15:00 PM", "16:00 PM", "17:00 PM"];
-
+  selectedBooking:Booking;
   bookings: Array<any>;
   constructor(public navCtrl: NavController, public navParams: NavParams,private modalCtrl:ModalController, private principal: Principal,
     private app: App,
@@ -34,20 +35,6 @@ export class ItlcHomePage {
     this.generateDate(d);
     this.screenWidth = window.screen.width;
     console.log("time "+ this.time);
-  }
-
-
-  goToCheckInPage()
-  {
-
-    let profileModal = this.modalCtrl.create(itlcModalCheckinPage);
-    profileModal.onDidDismiss(data => {
-      if (data != undefined && data != null) {
-  
-        
-      }
-    });
-    profileModal.present();
   }
 
   ngOnInit() {
@@ -64,6 +51,7 @@ export class ItlcHomePage {
       console.error(erro);
     })
   }
+
 
   isAuthenticated() {
     return this.principal.isAuthenticated();
@@ -104,11 +92,18 @@ export class ItlcHomePage {
     })) {
 
     }
-    let profileModal = this.modalCtrl.create("AdminCheckBookingDetailsModalPage", { dateSelected: dateSelected, timeSelected: timeInt });
-    profileModal.onDidDismiss(data => {
 
-    });
-    profileModal.present();
+    // let profileModal = this.modalCtrl.create("AdminCheckBookingDetailsModalPage", { dateSelected: dateSelected, timeSelected: timeInt });
+    // profileModal.onDidDismiss(data => {
+
+    // });
+    // profileModal.present();
+
+     if(this.selectedBooking != null || this.selectedBooking != undefined)
+    {
+    let checkinModal = this.modalCtrl.create(itlcModalCheckinPage,{selectedBooking:this.selectedBooking});
+    checkinModal.present();
+    }
   }
   timeConvertedToInt(time: String) {
     var timeSub = time.substring(0, 2);
@@ -160,12 +155,12 @@ export class ItlcHomePage {
   checkBooking(time: String, date: Date) {
     if (this.bookings != undefined && this.bookings != null) {
       let found = this.bookings.find((value, index, array) => {
-
         let t: boolean = typeof (value.booking.startTime) == 'string' ? value.booking.startTime.substring(11, 13) == time.substring(0, 2) : value.booking.startTime.toISOString().substring(11, 13) == time.substring(0, 2);
         let d: boolean = typeof (value.booking.startTime) == 'string' ? value.booking.startTime.substring(0, 11) == date.toISOString().substring(0, 11) : value.booking.startTime.toISOString().substring(0, 11) == date.toISOString().substring(0, 11);
         return t && d;
       });
       if (found != undefined) {
+        this.selectedBooking = found;
         return found.booking.title;
       }
     }
