@@ -1,8 +1,11 @@
+import { BookingUserDetails } from './../../../class/BookingUserDetails';
+import { BookingUserDetailService } from './../../../services/BookingUserDetails.provider';
 import { Booking } from './../../../class/Booking';
 import { UserService } from './../../../services/User.provider';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import Quagga from 'quagga';
+import { itlcHomePage } from '../../pages';
 
 @IonicPage()
 @Component({
@@ -12,11 +15,13 @@ import Quagga from 'quagga';
 export class ItlcModalCheckinPage implements OnInit {
   login: any;
   user:any;
-  selectedBooking:Booking;
+  selectedBooking:Booking = new Booking();
   constructor(
     public navParams: NavParams,
     public navCtrl: NavController,
-    private userService: UserService
+    private userService: UserService,
+    private bookingUserDetailService:BookingUserDetailService,
+    private viewCtrl:ViewController
   ) {
     if (navParams.get('selectedBooking') != null || navParams.get('selectedBooking') != undefined) {
       this.selectedBooking = navParams.get('selectedBooking');
@@ -31,7 +36,6 @@ export class ItlcModalCheckinPage implements OnInit {
         video.play();
       });
 
-      console.log("Booking passed", this.selectedBooking);
     }
 
     // Elements for taking the snapshot
@@ -96,25 +100,42 @@ export class ItlcModalCheckinPage implements OnInit {
       console.log("Barcode detected and processed : [" + result.codeResult.code + "]", result);
       // document.querySelector(".found").innerHTML = result.codeResult.code;
       this.login =result.codeResult.code;
-      context.drawImage(video, 0, 0, 570, 260);
+      context.drawImage(video, 20, 16.5,575, 320);
       Quagga.stop();
       this.checkInUserDetails(this.login);
     },
     );
-
-
   }
 
   checkInUserDetails(barcode :any)
   { 
     this.userService.getUserByLogin(barcode).subscribe(user => {
       this.user= user;
-      console.log(this.user);
+      console.log("this user",this.user);
     }, (error) => {
       console.error(error);
-    });;
+    });
   }
 
+  checkIn()
+  {
+    let bookingUserDetails
+    bookingUserDetails= new BookingUserDetails();
+    if(this.selectedBooking != null || this.selectedBooking != undefined)
+    {
+    this.bookingUserDetailService.updateBookingUserDetailsForCheckIn(this.selectedBooking.id,this.login,bookingUserDetails).subscribe(data => {
+      console.log("data",data);
+      this.navCtrl.push(itlcHomePage);
+    }, (error) => {
+      console.error(error);
+    });
+  }
+  }
+
+  cancel()
+  {
+    this.viewCtrl.dismiss();
+  }
 }
 
 

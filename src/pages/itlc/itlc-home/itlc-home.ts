@@ -1,5 +1,6 @@
+import { ItlcModalPage } from './../../itlc-modal/itlc-modal';
 import { Booking } from './../../../class/Booking';
-import { itlcModalCheckinPage, FirstRunPage } from './../../pages';
+import { FirstRunPage } from './../../pages';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, App } from 'ionic-angular';
 import { LoginService } from '../../../providers/login/login.service';
@@ -23,7 +24,7 @@ export class ItlcHomePage {
   today: Date;
   currentDate: Date;
   time: String[] = ["09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "13:00 PM", "14:00 PM", "15:00 PM", "16:00 PM", "17:00 PM"];
-  selectedBooking:Booking;
+  selectedBooking:Booking = new Booking();
   bookings: Array<any>;
   constructor(public navCtrl: NavController, public navParams: NavParams,private modalCtrl:ModalController, private principal: Principal,
     private app: App,
@@ -101,7 +102,7 @@ export class ItlcHomePage {
 
      if(this.selectedBooking != null || this.selectedBooking != undefined)
     {
-    let checkinModal = this.modalCtrl.create(itlcModalCheckinPage,{selectedBooking:this.selectedBooking});
+    let checkinModal = this.modalCtrl.create("ItlcModalPage",{selectedBooking:this.selectedBooking});
     checkinModal.present();
     }
   }
@@ -160,7 +161,7 @@ export class ItlcHomePage {
         return t && d;
       });
       if (found != undefined) {
-        this.selectedBooking = found;
+        this.selectedBooking = found.booking;
         return found.booking.title;
       }
     }
