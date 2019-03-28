@@ -11,28 +11,42 @@
   <ion-grid>
     <ion-row>
       <ion-col col-11 class="form-border">
+        <ion-select placeholder="Select Booking Type" [(ngModel)]="selectedType" (ionChange)="typeChange()">
+          <ion-option value="EVENT">Event/Other</ion-option>
+          <ion-option value="SUBJECT">Subject in a course</ion-option>
+
+        </ion-select>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="!selectTutotrial">
+      <ion-col col-11 class="form-border">
+        <ion-input [(ngModel)]="booking.title" placeholder="Enter Title"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="selectTutotrial">
+      <ion-col col-11 class="form-border">
         <ion-select placeholder="Select Year" [(ngModel)]="selectedYear" (ionChange)="onYearChange()">
           <ion-option *ngFor="let c of courseYears " [value]="c.id">{{c.courseYear}}</ion-option>
 
         </ion-select>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row *ngIf="selectTutotrial">
       <ion-col col-11 class="form-border">
         <ion-select placeholder="Select Subjects" [(ngModel)]="booking.subjectId" (ionChange)="onSubjectChange()">
           <ion-option *ngFor="let s of subjects " [value]="s.id">{{s.title}}</ion-option>
-          <ion-option [value]="-1">{{ 'OTHERS' |translate}}</ion-option>
+          <ion-option value="-1">{{ 'OTHERS' |translate}}</ion-option>
 
         </ion-select>
       </ion-col>
     </ion-row>
 
-    <ion-row>
+    <ion-row *ngIf="selectTutotrial && booking.subjectId != -1 ">
       <ion-col col-11 class="form-border">
         <ion-select placeholder="Select Topics" multiple [(ngModel)]="booking.topics">
           <ion-option *ngFor="let t of topics " [value]="t">{{t.title}}</ion-option>
           <ion-option>{{ 'OTHERS' |translate}}</ion-option>
-
         </ion-select>
       </ion-col>
     </ion-row>

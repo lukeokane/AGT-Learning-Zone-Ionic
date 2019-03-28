@@ -93,6 +93,7 @@ export class UserHomePage {
 
         profileModal.onDidDismiss(data => {
           if (data != undefined && data != null) {
+            console.log(data.booking);
             if (data.send) {
               this.bookingService.create(data.booking).subscribe(data => {
                 toast = this.toastCtrl.create({

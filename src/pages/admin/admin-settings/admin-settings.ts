@@ -15,13 +15,13 @@ import { CalendarService } from '../../../services/Calendar.provider';
   templateUrl: 'admin-settings.html',
 })
 export class AdminSettingsPage {
-  names:Array<string>;
+  names:Array<any>;
   page:String;
   dateStart: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public calendarService: CalendarService) {
     this.page='set-date';
-    this.names=["Set Academic Date"];
+    this.names=[{page:'set-date',name:"Set Academic Date"}];
   }
 
   ionViewDidLoad() {

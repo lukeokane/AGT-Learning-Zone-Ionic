@@ -11,7 +11,6 @@ import { UserInfo } from '../../class/UserInfo';
 import { Notification } from '../../class/Notification';
 import { AvailableTime } from '../../class/AvailableTime';
 import { BookingUserDetails } from '../../class/BookingUserDetails';
-import { SubjectsService } from '../../services/Subject.provider';
 import { CourseYearService } from '../../services/CourseYear.provider';
 import { CourseYear } from '../../class/CourseYear';
 
@@ -48,6 +47,13 @@ export class UserRequestModalPage implements OnInit {
   dateEndMinDate;
   dateEndMaxDate;
   selectedYear;
+
+  //EVENT, SUBJECT
+  selectedType;
+  //true & false
+  selectTutotrial;
+  //if null then must comment
+  subjectNull;
   constructor(public navCtrl: NavController,
     public navParams: NavParams, private modalCtrl: ModalController,
     private viewCtrl: ViewController,
@@ -80,6 +86,7 @@ export class UserRequestModalPage implements OnInit {
     this.booking.readByAdmin = false;
     this.booking.tutorRejectedCount = 0;
     this.booking.userComments = "";
+    this.booking.title == "";
     this.booking.topics = new Array<Topic>();
     let now = new Date();
     this.booking.modifiedTimestamp = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds()));
@@ -92,11 +99,26 @@ export class UserRequestModalPage implements OnInit {
     this.booking.startTime = new Date(1970, 1, 1, 0, 0, 0, 0);
     this.booking.endTime = new Date(1970, 1, 1, 0, 0, 0, 0);
     this.booking.modifiedTimestamp = new Date();
+    this.selectTutotrial = false;
+
   }
   changeStartDate() {
     this.dateEndMinDate = this.dateStart;
     this.dateEndMaxDate = this.getDateAfterDay(new Date(this.dateStart), 14).toISOString();
     this.dateEnd = "";
+  }
+
+  typeChange() {
+    if (this.selectedType == "EVENT") {
+      this.selectTutotrial = false;
+      // this.booking.subjectId = -1;
+      this.booking.topics = [];
+      this.subjectNull = true;
+
+    } else {
+      this.selectTutotrial = true;
+      this.subjectNull = false;
+    }
   }
   initUserInfo(refresher?) {
     this.userInfoService.find(this.userId).subscribe((response) => {
@@ -177,12 +199,13 @@ export class UserRequestModalPage implements OnInit {
     }
   }
   onSubjectChange() {
-    if (this.booking.subjectId != -1) {
+    if (this.booking.subjectId != -1 && this.booking.subjectId != null) {
       this.booking.subject = this.subjects.find(x => x.id == this.booking.subjectId);
-      console.log(this.booking.subject);
       this.topics = this.booking.subject.topics;
       this.booking.topics = new Array();
+      this.subjectNull = false;
     } else {
+      this.subjectNull = true;
       this.topics = new Array();
       this.booking.topics = new Array();
     }
@@ -194,15 +217,26 @@ export class UserRequestModalPage implements OnInit {
     });
   }
   onClickContinue() {
+    if(this.selectedType == "EVENT"){
+      this.booking.subjectId=-1;
+    }
+    if(this.booking.topics[0] =="OTHERS"){
+      this.booking.topics=[];
+    }
     this.initAvailableTime();
 
-    this.booking.subject = this.subjects.find(x => x.id == this.booking.subjectId);
-    this.booking.title = this.booking.subject.title;
-    console.log(this.booking.subject);
-
+    if (this.booking.subjectId != -1) {
+      this.booking.subject = this.subjects.find(x => x.id == this.booking.subjectId);
+      this.booking.title = this.booking.subject.title;
+    } else {
+      if (this.booking.title == null) {
+        this.booking.title = "Others";
+      }
+      this.booking.subject = null;
+      this.booking.subjectId = null;
+    }
     let timeSlotModal = this.modalCtrl.create("UserRequestTimeslotPage", { booking: this.booking, dateStart: this.dateStart, dateEnd: this.dateEnd, availableTimes: this.availableTimes });
     timeSlotModal.onDidDismiss(data => {
-      console.log(data);
       if (data != undefined && data != null) {
         if (data.send != undefined && data.send != null) {
           this.viewCtrl.dismiss({ send: data.send, booking: data.booking });
@@ -242,8 +276,6 @@ export class UserRequestModalPage implements OnInit {
           if (!(this.bookings.some((value, index, array) => {
             return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == d3.toISOString().substring(0, 19) : value.booking.startTime.toISOString() == d3.toISOString().substring(0, 19);
           }))) {
-            console.log(d3.toISOString().substring(0, 19));
-            console.log(this.availableTimes[0].date.toISOString().substring(0, 19));
             if (d3.toISOString().substring(0, 19) != this.availableTimes[0].date.toISOString().substring(0, 19)) {
               let temp = new Date(d3.toISOString());
               availableTime.startTime = temp;
@@ -283,7 +315,16 @@ export class UserRequestModalPage implements OnInit {
     if (this.booking.subjectId != -1 && this.booking.topics.length == 0) {
       invalid = true;
     }
-    return invalid || this.booking.subjectId == null || this.booking.subjectId == undefined || this.dateStart == null || this.dateStart == "" || this.dateStart == undefined || this.dateEnd == null || this.dateEnd == undefined || this.dateEnd == "";
+    if (this.subjectNull == true) {
+      if (this.booking.title == "" || this.booking.userComments == "" || this.booking.userComments == null || this.booking.userComments == undefined) {
+        invalid = true;
+      }
+    } else {
+      if (this.booking.subjectId == -1 || this.booking.subjectId == undefined) {
+        invalid = true;
+      }
+    }
+    return invalid || this.dateStart == null || this.dateStart == "" || this.dateStart == undefined || this.dateEnd == null || this.dateEnd == undefined || this.dateEnd == "";
   }
   getDateAfterDay(date, noOfDay) {
     var answer = new Date(date.getTime() + noOfDay * 24 * 60 * 60 * 1000);

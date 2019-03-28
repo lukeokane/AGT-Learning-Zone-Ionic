@@ -5,7 +5,15 @@ page-admin-add-booking {
         border-radius: 1em;
         background-color: #F6FFFF;
     }
-
+    ion-select {
+        max-width: 100%;
+    }
+    .toolbar-background-md {
+        background-color: #202D31;
+    }
+    .toolbar-title-md,.bar-button-default-md{
+        color: #FFFFFF;
+    }
     //priority style
 
     p {
