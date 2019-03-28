@@ -37,7 +37,6 @@ export class AdminBookingManagementPage implements OnInit {
   startTime: any;
   endTime: any;
   result = [];
-  empty:boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private bookingsService: BookingsService, private toastCtrl: ToastController, private userService: UserService, private subjectService: SubjectsService, private bookingService: BookingsService,private modalCtrl:ModalController) {
   }
@@ -158,9 +157,13 @@ export class AdminBookingManagementPage implements OnInit {
 
 
   goToEditBooking(selectedBooking: Booking){
-    this.navCtrl.push(adminEditBooking, {
+    let modal = this.modalCtrl.create(adminEditBooking,{
       selectedBooking: selectedBooking
     });
+    modal.present();
+    // this.navCtrl.push(adminEditBooking, {
+    //   selectedBooking: selectedBooking
+    // });
   }
   
   goToCancelBooking(selectedBooking:Booking)

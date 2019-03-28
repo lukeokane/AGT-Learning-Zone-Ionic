@@ -1,6 +1,6 @@
 import { adminCancelBookingPage } from './../../../pages';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 import { Booking } from '../../../../class/Booking';
 import { BookingService } from '../../../../providers/booking/booking.service';
 import { BookingsService } from '../../../../services/Booking.provider';
@@ -9,6 +9,7 @@ import { HttpResponse } from '@angular/common/http';
 import { User } from '../../../../class/User';
 import { UserInfo } from '../../../../class/UserInfo';
 import { UserInfoService } from '../../../../services/UserInfo.provider';
+import { BookingDetails } from '../../../../class/BookingDetails';
 
 /**
  * Generated class for the AdminEditBookingPage page.
@@ -28,6 +29,7 @@ export class AdminEditBookingPage implements OnInit {
   minDate;
   filterTutors: Array<User> = [];
   filterUsers: Array<User> = [];
+  bookingDetails:BookingDetails = new BookingDetails();
 
   userInfos: Array<UserInfo>;
   constructor(public navCtrl: NavController,
@@ -35,11 +37,11 @@ export class AdminEditBookingPage implements OnInit {
     private userService: UserService,
     private userInfoService: UserInfoService,
     public navParams: NavParams,
+    private viewCtrl: ViewController,
     private modalCtrl: ModalController
   ) {
     if (this.navParams.get("selectedBooking") != null || this.navParams.get("selectedBooking") != undefined) {
       this.selectedBooking = this.navParams.get("selectedBooking");
-      console.log("SELECTED BOOKING", this.selectedBooking.userInfos[0]);
       this.minDate = new Date().toISOString();
       this.date = this.selectedBooking.startTime;
       this.filterUsers=[];
@@ -66,7 +68,6 @@ export class AdminEditBookingPage implements OnInit {
     this.userService.query()
       .subscribe(
         (response) => {
-          console.log(response)
           this.filterTutors = [];
           response.forEach(user => {
             if (user.activated == true) {
@@ -81,9 +82,6 @@ export class AdminEditBookingPage implements OnInit {
               });
             }
           });
-          console.log(this.filterTutors);
-          console.log(this.filterUsers);
-
         },
         (error) => {
           console.error(error);
@@ -107,8 +105,12 @@ export class AdminEditBookingPage implements OnInit {
 
 
   submitEdit() {
-    this.bookingsService.updateBooking(this.selectedBooking).subscribe(data => {
+    this.bookingDetails.booking= this.selectedBooking;
+
+    this.bookingDetails.message=null
+    this.bookingsService.updateBooking(this.bookingDetails).subscribe(data => {
       console.log(data);
+      this.viewCtrl.dismiss();
     }, (erro) => {
       console.error(erro);
     })

@@ -15,7 +15,7 @@
     <ion-row>
       
       <ng-container *ngFor="let user of selectedBooking?.userInfos">
-          <ion-col  col-1>&nbsp;&nbsp;
+          <ion-col  col-2>&nbsp;&nbsp;
             <img class="avatar" *ngIf="user.profileImageURL == null || user.profileImageURL == undefined"
               src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
             <img class="avatar" *ngIf="user.profileImageURL != null && user.profileImageURL != undefined"
@@ -67,7 +67,7 @@
       </ion-col>
     </ion-row>
 
-    <button ion-button (click)="submitEdit()"  style="background-color: #92E1DE">{{'CONFIRM_EDIT_BUTTON' | translate}}</button>
+    <button ion-button (click)="submitEdit()"  style="background-color: lightgreen">{{'CONFIRM_EDIT_BUTTON' | translate}}</button>
 
     <button ion-button (click)="goToCancelBooking(selectedBooking)" style="background-color: #FE787B"
       class="assignBtn">{{'CANCEL_BOOKING' | translate}}</button>
