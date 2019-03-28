@@ -15,17 +15,12 @@
       </ion-row>
     </ion-col>
     <ion-col class="border-right" col-3>
-      <h6>{{'MANAGE_BOOKING' | translate}}</h6>
-      <button ion-button (click)="onAddBooking()">{{'ADD_BOOKING' | translate}}</button>
+      <button ion-button class="addBtn" (click)="onAddBooking()">
+        <i class="fa fa-plus"></i>&nbsp;
+        {{'ADD_BOOKING' | translate}}</button>
+        <br><br><hr>
+        <h6>&nbsp;{{'MANAGE_BOOKING' | translate}}</h6>
       <div class="scroll">
-        <ion-row>
-          <ion-col></ion-col>
-          <ion-col col-11>
-            <!-- &nbsp;<i class="fa fa-search"></i> -->
-            <!-- <input padding type="text" placeholder="Search Subject, Topic or Name"> -->
-            <input>
-          </ion-col>
-        </ion-row>
         <hr>
         <ion-list>
           <ion-item class="border-bottom" *ngFor="let booking of bookings;let i = index" (click)="goToBooking(booking)"
@@ -203,7 +198,7 @@
           <ion-row>
             <ion-col col-8></ion-col>
             <ion-col col-4>
-                <button ion-button (click)="goToCancelBooking(selectedBooking)" class="assignBtn">{{'REJECT' |
+              <button ion-button (click)="goToCancelBooking(selectedBooking)" class="assignBtn">{{'REJECT' |
                 translate}}
                 &nbsp; <i class="fa fa-times"></i>
               </button>
@@ -213,7 +208,8 @@
                 translate}} &nbsp;
                 <i class="fa fa-calendar-plus"></i>
               </button>
-              <button ion-button *ngIf="selectedBooking?.tutorAccepted == true || selectedBooking?.adminAcceptedId != null && selectedBooking?.tutorAcceptedId != null"
+              <button ion-button
+                *ngIf="selectedBooking?.tutorAccepted == true || selectedBooking?.adminAcceptedId != null && selectedBooking?.tutorAcceptedId != null"
                 (click)="goToEditBooking(selectedBooking)" class="assignBtn">{{'EDIT' |
                 translate}}</button>
             </ion-col>

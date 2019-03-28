@@ -133,7 +133,7 @@ export class SignupPage implements OnInit {
     this.user.signup(this.account).subscribe(() => {
       let toast = this.toastCtrl.create({
         message: this.signupSuccessString,
-        duration: 8000,
+        duration: 6000,
         position: 'top',
         cssClass: 'toastcolor'
       });
@@ -151,7 +151,7 @@ export class SignupPage implements OnInit {
       }
       let toast = this.toastCtrl.create({
         message: displayError,
-        duration: 8000,
+        duration: 6000,
         position: 'middle',
         cssClass: 'toastcolor'
       });

@@ -23,7 +23,7 @@ export class ItlcHomePage {
   today: Date;
   currentDate: Date;
   time: String[] = ["09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "13:00 PM", "14:00 PM", "15:00 PM", "16:00 PM", "17:00 PM"];
-  selectedBooking:Booking;
+  selectedBooking:Booking = new Booking();
   bookings: Array<any>;
   constructor(public navCtrl: NavController, public navParams: NavParams,private modalCtrl:ModalController, private principal: Principal,
     private app: App,
@@ -160,7 +160,7 @@ export class ItlcHomePage {
         return t && d;
       });
       if (found != undefined) {
-        this.selectedBooking = found;
+        this.selectedBooking = found.booking;
         return found.booking.title;
       }
     }

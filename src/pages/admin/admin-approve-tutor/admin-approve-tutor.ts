@@ -1,5 +1,5 @@
 
-import { adminApproveTutorPage } from './../../pages';
+import { adminApproveTutorPage, homePage } from './../../pages';
 import { User } from './../../../class/User';
 import { HttpResponse } from '@angular/common/http';
 import { UserService } from './../../../services/User.provider';
@@ -80,15 +80,21 @@ export class AdminApproveTutorPage implements OnInit{
   approveTutor(tutor : User)
   {
     tutor.activated=true;
-    this.userService.saveUser(tutor);
-    this.navCtrl.push(adminApproveTutorPage);
+    this.userService.update(tutor).subscribe(data => {
+      console.log("activate tutor ",data);
+      this.navCtrl.push(adminApproveTutorPage);
+  }, (error) => {
+      console.error(error);
+  });
   }
 
   rejectTutor(login : string)
   {
-    this.userService.deleteUserByLogin(login).subscribe();
-    this.navCtrl.push(adminApproveTutorPage);
+    this.userService.deleteUserByLogin(login).subscribe(data => {
+      console.log("data",data);
+      this.navCtrl.push(adminApproveTutorPage);
+    }, (error) => {
+      console.error(error);
+    });
   }
-
-
 }

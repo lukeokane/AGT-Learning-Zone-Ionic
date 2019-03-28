@@ -1,9 +1,9 @@
 <ion-header>
 
   <ion-navbar class="center">
-    <ion-title>{{'SCAN_STUDENT_CARD' | translate}}</ion-title>
+      <button class="cancelBtn" ion-button (click)="cancel()">{{'CANCEL' | translate}}</button>
+    <h3>&nbsp; &nbsp;{{'SCAN_STUDENT_CARD' | translate}}</h3>
   </ion-navbar>
-
 </ion-header>
 
 
@@ -16,6 +16,6 @@
     <h5 style="font-weight: bold"> {{'WELCOME_TITLE' | translate}} {{user?.firstName}}!</h5>
     <h6 *ngIf="login != null || login != undefined">{{login}} - {{'CHECKIN_SUCCESSFULL' | translate}}</h6>
     <h6>{{'WE_HOPE_YOU_ENJOY_YOUR_TIME_AT_THE_LEARNING_ZONE' | translate}}</h6>
-    <button class="btn" ion-button>{{'CONTINUE' | translate}}</button>
+    <button class="btn" ion-button (click)="checkIn()">{{'CONTINUE' | translate}}</button>
   </div>
 </ion-content>
