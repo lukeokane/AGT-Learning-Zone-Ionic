@@ -17,13 +17,28 @@
   <ion-grid>
     <ion-row>
       <ion-col col-11 class="form-border">
+        <ion-select placeholder="Select Booking Type" [(ngModel)]="selectedType" (ionChange)="typeChange()">
+          <ion-option value="EVENT">EVENT/Others</ion-option>
+          <ion-option value="SUBJECT">Subject in a course</ion-option>
+
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!selectTutotrial">
+      <ion-col col-11 class="form-border">
+        <ion-input [(ngModel)]="booking.title" placeholder="Enter Title"></ion-input>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="selectTutotrial">
+      <ion-col col-11 class="form-border">
         <ion-select placeholder="Select Course" [(ngModel)]="selectedCourse" (ionChange)="onCourseChange()">
           <ion-option *ngFor="let c of courses; let i =index" [value]="i">{{c.title}}</ion-option>
 
         </ion-select>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row *ngIf="selectTutotrial ">
       <ion-col col-11 class="form-border">
         <ion-select placeholder="Select Year" [(ngModel)]="selectedYear" (ionChange)="onYearChange()">
           <ion-option *ngFor="let c of courseYears; let i =index" [value]="i">{{c.courseYear}}</ion-option>
@@ -31,17 +46,17 @@
         </ion-select>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row *ngIf="selectTutotrial">
       <ion-col col-11 class="form-border">
         <ion-select placeholder="Select Subjects" [(ngModel)]="booking.subjectId" (ionChange)="onSubjectChange()">
           <ion-option *ngFor="let s of subjects " [value]="s.id">{{s.title}}</ion-option>
-          <ion-option [value]="-1">{{ 'OTHERS' |translate}}</ion-option>
+          <ion-option value="-1">{{ 'OTHERS' |translate}}</ion-option>
 
         </ion-select>
       </ion-col>
     </ion-row>
 
-    <ion-row *ngIf="booking.subjectId!=null && booking.subjectId !=-1">
+    <ion-row *ngIf="selectTutotrial && booking.subjectId!=-1 ">
       <ion-col col-11 class="form-border">
         <ion-select placeholder="Select Topics" multiple [(ngModel)]="booking.topics">
           <ion-option *ngFor="let t of topics " [value]="t">{{t.title}}</ion-option>
@@ -50,9 +65,9 @@
         </ion-select>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="booking.subjectId ==-1">
+    <ion-row *ngIf="selectTutotrial && booking.subjectId == -1">
       <ion-col col-11>
-        <ion-textarea [(ngModel)]="booking.userComments" placeholder="Enter the booking title here”...">
+        <ion-textarea [(ngModel)]="booking.userComments" placeholder="Enter the subject/topic requested here...">
         </ion-textarea>
       </ion-col>
     </ion-row>
@@ -81,12 +96,12 @@
     </ion-row>
     <ion-row>
       <ion-col col-5 class="form-border">
-        <ion-datetime [(ngModel)]="timeStart" display-format="HH:mm" pickerFormat="HH:mm" [min]="dateEndMinDate"
+        <ion-datetime [(ngModel)]="timeStart" display-format="HH:mm" pickerFormat="HH:mm"
           (ionChange)="changeStartDate()"></ion-datetime>
       </ion-col>
 
       <ion-col offset-2 col-5 class="form-border">
-        <ion-datetime [(ngModel)]="timeEnd" display-format="HH:mm" pickerFormat="HH:mm" [min]="dateEndMinDate"
+        <ion-datetime [(ngModel)]="timeEnd" display-format="HH:mm" pickerFormat="HH:mm"
           [disabled]="timeStart==null||timeStart==undefined"></ion-datetime>
       </ion-col>
 
@@ -123,11 +138,17 @@
 
 
       <ion-col col-6>
-        <button ion-button block class="continue-btn" (click)="onCreateBooking()"
-          [disabled]="checkValid()">{{'ADD_BOOKING_BUTTON' | translate}}</button>
+        <button ion-button block class="continue-btn" (click)="onCreateBooking()" style="background-color: lightgreen"
+          [disabled]="checkValid()">{{'ADD_BOOKING_BUTTON' | translate}}&nbsp;
+          <i class="fa fa-calendar-plus"></i>
+        </button>
       </ion-col>
       <ion-col col-6>
-        <button ion-button block class="cancel-btn" (click)="onClickCancel()">{{'CANCEL_BUTTON' | translate}}</button>
+        <button ion-button block class="cancel-btn" style="background-color: #FE787B"
+          (click)="onClickCancel()">{{'CANCEL_BUTTON' | translate}}&nbsp;
+          <i class="fa fa-times"></i></button>
+        &nbsp;
+
       </ion-col>
       <ion-col col-6>
       </ion-col>
