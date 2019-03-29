@@ -152,12 +152,14 @@ export class AdminBookingManagementPage implements OnInit {
   }
 
   goToAssignTutorManually(selectedBooking: Booking) {
+    
     if (this.startTime != null || this.startTime != undefined) {
       selectedBooking.startTime = this.startTime.toISOString();
     }
     if (this.endTime != null || this.endTime != undefined) {
       selectedBooking.endTime = this.endTime.toISOString();
     }
+    console.log(this.selectedBooking);
     this.navCtrl.push(adminBookingAssignPage, {
       selectedBooking: selectedBooking
     });

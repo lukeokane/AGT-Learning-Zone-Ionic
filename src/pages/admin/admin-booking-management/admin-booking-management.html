@@ -161,7 +161,7 @@
               <i class="fa fa-calendar"></i>&nbsp;
               {{'TIME_AND_DATE' | translate}}
             </ion-col>
-            <ion-col *ngIf="selectedBooking?.adminAcceptedId!=null &&selectedBooking?.adminAcceptedId!=undefined&& selectedBooking?.startTime !=null && selectedBooking.startTime !=undefined">
+            <ion-col *ngIf="selectedBooking?.startTime !='1970-01-31T23:00:00Z'&& (selectedBooking?.adminAcceptedId!=null &&selectedBooking?.adminAcceptedId!=undefined&& selectedBooking?.startTime !=null && selectedBooking.startTime !=undefined)">
               {{convertStringDate()  }} 
             </ion-col>
             <ion-col *ngIf="selectedBooking?.startTime =='1970-01-31T23:00:00Z' || selectedBooking.startTime ==undefined|| selectedBooking.startTime ==null">
@@ -193,7 +193,7 @@
             <ion-col col-9>
               {{selectedBooking?.userComments}}
               <ng-container
-                *ngIf="selectedBooking?.userComments == null || selectedBooking?.userComments  == undefined || selectedBooking?.userComments  == ''">
+                *ngIf='selectedBooking?.userComments == null || selectedBooking?.userComments  == undefined || selectedBooking?.userComments  == ""'>
                 {{'NO_COMMENT' | translate}}
               </ng-container>
             </ion-col>

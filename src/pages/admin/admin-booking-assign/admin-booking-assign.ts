@@ -1,3 +1,4 @@
+import { BookingDetails } from './../../../class/BookingDetails';
 import { HttpResponse } from '@angular/common/http';
 import { homePage } from './../../pages';
 import { UserInfoService } from './../../../services/UserInfo.provider';
@@ -154,12 +155,21 @@ export class AdminBookingAssignPage implements OnInit {
     {
       this.selectedBooking.adminAcceptedId = tutorId;
     }
-    
+    console.log("here!!: ", this.selectedBooking);
     if (this.selectedBooking != null || this.selectedBooking != undefined) {
       this.selectedBooking.tutorAccepted =true;
       this.selectedBooking.tutorAcceptedId=tutorId;
-      this.bookingService.saveBooking(this.selectedBooking);
-      this.bookingService.updateBookingAcceptedTutorAssigned(this.selectedBooking,this.selectedBooking.id,this.adminId,tutorId).subscribe();
+    
+      let bookingDetails = new BookingDetails();
+      bookingDetails.message = null
+      bookingDetails.booking  =this.selectedBooking;
+      this.bookingService.updateBooking(bookingDetails).subscribe(data => {
+        console.log(data);
+      }, (erro) => {
+        console.error(erro);
+      });
+      // this.bookingService.saveBooking(this.selectedBooking);
+      // this.bookingService.updateBookingAcceptedTutorAssigned(this.selectedBooking,this.selectedBooking.id,this.adminId,tutorId).subscribe();
       this.navCtrl.push(homePage);
     }
   }
