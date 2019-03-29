@@ -18,13 +18,18 @@
     <h6>{{'WE_HOPE_YOU_ENJOY_YOUR_TIME_AT_THE_LEARNING_ZONE' | translate}}</h6>
     <button class="btn" ion-button (click)="checkIn()">{{'CONTINUE' | translate}}</button>
   </div>
-  <button ion-button (click)="manualCheckIn()"><span>Don't have a student card?</span></button>
+  <button class="btn1" ion-button (click)="manualCheckIn()"><span>Don't have a student card?</span></button>
   <ion-row *ngIf="clicked == true">
     <ion-col col-4></ion-col>
     <form>
-      <ion-col><br><input  style="border:1px solid black;padding: 3px;padding-right:15px" placeholder="Enter student ID" type="text" id="input_id" value=""></ion-col>
+      <ion-col><br><input placeholder="Enter student ID" type="text" id="input_id" value=""></ion-col>
     </form>
-    <ion-col> <button class="btn" ion-button type="button" value="Submit" (click)="checkInManual()">{{'CONTINUE' | translate}}</button>
+  </ion-row>
+  <ion-row *ngIf="clicked == true">
+    <br>
+    <ion-col padding>
+      <button class="btn" ion-button type="button" value="Submit"
+        (click)="checkInManual()">{{'CONTINUE' | translate}}</button>
     </ion-col>
   </ion-row>
 </ion-content>
