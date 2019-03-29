@@ -144,18 +144,8 @@ export class ItlcModalCheckinPage implements OnInit {
   }
   checkInManual()
   {
-    let id = (<HTMLInputElement>document.getElementById("input_id")).value;
-    let bookingUserDetails
-    bookingUserDetails= new BookingUserDetails();
-    if(this.selectedBooking != null || this.selectedBooking != undefined)
-    {
-    this.bookingUserDetailService.updateBookingUserDetailsForCheckIn(this.selectedBooking.id,id,bookingUserDetails).subscribe(data => {
-      console.log("data",data);
-      this.navCtrl.push(itlcHomePage);
-    }, (error) => {
-      console.error(error);
-    });
-  }
+    this.login= (<HTMLInputElement>document.getElementById("input_id")).value;
+    this.checkInUserDetails(this.login);
   }
 }
 

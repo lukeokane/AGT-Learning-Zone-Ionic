@@ -5,7 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, ToastController } from 'ionic-angular';
 
 import { User } from '../../providers/providers';
-import { MainPage } from '../pages';
+import { MainPage, loginPage } from '../pages';
 import { CourseYearService } from '../../services/CourseYear.provider';
 import { Course } from '../../class/Course';
 
@@ -165,5 +165,10 @@ export class SignupPage implements OnInit {
 
   roleTypes(event: any) {
     this.roleType = event;
+  }
+
+  goToLogin()
+  {
+    this.navCtrl.push(loginPage);
   }
 }
