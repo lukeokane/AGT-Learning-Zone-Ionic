@@ -18,8 +18,9 @@
       <button ion-button class="addBtn" (click)="onAddBooking()">
         <i class="fa fa-plus"></i>&nbsp;
         {{'ADD_BOOKING' | translate}}</button>
-        <br><br><hr>
-        <h6>&nbsp;{{'MANAGE_BOOKING' | translate}}</h6>
+      <br><br>
+      <hr>
+      <h6>&nbsp;{{'MANAGE_BOOKING' | translate}}</h6>
       <div class="scroll">
         <hr>
         <ion-list>
@@ -160,7 +161,17 @@
               <i class="fa fa-calendar"></i>&nbsp;
               {{'TIME_AND_DATE' | translate}}
             </ion-col>
-            <ion-col>
+            <ion-col *ngIf="selectedBooking?.startTime !=null && selectedBooking.startTime !=undefined">
+              {{convertStringDate()  }} 
+<!--               
+                {{selectedBooking?.startTime | date}} <span *ngIf="value.getHours() < 10">0</span>{{selectedBooking?.startTime.getHours()}}:<span
+                *ngIf="value.getMinutes() < 10">0</span>{{selectedBooking?.startTime.getMinutes()}}
+              - {{selectedBooking?.endTime| date}}
+              <span *ngIf="FortmattedDates[i+1].getHours() < 10">0</span>{{selectedBooking?.endTime.getHours()}}:<span
+                *ngIf="FortmattedDates[i+1].getMinutes() < 10">0</span>{{selectedBooking?.endTime.getMinutes()}} -->
+
+            </ion-col>
+            <ion-col *ngIf="selectedBooking?.startTime ==null || selectedBooking.startTime ==undefined">
               <select [(ngModel)]="value" (ngModelChange)="getTimes($event)">
                 <option *ngIf="startTime == null || startTime == undefined " [ngValue]="value" disabled
                   [selected]="true">{{'CHOOSE_TIMES' | translate}}</option>
@@ -198,11 +209,13 @@
           <ion-row>
             <ion-col col-8></ion-col>
             <ion-col col-4>
-              <button ion-button (click)="goToCancelBooking(selectedBooking)" class="assignBtn">{{'REJECT' |
+              <button *ngIf="selectedBooking?.adminAcceptedId==null || selectedBooking?.adminAcceptedId==undefined"
+                ion-button (click)="goToCancelBooking(selectedBooking)" class="assignBtn">{{'REJECT' |
                 translate}}
                 &nbsp; <i class="fa fa-times"></i>
               </button>
               <button ion-button
+                *ngIf="selectedBooking?.tutorAcceptedId==undefined || selectedBooking?.tutorAcceptedId==null"
                 [disabled]="selectedBooking?.tutorAccepted == true || selectedBooking?.adminAcceptedId != null && selectedBooking?.tutorAcceptedId != null"
                 (click)="goToAssignTutorManually(selectedBooking)" class="btn">{{'ASSIGN' |
                 translate}} &nbsp;

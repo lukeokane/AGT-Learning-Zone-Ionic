@@ -120,12 +120,19 @@ export class AdminBookingManagementPage implements OnInit {
       }
     }
   }
-
+convertStringDate(){
+  return this.selectedBooking.startTime.substring(0,10) + " " +this.selectedBooking.startTime.substring(11,16) +" - "+this.selectedBooking.endTime.substring(11,16);
+}
   goToBooking(booking: Booking) {
     let timeArray = [];
     let filter = [];
     this.FortmattedDates = [];
     this.selectedBooking = booking;
+    // if(this.selectedBooking.startTime!=null && this.selectedBooking.startTime!=undefined){
+    //   this.selectedBooking.startTime  =new Date(this.selectedBooking.startTime);
+    //   this.selectedBooking.endTime  =new Date(this.selectedBooking.endTime);
+
+    // }
     if (this.selectedBooking.readByAdmin == false) {
       booking.readByAdmin = true;
       this.bookingService.saveBooking(booking);
