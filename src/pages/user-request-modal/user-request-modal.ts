@@ -217,11 +217,12 @@ export class UserRequestModalPage implements OnInit {
     });
   }
   onClickContinue() {
-    if(this.selectedType == "EVENT"){
-      this.booking.subjectId=-1;
+
+    if (this.selectedType == "EVENT") {
+      this.booking.subjectId = -1;
     }
-    if(this.booking.topics[0] =="OTHERS"){
-      this.booking.topics=[];
+    if (typeof this.booking.topics[0] === "string") {
+      this.booking.topics = [];
     }
     this.initAvailableTime();
 
@@ -312,17 +313,27 @@ export class UserRequestModalPage implements OnInit {
   }
   checkValid() {
     let invalid = false;
-    if (this.booking.subjectId != -1 && this.booking.topics.length == 0) {
+    if (this.booking.subjectId !=null &&this.booking.subjectId != -1 && this.booking.topics.length == 0) {
       invalid = true;
     }
     if (this.subjectNull == true) {
-      if (this.booking.title == "" || this.booking.userComments == "" || this.booking.userComments == null || this.booking.userComments == undefined) {
-        invalid = true;
+      if (!this.selectTutotrial) {
+        if (this.booking.title == "" || this.booking.title ==undefined || this.booking.title==null) {
+          invalid = true;
+        }
       }
+
+        if (this.selectTutotrial) {
+          if (this.booking.userComments == "" || this.booking.userComments == null || this.booking.userComments == undefined) {
+
+            invalid = true;
+          }
+
+        }
     } else {
-      if (this.booking.subjectId == -1 || this.booking.subjectId == undefined) {
-        invalid = true;
-      }
+        if (this.booking.subjectId == -1 || this.booking.subjectId == undefined) {
+          invalid = true;
+    } 
     }
     return invalid || this.dateStart == null || this.dateStart == "" || this.dateStart == undefined || this.dateEnd == null || this.dateEnd == undefined || this.dateEnd == "";
   }

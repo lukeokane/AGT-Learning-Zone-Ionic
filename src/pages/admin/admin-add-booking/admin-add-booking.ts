@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, ToastController } from 'ionic-angular';
 import { Booking } from '../../../class/Booking';
 import { UserInfo } from '../../../class/UserInfo';
@@ -12,13 +12,17 @@ import { TopicService } from '../../../services/Topic.provider';
 import { CourseService } from '../../../services/Course.provider';
 import { Course } from '../../../class/Course';
 import { BookingsService } from '../../../services/Booking.provider';
+import { FunctionsProvider } from '../../../providers/functions/functions';
+import { User } from '../../../providers/user/user';
+import { UserInfoService } from '../../../services/UserInfo.provider';
+import { UserService } from '../../../services/User.provider';
 
 @IonicPage()
 @Component({
   selector: 'page-admin-add-booking',
   templateUrl: 'admin-add-booking.html',
 })
-export class AdminAddBookingPage {
+export class AdminAddBookingPage implements OnInit {
 
   timeStart: any;
   timeEnd: any;
@@ -41,6 +45,8 @@ export class AdminAddBookingPage {
   selectTutotrial;
   //if null then must comment
   subjectNull;
+  filterTutors: Array<User> = [];
+  userInfos: Array<UserInfo> = [];
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -49,7 +55,10 @@ export class AdminAddBookingPage {
     private principal: Principal,
     private courseService: CourseService,
     private topicService: TopicService,
-    private viewCtrl: ViewController) {
+    private viewCtrl: ViewController,
+    private userService: UserService,
+    private userInfoService: UserInfoService,
+    private functions: FunctionsProvider) {
     this.date = new Date().toISOString();
     let tomorrow = new Date();
     tomorrow.setDate(new Date().getDate() + 1);
@@ -58,7 +67,50 @@ export class AdminAddBookingPage {
     this.selectedType = "SUBJECT";
     this.selectTutotrial = true;
   }
+  ngOnInit() {
+    this.initUsers();
+    this.initBooking();
+    this.initYear();
+  }
+  initUserInfo(userId: any) {
+    this.userInfos = [];
 
+    if (userId != null || userId != undefined) {
+      this.userInfoService.find(userId).subscribe((response) => {
+        this.userInfos.push(response);
+        this.userInfos = this.userInfos.filter(function (a) {
+          return !this[a.id] && (this[a.id] = true);
+        }, Object.create(null));
+      })
+    }
+  }
+
+  initUsers() {
+    this.userService.query()
+      .subscribe(
+        (response) => {
+          this.filterTutors = [];
+          console.log("response");
+
+          console.log(response);
+
+          response.forEach(user => {
+            if (user.activated == true) {
+              user.authorities.forEach(authority => {
+                if (authority == "ROLE_TUTOR") {
+                  this.filterTutors.push(user);
+                  this.initUserInfo(user.id);
+                }
+              });
+            }
+          });
+        },
+        (error) => {
+          console.error(error);
+          // let toast = this.toastCtrl.create({ message: 'Failed to load data', duration: 2000, position: 'middle' });
+          // toast.present();
+        });
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminAddBookingPage');
   }
@@ -95,19 +147,15 @@ export class AdminAddBookingPage {
       this.booking.topics = new Array();
     }
   }
-  ngOnInit() {
-    this.initBooking();
-    this.initYear();
-  }
+
 
   initBooking() {
     this.booking = new Booking();
     this.booking.userInfos = new Array<UserInfo>();
-    this.booking.tutorAccepted = false;
-    this.booking.readByAdmin = true;
+    this.booking.tutorAccepted = true;
     this.booking.cancelled = false;
     // this.booking.notifications = new Array<Notification>();
-    this.booking.readByAdmin = false;
+    this.booking.readByAdmin = true;
     this.booking.tutorRejectedCount = 0;
     this.booking.userComments = "";
     this.booking.topics = new Array<Topic>();
@@ -119,7 +167,6 @@ export class AdminAddBookingPage {
     this.booking.importanceLevel = OrdinalScale.NONE;
     this.booking.startTime = new Date(1970, 1, 1, 0, 0, 0, 0);
     this.booking.endTime = new Date(1970, 1, 1, 0, 0, 0, 0);
-    this.booking.modifiedTimestamp = new Date();
   }
   onClickPriority(position: any) {
     if (position == 1) {
@@ -136,11 +183,19 @@ export class AdminAddBookingPage {
   onClickCancel() {
     this.viewCtrl.dismiss();
   }
+
   onCreateBooking() {
-    if(this.selectedType == "EVENT"){
-      this.booking.subjectId=-1;
+
+    this.booking.adminAcceptedId = this.booking.tutorAcceptedId;
+    if (this.selectedType == "EVENT") {
+      this.booking.subjectId = -1;
     }
-    this.booking.requestedBy = this.principal.userIdentity.firstName + " " + this.principal.userIdentity.lastName;
+    if (this.principal.userIdentity != undefined && this.principal.userIdentity != null) {
+      this.booking.requestedBy = this.principal.userIdentity.firstName + " " + this.principal.userIdentity.lastName;
+
+    } else {
+      this.booking.requestedBy = "Admin";
+    }
 
     if (this.booking.subjectId != -1) {
       this.booking.subject = this.subjects.find(x => x.id == this.booking.subjectId);
@@ -155,7 +210,7 @@ export class AdminAddBookingPage {
     this.booking.startTime = this.date.substring(0, 11) + this.timeStart + ":00Z";
     this.booking.endTime = this.date.substring(0, 11) + this.timeEnd + ":00Z";
     let toast;
-    if (this.booking.topics[0] == "OTHERS") {
+    if (typeof this.booking.topics[0] === "string") {
       this.booking.topics = [];
     }
     console.log(this.booking);
