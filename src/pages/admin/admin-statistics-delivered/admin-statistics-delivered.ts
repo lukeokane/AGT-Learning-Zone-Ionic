@@ -155,6 +155,7 @@ export class AdminStatisticsDeliveredPage {
     console.log(this.lineChartData2);
     console.log(this.lineChartLabels2);
     this.filterLineChartData();
+    this.filterLineChartData();
     this.combineArrays();
     this.chartGenerated = true;
   }

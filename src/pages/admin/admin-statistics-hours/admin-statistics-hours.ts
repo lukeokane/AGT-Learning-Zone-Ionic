@@ -145,7 +145,8 @@ export class AdminStatisticsHoursPage {
             this.barChartLabels2.push(this.monthsName[this.inc]);
           }
           this.barChartDataTutor[this.inc] += this.tutorialLengthHours;
-          this.barChartDataStudent[this.inc] += this.tutorialLengthHours * booking.bookingUserDetailsDTO.length + 1;
+          this.barChartDataStudent[this.inc] += this.tutorialLengthHours * booking.bookingUserDetailsDTO.length;
+          console.log(booking.bookingUserDetailsDTO.length);
         }
       }
 
@@ -153,7 +154,10 @@ export class AdminStatisticsHoursPage {
     console.log(this.barChartDataTutor);
     console.log(this.barChartDataStudent);
     console.log(this.barChartLabels2);
+    console.log(this.bookings);
     this.filterTutorChartData();
+    this.filterTutorChartData();
+    this.filterStudentChartData();
     this.filterStudentChartData();
     this.chartGenerated = true;
     this.getBookingUserDetails();
@@ -191,6 +195,7 @@ export class AdminStatisticsHoursPage {
         this.pos = 0
       }
     }
+    console.log(this.barChartDataTutor);
   }
 
   filterStudentChartData() {
@@ -200,6 +205,7 @@ export class AdminStatisticsHoursPage {
         this.pos2 = 0
       }
     }
+    console.log(this.barChartDataStudent);
   }
 
   getCourseId(selectedCourse): number {
