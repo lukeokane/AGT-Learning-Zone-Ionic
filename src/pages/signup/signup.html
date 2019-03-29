@@ -40,7 +40,8 @@
                 <i class="inside fa fa-user"></i>
                 <select padding [(ngModel)]="roleType" class="input" (ngModelChange)="roleTypes($event)"
                   name="registerType">
-                  <option *ngIf="roleType == null || roleType == undefined" [ngValue]="roleType" [selected]="true" disabled>Choose Registration Type</option>
+                  <option *ngIf="roleType == null || roleType == undefined" [ngValue]="roleType" [selected]="true"
+                    disabled>Choose Registration Type</option>
                   <option value="ROLE_USER">{{'REGISTER_AS_STUDENT' | translate}}</option>
                   <option value="ROLE_TUTOR">{{'REGISTER_AS_TUTOR' | translate}}
                 </select>
@@ -73,6 +74,9 @@
               <ion-col>
                 <button ion-button round class="signUpButton">{{ 'SIGNUP_BUTTON' | translate }}</button>
               </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col class="login" (click)="goToLogin()">Already signed up? Sign in!</ion-col>
             </ion-row>
           </form>
         </ion-col>
@@ -118,8 +122,10 @@
       <ion-row>
         <ion-col class="align">
           <i class="inside fa fa-user"></i>
-          <select padding [(ngModel)]="roleType" class="inputReg" (ngModelChange)="roleTypes($event)" name="registerType">
-            <option *ngIf="roleType == null || roleType == undefined" [ngValue]="roleType" [selected]="true" disabled>Choose Registration Type</option>
+          <select padding [(ngModel)]="roleType" class="inputReg" (ngModelChange)="roleTypes($event)"
+            name="registerType">
+            <option *ngIf="roleType == null || roleType == undefined" [ngValue]="roleType" [selected]="true" disabled>
+              Choose Registration Type</option>
             <option value="ROLE_USER">{{'REGISTER_AS_STUDENT' | translate}}</option>
             <option value="ROLE_TUTOR">{{'REGISTER_AS_STUDENT' | translate}}
           </select>
@@ -153,6 +159,9 @@
         <ion-col class="align">
           <button ion-button round class="signUpButton" (click)="doSignup()">{{ 'SIGNUP_BUTTON' | translate }}</button>
         </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="login" (click)="goToLogin()">Already signed up? Sign in!</ion-col>
       </ion-row>
     </ng-container>
   </ion-grid>

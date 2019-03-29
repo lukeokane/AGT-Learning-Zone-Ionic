@@ -18,7 +18,7 @@
     <h6>{{'WE_HOPE_YOU_ENJOY_YOUR_TIME_AT_THE_LEARNING_ZONE' | translate}}</h6>
     <button class="btn" ion-button (click)="checkIn()">{{'CONTINUE' | translate}}</button>
   </div>
-  <h6 (click)="manualCheckIn()"><span>Don't have a student card?</span></h6>
+  <button ion-button (click)="manualCheckIn()"><span>Don't have a student card?</span></button>
   <ion-row *ngIf="clicked == true">
     <ion-col col-4></ion-col>
     <form>
