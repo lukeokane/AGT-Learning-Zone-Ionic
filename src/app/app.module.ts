@@ -31,6 +31,7 @@ import { UserService } from '../services/User.provider';
 import { SubjectsService } from '../services/Subject.provider';
 import { TopicService } from '../services/Topic.provider';
 import { CalendarService } from '../services/Calendar.provider';
+import { FunctionsProvider } from '../providers/functions/functions';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -98,12 +99,14 @@ export function provideSettings(storage: Storage) {
     BookingUserDetailService,
     MessagesService,
     CalendarService,
+    FunctionsProvider,
     Camera,
     SplashScreen,
     StatusBar,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }]
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    FunctionsProvider]
 })
 export class AppModule { }

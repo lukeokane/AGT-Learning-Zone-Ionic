@@ -19,7 +19,7 @@
       <ion-col col-11 class="form-border">
         <ion-select placeholder="Select Booking Type" [(ngModel)]="selectedType" (ionChange)="typeChange()">
           <ion-option value="EVENT">EVENT/Others</ion-option>
-          <ion-option value="SUBJECT">Subject in a course</ion-option>
+          <ion-option value="SUBJECT">Subject in course</ion-option>
 
         </ion-select>
       </ion-col>
@@ -106,6 +106,14 @@
       </ion-col>
 
     </ion-row>
+    <ion-row *ngIf="selectTutotrial ">
+      <ion-col col-11 class="form-border">
+        <ion-select placeholder="Select Tutor" [(ngModel)]="booking.tutorAcceptedId">
+          <ion-option *ngFor="let s of filterTutors " [value]="s.id">{{s.firstName}} {{s.lastName}}</ion-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+
     <ion-row>
       <ion-col col-12>
         <ion-label class="text-colour-darkgrey">
