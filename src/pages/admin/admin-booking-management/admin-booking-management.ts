@@ -38,7 +38,7 @@ export class AdminBookingManagementPage implements OnInit {
   endTime: any;
   result = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private bookingsService: BookingsService, private toastCtrl: ToastController, private userService: UserService, private subjectService: SubjectsService, private bookingService: BookingsService,private modalCtrl:ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private bookingsService: BookingsService, private toastCtrl: ToastController, private userService: UserService, private subjectService: SubjectsService, private bookingService: BookingsService, private modalCtrl: ModalController) {
   }
 
   ngOnInit() {
@@ -120,14 +120,15 @@ export class AdminBookingManagementPage implements OnInit {
       }
     }
   }
-convertStringDate(){
-  return this.selectedBooking.startTime.substring(0,10) + " " +this.selectedBooking.startTime.substring(11,16) +" - "+this.selectedBooking.endTime.substring(11,16);
-}
+  convertStringDate() {
+    return this.selectedBooking.startTime.substring(0, 10) + " " + this.selectedBooking.startTime.substring(11, 16) + " - " + this.selectedBooking.endTime.substring(11, 16);
+  }
   goToBooking(booking: Booking) {
     let timeArray = [];
     let filter = [];
     this.FortmattedDates = [];
     this.selectedBooking = booking;
+    console.log(this.selectedBooking);
     // if(this.selectedBooking.startTime!=null && this.selectedBooking.startTime!=undefined){
     //   this.selectedBooking.startTime  =new Date(this.selectedBooking.startTime);
     //   this.selectedBooking.endTime  =new Date(this.selectedBooking.endTime);
@@ -163,29 +164,36 @@ convertStringDate(){
   }
 
 
-  goToEditBooking(selectedBooking: Booking){
-    let modal = this.modalCtrl.create(adminEditBooking,{
+  goToEditBooking(selectedBooking: Booking) {
+    let modal = this.modalCtrl.create(adminEditBooking, {
       selectedBooking: selectedBooking
     });
     modal.present();
+    modal.onDidDismiss(data => {
+      console.log("back");
+      console.log(data);
+      if(data!=null && data !=undefined){
+        this.selectedBooking = data.booking;
+
+      }
+    })
     // this.navCtrl.push(adminEditBooking, {
     //   selectedBooking: selectedBooking
     // });
   }
-  
-  goToCancelBooking(selectedBooking:Booking)
-  {
-    let tag:string = "rejectBooking";
-    let cancelModal = this.modalCtrl.create(adminCancelBookingPage,{selectedBooking:selectedBooking,tag:tag});
+
+  goToCancelBooking(selectedBooking: Booking) {
+    let tag: string = "rejectBooking";
+    let cancelModal = this.modalCtrl.create(adminCancelBookingPage, { selectedBooking: selectedBooking, tag: tag });
     cancelModal.present();
   }
 
-  onAddBooking(){
+  onAddBooking() {
     let bookingModal = this.modalCtrl.create(adminAddBookingPage);
     bookingModal.onDidDismiss(data => {
-     
+
     });
     bookingModal.present();
-    
+
   }
 }

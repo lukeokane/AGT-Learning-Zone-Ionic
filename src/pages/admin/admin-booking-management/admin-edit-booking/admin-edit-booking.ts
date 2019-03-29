@@ -29,7 +29,7 @@ export class AdminEditBookingPage implements OnInit {
   minDate;
   filterTutors: Array<User> = [];
   filterUsers: Array<User> = [];
-  bookingDetails:BookingDetails = new BookingDetails();
+  bookingDetails: BookingDetails = new BookingDetails();
 
   userInfos: Array<UserInfo>;
   constructor(public navCtrl: NavController,
@@ -44,7 +44,7 @@ export class AdminEditBookingPage implements OnInit {
       this.selectedBooking = this.navParams.get("selectedBooking");
       this.minDate = new Date().toISOString();
       this.date = this.selectedBooking.startTime;
-      this.filterUsers=[];
+      this.filterUsers = [];
     } else {
     }
   }
@@ -56,7 +56,7 @@ export class AdminEditBookingPage implements OnInit {
     this.initUsers();
   }
   getName(id) {
-    
+
     let index = this.filterUsers.findIndex(user => user.id == id);
     if (index != -1) {
       return this.filterUsers[index].firstName + " " + this.filterUsers[index].lastName;
@@ -105,15 +105,32 @@ export class AdminEditBookingPage implements OnInit {
 
 
   submitEdit() {
-    this.bookingDetails.booking= this.selectedBooking;
+    if (typeof this.selectedBooking.tutorAcceptedId == "string") {
+      this.selectedBooking.tutorAcceptedId = null;
+    } else if (typeof this.selectedBooking.tutorAcceptedId == "number") {
+      this.selectedBooking.tutorAccepted = true;
+    }
+    if (this.selectedBooking.cancelled) {
+      this.selectedBooking.cancelled = false;
+      // if(this.selectedBooking.tutorAcceptedId!=null || this.selectedBooking.tutorAcceptedId!=undefined){
+      this.selectedBooking.adminAcceptedId = 3;
+      // }else
+    }
 
-    this.bookingDetails.message=null
+    this.selectedBooking.startTime = this.date.substring(0, 11) + this.selectedBooking.startTime.substring(11, 16) + ":00Z";
+    this.selectedBooking.endTime = this.date.substring(0, 11) + this.selectedBooking.endTime.substring(11, 16) + ":00Z";
+    // this.selectedBooking.startTime = 
+    this.bookingDetails.booking = this.selectedBooking;
+
+
+    this.bookingDetails.message = null
+    console.log(this.bookingDetails);
     this.bookingsService.updateBooking(this.bookingDetails).subscribe(data => {
       console.log(data);
-      this.viewCtrl.dismiss();
+      this.viewCtrl.dismiss({ booking: this.bookingDetails.booking });
     }, (erro) => {
       console.error(erro);
-    })
+    });
   }
   cancel() {
     this.navCtrl.pop();
@@ -123,5 +140,15 @@ export class AdminEditBookingPage implements OnInit {
     let tag = "cancelBooking";
     let cancelModal = this.modalCtrl.create(adminCancelBookingPage, { selectedBooking: selectedBooking, tag: tag });
     cancelModal.present();
+    cancelModal.onDidDismiss(data => {
+      console.log(data);
+      if (data != null && data != undefined) {
+        this.viewCtrl.dismiss({ booking: data.booking });
+
+      } else {
+        this.viewCtrl.dismiss();
+
+      }
+    });
   }
 }

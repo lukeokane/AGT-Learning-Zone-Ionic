@@ -63,7 +63,7 @@ export class AdminCancelBookingPage implements OnInit {
 
     this.bookingService.updateBooking(this.bookingDetails).subscribe(data => {
       console.log("result ", data);
-      this.navCtrl.push(adminBookingManagementPage);
+      this.viewCtrl.dismiss({booking:this.bookingDetails.booking});
     }, error => console.log(error));
     
   }

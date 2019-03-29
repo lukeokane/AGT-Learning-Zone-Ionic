@@ -50,8 +50,7 @@
     <ion-row>
 
       <ion-col col-5 class="form-border">
-        <ion-datetime [(ngModel)]="selectedBooking.startTime" display-format="HH:mm" pickerFormat="HH:mm"
-          (ionChange)="changeStartDate()"></ion-datetime>
+        <ion-datetime [(ngModel)]="selectedBooking.startTime" display-format="HH:mm" pickerFormat="HH:mm"></ion-datetime>
       </ion-col>
 
       <ion-col offset-2 col-5 class="form-border">
@@ -63,14 +62,17 @@
       <ion-col col-11 class="form-border">
         <ion-select placeholder="Select Tutor" [(ngModel)]="selectedBooking.tutorAcceptedId">
           <ion-option *ngFor="let s of filterTutors " [value]="s.id">{{s.firstName}} {{s.lastName}}</ion-option>
+          <ion-option value="noTutor">No Tutor</ion-option>
+
         </ion-select>
       </ion-col>
     </ion-row>
 
     <button ion-button (click)="submitEdit()"  style="background-color: lightgreen">{{'CONFIRM_EDIT_BUTTON' | translate}}</button>
 
-    <button ion-button (click)="goToCancelBooking(selectedBooking)" style="background-color: #FE787B"
+    <button ion-button *ngIf="!selectedBooking?.cancelled" (click)="goToCancelBooking(selectedBooking)" style="background-color: #FE787B"
       class="assignBtn">{{'CANCEL_BOOKING' | translate}}</button>
+
     <button ion-button (click)="cancel()">{{'CANCEL_BUTTON' | translate}}</button>
 
   </ng-container>
