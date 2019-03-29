@@ -7,17 +7,30 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>itlc-modal</ion-title>
+    <ion-title style="text-align:center">Booking Checkin</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding style="text-align:center" *ngIf="selectedBooking != null || selectedBooking != undefined">
-  <ion-row>
+  <ion-row  style="padding-top:80px">
     <ion-col>
-      <h5>{{selectedBooking.title}}</h5>
+      <h4>{{selectedBooking?.title}}</h4>
+      <h5 *ngFor="let top of selectedBooking.topics">
+        Topics : {{top?.title}}
+      </h5>
+      <h6>
+        <i class="fa fa-calendar"></i>&nbsp;
+        Date : {{selectedBooking.startTime | date}}</h6>
     </ion-col>
   </ion-row>
-
+  <ion-row>
+    <ion-col style="padding-top:20px">
+      <button ion-button class="btn" (click)="goToCheckin(selectedBooking)">
+        CHECK IN
+        &nbsp;<i class="fa fa-clock"></i>
+      </button>
+    </ion-col>
+  </ion-row>
 </ion-content>

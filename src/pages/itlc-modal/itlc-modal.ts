@@ -1,6 +1,7 @@
 import { Booking } from './../../class/Booking';
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { itlcModalCheckinPage } from '../pages';
 
 /**
  * Generated class for the ItlcModalPage page.
@@ -14,15 +15,25 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   selector: 'page-itlc-modal',
   templateUrl: 'itlc-modal.html',
 })
-export class ItlcModalPage {
+export class ItlcModalPage implements OnInit {
   selectedBooking:Booking = new Booking();
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  time:any;
+ 
+  constructor(public navCtrl: NavController, public navParams: NavParams,private modalCtrl:ModalController) {
     if (navParams.get('selectedBooking') != null || navParams.get('selectedBooking') != undefined) {
       this.selectedBooking = navParams.get('selectedBooking');
     }
-    console.log("HIIIII", this.selectedBooking);
   }
 
+  ngOnInit()
+  {
+  
+  }
+
+  goToCheckin(selectedBooking:Booking)
+  {
+    let checkinModal = this.modalCtrl.create(itlcModalCheckinPage,{selectedBooking:this.selectedBooking});
+    checkinModal.present();
+  }
 
 }
