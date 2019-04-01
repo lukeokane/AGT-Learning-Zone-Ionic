@@ -48,7 +48,14 @@ export class AdminStatisticsHoursPage {
   public barChartLegend = true;
   public barChartOptions = {
     scaleShowVerticalLines: false,
-    responsive: true
+    responsive: true,
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
   };
 
   barChartDataTutor: Array<any> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];

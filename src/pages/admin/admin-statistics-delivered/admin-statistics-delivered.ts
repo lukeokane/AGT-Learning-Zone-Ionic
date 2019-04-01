@@ -52,7 +52,14 @@ export class AdminStatisticsDeliveredPage {
   public lineChartLabels2: Array<any> = [];
 
   public lineChartOptions: any = {
-    responsive: true
+    responsive: true,
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
   };
   public lineChartColors: Array<any> = [
     { // grey
