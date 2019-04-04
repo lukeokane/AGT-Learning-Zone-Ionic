@@ -22,6 +22,7 @@ import { BookingUserDetails } from '../../../class/BookingUserDetails';
 })
 export class AdminStatisticsHoursPage {
 
+  ACM : string = "ACM Booking";
   toDate: any;
   fromDate: any;
   selectedYear: string;
@@ -44,6 +45,7 @@ export class AdminStatisticsHoursPage {
   chartGenerated: boolean = false;
   courseId: number;
   id: number;
+  filteredExcelData: Array<any> = [];
   public barChartType = 'bar';
   public barChartLegend = true;
   public barChartOptions = {
@@ -53,6 +55,18 @@ export class AdminStatisticsHoursPage {
       yAxes: [{
         ticks: {
           beginAtZero: true
+        },
+        scaleLabel: {
+          display: true,
+          labelString: 'Total Hours',
+          fontSize: '16'
+        }
+      }],
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Month',
+          fontSize: '16'
         }
       }]
     }
@@ -145,18 +159,19 @@ export class AdminStatisticsHoursPage {
 
   filterBookingsByDate() {
     for (let booking of this.bookings) {
-      for (this.inc = 0; this.inc < this.months.length; this.inc++) {
-        if (this.getMonth(booking.startTime) == this.months[this.inc]) {
-          this.tutorialLengthHours = this.tutorialLength(booking.startTime, booking.endTime);
-          if (this.checkDuplicates(this.monthsName[this.inc]) == false) {
-            this.barChartLabels2.push(this.monthsName[this.inc]);
+      if (booking.title != this.ACM) {
+        for (this.inc = 0; this.inc < this.months.length; this.inc++) {
+          if (this.getMonth(booking.startTime) == this.months[this.inc]) {
+            this.tutorialLengthHours = this.tutorialLength(booking.startTime, booking.endTime);
+            if (this.checkDuplicates(this.monthsName[this.inc]) == false) {
+              this.barChartLabels2.push(this.monthsName[this.inc]);
+            }
+            this.barChartDataTutor[this.inc] += this.tutorialLengthHours;
+            this.barChartDataStudent[this.inc] += this.tutorialLengthHours * booking.bookingUserDetailsDTO.length;
+            console.log(booking.bookingUserDetailsDTO.length);
           }
-          this.barChartDataTutor[this.inc] += this.tutorialLengthHours;
-          this.barChartDataStudent[this.inc] += this.tutorialLengthHours * booking.bookingUserDetailsDTO.length;
-          console.log(booking.bookingUserDetailsDTO.length);
         }
       }
-
     }
     console.log(this.barChartDataTutor);
     console.log(this.barChartDataStudent);
@@ -168,6 +183,7 @@ export class AdminStatisticsHoursPage {
     this.filterStudentChartData();
     this.chartGenerated = true;
     this.getBookingUserDetails();
+    this.filterExcelData();
   }
 
   getMonth(dateTime) {
@@ -237,9 +253,21 @@ export class AdminStatisticsHoursPage {
     console.log(this.bookingsStudents);
   }
 
+  filterExcelData() {
+    this.filteredExcelData.push(this.selectedCourse);
+    this.filteredExcelData.push(this.selectedYear);
+    this.filteredExcelData.push(this.fromDate);
+    this.filteredExcelData.push(this.toDate);
+    this.filteredExcelData.push(this.barChartLabels2);
+    this.filteredExcelData.push(this.barChartDataTutor);
+    this.filteredExcelData.push(this.barChartDataStudent);
+    console.log(this.filteredExcelData);
+  }
+
   exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.bookings, 'Bookings');
     this.excelService.exportAsExcelFile(this.bookingsStudents, 'Students Attended');
+    this.excelService.exportAsExcelFile(this.filteredExcelData, 'ChartData');
     console.log(this.bookingsStudents);
   }
 

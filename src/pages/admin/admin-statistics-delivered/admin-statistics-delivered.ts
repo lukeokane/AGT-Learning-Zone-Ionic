@@ -22,6 +22,7 @@ import { ExcelService } from '../../../services/excel.service';
 })
 export class AdminStatisticsDeliveredPage {
 
+  ACM : string = "ACM Booking";
   toDate: any;
   fromDate: any;
   selectedYear: string;
@@ -40,7 +41,8 @@ export class AdminStatisticsDeliveredPage {
   id: number;
   chartGenerated: boolean = false;
   chartLine: boolean = true;
-  
+  filteredExcelData: Array<any> = [];
+
   public lineChartData2: Array<any> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   public lineChartData: Array<any> = [
@@ -57,10 +59,24 @@ export class AdminStatisticsDeliveredPage {
       yAxes: [{
         ticks: {
           beginAtZero: true
+        },
+        scaleLabel: {
+          display: true,
+          labelString: 'Amount Of Tutorials Delivered',
+          fontSize: '16'
+        }
+      }],
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Month',
+          fontSize: '16'
         }
       }]
     }
   };
+
+
   public lineChartColors: Array<any> = [
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
@@ -149,13 +165,15 @@ export class AdminStatisticsDeliveredPage {
 
   filterBookingsByDate() {
     for (let booking of this.bookings) {
-      for (this.inc = 0; this.inc < this.months.length; this.inc++) {
-        if (this.getMonth(booking.startTime) == this.months[this.inc]) {
-          if (this.checkDuplicates(this.monthsName[this.inc]) == false) {
-            console.log(this.monthsName[this.inc]);
-            this.lineChartLabels2.push(this.monthsName[this.inc]); // pushing to a postion in the array if there is no duplicate entry
+      if (booking.title != this.ACM) {
+        for (this.inc = 0; this.inc < this.months.length; this.inc++) {
+          if (this.getMonth(booking.startTime) == this.months[this.inc]) {
+            if (this.checkDuplicates(this.monthsName[this.inc]) == false) {
+              console.log(this.monthsName[this.inc]);
+              this.lineChartLabels2.push(this.monthsName[this.inc]); // pushing to a postion in the array if there is no duplicate entry
+            }
+            this.lineChartData2[this.inc]++;
           }
-          this.lineChartData2[this.inc]++;
         }
       }
     }
@@ -163,6 +181,7 @@ export class AdminStatisticsDeliveredPage {
     console.log(this.lineChartLabels2);
     this.filterLineChartData();
     this.filterLineChartData();
+    this.filterExcelData();
     this.combineArrays();
     this.chartGenerated = true;
   }
@@ -200,28 +219,39 @@ export class AdminStatisticsDeliveredPage {
 
   getCourseId(selectedCourse): number {
     for (let course of this.courses) {
-       if(course.title==selectedCourse){
-         this.id = course.id
-         console.log(this.id);
-       }
-    } 
+      if (course.title == selectedCourse) {
+        this.id = course.id
+        console.log(this.id);
+      }
+    }
     return this.id;
   }
 
-  exportAsXLSX():void {
-    this.excelService.exportAsExcelFile(this.bookings, 'Bookings');
+  filterExcelData() {
+    this.filteredExcelData.push(this.selectedCourse);
+    this.filteredExcelData.push("Year " + this.selectedYear);
+    this.filteredExcelData.push(this.fromDate);
+    this.filteredExcelData.push(this.toDate);
+    this.filteredExcelData.push(this.lineChartLabels2);
+    this.filteredExcelData.push(this.lineChartData2);
+    console.log(this.filteredExcelData);
   }
- 
+
+  exportAsXLSX(): void {
+    this.excelService.exportAsExcelFile(this.bookings, 'Bookings');
+    this.excelService.exportAsExcelFile(this.filteredExcelData, 'ChartData');
+  }
+
   refreshPage() {
     this.navCtrl.push("AdminStatisticsDeliveredPage");
   }
 
-  toggleChartLine(){
-       this.chartLine = false;
+  toggleChartLine() {
+    this.chartLine = false;
   }
-  toggleChartBar(){
+  toggleChartBar() {
     this.chartLine = true;
-}
+  }
 
 }
 

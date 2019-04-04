@@ -8,6 +8,8 @@ import { SubjectsService } from '../../../services/Subject.provider';
 import { Subject } from '../../../class/Subject';
 import { ExcelService } from '../../../services/excel.service';
 
+
+
 /**
  * Generated class for the AdminStatisticsDistributionPage page.
  *
@@ -22,6 +24,7 @@ import { ExcelService } from '../../../services/excel.service';
 })
 export class AdminStatisticsDistributionPage {
 
+  ACM : string = "ACM Booking";
   toDate: any;
   fromDate: any;
   selectedYear: string;
@@ -37,10 +40,24 @@ export class AdminStatisticsDistributionPage {
   chartGenerated: boolean = false;
   courseId: number;
   id: number;
+  filteredExcelData: Array<any> = [];
 
   public doughnutChartType: string = 'doughnut';
-  public barChartOptions:any = {
-    legend: {position: 'right'}
+  public barChartOptions: any = {
+    // title: {
+    //   text: 'Tutorial Distribution By Module',
+    //   display: true,
+    //   position: 'bottom',
+    //   fontSize: 18,
+    // },
+    legend: { position: 'right' },
+    pieceLabel: {
+      render: 'label',
+      position: 'outside',
+      overlap: true,
+      outsidePadding: 4,
+      fontStyle: 'bold',
+    },
   }
 
   // events
@@ -157,25 +174,28 @@ export class AdminStatisticsDistributionPage {
 
   filterBookings() {
     for (let booking of this.bookings) {
-      for (let subject of this.subjects) {
-        if (booking.subjectId == subject.id) {
-          if (this.checkDuplicates(subject.title) == false) {
-            this.labels.push(subject.title); 
-            this.data[this.pos] = 1;
-            this.pos++;
+      if (booking.title != this.ACM) {
+        for (let subject of this.subjects) {
+          if (booking.subjectId == subject.id) {
+            if (this.checkDuplicates(subject.title) == false) {
+              this.labels.push(subject.title);
+              this.data[this.pos] = 1;
+              this.pos++;
 
-          }
-          else {
-     
-            this.posData = this.findPosSubject(subject.title);
-            this.data[this.posData]++;
+            }
+            else {
+
+              this.posData = this.findPosSubject(subject.title);
+              this.data[this.posData]++;
+            }
           }
         }
       }
     }
     this.chartGenerated = true;
+    this.filterExcelData();
   }
-  
+
   findPosSubject(title: string): number {
 
     for (this.inc = 0; this.inc < this.labels.length; this.inc++) {
@@ -194,21 +214,32 @@ export class AdminStatisticsDistributionPage {
     return false;
   }
 
-  exportAsXLSX():void {
+  exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.bookings, 'Bookings');
+    this.excelService.exportAsExcelFile(this.filteredExcelData, 'ChartData');
   }
 
   refreshPage() {
     this.navCtrl.push("AdminStatisticsDistributionPage");
   }
 
+  filterExcelData() {
+    this.filteredExcelData.push(this.selectedCourse);
+    this.filteredExcelData.push(this.selectedYear);
+    this.filteredExcelData.push(this.fromDate);
+    this.filteredExcelData.push(this.toDate);
+    this.filteredExcelData.push(this.labels);
+    this.filteredExcelData.push(this.data);
+    console.log(this.filteredExcelData);
+  }
+
   getCourseId(selectedCourse): number {
     for (let course of this.courses) {
-       if(course.title==selectedCourse){
-         this.id = course.id
-         console.log(this.id);
-       }
-    } 
+      if (course.title == selectedCourse) {
+        this.id = course.id
+        console.log(this.id);
+      }
+    }
     return this.id;
   }
 

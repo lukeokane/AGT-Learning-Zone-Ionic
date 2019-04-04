@@ -15,7 +15,7 @@
 <ion-content padding>
   <div class="topic">
     <p>
-      Tutor/Student Hours
+      Tutor Hours Vs Student Hours Delivered
     </p>
   </div>
   <!-- <button on-click="debug()">Click me </button> -->
@@ -107,35 +107,21 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th class="text-center"><span>id</span></th>
           <th class="text-center"><span>Title</span></th>
           <th class="text-center"><span>Requested By</span></th>
           <th class="text-center"><span>Start Time</span></th>
           <th class="text-center"><span>End time</span></th> 
           <th class="text-center"><span>User comments</span></th>
-          <th class="text-center"><span>Importance level</span></th>
-          <th class="text-center"><span>Admin accepted</span></th>
-          <th class="text-center"><span>Cancelled</span></th>
-          <th class="text-center"><span>RequestTimes</span></th>
-          <th class="text-center"><span>Read By Admin</span></th>
-          <th class="text-center"><span>Subjects</span></th>
-          <th class="text-center"><span>Booking User Details</span></th> -->
+          <th class="text-center"><span>Students Attended</span></th>
         </tr>
       </thead>
       <tbody>
           <tr *ngFor="let booking of bookings; trackBy: trackId;let i = index;">
-              <td class="text-center">{{booking?.id}}</td>
               <td class="text-center">{{booking.title}}</td>
               <td class="text-center">{{booking.requestedBy}}</td>
               <td class="text-center">{{booking.startTime}}</td>
               <td class="text-center">{{booking.endTime}}</td>
               <td class="text-center">{{booking.userComments}}</td>
-              <td class="text-center">{{booking.importanceLevel}}</td>
-              <td class="text-center">{{booking.adminAcceptedId}}</td>
-              <td class="text-center">{{booking.cancelled}}</td>
-              <td class="text-center">{{booking.requestTimes}}</td>
-              <td class="text-center">{{booking.readByAdmin}}</td>
-              <td class="text-center">{{booking.subjectId}}</td>
               <td class="text-center">{{booking.bookingUserDetailsDTO.length}}</td>
               
               <td class="text-center"></td>
