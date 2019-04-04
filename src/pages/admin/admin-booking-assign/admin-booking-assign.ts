@@ -1,3 +1,4 @@
+import { BookingDetails } from './../../../class/BookingDetails';
 import { HttpResponse } from '@angular/common/http';
 import { homePage } from './../../pages';
 import { UserInfoService } from './../../../services/UserInfo.provider';
@@ -55,7 +56,7 @@ export class AdminBookingAssignPage implements OnInit {
   }
 
   initUsers() {
-    this.itemsPerPage =  10;
+    this.itemsPerPage =  20;
     this.userService.getAllUsers(
       {
         page: this.page - 1,
@@ -92,12 +93,15 @@ export class AdminBookingAssignPage implements OnInit {
     this.queryCount = this.totalItems;
 
     data.forEach(user => {
+      if(user.activated == true)
+      {
       user.authorities.forEach(authority => {
         if (authority == "ROLE_TUTOR") {
           this.filterTutors.push(user);
           this.initUserInfo(user.id);
         }
       });
+    }
     });
   }
 
@@ -151,15 +155,21 @@ export class AdminBookingAssignPage implements OnInit {
     {
       this.selectedBooking.adminAcceptedId = tutorId;
     }
-    // console.log("admin id ",this.adminId);
-    // console.log("tutor id ",tutorId);
-    // console.log("booking id ",this.selectedBooking.id);
-
+    console.log("here!!: ", this.selectedBooking);
     if (this.selectedBooking != null || this.selectedBooking != undefined) {
       this.selectedBooking.tutorAccepted =true;
       this.selectedBooking.tutorAcceptedId=tutorId;
-      this.bookingService.saveBooking(this.selectedBooking);
-      this.bookingService.updateBookingAcceptedTutorAssigned(this.selectedBooking,this.selectedBooking.id,this.adminId,tutorId);
+    
+      let bookingDetails = new BookingDetails();
+      bookingDetails.message = null
+      bookingDetails.booking  =this.selectedBooking;
+      this.bookingService.updateBooking(bookingDetails).subscribe(data => {
+        console.log(data);
+      }, (erro) => {
+        console.error(erro);
+      });
+      // this.bookingService.saveBooking(this.selectedBooking);
+      // this.bookingService.updateBookingAcceptedTutorAssigned(this.selectedBooking,this.selectedBooking.id,this.adminId,tutorId).subscribe();
       this.navCtrl.push(homePage);
     }
   }

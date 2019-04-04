@@ -19,7 +19,6 @@
       Tutorial Distribution
     </p>
   </div>
-  <!-- <button on-click="debug()">Click me </button> -->
   <form (submit)="generateChart()">
     <ion-grid>
       <ion-row text-center>
@@ -43,9 +42,9 @@
               [ngModelOptions]="{standalone: true}">
               <option value="all">All</option>
               <option>1</option>
-              <option value="two">2</option>
-              <option value="three">3</option>
-              <option value="four">4</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
             </select>
           </div>
         </ion-col>
@@ -54,7 +53,6 @@
             <h4>Start date</h4>
             <div>
               <div class="input-group-prepend">
-                <!-- <span class="input-group-text">from</span> -->
               </div>
               <input type="date" class="form-control" name="start" [(ngModel)]="fromDate" [ngModelOptions]="{standalone: true}"
                 required />
@@ -66,7 +64,6 @@
             <div>
               <h4>End date</h4>
               <div class="input-group-append">
-                <!-- <span class="input-group-text">To</span> -->
               </div>
               <input type="date" class="form-control" name="end" [(ngModel)]="toDate" [ngModelOptions]="{standalone: true}"
                 required />
@@ -76,11 +73,13 @@
         <ion-col size="12" size-sm>
           <div>
             <h4>Action</h4>
-            <button *ngIf="fromDate != undefined && toDate != undefined && selectedCourse != undefined && selectedYear != undefined"
+            <button *ngIf="fromDate != undefined && toDate != undefined && selectedCourse != undefined && selectedYear != undefined && chartGenerated == false"
               type="submit" class="btn btn-info btn-sm">
               <!-- <fa-icon [icon]="'eye'"></fa-icon> -->
               <span class="d-none d-md-inline">View</span>
             </button>
+            <button  *ngIf="labels.length > 0" (click)="exportAsXLSX()">   <span class="btn btn-info btn-sm">Download as XLS</span></button>
+            <button  *ngIf="chartGenerated == true" (click)="refreshPage()">   <span class="btn btn-info btn-sm">New Chart</span></button>
           </div>
         </ion-col>
       </ion-row>
@@ -90,10 +89,14 @@
     <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"
       (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
   </div> -->
+  <br>
+  <br>
+  <br>
+  <br>
   <div>
       <ng-container *ngIf="data.length > 0">
           <div style="display: block">
-              <canvas baseChart [data]="data" [labels]="labels" [chartType]="doughnutChartType"
+              <canvas width="1400" height="500" baseChart [data]="data" [labels]="labels" [chartType]="doughnutChartType" [options]="barChartOptions"
                 (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
             </div>
       </ng-container>

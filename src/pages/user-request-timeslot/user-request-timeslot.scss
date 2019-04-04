@@ -2,42 +2,49 @@ page-user-request-timeslot {
     .button-md:hover:not(.disable-hover) {
         background-color: #92E1DE;
     }
-    .cancel-btn{
-    border:1px solid #FFCDA5;
-    color:#FE787B;
-    background-color: white;
+
+    .cancel-btn {
+        border: 1px solid #FFCDA5;
+        color: #FE787B;
+        background-color: white;
     }
-    .continue-btn{
+
+    .continue-btn {
         background-color: #FE787B;
         color: white;
     }
-    .text-green{
+
+    .text-green {
         color: #3AAFA9;
     }
-    .date-color{
+
+    .date-color {
         color: #717171;
     }
 
-    .time-slot-btn{
+    .time-slot-btn {
         cursor: pointer;
         background-color: #FFF5EC;
         color: #717171;
         margin: 5px;
         border-radius: 0.3em;
-        margin:5px;
+        margin: 5px;
     }
-    .time-slot-selected-btn{
+
+    .time-slot-selected-btn {
         cursor: pointer;
         background-color: #FFB478;
         color: #717171;
         margin: 5px;
         border-radius: 0.3em;
-        margin:5px;
+        margin: 5px;
     }
-    .toolbar-background-md{
-        background-color:#202D31;
+
+    .toolbar-background-md {
+        background-color: #202D31;
     }
-    .extra-padding{
+
+    .extra-padding {
         padding: 5px;
     }
 }

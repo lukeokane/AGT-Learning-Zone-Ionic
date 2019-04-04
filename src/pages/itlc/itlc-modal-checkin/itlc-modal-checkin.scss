@@ -10,4 +10,32 @@ canvas.drawing, canvas.drawingBuffer {
 .scroll-content {
     overflow: hidden;
   }
+
+  .align{
+      text-align:center;
+  }
+
+  h5,h6
+  {
+     font-weight:normal;
+     text-align:center !important;
+  }
+
+  .btn{
+      background-color: #3AAFA9;
+  }
+
+  .cancelBtn{
+    background-color: #FE787B;
+    float: right;
+  }
+
+  input{
+    padding: 3px;
+    padding-right:15px;
+  }
+  .btn1{
+    background-color: grey;
+  }
+
 }

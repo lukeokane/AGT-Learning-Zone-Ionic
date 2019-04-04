@@ -1,0 +1,37 @@
+page-admin-add-booking {
+    .form-border {
+        margin: 5px;
+        border: 1px solid #92E1DE;
+        border-radius: 1em;
+        background-color: #F6FFFF;
+    }
+    ion-select {
+        max-width: 100%;
+    }
+    .toolbar-background-md {
+        background-color: #202D31;
+    }
+    .toolbar-title-md,.bar-button-default-md{
+        color: #FFFFFF;
+    }
+    //priority style
+
+    p {
+        width: 100%;
+        text-align: center;
+        // border-bottom: 1px solid #92E1DE; 
+        // line-height: 0.1em;
+        // margin: 10px 0 10px; 
+    }
+
+    p span {
+        //  background:#fff; 
+        padding: 0 20px;
+        display: inline;
+    }
+
+    .priority-btn {
+        color: #FFCDA5;
+        cursor: pointer;
+    }
+}

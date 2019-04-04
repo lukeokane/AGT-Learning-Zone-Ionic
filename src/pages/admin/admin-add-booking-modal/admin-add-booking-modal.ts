@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 /**
- * Generated class for the ItlcModalFeedbackPage page.
+ * Generated class for the AdminAddBookingModalPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -10,16 +10,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
-  selector: 'page-itlc-modal-feedback',
-  templateUrl: 'itlc-modal-feedback.html',
+  selector: 'page-admin-add-booking-modal',
+  templateUrl: 'admin-add-booking-modal.html',
 })
-export class ItlcModalFeedbackPage {
+export class AdminAddBookingModalPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ItlcModalFeedbackPage');
+    console.log('ionViewDidLoad AdminAddBookingModalPage');
   }
 
 }

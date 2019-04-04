@@ -1,0 +1,168 @@
+<!--
+  Generated template for the AdminAddBookingPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{'ADD_BOOKING'|translate}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-11 class="form-border">
+        <ion-select placeholder="Select Booking Type" [(ngModel)]="selectedType" (ionChange)="typeChange()">
+          <ion-option value="EVENT">EVENT/Others</ion-option>
+          <ion-option value="SUBJECT">Subject in course</ion-option>
+
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!selectTutotrial">
+      <ion-col col-11 class="form-border">
+        <ion-input [(ngModel)]="booking.title" placeholder="Enter Title"></ion-input>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="selectTutotrial">
+      <ion-col col-11 class="form-border">
+        <ion-select placeholder="Select Course" [(ngModel)]="selectedCourse" (ionChange)="onCourseChange()">
+          <ion-option *ngFor="let c of courses; let i =index" [value]="i">{{c.title}}</ion-option>
+
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="selectTutotrial ">
+      <ion-col col-11 class="form-border">
+        <ion-select placeholder="Select Year" [(ngModel)]="selectedYear" (ionChange)="onYearChange()">
+          <ion-option *ngFor="let c of courseYears; let i =index" [value]="i">{{c.courseYear}}</ion-option>
+
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="selectTutotrial">
+      <ion-col col-11 class="form-border">
+        <ion-select placeholder="Select Subjects" [(ngModel)]="booking.subjectId" (ionChange)="onSubjectChange()">
+          <ion-option *ngFor="let s of subjects " [value]="s.id">{{s.title}}</ion-option>
+          <ion-option value="-1">{{ 'OTHERS' |translate}}</ion-option>
+
+        </ion-select>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="selectTutotrial && booking.subjectId!=-1 ">
+      <ion-col col-11 class="form-border">
+        <ion-select placeholder="Select Topics" multiple [(ngModel)]="booking.topics">
+          <ion-option *ngFor="let t of topics " [value]="t">{{t.title}}</ion-option>
+          <ion-option>{{ 'OTHERS' |translate}}</ion-option>
+
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="selectTutotrial && booking.subjectId == -1">
+      <ion-col col-11>
+        <ion-textarea [(ngModel)]="booking.userComments" placeholder="Enter the subject/topic requested here...">
+        </ion-textarea>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-12>
+        <ion-label class="text-colour-darkgrey">
+          <ion-icon name="calendar"></ion-icon>
+          <span class="padding-left-size"> {{'DATE' | translate}} </span>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-11 class="form-border">
+        <ion-datetime [(ngModel)]="date" display-format="DD/MMM/YYYY" [min]="minDate"></ion-datetime>
+      </ion-col>
+
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <ion-label class="text-colour-darkgrey">
+          <ion-icon name="calendar"></ion-icon>
+          <span class="padding-left-size">{{'TIME' | translate}} </span>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-5 class="form-border">
+        <ion-datetime [(ngModel)]="timeStart" display-format="HH:mm" pickerFormat="HH:mm"
+          (ionChange)="changeStartDate()"></ion-datetime>
+      </ion-col>
+
+      <ion-col offset-2 col-5 class="form-border">
+        <ion-datetime [(ngModel)]="timeEnd" display-format="HH:mm" pickerFormat="HH:mm"
+          [disabled]="timeStart==null||timeStart==undefined"></ion-datetime>
+      </ion-col>
+
+    </ion-row>
+    <ion-row *ngIf="selectTutotrial ">
+      <ion-col col-11 class="form-border">
+        <ion-select placeholder="Select Tutor" [(ngModel)]="booking.tutorAcceptedId">
+          <ion-option *ngFor="let s of filterTutors " [value]="s.id">{{s.firstName}} {{s.lastName}}</ion-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col col-12>
+        <ion-label class="text-colour-darkgrey">
+          <ion-icon name="alert" style="color:#FE787B"></ion-icon>
+          <span class="padding-left-size"> {{'LEVEL_OF_IMPORTANCE' | translate}}</span>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <p>
+        <span>
+          {{'LOW'|translate}}
+          <ion-icon [name]="booking.importanceLevel!='LOW' ? 'radio-button-off' :'radio-button-on'" class="priority-btn"
+            (click)="onClickPriority(1)"></ion-icon>
+        </span>
+        <span>
+          {{'MEDIUM'|translate}}
+          <ion-icon [name]="booking.importanceLevel!='MEDIUM' ? 'radio-button-off' :'radio-button-on'"
+            class="priority-btn" (click)="onClickPriority(2)"></ion-icon>
+        </span>
+        <span>
+          {{'HIGH'|translate}}
+          <ion-icon [name]="booking.importanceLevel!='HIGH' ? 'radio-button-off' :'radio-button-on'"
+            class="priority-btn" (click)="onClickPriority(3)"></ion-icon>
+        </span>
+      </p>
+    </ion-row>
+
+    <ion-row>
+
+
+      <ion-col col-6>
+        <button ion-button block class="continue-btn" (click)="onCreateBooking()" style="background-color: lightgreen"
+          [disabled]="checkValid()">{{'ADD_BOOKING_BUTTON' | translate}}&nbsp;
+          <i class="fa fa-calendar-plus"></i>
+        </button>
+      </ion-col>
+      <ion-col col-6>
+        <button ion-button block class="cancel-btn" style="background-color: #FE787B"
+          (click)="onClickCancel()">{{'CANCEL_BUTTON' | translate}}&nbsp;
+          <i class="fa fa-times"></i></button>
+        &nbsp;
+
+      </ion-col>
+      <ion-col col-6>
+      </ion-col>
+    </ion-row>
+
+
+
+  </ion-grid>
+</ion-content>

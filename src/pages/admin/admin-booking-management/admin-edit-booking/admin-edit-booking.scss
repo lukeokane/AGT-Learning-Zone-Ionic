@@ -1,0 +1,30 @@
+page-admin-edit-booking {
+    .form-border {
+        margin: 5px;
+        border: 1px solid #92E1DE;
+        border-radius: 1em;
+        background-color: #F6FFFF;
+    }
+    .toolbar-background-md {
+        background-color: #202D31;
+    }
+    .toolbar-title-md,.bar-button-default-md{
+        color: #FFFFFF;
+    }
+    .top {
+        margin-top: 3%;
+    }
+    ion-select {
+        max-width: 100%;
+    }
+
+    // .avatar {
+    //     height: 30px;
+    //     width: 35px;
+    // }
+
+    ion-row {
+        padding-top: 5px;
+        padding-bottom: 10px;
+    }
+}

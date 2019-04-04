@@ -30,7 +30,7 @@
   <div *ngFor="let a of availableTimes; let i=index" class="extra-padding">
     <ion-row>
       <h3 class="date-color">{{days[a.date.getDay()]}}
-        {{a.date.getUTCDate()}}/{{a.date.getUTCMonth()}}/{{a.date.getUTCFullYear()}}</h3>
+        {{a.date.getUTCDate()}}/{{a.date.getUTCMonth()+1}}/{{a.date.getUTCFullYear()}}</h3>
     </ion-row>
     <ion-row>
       <ion-col [class]="checkSelected(t)" col-sm-3 *ngFor="let t of a.time" (click)="onSelectTimeSlot(t)">

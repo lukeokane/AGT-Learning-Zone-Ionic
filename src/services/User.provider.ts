@@ -37,6 +37,22 @@ export class UserService {
             .map((res: HttpResponse<User[]>) => this.convertArrayResponse(res));
     }
 
+    getAllTutorsPendingActivation(req?: any) {
+        const options = createRequestOption(req);
+        return this.http.get<User[]>(`${this.resourceUrl}/tutors/activation`, { params: options, observe: 'response' })
+            .map((res: HttpResponse<User[]>) => this.convertArrayResponse(res));
+    }
+
+    getUserByLogin(login :string)
+    {
+        return this.http.get(`${this.resourceUrl}/${login}`);
+    }
+
+    deleteUserByLogin(login:string)
+    {
+        return this.http.delete(`${this.resourceUrl}/${login}`);
+    }
+
     private convertArrayResponse(res: HttpResponse<User[]>): HttpResponse<User[]> {
         const jsonResponse: User[] = res.body;
         const body: User[] = [];
@@ -54,6 +70,16 @@ export class UserService {
     private convertItemFromServer(object: User): User {
         const copy: User = Object.assign({}, object);
         return copy;
+    }
+    
+    saveUser(user: User): User {
+        this.update(user).subscribe(data => {
+            user = data;
+            return user;
+        }, (error) => {
+            console.error(error);
+        });
+        return null;
     }
 
 

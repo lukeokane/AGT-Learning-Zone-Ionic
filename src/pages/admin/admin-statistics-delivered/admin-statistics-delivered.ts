@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-//import { CourseService } from '../../../providers/course/course.service';
 import { CourseService } from '../../../services/Course.provider';
 import { Course } from '../../../class/Course';
 import { BookingsService } from '../../../services/Booking.provider';
 import { Booking } from '../../../class/Booking';
 import { DatePipe } from '@angular/common';
+import { ExcelService } from '../../../services/excel.service';
 
 
 /**
@@ -22,23 +22,26 @@ import { DatePipe } from '@angular/common';
 })
 export class AdminStatisticsDeliveredPage {
 
-  toDate: string;
-  fromDate: string;
-  selectedYear: any;
+  toDate: any;
+  fromDate: any;
+  selectedYear: string;
+  selectedCourse: string;
   courses: Course[];
-  selectedCourse: Course;
   bookings: Array<Booking>;
   months: Array<any> = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
   monthsName: Array<string> = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   inc: number;
   pos: number = 0;
-  label: any ='Tutorials Delivered';
+  label: any = 'Tutorials Delivered';
   lineChartDataFinal: Array<any> = [];
+  barChartLegend = true;
+  barChartType = 'bar';
+  courseId: number;
+  id: number;
+  chartGenerated: boolean = false;
+  chartLine: boolean = true;
   
-  // public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-
-  public lineChartData2: Array<any> = [0,0,0,0,0,0,0,0,0,0,0,0];
+  public lineChartData2: Array<any> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   public lineChartData: Array<any> = [
     { data: this.lineChartData2, label: 'Tutorials Delivered' }
@@ -49,7 +52,14 @@ export class AdminStatisticsDeliveredPage {
   public lineChartLabels2: Array<any> = [];
 
   public lineChartOptions: any = {
-    responsive: true
+    responsive: true,
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
   };
   public lineChartColors: Array<any> = [
     { // grey
@@ -68,7 +78,8 @@ export class AdminStatisticsDeliveredPage {
     public navParams: NavParams,
     private courseService: CourseService,
     private bookingsService: BookingsService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private excelService: ExcelService
   ) {
   }
 
@@ -90,7 +101,43 @@ export class AdminStatisticsDeliveredPage {
   generateChart() {
 
     if (this.selectedCourse == "all" && this.selectedYear == "all") {
-      this.bookingsService.findAllBookingsDistributionList(this.fromDate, this.toDate).subscribe(data => {
+      this.bookingsService.findAllBookingsList(this.fromDate, this.toDate).subscribe(data => {
+        this.bookings = data.body;
+        console.log(this.bookings);
+        this.filterBookingsByDate();
+      }, error => {
+        console.log(error);
+      });
+    }
+
+    if (this.selectedCourse == "all" && this.selectedYear != "all") {
+      console.log("got here all courses and a selected year");
+      this.bookingsService.findAllBookingsAllCoursesSelectedYear(this.fromDate, this.toDate, this.selectedYear).subscribe(data => {
+        this.bookings = data.body;
+        console.log(this.bookings);
+        this.filterBookingsByDate();
+      }, error => {
+        console.log(error);
+      });
+    }
+
+    if (this.selectedCourse != "all" && this.selectedYear != "all") {
+      console.log("got here seleceted course and selected year");
+      this.courseId = this.getCourseId(this.selectedCourse);
+      console.log(this.courseId);
+      this.bookingsService.findAllBookingsSelectedCourseAndSelectedYear(this.fromDate, this.toDate, this.courseId, this.selectedYear).subscribe(data => {
+        this.bookings = data.body;
+        console.log(this.bookings);
+        this.filterBookingsByDate();
+      }, error => {
+        console.log(error);
+      });
+    }
+
+    if (this.selectedCourse != "all" && this.selectedYear == "all") {
+      console.log("got here seleceted course and all years");
+      this.courseId = this.getCourseId(this.selectedCourse);
+      this.bookingsService.findAllBookingsSelectedCourseAndAllYears(this.fromDate, this.toDate, this.courseId).subscribe(data => {
         this.bookings = data.body;
         console.log(this.bookings);
         this.filterBookingsByDate();
@@ -109,13 +156,15 @@ export class AdminStatisticsDeliveredPage {
             this.lineChartLabels2.push(this.monthsName[this.inc]); // pushing to a postion in the array if there is no duplicate entry
           }
           this.lineChartData2[this.inc]++;
-        } 
+        }
       }
     }
     console.log(this.lineChartData2);
     console.log(this.lineChartLabels2);
     this.filterLineChartData();
+    this.filterLineChartData();
     this.combineArrays();
+    this.chartGenerated = true;
   }
 
 
@@ -124,10 +173,10 @@ export class AdminStatisticsDeliveredPage {
     return date;
   }
 
-  combineArrays(){
-        this.lineChartDataFinal.push(this.lineChartData2);
-        this.lineChartDataFinal.push(this.label);
-        console.log(this.lineChartDataFinal);
+  combineArrays() {
+    this.lineChartDataFinal.push(this.lineChartData2);
+    this.lineChartDataFinal.push(this.label);
+    console.log(this.lineChartDataFinal);
   }
 
   checkDuplicates(month: any): boolean {
@@ -139,15 +188,40 @@ export class AdminStatisticsDeliveredPage {
     return false;
   }
 
-  filterLineChartData(){
-    for (this.pos = 0; this.pos < this.lineChartData2.length; this.pos++){
-       if(this.lineChartData2[this.pos]==0) {
+  filterLineChartData() {
+    for (this.pos = 0; this.pos < this.lineChartData2.length; this.pos++) {
+      if (this.lineChartData2[this.pos] == 0) {
         this.lineChartData2.splice(this.pos, 1);
         this.pos = 0
-       }
+      }
     }
-     console.log(this.lineChartData2);
+    console.log(this.lineChartData2);
   }
+
+  getCourseId(selectedCourse): number {
+    for (let course of this.courses) {
+       if(course.title==selectedCourse){
+         this.id = course.id
+         console.log(this.id);
+       }
+    } 
+    return this.id;
+  }
+
+  exportAsXLSX():void {
+    this.excelService.exportAsExcelFile(this.bookings, 'Bookings');
+  }
+ 
+  refreshPage() {
+    this.navCtrl.push("AdminStatisticsDeliveredPage");
+  }
+
+  toggleChartLine(){
+       this.chartLine = false;
+  }
+  toggleChartBar(){
+    this.chartLine = true;
+}
 
 }
 

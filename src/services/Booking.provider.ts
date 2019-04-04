@@ -1,3 +1,4 @@
+import { BookingDetails } from './../class/BookingDetails';
 import { Booking } from './../class/Booking';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
@@ -31,7 +32,10 @@ export class BookingsService {
     query(req?: any): Observable<any> {
         return this.http.get(this.resourceUrl);
     }
-
+    
+    updateBooking(booking: Booking): Observable<any> {
+        return this.http.put(`${this.resourceUrl}/edit`,booking);
+    }
     updateBookingAcceptedTutorAssigned(booking: Booking,bookingId,adminId,tutorId): Observable<any> {
         return this.http.put(`${this.resourceUrl}/updateBookingAcceptedTutorAssigned`,{},{params:{bookingId:bookingId,adminId:adminId,tutorId:tutorId}});
     }
@@ -62,6 +66,17 @@ export class BookingsService {
         const options = createRequestOption(req);
         return this.http.get<Booking[]>(this.resourceUrl, { params: options, observe: 'response' })
             .map((res: HttpResponse<Booking[]>) => this.convertArrayResponse(res));
+    }
+
+
+    updateBookingEdited(bookingDetails:BookingDetails)
+    {
+        return this.http.put(`${this.resourceUrl}/edit`, bookingDetails);
+    }
+
+    updateBookingForCancellation(bookingID:number)
+    {
+        return this.http.delete(`${this.resourceUrl}/cancelBooking/${bookingID}`, { observe: 'response', responseType: 'text' });
     }
 
     updateBookingAcceptedByTutor(booking: Booking) {
@@ -143,16 +158,16 @@ export class BookingsService {
     }
 
     // finding all bookings by a selected course, a selected year, within a date range and BookingUserdetails populated
-    findAllBookingsSelectedCourseAndSelectedYear(fromDate: string, toDate: string, selectedCourse: any, selectedYear: any): Observable<EntityArrayResponseType> {
+    findAllBookingsSelectedCourseAndSelectedYear(fromDate: string, toDate: string, courseId: any, selectedYear: any): Observable<EntityArrayResponseType> {
         const options = null;
-        return this.http.get<Booking[]>(`${this.resourceUrl}/findAllBookingsSelectedCourseAndSelectedYear/${fromDate}/toDate/${toDate}/selectedCourse/${selectedCourse}/selectedYear/${selectedYear}`, { params: options, observe: 'response' })
+        return this.http.get<Booking[]>(`${this.resourceUrl}/findAllBookingsSelectedCourseAndSelectedYear/${fromDate}/toDate/${toDate}/selectedCourse/${courseId}/selectedYear/${selectedYear}`, { params: options, observe: 'response' })
             .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 
     // finding all bookings by a selected course, all years, within a date range and BookingUserdetails populated
-    findAllBookingsSelectedCourseAndAllYears(fromDate: string, toDate: string, selectedCourse: any): Observable<EntityArrayResponseType> {
+    findAllBookingsSelectedCourseAndAllYears(fromDate: string, toDate: string, courseId: any): Observable<EntityArrayResponseType> {
         const options = null;
-        return this.http.get<Booking[]>(`${this.resourceUrl}/findAllBookingsSelectedCourseAndAllYeara/${fromDate}/toDate/${toDate}/selectedCourse/${selectedCourse}`, { params: options, observe: 'response' })
+        return this.http.get<Booking[]>(`${this.resourceUrl}/findAllBookingsSelectedCourseAndAllYears/${fromDate}/toDate/${toDate}/selectedCourse/${courseId}`, { params: options, observe: 'response' })
         .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
     }
 

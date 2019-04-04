@@ -15,22 +15,20 @@
       </ion-row>
     </ion-col>
     <ion-col class="border-right" col-3>
-      <h6>{{'MANAGE_BOOKING' | translate}}</h6>
+      <button ion-button class="addBtn" (click)="onAddBooking()">
+        <i class="fa fa-plus"></i>&nbsp;
+        {{'ADD_BOOKING' | translate}}</button>
+      <br><br>
+      <hr>
+      <h6>&nbsp;{{'MANAGE_BOOKING' | translate}}</h6>
       <div class="scroll">
-        <ion-row>
-          <ion-col></ion-col>
-          <ion-col col-11>
-            <!-- &nbsp;<i class="fa fa-search"></i> -->
-            <!-- <input padding type="text" placeholder="Search Subject, Topic or Name"> -->
-            <input>
-          </ion-col>
-        </ion-row>
         <hr>
         <ion-list>
           <ion-item class="border-bottom" *ngFor="let booking of bookings;let i = index" (click)="goToBooking(booking)"
             [style.backgroundColor]="selectedBooking == booking ? '#F6FFFF' : '#FFFFFF' "
-            [style.backgroundColor]="booking.readByAdmin == false ? '#FFC0CB' : '#FFFFFF' " data-toggle="tooltip"
-            data-placement="top" title="{{booking?.requestedBy}}">
+            [style.font-weight]="booking.readByAdmin == false ? 'bold' : 'normal' " data-toggle="tooltip"
+            data-placement="top" title="{{booking?.requestedBy}}"
+            [style.border-left]="booking.readByAdmin == false ? '4px solid #0A7DD9' : 'black' ">
             <ion-row>
               <ng-container *ngFor="let user of findUserBookings">
                 <ng-container *ngIf="booking?.userInfos.length == 1">
@@ -66,14 +64,14 @@
                 </ng-container>
               </ng-container>
             </ion-row>
-            <ion-row>
+            <ion-row [style.color]="booking.readByAdmin == false ? '#0A7DD9' : 'black' ">
               <ion-col col-2></ion-col>
               <ion-col col-6>&nbsp;
-                {{(booking?.title | slice :0:15) + (booking?.title?.length > 15 ?
+                {{(booking?.title | slice :0:13) + (booking?.title?.length > 13 ?
                 '...' : '')}}
               </ion-col>
               <ion-col col-4>
-                <span class="timePos">{{booking?.modifiedTimestamp | date}}</span>
+                &nbsp;<span style="font-size:12px">{{booking?.modifiedTimestamp | date}}</span>
               </ion-col>
             </ion-row>
           </ion-item>
@@ -103,13 +101,6 @@
               </ng-container>
             </ng-container>
           </ng-container>
-          <ng-container *ngFor="let semesterGroup of semesterGroups;let lst = last">
-            <ng-container *ngFor="let info of selectedBooking?.userInfos">
-              <ng-container *ngIf="semesterGroup?.id == info?.semesterGroupId">
-                - {{semesterGroup?.title}}
-              </ng-container>
-            </ng-container>
-          </ng-container>
         </ng-container>
         <ng-container *ngIf="selectedBooking.userInfos.length > 1">
           <ion-row>
@@ -132,13 +123,6 @@
             <ion-col></ion-col>
           </ion-row>
         </ng-container>
-        <!-- <ng-container *ngFor="let semesterGroup of semesterGroups;let lst = last">
-              <ng-container *ngFor="let info of selectedBooking?.userInfos">
-                <ng-container *ngIf="semesterGroup?.id == info?.semesterGroupId">
-                  - {{semesterGroup?.title}}
-                </ng-container>
-              </ng-container>
-            </ng-container> -->
         <hr>
         <div class="theme">
           <br>
@@ -163,7 +147,7 @@
                 </ng-container>
               </ng-container>
               <ng-container *ngFor="let topic of selectedBooking?.topics">
-                <button ion-button outline class="tags">-{{topic?.title}}</button> &nbsp;
+                <button ion-button outline class="tags">{{topic?.title}}</button> &nbsp;
               </ng-container>
               <ng-container *ngIf="selectedBooking?.subjectId == null || selectedBooking?.subjectId == undefined">
                 <button ion-button outline class="tags">{{'NO_SUBJECT_SPECIFIED' | translate}}</button>
@@ -177,7 +161,10 @@
               <i class="fa fa-calendar"></i>&nbsp;
               {{'TIME_AND_DATE' | translate}}
             </ion-col>
-            <ion-col>
+            <ion-col *ngIf="selectedBooking?.startTime !='1970-01-31T23:00:00Z'&& (selectedBooking?.adminAcceptedId!=null &&selectedBooking?.adminAcceptedId!=undefined&& selectedBooking?.startTime !=null && selectedBooking.startTime !=undefined)">
+              {{convertStringDate()  }} 
+            </ion-col>
+            <ion-col *ngIf="selectedBooking?.startTime =='1970-01-31T23:00:00Z' || selectedBooking.startTime ==undefined|| selectedBooking.startTime ==null">
               <select [(ngModel)]="value" (ngModelChange)="getTimes($event)">
                 <option *ngIf="startTime == null || startTime == undefined " [ngValue]="value" disabled
                   [selected]="true">{{'CHOOSE_TIMES' | translate}}</option>
@@ -206,7 +193,7 @@
             <ion-col col-9>
               {{selectedBooking?.userComments}}
               <ng-container
-                *ngIf="selectedBooking?.userComments == null || selectedBooking?.userComments  == undefined || !empty">
+                *ngIf='selectedBooking?.userComments == null || selectedBooking?.userComments  == undefined || selectedBooking?.userComments  == ""'>
                 {{'NO_COMMENT' | translate}}
               </ng-container>
             </ion-col>
@@ -214,18 +201,24 @@
           </ion-row>
           <ion-row>
             <ion-col col-8></ion-col>
-            <ion-col col-3>
+            <ion-col col-4>
+              <button *ngIf="(selectedBooking?.adminAcceptedId==null || selectedBooking?.adminAcceptedId==undefined )&&!selectedBooking?.cancelled"
+                ion-button (click)="goToCancelBooking(selectedBooking)" class="assignBtn">{{'REJECT' |
+                translate}}
+                &nbsp; <i class="fa fa-times"></i>
+              </button>
               <button ion-button
+                *ngIf="(selectedBooking?.tutorAcceptedId==undefined || selectedBooking?.tutorAcceptedId==null)&&!selectedBooking?.cancelled"
                 [disabled]="selectedBooking?.tutorAccepted == true || selectedBooking?.adminAcceptedId != null && selectedBooking?.tutorAcceptedId != null"
-                (click)="goToAssignTutorManually(selectedBooking)" class="assignBtn">{{'ASSIGN' |
+                (click)="goToAssignTutorManually(selectedBooking)" class="btn">{{'ASSIGN' |
+                translate}} &nbsp;
+                <i class="fa fa-calendar-plus"></i>
+              </button>
+              <button ion-button
+                *ngIf="selectedBooking?.cancelled || selectedBooking?.tutorAccepted == true || selectedBooking?.adminAcceptedId != null && selectedBooking?.tutorAcceptedId != null"
+                (click)="goToEditBooking(selectedBooking)" class="assignBtn">{{'EDIT' |
                 translate}}</button>
             </ion-col>
-            <!-- <ion-col col-3>
-              <button ion-button
-                [disabled]="selectedBooking?.tutorAccepted == true || selectedBooking?.adminAcceptedId != null && selectedBooking?.tutorAcceptedId != null"
-                (click)="assignTutorRandomly(selectedBooking)" class="assignBtn">{{'RANDOMLY_ASSIGN_TUTOR' | translate}}</button>
-            </ion-col> -->
-            <!-- <ion-col col-1></ion-col> -->
           </ion-row>
         </div>
       </ion-col>

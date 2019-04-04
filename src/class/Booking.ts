@@ -1,3 +1,4 @@
+import { Message } from './Message';
 import { OrdinalScale } from "./OrdinalScale";
 import { BookingUserDetails } from "./BookingUserDetails";
 import { Subject } from "./Subject";
@@ -11,8 +12,8 @@ export class Booking {
         public id?:number,
         public title?:string,
         public requestedBy?:string,
-        public startTime?:Date,
-        public endTime?:Date,
+        public startTime?:any,
+        public endTime?:any,
         public userComments?:String,
         public importanceLevel?:OrdinalScale,
         public adminAcceptedId?:number,
@@ -21,6 +22,7 @@ export class Booking {
         public tutorRejectedCount?:number,
         public cancelled?:boolean,
         public bookingUserDetails?: Array<BookingUserDetails>,
+        public bookingUserDetailsDTO?: Array<BookingUserDetails>,
         public subject?:Subject,
         public userInfos?: Array<UserInfo>,
         public notifications?:Array<Notification>,
@@ -29,7 +31,7 @@ export class Booking {
         public requestTimes?:string,
         public readByAdmin?:boolean,
         public topics?:Array<Topic>
-    )
+        )
     { }
 
 }

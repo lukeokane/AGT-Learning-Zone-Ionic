@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-//import { CourseService } from '../../../providers/course/course.service';
 import { CourseService } from '../../../services/Course.provider';
 import { Course } from '../../../class/Course';
 import { BookingsService } from '../../../services/Booking.provider';
 import { Booking } from '../../../class/Booking';
 import { SubjectsService } from '../../../services/Subject.provider';
 import { Subject } from '../../../class/Subject';
+import { ExcelService } from '../../../services/excel.service';
 
 /**
  * Generated class for the AdminStatisticsDistributionPage page.
@@ -25,17 +25,23 @@ export class AdminStatisticsDistributionPage {
   toDate: any;
   fromDate: any;
   selectedYear: string;
+  selectedCourse: string;
   courses: Course[];
   subjects: Subject[];
-  selectedCourse: string;
   bookings: Array<Booking>;
   labels: string[] = [];
   data: number[] = [];
   pos: number = 0;
   posData: number = 0;
   inc: number;
+  chartGenerated: boolean = false;
+  courseId: number;
+  id: number;
 
   public doughnutChartType: string = 'doughnut';
+  public barChartOptions:any = {
+    legend: {position: 'right'}
+  }
 
   // events
   public chartClicked(e: any): void {
@@ -51,7 +57,8 @@ export class AdminStatisticsDistributionPage {
     public navParams: NavParams,
     private courseService: CourseService,
     private bookingsService: BookingsService,
-    private subjectsService: SubjectsService) {
+    private subjectsService: SubjectsService,
+    private excelService: ExcelService) {
   }
 
   ionViewDidLoad() {
@@ -94,14 +101,9 @@ export class AdminStatisticsDistributionPage {
 
   generateChart() {
 
-    // this.data.length=0;
-    // this.labels.length=0;
-    //this.data = this.data.filter(el => !this.data.splice(el));
-    //this.labels = this.labels.filter(el => !this.labels.splice(el));
-
     if (this.selectedCourse == "all" && this.selectedYear == "all") {
       console.log("got here selected course all selected year all");
-      this.bookingsService.findAllBookingsDistributionList(this.fromDate, this.toDate).subscribe(data => {
+      this.bookingsService.findAllBookingsList(this.fromDate, this.toDate).subscribe(data => {
         this.bookings = data.body;
         console.log(this.bookings);
         this.filterBookings();
@@ -123,7 +125,9 @@ export class AdminStatisticsDistributionPage {
 
     if (this.selectedCourse != "all" && this.selectedYear != "all") {
       console.log("got here seleceted course and selected year");
-      this.bookingsService.findAllBookingsSelectedCourseAndSelectedYear(this.fromDate, this.toDate, this.selectedCourse, this.selectedYear).subscribe(data => {
+      this.courseId = this.getCourseId(this.selectedCourse);
+      console.log(this.courseId);
+      this.bookingsService.findAllBookingsSelectedCourseAndSelectedYear(this.fromDate, this.toDate, this.courseId, this.selectedYear).subscribe(data => {
         this.bookings = data.body;
         console.log(this.bookings);
         this.filterBookings();
@@ -134,7 +138,9 @@ export class AdminStatisticsDistributionPage {
 
     if (this.selectedCourse != "all" && this.selectedYear == "all") {
       console.log("got here seleceted course and all years");
-      this.bookingsService.findAllBookingsSelectedCourseAndAllYears(this.fromDate, this.toDate, this.selectedCourse).subscribe(data => {
+      this.courseId = this.getCourseId(this.selectedCourse);
+      console.log(this.courseId);
+      this.bookingsService.findAllBookingsSelectedCourseAndAllYears(this.fromDate, this.toDate, this.courseId).subscribe(data => {
         this.bookings = data.body;
         console.log(this.bookings);
         this.filterBookings();
@@ -167,6 +173,7 @@ export class AdminStatisticsDistributionPage {
         }
       }
     }
+    this.chartGenerated = true;
   }
   
   findPosSubject(title: string): number {
@@ -185,6 +192,24 @@ export class AdminStatisticsDistributionPage {
       }
     }
     return false;
+  }
+
+  exportAsXLSX():void {
+    this.excelService.exportAsExcelFile(this.bookings, 'Bookings');
+  }
+
+  refreshPage() {
+    this.navCtrl.push("AdminStatisticsDistributionPage");
+  }
+
+  getCourseId(selectedCourse): number {
+    for (let course of this.courses) {
+       if(course.title==selectedCourse){
+         this.id = course.id
+         console.log(this.id);
+       }
+    } 
+    return this.id;
   }
 
 }

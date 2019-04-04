@@ -1,6 +1,6 @@
 <top-menu></top-menu>
 
-<ion-content class="scroll">
+<ion-content>
   <ion-col col-1>
     <ion-row>
       <ion-col col-1>
@@ -49,11 +49,13 @@
           </ng-container>
         </ng-container>
       </ion-col>
-      <ion-col *ngIf="filterTutors.length != 7" col-5></ion-col>
+      <ion-col *ngIf="filterTutors != null || filterTutors != undefined && filterTutors.length % 2 == 1" col-5></ion-col>
     </ion-row>
   </ion-col>
 </ion-content>
+<ion-footer  no-border>
 <div class="row justify-content-center">
   <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
     [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
 </div>
+</ion-footer>

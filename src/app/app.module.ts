@@ -1,9 +1,9 @@
+import { MessagesService } from './../services/Message.provider';
+import { BookingUserDetailService } from './../services/BookingUserDetails.provider';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserInfoService } from './../services/UserInfo.provider';
 import { BookingsService } from './../services/Booking.provider';
-import { SemesterService } from './../services/Semester.provider';
 import { CourseService } from './../services/Course.provider';
-import { SemesterGroupService } from './../services/SemesterGroup.provider';
 import { CourseYearService } from './../services/CourseYear.provider';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -30,6 +30,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { UserService } from '../services/User.provider';
 import { SubjectsService } from '../services/Subject.provider';
 import { TopicService } from '../services/Topic.provider';
+import { CalendarService } from '../services/Calendar.provider';
+import { FunctionsProvider } from '../providers/functions/functions';
 
 // The translate loader needs to know where to load i18n files
 // in Ionic's static asset pipeline.
@@ -89,20 +91,22 @@ export function provideSettings(storage: Storage) {
     SessionStorageService,
     CourseService,
     CourseYearService,
-    SemesterGroupService,
-    SemesterService,
     BookingsService,
     UserService,
     SubjectsService,
     UserInfoService,
     TopicService,
+    BookingUserDetailService,
+    MessagesService,
+    CalendarService,
+    FunctionsProvider,
     Camera,
     SplashScreen,
     StatusBar,
     { provide: Settings, useFactory: provideSettings, deps: [Storage] },
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
-  ]
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    FunctionsProvider]
 })
 export class AppModule { }

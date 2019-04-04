@@ -1,13 +1,11 @@
-import { SubjectsService } from './../../../services/Subject.provider';
-import { SemesterGroupService } from './../../../services/SemesterGroup.provider';
-import { SemesterGroup } from './../../../class/SemesterGroup';
+import { SubjectsService } from './../../../services/Subject.provider';;
 import { UserService } from './../../../services/User.provider';
 import { HttpResponse } from '@angular/common/http';
 import { BookingsService } from './../../../services/Booking.provider';
-import { homePage, adminBookingAssignPage } from './../../pages';
+import { adminBookingAssignPage, adminEditBooking, adminAddBookingPage, adminCancelBookingPage } from './../../pages';
 import { Booking } from './../../../class/Booking';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
 import { User } from '../../../class/User';
 import { Subject } from '../../../class/Subject';
 
@@ -29,7 +27,6 @@ export class AdminBookingManagementPage implements OnInit {
   totalItems: any;
   queryCount: any;
   findUserBookings: Array<User>;
-  semesterGroups: Array<SemesterGroup>;
   subjects: Array<Subject>;
   predicate: any = 'id';
   previousPage: any;
@@ -40,9 +37,8 @@ export class AdminBookingManagementPage implements OnInit {
   startTime: any;
   endTime: any;
   result = [];
-  empty:boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private bookingsService: BookingsService, private toastCtrl: ToastController, private userService: UserService, private semesterGroupService: SemesterGroupService, private subjectService: SubjectsService, private bookingService: BookingsService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private bookingsService: BookingsService, private toastCtrl: ToastController, private userService: UserService, private subjectService: SubjectsService, private bookingService: BookingsService, private modalCtrl: ModalController) {
   }
 
   ngOnInit() {
@@ -74,19 +70,6 @@ export class AdminBookingManagementPage implements OnInit {
     })
   }
 
-  initSemesterGroup(semesterGroupId: any) {
-    this.semesterGroups = [];
-    if (semesterGroupId != null || semesterGroupId != undefined) {
-      this.semesterGroupService.find(semesterGroupId).subscribe((response) => {
-        this.semesterGroups.push(response);
-        this.semesterGroups = this.semesterGroups.filter(function (a) {
-          return !this[a.id] && (this[a.id] = true);
-        }, Object.create(null));
-      })
-    }
-  }
-
-
   initSubjects(subjectId: any) {
     this.subjects = [];
     if (subjectId != null || subjectId != undefined) {
@@ -108,7 +91,7 @@ export class AdminBookingManagementPage implements OnInit {
     this.bookings.forEach(booking => {
       this.initSubjects(booking.subjectId);
       booking.userInfos.forEach(userInfo => {
-        this.initSemesterGroup(userInfo.semesterGroupId);
+        // this.initSemesterGroup(userInfo.semesterGroupId);
       });
     });
   }
@@ -137,12 +120,20 @@ export class AdminBookingManagementPage implements OnInit {
       }
     }
   }
-
+  convertStringDate() {
+    return this.selectedBooking.startTime.substring(0, 10) + " " + this.selectedBooking.startTime.substring(11, 16) + " - " + this.selectedBooking.endTime.substring(11, 16);
+  }
   goToBooking(booking: Booking) {
     let timeArray = [];
     let filter = [];
     this.FortmattedDates = [];
     this.selectedBooking = booking;
+    console.log(this.selectedBooking);
+    // if(this.selectedBooking.startTime!=null && this.selectedBooking.startTime!=undefined){
+    //   this.selectedBooking.startTime  =new Date(this.selectedBooking.startTime);
+    //   this.selectedBooking.endTime  =new Date(this.selectedBooking.endTime);
+
+    // }
     if (this.selectedBooking.readByAdmin == false) {
       booking.readByAdmin = true;
       this.bookingService.saveBooking(booking);
@@ -161,52 +152,50 @@ export class AdminBookingManagementPage implements OnInit {
   }
 
   goToAssignTutorManually(selectedBooking: Booking) {
+    
     if (this.startTime != null || this.startTime != undefined) {
       selectedBooking.startTime = this.startTime.toISOString();
     }
     if (this.endTime != null || this.endTime != undefined) {
       selectedBooking.endTime = this.endTime.toISOString();
     }
+    console.log(this.selectedBooking);
     this.navCtrl.push(adminBookingAssignPage, {
       selectedBooking: selectedBooking
     });
   }
 
-  assignTutorRandomly(selectedBooking: Booking) {
-    this.userService.query().subscribe(
-      (response) => {
-        response.forEach(user => {
-          user.authorities.forEach(authority => {
-            if (authority == "ROLE_TUTOR") {
-              this.filterTutors = this.filterTutors.concat(user);
-            }
-          });
-        });
-        this.assignToTutor(selectedBooking, this.filterTutors);
-      },
-      (error) => {
-        console.error(error);
-        let toast = this.toastCtrl.create({ message: 'Failed to load data', duration: 2000, position: 'middle' });
-        toast.present();
-      });
 
+  goToEditBooking(selectedBooking: Booking) {
+    let modal = this.modalCtrl.create(adminEditBooking, {
+      selectedBooking: selectedBooking
+    });
+    modal.present();
+    modal.onDidDismiss(data => {
+      console.log("back");
+      console.log(data);
+      if(data!=null && data !=undefined){
+        this.selectedBooking = data.booking;
+
+      }
+    })
+    // this.navCtrl.push(adminEditBooking, {
+    //   selectedBooking: selectedBooking
+    // });
   }
 
-
-  assignToTutor(selectedBooking: Booking, filterTutors: Array<User> = []) {
-    let rand = filterTutors[Math.floor(Math.random() * filterTutors.length)];
-    if(selectedBooking.userComments == '')
-    {
-      this.empty = true;
-    }
-    if (rand != null || rand != undefined) {
-      selectedBooking.adminAcceptedId = rand.id;
-    }
-    if (selectedBooking != null || selectedBooking != undefined) {
-      this.bookingService.saveBooking(selectedBooking);
-      this.navCtrl.push(homePage);
-    }
+  goToCancelBooking(selectedBooking: Booking) {
+    let tag: string = "rejectBooking";
+    let cancelModal = this.modalCtrl.create(adminCancelBookingPage, { selectedBooking: selectedBooking, tag: tag });
+    cancelModal.present();
   }
 
+  onAddBooking() {
+    let bookingModal = this.modalCtrl.create(adminAddBookingPage);
+    bookingModal.onDidDismiss(data => {
 
+    });
+    bookingModal.present();
+
+  }
 }

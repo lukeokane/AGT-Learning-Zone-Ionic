@@ -1,226 +1,255 @@
 page-user-home {
     .scroll-content {
         overflow: hidden;
-      }
+    }
+
     //   @media screen and (max-height: 610px) {
     //     .scroll-content {
     //         overflow:scroll;
     //       }
     //   }
-    .text-colour-darkgrey{
-        color:#4D4F5C;
+    .text-colour-darkgrey {
+        color: #4D4F5C;
     }
-    #menu_button{
+
+    #menu_button {
         background-color: transparent;
         color: black;
         box-shadow: none;
         border: none;
-
-    
     }
-    
+
     .border-menu {
         display: inline-block;
         cursor: pointer;
     }
-    
-    .bar1, .bar2, .bar3 {
+
+    .bar1,
+    .bar2,
+    .bar3 {
         width: 35px;
         height: 5px;
         background-color: #DEF2F1;
         border: 1px solid #3AAFA9;
         margin: 6px 0;
-    
+
     }
-    
+
     .bar3 {
         width: 25px;
     }
 
     //calendar
-    .tg  {
+    .tg {
         // border-collapse:collapse;
         // border-spacing:0;
         width: 90%;
-        table-layout: fixed;}
-        @media screen and (max-width: 1080px) {
-            .tg  {
-                width: 1000px;
-            }
-            .scroll-content {
-                overflow: hidden;
-              }
-          }
-          
-    .tg td{
-        font-family:Arial, sans-serif;
-        font-size:15px;padding:10px 5px;
-        border-style:solid;
-        border-width:1px;
-        overflow:hidden;
-        word-break:normal;
-        border-color:black;}
-    .tg th{
-        font-family:Arial, sans-serif;
-        font-size:15px;
-        font-weight:normal;
-        padding:10px 5px;
-        border-style:solid;
-        border-width:1px;
-        overflow:hidden;
-        word-break:normal;
-        border-color:black;}
+        table-layout: fixed;
+    }
 
-    .tg .tg-date{
-        background-color:#f5f6fa;
-        border-color:#eaf0f4;
-        text-align:left;
-        vertical-align:top}  
+    @media screen and (max-width: 1080px) {
+        .tg {
+            width: 1000px;
+        }
 
-    .tg .tg-slot{
-        border-color:#eaf0f4;
-        text-align:left;
-        vertical-align:top;
-        padding: 0px;cursor: pointer;}
+        .scroll-content {
+            overflow: hidden;
+        }
+    }
 
-.tg .tg-slot-passed{
-    border-color:#eaf0f4;
-    text-align:left;
-    vertical-align:top;
-    padding: 0px;cursor: pointer; 
-    background-color: #FE787B; 
-    opacity: 0.7;
-}
-    .tg .tg-time{border-color:#eaf0f4;text-align:left;vertical-align:top}
+    .tg td {
+        font-family: Arial, sans-serif;
+        font-size: 15px;
+        padding: 10px 5px;
+        border-style: solid;
+        border-width: 1px;
+        overflow: hidden;
+        word-break: normal;
+        border-color: black;
+    }
 
-.showBooking{
-    border-radius: 0.3em;
-    background-color: #FFB478;
-    color:white;
-    text-align: center;
-    font-family: "SourceSansPro";
-    top:0%;
-    margin: 2px;
-}
-.currentTimeLine{
-    position: relative;
-    // IE7+.
-color: #3AAFA9;
-//Chrome and Safari.
-border-color:#3AAFA9;
-//Firefox and Opera
-background-color:#3AAFA9;
-    height: 1px;
-    border-top: 1px solid #3AAFA9;
-    // display: inline-block;
+    .tg th {
+        font-family: Arial, sans-serif;
+        font-size: 15px;
+        font-weight: normal;
+        padding: 10px 5px;
+        border-style: solid;
+        border-width: 1px;
+        overflow: hidden;
+        word-break: normal;
+        border-color: black;
+    }
 
-}
-.dot {
-    height: 6px;
-    width: 6px;
-    background-color: #3AAFA9;
-    border-radius: 50%;
-    margin: 0px;
-    padding: 0px;
-    display: inline-block;
-  }
-  .dot-transparent {
-    height: 6px;
-    width: 0px;
-    background-color: transparent;
-    border-radius: 50%;
-    margin: 0px;
-    padding: 0px;
-    display: inline-block;
-  }
+    .tg .tg-date {
+        background-color: #f5f6fa;
+        border-color: #eaf0f4;
+        text-align: left;
+        vertical-align: top
+    }
 
-  //line with dot
-  .strike {
-    display: block;
-    overflow: hidden;
-    white-space: nowrap; 
-}
+    .tg .tg-slot {
+        border-color: #eaf0f4;
+        text-align: left;
+        vertical-align: top;
+        padding: 0px;
+        cursor: pointer;
+    }
 
-.strike > span {
-    position: relative;
-    display: inline-block;
-}
+    .tg .tg-slot-passed {
+        border-color: #eaf0f4;
+        text-align: left;
+        vertical-align: top;
+        padding: 0px;
+        cursor: pointer;
+        background-color: rgba(192,192,192, 0.1);
+        opacity: 0.7;
+    }
 
-// .strike > span:before,
-.strike > span:after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    width: 9999px;
-    height: 2px;
-    background: #3AAFA9;
-}
+    .tg .tg-time {
+        border-color: #eaf0f4;
+        text-align: left;
+        vertical-align: top
+    }
 
-.strike > span:before {
-    right: 100%;
-    margin-right: 0px;
-}
+    .showBooking {
+        border-radius: 0.3em;
+        background-color: #FFB478;
+        color: white;
+        text-align: center;
+        font-family: "SourceSansPro";
+        top: 0%;
+        margin: 2px;
+    }
 
-.strike > span:after {
-    left: 100%;
-    margin-left: 0px;
-}
-//button next and previous
-.button-md{
-    border:1px solid #D7DAE2;
-    background-color:white;
-    color: black;
-    margin-left: 0px;
-    margin-right: 0px;
-width: 100px;
-}
-// .date-change{
-//     width: 100px;
-//     text-align: center;
-//     cursor: pointer;
-// }
+    .currentTimeLine {
+        position: relative;
+        // IE7+.
+        color: #3AAFA9;
+        //Chrome and Safari.
+        border-color: #3AAFA9;
+        //Firefox and Opera
+        background-color: #3AAFA9;
+        height: 1px;
+        border-top: 1px solid #3AAFA9;
+        // display: inline-block;
 
-.date-change-btn{
-border: 1px solid #D7DAE2;
-border-radius: 0.5em;
-width: 100px;
-padding: 5px;
-margin: 2px;
-text-align: center;
-display: inline-block;
-color:#4D4F5C;
-}
-.container-date{
-    // margin: 5px;
-    // padding: 2px;
-    // border-radius:2px; 
-    // border:1px solid #D7DAE2;
-    width: 20%;
-    display: inline-block;
+    }
 
-}
-.relative-div{
-    display: inline-block;
-    position: relative;
-    margin-left: 10%;
-}
-.font-change{
-    font-size: 28px;
-}
-.mobile-week{
-    width:87%; 
-    padding-left: 10%;
-    display:inline-block;
-}
-.change-date-button{
-    width:5%; 
-    display:inline-block;
-    cursor: pointer;
+    .dot {
+        height: 6px;
+        width: 6px;
+        background-color: #3AAFA9;
+        border-radius: 50%;
+        margin: 0px;
+        padding: 0px;
+        display: inline-block;
+    }
 
-}
-ion-scroll {
-    white-space: nowrap;
-    height: 1000px;
-    // width: 1000px;
-}
+    .dot-transparent {
+        height: 6px;
+        width: 0px;
+        background-color: transparent;
+        border-radius: 50%;
+        margin: 0px;
+        padding: 0px;
+        display: inline-block;
+    }
+
+    //line with dot
+    .strike {
+        display: block;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .strike>span {
+        position: relative;
+        display: inline-block;
+    }
+
+    // .strike > span:before,
+    .strike>span:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 9999px;
+        height: 2px;
+        background: #3AAFA9;
+    }
+
+    .strike>span:before {
+        right: 100%;
+        margin-right: 0px;
+    }
+
+    .strike>span:after {
+        left: 100%;
+        margin-left: 0px;
+    }
+
+    //button next and previous
+    .button-md {
+        border: 1px solid #D7DAE2;
+        background-color: white;
+        color: black;
+        margin-left: 0px;
+        margin-right: 0px;
+        width: 100px;
+    }
+
+    // .date-change{
+    //     width: 100px;
+    //     text-align: center;
+    //     cursor: pointer;
+    // }
+
+    .date-change-btn {
+        border: 1px solid #D7DAE2;
+        border-radius: 0.5em;
+        width: 100px;
+        padding: 5px;
+        margin: 2px;
+        text-align: center;
+        display: inline-block;
+        color: #4D4F5C;
+    }
+
+    .container-date {
+        // margin: 5px;
+        // padding: 2px;
+        // border-radius:2px; 
+        // border:1px solid #D7DAE2;
+        width: 20%;
+        display: inline-block;
+
+    }
+
+    .relative-div {
+        display: inline-block;
+        position: relative;
+        margin-left: 10%;
+    }
+
+    .font-change {
+        font-size: 28px;
+    }
+
+    .mobile-week {
+        width: 87%;
+        padding-left: 10%;
+        display: inline-block;
+    }
+
+    .change-date-button {
+        width: 5%;
+        display: inline-block;
+        cursor: pointer;
+
+    }
+
+    ion-scroll {
+        white-space: nowrap;
+        height: 1000px;
+        // width: 1000px;
+    }
 }

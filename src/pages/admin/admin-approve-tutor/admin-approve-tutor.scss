@@ -1,0 +1,72 @@
+page-admin-approve-tutor {
+    #menu_button {
+        background-color: transparent;
+        color: black;
+        box-shadow: none;
+    }
+
+    .border-menu {
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .bar1,
+    .bar2,
+    .bar3 {
+        width: 35px;
+        height: 5px;
+        background-color: #DEF2F1;
+        border: 1px solid #3AAFA9;
+        margin: 6px 0;
+
+    }
+
+    .bar3 {
+        width: 25px;
+    }
+
+    .border {
+        border: 1px solid #DEF2F1;
+    }
+
+    .border:hover {
+        background-color: #DEF2F1 !important;
+    }
+
+    .scroll {
+        overflow-y: hidden;
+        overflow-x: hidden;
+        height: 500px;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .btn {
+        float: right;
+        background-color: lightgreen;
+        ;
+        color: white;
+    }
+
+    .btnReject {
+        float: right;
+        background-color: #FE787B;
+        color: white;
+    }
+
+    .tutors {
+        text-align: center;
+        color: #FFB478;
+    }
+
+    .avatar {
+        height: 75px;
+        width: 75px;
+    }
+
+    .align{
+        text-align:center;
+    }
+}

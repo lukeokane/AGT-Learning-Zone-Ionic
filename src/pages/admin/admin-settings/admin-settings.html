@@ -7,12 +7,43 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>admin-settings</ion-title>
+    <ion-title>Settings</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <ion-grid>
+    <ion-row>
+      <ion-col col-2>
+        <ion-list>
+          <button ion-item *ngFor="let name of names" (click)="itemSelected(name.page)">
+            {{ name.name }}
+          </button>
+        </ion-list>
+      </ion-col>
+      <ion-col col-10>
+        <ng-container *ngIf="page=='set-date'">
+          <ion-row>
+            <ion-col col-12>
+              <ion-label class="text-colour-darkgrey">
+                <ion-icon name="calendar"></ion-icon>
+                <span class="padding-left-size">Academic Start Date</span>
+              </ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <div col-5 class="form-border">
+              <ion-datetime [(ngModel)]="dateStart" display-format="DD/MMM/YYYY"></ion-datetime>
+            </div>
+          </ion-row>
+          <!-- <page-admin-settings-set-date></page-admin-settings-set-date> -->
+        </ng-container>
+        <ion-row>
+          <button ion-button (click)="saveChanges()">Save Changes</button>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
