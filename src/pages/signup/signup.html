@@ -37,39 +37,25 @@
             </ion-row>
             <ion-row>
               <ion-col>
-                <i class="inside fa fa-user"></i>
-                <select padding [(ngModel)]="roleType" class="input" (ngModelChange)="roleTypes($event)"
-                  name="registerType">
-                  <option *ngIf="roleType == null || roleType == undefined" [ngValue]="roleType" [selected]="true"
-                    disabled>Choose Registration Type</option>
-                  <option value="ROLE_USER">{{'REGISTER_AS_STUDENT' | translate}}</option>
-                  <option value="ROLE_TUTOR">{{'REGISTER_AS_TUTOR' | translate}}
+                <i class="inside fa fa-desktop"></i>
+                <select padding class="input" [(ngModel)]="selectedCourse" (ngModelChange)="initCourseYear($event)"
+                  name="course">
+                  <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_A_COURSE' | translate}}</option>
+                  <option *ngFor="let value of courses; let i=index" [ngValue]="value">
+                    {{'YEAR' | translate}} - {{value?.title}}
                 </select>
               </ion-col>
             </ion-row>
-            <ng-container *ngIf="roleType == 'ROLE_USER'">
-              <ion-row>
-                <ion-col>
-                  <i class="inside fa fa-desktop"></i>
-                  <select padding class="input" [(ngModel)]="selectedCourse" (ngModelChange)="initCourseYear($event)"
-                    name="course">
-                    <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_A_COURSE' | translate}}</option>
-                    <option *ngFor="let value of courses; let i=index" [ngValue]="value">
-                      {{'YEAR' | translate}} - {{value?.title}}
-                  </select>
-                </ion-col>
-              </ion-row>
-              <ion-row *ngIf="FilteredYears.length > 0 && FilteredYears != null && FilteredYears != undefined">
-                <ion-col>
-                  <i class="inside fa fa-calendar"></i>
-                  <select padding class="input" [(ngModel)]="selectedYear" name="year">
-                    <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_A_YEAR' | translate}}</option>
-                    <option *ngFor="let value of FilteredYears; let i=index" [ngValue]="value">
-                      {{value?.courseYear}}
-                  </select>
-                </ion-col>
-              </ion-row>
-            </ng-container>
+            <ion-row *ngIf="FilteredYears.length > 0 && FilteredYears != null && FilteredYears != undefined">
+              <ion-col>
+                <i class="inside fa fa-calendar"></i>
+                <select padding class="input" [(ngModel)]="selectedYear" name="year">
+                  <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_A_YEAR' | translate}}</option>
+                  <option *ngFor="let value of FilteredYears; let i=index" [ngValue]="value">
+                    {{value?.courseYear}}
+                </select>
+              </ion-col>
+            </ion-row>
             <ion-row>
               <ion-col>
                 <button ion-button round class="signUpButton">{{ 'SIGNUP_BUTTON' | translate }}</button>
@@ -121,39 +107,25 @@
       </ion-row>
       <ion-row>
         <ion-col class="align">
-          <i class="inside fa fa-user"></i>
-          <select padding [(ngModel)]="roleType" class="inputReg" (ngModelChange)="roleTypes($event)"
-            name="registerType">
-            <option *ngIf="roleType == null || roleType == undefined" [ngValue]="roleType" [selected]="true" disabled>
-              Choose Registration Type</option>
-            <option value="ROLE_USER">{{'REGISTER_AS_STUDENT' | translate}}</option>
-            <option value="ROLE_TUTOR">{{'REGISTER_AS_STUDENT' | translate}}
+          <i class="inside fa fa-desktop"></i>
+          <select padding class="inputReg" [(ngModel)]="selectedCourse" (ngModelChange)="initCourseYear($event)"
+            name="course">
+            <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_A_COURSE' | translate}}</option>
+            <option *ngFor="let value of courses; let i=index" [ngValue]="value">
+              {{'YEAR' | translate}} - {{value?.title}}
           </select>
         </ion-col>
       </ion-row>
-      <ng-container *ngIf="roleType == 'ROLE_USER'">
-        <ion-row>
-          <ion-col class="align">
-            <i class="inside fa fa-desktop"></i>
-            <select padding class="inputReg" [(ngModel)]="selectedCourse" (ngModelChange)="initCourseYear($event)"
-              name="course">
-              <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_A_COURSE' | translate}}</option>
-              <option *ngFor="let value of courses; let i=index" [ngValue]="value">
-                {{'YEAR' | translate}} - {{value?.title}}
-            </select>
-          </ion-col>
-        </ion-row>
-        <ion-row *ngIf="FilteredYears.length > 0 && FilteredYears != null && FilteredYears != undefined">
-          <ion-col class="align">
-            <i class="inside fa fa-calendar"></i>
-            <select padding class="inputReg" [(ngModel)]="selectedYear" name="year">
-              <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_A_YEAR' | translate}}</option>
-              <option *ngFor="let value of FilteredYears; let i=index" [ngValue]="value">
-                {{value?.courseYear}}
-            </select>
-          </ion-col>
-        </ion-row>
-      </ng-container>
+      <ion-row *ngIf="FilteredYears.length > 0 && FilteredYears != null && FilteredYears != undefined">
+        <ion-col class="align">
+          <i class="inside fa fa-calendar"></i>
+          <select padding class="inputReg" [(ngModel)]="selectedYear" name="year">
+            <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_A_YEAR' | translate}}</option>
+            <option *ngFor="let value of FilteredYears; let i=index" [ngValue]="value">
+              {{value?.courseYear}}
+          </select>
+        </ion-col>
+      </ion-row>
       <br>
       <ion-row>
         <ion-col class="align">
@@ -161,7 +133,7 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col class="align"(click)="goToLogin()">Already signed up? Sign in!</ion-col>
+        <ion-col class="align" (click)="goToLogin()">Already signed up? Sign in!</ion-col>
       </ion-row>
     </ng-container>
   </ion-grid>

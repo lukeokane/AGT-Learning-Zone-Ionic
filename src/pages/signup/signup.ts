@@ -117,17 +117,10 @@ export class SignupPage implements OnInit {
   }
 
   doSignup() {
-    if (this.roleType == "ROLE_TUTOR") {
-      this.account.authorities = ['ROLE_TUTOR'];
-      this.account.year = null;
-      this.signupSuccessString = "An ITLC staff member will handle your registering request";
-    }
-    else if (this.roleType == "ROLE_USER") {
-      this.account.authorities = ['ROLE_USER'];
-      this.account.year = this.selectedYear.id;
-      this.account.courseId = this.selectedCourse.id;
-    }
-  
+
+    this.account.authorities = ['ROLE_USER'];
+    this.account.year = this.selectedYear.id;
+    this.account.courseId = this.selectedCourse.id;
     this.account.login = this.account.email;
 
     this.user.signup(this.account).subscribe(() => {
@@ -163,12 +156,7 @@ export class SignupPage implements OnInit {
     return window.innerWidth;
   }
 
-  roleTypes(event: any) {
-    this.roleType = event;
-  }
-
-  goToLogin()
-  {
+  goToLogin() {
     this.navCtrl.push(loginPage);
   }
 }
