@@ -95,6 +95,7 @@ export class AdminStatisticsHoursPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AdminStatisticsDistributionPage');
     this.loadAll();
+    this.today();
   }
 
   loadAll() {
@@ -269,6 +270,15 @@ export class AdminStatisticsHoursPage {
     this.excelService.exportAsExcelFile(this.bookingsStudents, 'Students Attended');
     this.excelService.exportAsExcelFile(this.filteredExcelData, 'ChartData');
     console.log(this.bookingsStudents);
+  }
+
+  today() {
+    const dateFormat = 'yyyy-MM-dd';
+    // Today + 1 day - needed if the current day must be included
+    const today: Date = new Date();
+    today.setDate(today.getDate() + 1);
+    const date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    this.toDate = this.datePipe.transform(date, dateFormat);
   }
 
   refreshPage() {

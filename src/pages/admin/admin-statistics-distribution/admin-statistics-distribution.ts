@@ -7,7 +7,7 @@ import { Booking } from '../../../class/Booking';
 import { SubjectsService } from '../../../services/Subject.provider';
 import { Subject } from '../../../class/Subject';
 import { ExcelService } from '../../../services/excel.service';
-
+import { DatePipe } from '@angular/common';
 
 
 /**
@@ -24,7 +24,7 @@ import { ExcelService } from '../../../services/excel.service';
 })
 export class AdminStatisticsDistributionPage {
 
-  ACM : string = "ACM Booking";
+  ACM: string = "ACM Booking";
   toDate: any;
   fromDate: any;
   selectedYear: string;
@@ -75,7 +75,8 @@ export class AdminStatisticsDistributionPage {
     private courseService: CourseService,
     private bookingsService: BookingsService,
     private subjectsService: SubjectsService,
-    private excelService: ExcelService) {
+    private excelService: ExcelService,
+    private datePipe: DatePipe, ) {
   }
 
   ionViewDidLoad() {
@@ -84,6 +85,8 @@ export class AdminStatisticsDistributionPage {
     this.loadAllCourses();
     //this.loadAllBookings();
     this.loadAllSubjects();
+    this.today();
+    this.previousMonth();
   }
 
   loadAllCourses() {
@@ -242,5 +245,25 @@ export class AdminStatisticsDistributionPage {
     }
     return this.id;
   }
+
+  today() {
+    const dateFormat = 'yyyy-MM-dd';
+    // Today + 1 day - needed if the current day must be included
+    const today: Date = new Date();
+    today.setDate(today.getDate() + 1);
+    const date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    this.toDate = this.datePipe.transform(date, dateFormat);
+  }
+
+  previousMonth() {
+    const dateFormat = 'yyyy-MM-dd';
+    let fromDate: Date = new Date();
+    if (fromDate.getMonth() === 0) {
+        fromDate = new Date(fromDate.getFullYear() - 1, 11, fromDate.getDate());
+    } else {
+        fromDate = new Date(fromDate.getFullYear(), fromDate.getMonth() - 4, fromDate.getDate());
+    }
+    this.fromDate = this.datePipe.transform(fromDate, dateFormat);
+}
 
 }
