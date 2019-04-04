@@ -41,6 +41,9 @@
                 </button>
               </ion-col>
             </ion-row>
+            <ion-row>
+              <ion-col class="align"(click)="goToSignUp()">Don't have an Account? Create one now!</ion-col>
+            </ion-row>
             <!-- <ion-row>
               <ion-col>
                 <ion-label>{{'REMEMBER_ME' | translate}}</ion-label>
@@ -88,10 +91,13 @@
             </button>
           </ion-col>
         </ion-row>
-        <ion-row>
+        <!-- <ion-row>
           <ion-col class="align">
             <h6 style="font-size:12px !important" id ="forgot_password_btn">{{'FORGOT_PASSWORD' | translate}}?</h6>
           </ion-col>
+        </ion-row> -->
+        <ion-row>
+          <ion-col class="align"(click)="goToSignUp()">Don't have an Account? Create one now!</ion-col>
         </ion-row>
       </form>
     </ng-container>
