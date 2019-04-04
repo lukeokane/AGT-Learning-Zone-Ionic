@@ -16,7 +16,7 @@
 <ion-content padding>
   <div class="topic">
     <p>
-      Tutorial Distribution
+      Tutorial Distribution By Module
     </p>
   </div>
   <form (submit)="generateChart()">
@@ -96,7 +96,7 @@
   <div>
       <ng-container *ngIf="data.length > 0">
           <div style="display: block">
-              <canvas baseChart [data]="data" [labels]="labels" [chartType]="doughnutChartType" [options]="barChartOptions"
+              <canvas width="1400" height="400" baseChart [data]="data" [labels]="labels" [chartType]="'pie'" [options]="barChartOptions"
                 (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
             </div>
       </ng-container>
