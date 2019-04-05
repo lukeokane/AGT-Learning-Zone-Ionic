@@ -1,5 +1,5 @@
 <top-menu></top-menu>
-<ion-content padding class="scroll">
+<ion-content padding>
   <ion-col col-1>
     <ion-row>
       <ion-col col-1>
@@ -22,7 +22,7 @@
       <ion-col col-5></ion-col>
     </ion-row>
   </ion-col>
-  <!-- <ion-col padding>
+  <ion-col padding>
     <ion-row padding justify-content-center>
       <ion-col padding col-5 *ngFor="let tutor of tutors">
         <ion-row class="border" padding>
@@ -46,13 +46,9 @@
             {{tutor?.lastName}}
             <br>
             <hr>
-            <button class="btn" (click)="approveTutor(tutor)" ion-button>
-              {{'APPROVE' | translate}} &nbsp;
-              <i class="fa fa-check"></i>
-            </button>
-            <button class="btnReject" (click)="rejectTutor(tutor.login)" ion-button>
-              {{'Reject' | translate}} &nbsp;
-              <i class="fa fa-times"></i>
+            <button class="btnReject" (click)="deleteTutor(tutor.login)" ion-button>
+              Delete Tutor &nbsp;
+              <i class="fa fa-trash"></i>
             </button>
           </ion-col>
         </ion-row>
@@ -63,11 +59,13 @@
   <ion-row *ngIf="tutors.length ==0" class="align">
     <ion-col col-1></ion-col>
     <ion-col>
-      <h4>{{'NO_TUTOR_REQUESTS' | translate}}!</h4>
+      <h4>No Tutors Found!</h4>
     </ion-col>
-  </ion-row> -->
+  </ion-row>
 </ion-content>
+<ion-footer>
 <div class="row justify-content-center">
   <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true"
     [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
 </div>
+</ion-footer>

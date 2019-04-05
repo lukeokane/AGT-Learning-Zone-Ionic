@@ -1,3 +1,4 @@
+import { UserInfoService } from './../../../services/UserInfo.provider';
 import { adminApproveTutorPage } from './../../pages';
 import { User } from './../../../class/User';
 import { HttpResponse } from '@angular/common/http';
@@ -27,7 +28,8 @@ export class AdminApproveTutorPage implements OnInit{
     public navParams: NavParams,
     private userService: UserService,
     private toastCtrl: ToastController,
-    private modalCtrl:ModalController
+    private modalCtrl:ModalController,
+    private userInfoService:UserInfoService
   ) {
   }
 
@@ -37,8 +39,8 @@ export class AdminApproveTutorPage implements OnInit{
   }
 
   initUsers() {
-    this.itemsPerPage = 10;
-    this.userService.getAllTutorsPendingActivation(
+    this.itemsPerPage =  20;
+    this.userService.getAllUsers(
       {
         page: this.page - 1,
         size: this.itemsPerPage,
@@ -55,13 +57,37 @@ export class AdminApproveTutorPage implements OnInit{
         });
   }
 
+
   private onSuccess(data, headers) {
+    this.tutors = [];
     this.totalItems = headers.get('X-Total-Count');
     this.queryCount = this.totalItems;
-    this.tutors = data;
-    console.log("TUTORS ", this.tutors);
+
+    data.forEach(user => {
+      if(user.activated == true)
+      {
+      user.authorities.forEach(authority => {
+        if (authority == "ROLE_TUTOR") {
+          this.tutors.push(user);
+          this.initUserInfo(user.id);
+        }
+      });
+    }
+    });
   }
 
+  initUserInfo(userId: any) {
+    this.userInfos = [];
+
+    if (userId != null || userId != undefined) {
+      this.userInfoService.find(userId).subscribe((response) => {
+        this.userInfos.push(response);
+        this.userInfos = this.userInfos.filter(function (a) {
+          return !this[a.id] && (this[a.id] = true);
+        }, Object.create(null));
+      })
+    }
+  }
   sort() {
     const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
     if (this.predicate !== 'id') {
@@ -77,18 +103,18 @@ export class AdminApproveTutorPage implements OnInit{
     }
   }
 
-  approveTutor(tutor : User)
-  {
-    tutor.activated=true;
-    this.userService.update(tutor).subscribe(data => {
-      console.log("activate tutor ",data);
-      this.navCtrl.push(adminApproveTutorPage);
-  }, (error) => {
-      console.error(error);
-  });
-  }
+  // approveTutor(tutor : User)
+  // {
+  //   tutor.activated=true;
+  //   this.userService.update(tutor).subscribe(data => {
+  //     console.log("activate tutor ",data);
+  //     this.navCtrl.push(adminApproveTutorPage);
+  // }, (error) => {
+  //     console.error(error);
+  // });
+  // }
 
-  rejectTutor(login : string)
+  deleteTutor(login : string)
   {
     this.userService.deleteUserByLogin(login).subscribe(data => {
       console.log("data",data);
