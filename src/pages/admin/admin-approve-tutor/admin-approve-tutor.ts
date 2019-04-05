@@ -132,12 +132,22 @@ export class AdminApproveTutorPage implements OnInit{
 
   deleteTutor(login : string)
   {
+    let message = login + " has been deleted";
+    let toastMessage = message.split('.').join(" ");
+
     this.userService.deleteUserByLogin(login).subscribe(data => {
       console.log("data",data);
       this.navCtrl.push(adminApproveTutorPage);
     }, (error) => {
       console.error(error);
     });
+    let toast = this.toastCtrl.create({
+      message: toastMessage,
+      duration: 6000,
+      position: 'middle',
+      cssClass: 'toastcolor'
+    });
+    toast.present();
   }
 
   goToAddTutors()

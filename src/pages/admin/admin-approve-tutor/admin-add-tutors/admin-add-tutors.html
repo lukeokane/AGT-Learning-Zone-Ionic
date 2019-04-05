@@ -40,16 +40,18 @@
           placeholder="Password">
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="checkPassword != null && account.password != checkPassword">
-        <ion-col class="align">
-          <span class="error">*Passwords must match!</span>
-        </ion-col>
-      </ion-row>
     <ion-row>
       <ion-col class="align">
         <i class="inside fa fa-lock"></i>
         <input class="inputReg" [(ngModel)]="checkPassword" padding type="password" name="password"
           placeholder="Confirm password">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="align">
+        <span class="error" *ngIf="checkPassword != null && account.password != checkPassword">
+            <i class="fa fa-exclamation-circle"></i>
+          Those Passwords do not currently match!</span>
       </ion-col>
     </ion-row>
     <br>
