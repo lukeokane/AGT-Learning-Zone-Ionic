@@ -124,7 +124,8 @@ export class SignupPage implements OnInit {
     this.account.authorities = ['ROLE_USER'];
     this.account.year = this.selectedYear.id;
     this.account.courseId = this.selectedCourse.id;
-    this.account.login = this.account.email;
+    this.account.login = this.account.email.substr(0, this.account.email.lastIndexOf("@"));
+
 
     this.user.signup(this.account).subscribe(() => {
       let toast = this.toastCtrl.create({
