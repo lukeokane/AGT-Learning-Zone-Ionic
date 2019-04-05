@@ -1,10 +1,9 @@
-
-import { adminApproveTutorPage, homePage } from './../../pages';
+import { adminApproveTutorPage } from './../../pages';
 import { User } from './../../../class/User';
 import { HttpResponse } from '@angular/common/http';
 import { UserService } from './../../../services/User.provider';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -27,7 +26,8 @@ export class AdminApproveTutorPage implements OnInit{
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     private userService: UserService,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private modalCtrl:ModalController
   ) {
   }
 
@@ -96,5 +96,11 @@ export class AdminApproveTutorPage implements OnInit{
     }, (error) => {
       console.error(error);
     });
+  }
+
+  goToAddTutors()
+  {
+    let modal = this.modalCtrl.create("AdminAddTutorsPage");
+    modal.present();
   }
 }

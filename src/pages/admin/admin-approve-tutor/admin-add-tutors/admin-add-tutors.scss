@@ -1,0 +1,39 @@
+page-admin-add-tutors {
+    .inputReg{
+        font-size:1rem;
+        width: 70%;
+    }
+
+    .align{
+        text-align:center;
+    }
+ 
+    input{
+        background-color: #FFF0E4;
+        border:2px solid #FFB478; 
+        border-radius: 7px;
+        text-indent:20px;
+        font-size: 12.5px !important;
+    }
+
+    .inside {
+        position:absolute;
+        text-indent:15px;
+        margin-top:18px;
+        color:#717171;
+    }
+
+    .align{
+        text-align:center;
+    }
+
+      
+   .signUpButton{
+    background-color:#FE787B;
+    width:30%;
+    color: white;
+    border-color: #CCCCCC;
+    font-size: 10px;
+  }
+
+}
