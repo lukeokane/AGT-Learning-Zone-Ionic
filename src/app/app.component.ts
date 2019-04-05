@@ -29,7 +29,9 @@ export class MyApp {
     { title: 'Home', component: 'UserHomePage', role: "ROLE_USER" },
     { title: 'My Booking', component: 'UserMyBookingPage', role: "ROLE_USER" },
     { title: 'PRIVACY POLICY', component: 'GdprNoticePage', role: "ROLE_USER" },
-    { title: 'PRIVACY POLICY', component: 'GdprNoticePage', role: "ROLE_ADMIN" }
+    { title: 'PRIVACY POLICY', component: 'GdprNoticePage', role: "ROLE_ADMIN" },
+    { title: 'PRIVACY POLICY', component: 'GdprNoticePage', role: "ROLE_ITLC" },
+
 
   ];
 
