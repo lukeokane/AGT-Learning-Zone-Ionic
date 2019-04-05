@@ -166,7 +166,7 @@ export class SignupPage implements OnInit {
   displayGDPR()
   {
     window.open("http://localhost:8100/#/gdpr-notice",'_blank');
-    document.location.reload();
+    return false;           
   }
 
 }
