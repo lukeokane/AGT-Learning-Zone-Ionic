@@ -40,6 +40,11 @@
           placeholder="Password">
       </ion-col>
     </ion-row>
+    <ion-row *ngIf="checkPassword != null && account.password != checkPassword">
+        <ion-col class="align">
+          <span class="error">*Passwords must match!</span>
+        </ion-col>
+      </ion-row>
     <ion-row>
       <ion-col class="align">
         <i class="inside fa fa-lock"></i>
@@ -50,8 +55,8 @@
     <br>
     <ion-row>
       <ion-col class="align">
-        <button [disabled]="account.password != checkPassword" ion-button round class="signUpButton"
-          >{{ 'SIGNUP_BUTTON' | translate }}</button>
+        <button [disabled]="account.password != checkPassword" ion-button round
+          class="signUpButton">{{ 'SIGNUP_BUTTON' | translate }}</button>
       </ion-col>
     </ion-row>
   </form>

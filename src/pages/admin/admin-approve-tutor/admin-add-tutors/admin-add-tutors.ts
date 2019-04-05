@@ -71,7 +71,7 @@ export class AdminAddTutorsPage {
       let toast = this.toastCtrl.create({
         message: displayError,
         duration: 6000,
-        position: 'middle',
+        position: 'bottom',
         cssClass: 'toastcolor'
       });
       toast.present();

@@ -4,7 +4,7 @@ import { User } from './../../../class/User';
 import { HttpResponse } from '@angular/common/http';
 import { UserService } from './../../../services/User.provider';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ModalController, AlertController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -29,7 +29,8 @@ export class AdminApproveTutorPage implements OnInit{
     private userService: UserService,
     private toastCtrl: ToastController,
     private modalCtrl:ModalController,
-    private userInfoService:UserInfoService
+    private userInfoService:UserInfoService,
+    private alertCtrl:AlertController
   ) {
   }
 
@@ -103,16 +104,31 @@ export class AdminApproveTutorPage implements OnInit{
     }
   }
 
-  // approveTutor(tutor : User)
-  // {
-  //   tutor.activated=true;
-  //   this.userService.update(tutor).subscribe(data => {
-  //     console.log("activate tutor ",data);
-  //     this.navCtrl.push(adminApproveTutorPage);
-  // }, (error) => {
-  //     console.error(error);
-  // });
-  // }
+  ContinueAlert(login: string) {
+    let fullName: any;
+
+    let alert = this.alertCtrl.create({
+      title: 'Delete Tutor<br> <h6>Are you sure you want to delete this tutor?</h6>',
+      subTitle: fullName,
+      buttons: [
+        {
+          text: 'No',
+          handler: () => {
+            this.navCtrl.pop;
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            this.deleteTutor(login);
+          }
+        }
+     
+      ],
+      cssClass: 'alertCustomCss'
+    });
+    alert.present();
+  }
 
   deleteTutor(login : string)
   {
