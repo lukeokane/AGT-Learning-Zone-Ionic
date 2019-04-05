@@ -57,12 +57,25 @@
               </ion-col>
             </ion-row>
             <ion-row>
+              <ion-col col-1></ion-col>
+              <ion-col col-5>
+                <input type="checkbox" [(ngModel)]="check" name="check" value="check"> I have read and accepted the
+                Privacy Policy<br>
+              </ion-col>
+              <ion-col col-5>
+                <button style="border-radius: 37px;background-color: #6395C5" ion-button (click)="displayGDPR()">
+                  <i class="fa fa-file"></i> &nbsp;
+                  Privacy Policy</button>
+              </ion-col>
+            </ion-row>
+            <ion-row style="text-align:center">
               <ion-col>
-                <button ion-button round class="signUpButton">{{ 'SIGNUP_BUTTON' | translate }}</button>
+                <button [disabled]="check == false" ion-button round
+                  class="signUpButton">{{ 'SIGNUP_BUTTON' | translate }}</button>
               </ion-col>
             </ion-row>
             <ion-row>
-              <ion-col class="login" (click)="goToLogin()">Already signed up? Sign in!</ion-col>
+              <ion-col (click)="goToLogin()">Already signed up? Sign in!</ion-col>
             </ion-row>
           </form>
         </ion-col>
@@ -126,6 +139,18 @@
           </select>
         </ion-col>
       </ion-row>
+      <ion-row>
+        <ion-col col-1></ion-col>
+          <ion-col class="align">
+            <input type="checkbox" [(ngModel)]="check" name="check" value="check"> I have read and accepted the
+            Privacy Policy<br>
+          </ion-col>
+          <ion-col class="align">
+            <button style="border-radius: 22px;background-color: #6395C5;width:70%" ion-button (click)="displayGDPR()">
+              <i class="fa fa-file"></i> &nbsp;
+              Privacy Policy</button>
+          </ion-col>
+        </ion-row>
       <br>
       <ion-row>
         <ion-col class="align">

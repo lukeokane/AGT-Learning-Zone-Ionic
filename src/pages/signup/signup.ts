@@ -1,8 +1,9 @@
+import { GdprNoticePage } from './../gdpr-notice/gdpr-notice';
 import { CourseService } from './../../services/Course.provider';
 import { CourseYear } from './../../class/CourseYear';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { IonicPage, NavController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, ToastController, ModalController } from 'ionic-angular';
 
 import { User } from '../../providers/providers';
 import { MainPage, loginPage } from '../pages';
@@ -48,6 +49,7 @@ export class SignupPage implements OnInit {
   selectedYear: CourseYear;
   selectedCourse: Course;
   roleType: any;
+  check:boolean = false;
 
   constructor(public navCtrl: NavController,
     public user: User,
@@ -55,6 +57,7 @@ export class SignupPage implements OnInit {
     public translateService: TranslateService,
     private courseService: CourseService,
     private courseYearService: CourseYearService,
+    private modalCtrl:ModalController
   ) {
 
     this.translateService.get(['SIGNUP_ERROR', 'SIGNUP_SUCCESS',
@@ -159,4 +162,11 @@ export class SignupPage implements OnInit {
   goToLogin() {
     this.navCtrl.push(loginPage);
   }
+
+  displayGDPR()
+  {
+    window.open("http://localhost:8100/#/gdpr-notice",'_blank');
+    document.location.reload();
+  }
+
 }
