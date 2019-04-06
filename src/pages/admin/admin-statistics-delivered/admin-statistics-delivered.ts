@@ -104,6 +104,7 @@ export class AdminStatisticsDeliveredPage {
     console.log('ionViewDidLoad AdminStatisticsDistributionPage');
     this.loadAll();
     this.today();
+    this.startDate();
   }
 
   loadAll() {
@@ -246,12 +247,18 @@ export class AdminStatisticsDeliveredPage {
 
   today() {
     const dateFormat = 'yyyy-MM-dd';
-    // Today + 1 day - needed if the current day must be included
     const today: Date = new Date();
     today.setDate(today.getDate() + 1);
     const date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     this.toDate = this.datePipe.transform(date, dateFormat);
   }
+
+  startDate() {
+    const dateFormat = 'yyyy-MM-dd';
+    let fromDate: Date = new Date();
+    fromDate = new Date(fromDate.getFullYear(),0);
+    this.fromDate = this.datePipe.transform(fromDate, dateFormat);
+}
 
   refreshPage() {
     this.navCtrl.push("AdminStatisticsDeliveredPage");

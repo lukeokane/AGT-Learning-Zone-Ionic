@@ -61,13 +61,13 @@ export class AdminStatisticsDistributionPage {
   }
 
   // events
-  public chartClicked(e: any): void {
-    console.log(e);
-  }
+  // public chartClicked(e: any): void {
+  //   console.log(e);
+  // }
 
-  public chartHovered(e: any): void {
-    console.log(e);
-  }
+  // public chartHovered(e: any): void {
+  //   console.log(e);
+  // }
 
 
   constructor(public navCtrl: NavController,
@@ -86,7 +86,7 @@ export class AdminStatisticsDistributionPage {
     //this.loadAllBookings();
     this.loadAllSubjects();
     this.today();
-    this.previousMonth();
+    this.startDate();
   }
 
   loadAllCourses() {
@@ -255,14 +255,10 @@ export class AdminStatisticsDistributionPage {
     this.toDate = this.datePipe.transform(date, dateFormat);
   }
 
-  previousMonth() {
+  startDate() {
     const dateFormat = 'yyyy-MM-dd';
     let fromDate: Date = new Date();
-    if (fromDate.getMonth() === 0) {
-        fromDate = new Date(fromDate.getFullYear() - 1, 11, fromDate.getDate());
-    } else {
-        fromDate = new Date(fromDate.getFullYear(), fromDate.getMonth() - 4, fromDate.getDate());
-    }
+    fromDate = new Date(fromDate.getFullYear(),0);
     this.fromDate = this.datePipe.transform(fromDate, dateFormat);
 }
 

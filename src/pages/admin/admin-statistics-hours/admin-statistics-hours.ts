@@ -96,6 +96,7 @@ export class AdminStatisticsHoursPage {
     console.log('ionViewDidLoad AdminStatisticsDistributionPage');
     this.loadAll();
     this.today();
+    this.startDate();
   }
 
   loadAll() {
@@ -280,6 +281,13 @@ export class AdminStatisticsHoursPage {
     const date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     this.toDate = this.datePipe.transform(date, dateFormat);
   }
+
+  startDate() {
+    const dateFormat = 'yyyy-MM-dd';
+    let fromDate: Date = new Date();
+    fromDate = new Date(fromDate.getFullYear(),0);
+    this.fromDate = this.datePipe.transform(fromDate, dateFormat);
+}
 
   refreshPage() {
     this.navCtrl.push("AdminStatisticsHoursPage");

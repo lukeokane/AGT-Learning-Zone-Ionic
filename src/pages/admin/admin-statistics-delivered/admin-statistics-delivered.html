@@ -27,10 +27,12 @@
           <div class="headers">
             <h4>Course</h4>
             <div>
-              <select class="form-control" name="course" id="course" class="input" [(ngModel)]="selectedCourse" [ngModelOptions]="{standalone: true}">
+              <select class="form-control" name="course" id="course" class="input" [(ngModel)]="selectedCourse"
+                [ngModelOptions]="{standalone: true}">
                 <option>Please select a course</option>
                 <option selected value="all">All</option>
-                <option *ngFor="let course of courses; trackBy: id;let i = index;" class="form-control" class="text-center">{{course?.title}}
+                <option *ngFor="let course of courses; trackBy: id;let i = index;" class="form-control"
+                  class="text-center">{{course?.title}}
                   {{course?.code}}</option>
               </select>
             </div>
@@ -56,8 +58,8 @@
               <div class="input-group-prepend">
                 <!-- <span class="input-group-text">from</span> -->
               </div>
-              <input type="date" class="form-control" name="start" id="start" [(ngModel)]="fromDate" [ngModelOptions]="{standalone: true}"
-                required />
+              <input type="date" class="form-control" name="start" id="start" [(ngModel)]="fromDate"
+                [ngModelOptions]="{standalone: true}" required />
             </div>
           </div>
         </ion-col>
@@ -68,24 +70,29 @@
               <div class="input-group-append">
                 <!-- <span class="input-group-text">To</span> -->
               </div>
-              <input type="date" class="form-control" name="end" [(ngModel)]="toDate" [ngModelOptions]="{standalone: true}"
-                required />
+              <input type="date" class="form-control" name="end" [(ngModel)]="toDate"
+                [ngModelOptions]="{standalone: true}" required />
             </div>
           </div>
         </ion-col>
         <ion-col size="12" size-sm>
           <div>
             <h4>Action</h4>
-            <button *ngIf="fromDate != undefined && toDate != undefined && selectedCourse != undefined && selectedYear != undefined && chartGenerated == false"
+            <button
+              *ngIf="fromDate != undefined && toDate != undefined && selectedCourse != undefined && selectedYear != undefined && chartGenerated == false"
               type="submit" class="btn btn-info btn-sm">
               <!-- <fa-icon [icon]="'eye'"></fa-icon> -->
               <span class="d-none d-md-inline">View</span>
             </button>
-            <button *ngIf="chartGenerated == true" (click)="refreshPage()"> <span class="btn btn-info btn-sm">New Chart</span></button>
-            <button *ngIf="lineChartDataFinal.length > 0" (click)="exportAsXLSX()"> <span class="btn btn-info btn-sm">Download
+            <button *ngIf="chartGenerated == true" (click)="refreshPage()"> <span class="btn btn-info btn-sm">New
+                Chart</span></button>
+            <button type="button" *ngIf="lineChartDataFinal.length > 0" (click)="exportAsXLSX()"> <span
+                class="btn btn-info btn-sm">Download
                 as XLS</span></button>
-            <button *ngIf="chartGenerated == true  && chartLine==true" (click)="toggleChartLine()"> <span class="btn btn-info btn-sm">Line Chart</span></button>
-            <button *ngIf="chartGenerated == true  && chartLine==false" (click)="toggleChartBar()"> <span class="btn btn-info btn-sm">Bar Chart</span></button>
+            <button *ngIf="chartGenerated == true  && chartLine==true" (click)="toggleChartLine()"> <span
+                class="btn btn-info btn-sm">Line Chart</span></button>
+            <button *ngIf="chartGenerated == true  && chartLine==false" (click)="toggleChartBar()"> <span
+                class="btn btn-info btn-sm">Bar Chart</span></button>
           </div>
         </ion-col>
       </ion-row>
@@ -93,15 +100,16 @@
   </form>
 
   <div class="row">
-      <ng-container *ngIf="lineChartDataFinal.length == 0">
-          <img src="../../../assets/images/blankGraph1.PNG">
-        </ng-container>
+    <ng-container *ngIf="lineChartDataFinal.length == 0">
+      <img src="../../../assets/images/blankGraph1.PNG">
+    </ng-container>
     <ng-container *ngIf="lineChartDataFinal.length > 0 && chartLine==true">
       <div class="col-md-12">
         <div>
           <div style="display: block">
-            <canvas baseChart width="1400" height="500" [datasets]="lineChartData" [labels]="lineChartLabels2" [options]="lineChartOptions"
-              [legend]="barChartLegend" [chartType]="barChartType">
+            <br>
+            <canvas baseChart width="1400" height="500" [datasets]="lineChartData" [labels]="lineChartLabels2"
+              [options]="lineChartOptions" [legend]="barChartLegend" [chartType]="barChartType">
             </canvas>
           </div>
         </div>
@@ -112,8 +120,8 @@
         <div>
           <div style="display: block;">
             <canvas baseChart width="1400" height="500" [datasets]="lineChartData" [labels]="lineChartLabels2"
-              [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType"
-              (chartHover)="chartHovered($event)"></canvas>
+              [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+              [chartType]="lineChartType" (chartHover)="chartHovered($event)"></canvas>
           </div>
         </div>
       </div>
