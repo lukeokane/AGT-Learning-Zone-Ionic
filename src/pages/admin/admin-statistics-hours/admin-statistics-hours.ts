@@ -269,6 +269,10 @@ export class AdminStatisticsHoursPage {
   exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.bookings, 'Bookings');
     this.excelService.exportAsExcelFile(this.bookingsStudents, 'Students Attended');
+    console.log(this.bookingsStudents);
+  }
+
+  exportChartDataAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.filteredExcelData, 'ChartData');
     console.log(this.bookingsStudents);
   }

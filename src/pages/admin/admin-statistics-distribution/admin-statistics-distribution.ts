@@ -219,6 +219,9 @@ export class AdminStatisticsDistributionPage {
 
   exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.bookings, 'Bookings');
+  }
+
+  exportChartDataAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.filteredExcelData, 'ChartData');
   }
 

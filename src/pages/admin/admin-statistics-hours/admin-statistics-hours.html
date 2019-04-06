@@ -69,7 +69,7 @@
               <div class="input-group-append">
                 <!-- <span class="input-group-text">To</span> -->
               </div>
-              <input type="date" class="form-control" name="end" id ="end" [(ngModel)]="toDate"
+              <input type="date" class="form-control" name="end" id="end" [(ngModel)]="toDate"
                 [ngModelOptions]="{standalone: true}" required />
             </div>
           </div>
@@ -86,7 +86,9 @@
             <button *ngIf="chartGenerated == true" (click)="refreshPage()"> <span class="btn btn-info btn-sm">New
                 Chart</span></button>
             <button type="button" *ngIf="barChartLabels2.length > 0" (click)="exportAsXLSX()"> <span
-                class="btn btn-info btn-sm">Download as XLS</span></button>
+                class="btn btn-info btn-sm">Booking Data XLS</span></button>
+            <button type="button" *ngIf="barChartLabels2.length > 0" (click)="exportChartDataAsXLSX()"> <span
+                class="btn btn-info btn-sm">Chart Data XLS</span></button>
           </div>
         </ion-col>
       </ion-row>

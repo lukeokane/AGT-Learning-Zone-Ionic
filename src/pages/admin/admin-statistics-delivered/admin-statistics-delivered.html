@@ -87,8 +87,9 @@
             <button *ngIf="chartGenerated == true" (click)="refreshPage()"> <span class="btn btn-info btn-sm">New
                 Chart</span></button>
             <button type="button" *ngIf="lineChartDataFinal.length > 0" (click)="exportAsXLSX()"> <span
-                class="btn btn-info btn-sm">Download
-                as XLS</span></button>
+                class="btn btn-info btn-sm">Booking Data XLS</span></button>
+                <button type="button" *ngIf="lineChartDataFinal.length > 0" (click)="exportChartDataAsXLSX()"> <span
+                  class="btn btn-info btn-sm">Chart Data XLS</span></button>
             <button *ngIf="chartGenerated == true  && chartLine==true" (click)="toggleChartLine()"> <span
                 class="btn btn-info btn-sm">Line Chart</span></button>
             <button *ngIf="chartGenerated == true  && chartLine==false" (click)="toggleChartBar()"> <span

@@ -79,7 +79,9 @@
               <!-- <fa-icon [icon]="'eye'"></fa-icon> -->
               <span class="d-none d-md-inline">View</span>
             </button>
-            <button type="button" *ngIf="labels.length > 0" (click)="exportAsXLSX()">   <span class="btn btn-info btn-sm">Download as XLS</span></button>
+            <button type="button" *ngIf="labels.length > 0" (click)="exportAsXLSX()">   <span class="btn btn-info btn-sm">Booking Data XLS</span></button>
+            <button type="button" *ngIf="labels.length > 0" (click)="exportChartDataAsXLSX()"> <span
+              class="btn btn-info btn-sm">Chart Data XLS</span></button>
             <button  *ngIf="chartGenerated == true" (click)="refreshPage()">   <span class="btn btn-info btn-sm">New Chart</span></button>
           </div>
         </ion-col>
@@ -91,11 +93,14 @@
       (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
   </div> -->
   <br>
-  <br>
-  <br>
-  <br>
   <div>
+      <ng-container *ngIf="data.length == 0">
+          <img src="../../../assets/images/blankGraph2.PNG">
+        </ng-container>
       <ng-container *ngIf="data.length > 0">
+          <br>
+          <br> 
+          <br> 
           <div style="display: block">
               <canvas width="1400" height="400" baseChart [data]="data" [labels]="labels" [chartType]="'pie'" [options]="barChartOptions"
                 (chartHover)="chartHovered($event)" ></canvas>
