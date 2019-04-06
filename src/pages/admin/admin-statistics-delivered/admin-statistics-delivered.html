@@ -27,9 +27,9 @@
           <div class="headers">
             <h4>Course</h4>
             <div>
-              <select class="form-control" class="input" [(ngModel)]="selectedCourse" [ngModelOptions]="{standalone: true}">
+              <select class="form-control" name="course" id="course" class="input" [(ngModel)]="selectedCourse" [ngModelOptions]="{standalone: true}">
                 <option>Please select a course</option>
-                <option>all</option>
+                <option selected value="all">All</option>
                 <option *ngFor="let course of courses; trackBy: id;let i = index;" class="form-control" class="text-center">{{course?.title}}
                   {{course?.code}}</option>
               </select>
@@ -41,7 +41,7 @@
             <h4>Course year</h4>
             <select class="form-control" name="year" id="year" class="input" [(ngModel)]="selectedYear"
               [ngModelOptions]="{standalone: true}">
-              <option value="all">All</option>
+              <option selected value="all">All</option>
               <option>1</option>
               <option>2</option>
               <option>3</option>
@@ -56,7 +56,7 @@
               <div class="input-group-prepend">
                 <!-- <span class="input-group-text">from</span> -->
               </div>
-              <input type="date" class="form-control" name="start" [(ngModel)]="fromDate" [ngModelOptions]="{standalone: true}"
+              <input type="date" class="form-control" name="start" id="start" [(ngModel)]="fromDate" [ngModelOptions]="{standalone: true}"
                 required />
             </div>
           </div>
@@ -93,6 +93,9 @@
   </form>
 
   <div class="row">
+      <ng-container *ngIf="lineChartDataFinal.length == 0">
+          <img src="../../../assets/images/blankGraph1.PNG">
+        </ng-container>
     <ng-container *ngIf="lineChartDataFinal.length > 0 && chartLine==true">
       <div class="col-md-12">
         <div>

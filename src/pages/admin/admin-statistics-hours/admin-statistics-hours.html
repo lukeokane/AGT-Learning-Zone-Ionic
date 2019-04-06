@@ -28,7 +28,7 @@
             <div>
               <select class="form-control" class="input" [(ngModel)]="selectedCourse" [ngModelOptions]="{standalone: true}">
                 <option>Please select a course</option>
-                <option>all</option>
+                <option value="all">All</option>
                 <option *ngFor="let course of courses; trackBy: id;let i = index;" class="form-control" class="text-center">{{course?.title}}
                   {{course?.code}}</option>
               </select>
@@ -40,7 +40,7 @@
             <h4>Course year</h4>
             <select class="form-control" name="year" id="year" class="input" [(ngModel)]="selectedYear"
               [ngModelOptions]="{standalone: true}">
-              <option value="all">All</option>
+              <option selected value="all">All</option>
               <option>1</option>
               <option>2</option>
               <option>3</option>
@@ -88,6 +88,9 @@
     </ion-grid>
   </form>
   <div style="display: block">
+    <ng-container *ngIf="barChartLabels2.length == 0">
+      <img src="../../../assets/images/blankGraph.PNG">
+    </ng-container>
     <ng-container *ngIf="barChartLabels2.length > 0">
       <canvas baseChart width="1400" height="500" [datasets]="barChartData" [labels]="barChartLabels2" [options]="barChartOptions"
         [legend]="barChartLegend" [chartType]="barChartType">

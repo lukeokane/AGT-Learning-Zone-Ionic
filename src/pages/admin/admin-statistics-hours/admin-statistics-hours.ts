@@ -25,8 +25,8 @@ export class AdminStatisticsHoursPage {
   ACM : string = "ACM Booking";
   toDate: any;
   fromDate: any;
-  selectedYear: string;
-  selectedCourse: string;
+  selectedYear: string = "all";
+  selectedCourse: string = "all";
   courses: Course[];
   bookings: Array<Booking>;
   bookingsStudent: BookingUserDetails[];

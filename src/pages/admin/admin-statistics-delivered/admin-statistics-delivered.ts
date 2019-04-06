@@ -25,8 +25,8 @@ export class AdminStatisticsDeliveredPage {
   ACM : string = "ACM Booking";
   toDate: any;
   fromDate: any;
-  selectedYear: string;
-  selectedCourse: string;
+  selectedYear: string = "all";
+  selectedCourse: string = "all";
   courses: Course[];
   bookings: Array<Booking>;
   months: Array<any> = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
@@ -38,6 +38,7 @@ export class AdminStatisticsDeliveredPage {
   barChartLegend = true;
   barChartType = 'bar';
   courseId: number;
+
   id: number;
   chartGenerated: boolean = false;
   chartLine: boolean = true;

@@ -27,8 +27,8 @@ export class AdminStatisticsDistributionPage {
   ACM: string = "ACM Booking";
   toDate: any;
   fromDate: any;
-  selectedYear: string;
-  selectedCourse: string;
+  selectedYear: string = "all";
+  selectedCourse: string = "all";
   courses: Course[];
   subjects: Subject[];
   bookings: Array<Booking>;

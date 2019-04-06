@@ -1,13 +1,31 @@
 page-admin-statistics-delivered {
 
     #year{
-        width:150px;   
+        width:200px;   
        }
     
     
     #year option{
-        width:150px;   
+        width:200px;   
       }
+
+      #course{
+        width:200px;   
+       }
+    
+    
+    #course option{
+        width:200px;   
+      }
+
+    //   #start{
+    //     width:200px;   
+    //    }
+    
+    
+    // #start option{
+    //     width:200px;   
+    //   }
     
       .topic{
           text-align: center;
@@ -23,11 +41,15 @@ page-admin-statistics-delivered {
         color: rgb(53,61,71);
       }
 
+      
+
+      // .mainRow{
+      //   right: 150;
+      // }
+
     //   .row{
     //     background-color:rgb(206, 202, 202);
     // }
-    // .row2{
-    //   background-color:rgb(59, 61, 61);
-  //}
+    
 
 }

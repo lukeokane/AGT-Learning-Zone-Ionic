@@ -28,7 +28,7 @@
             <div>
               <select class="form-control" class="input" [(ngModel)]="selectedCourse" [ngModelOptions]="{standalone: true}">
                 <option>Please select a course</option>
-                <option selected>all</option>
+                <option value="all" selected>All</option>
                 <option *ngFor="let course of courses; trackBy: id;let i = index;" class="form-control" class="text-center">{{course?.title}}
                   {{course?.code}}</option>
               </select>
@@ -40,7 +40,7 @@
             <h4>Course year</h4>
             <select class="form-control" name="year" id="year" class="input" [(ngModel)]="selectedYear"
               [ngModelOptions]="{standalone: true}">
-              <option value="all" selected>All</option>
+              <option selected value="all" selected>All</option>
               <option>1</option>
               <option>2</option>
               <option>3</option>
