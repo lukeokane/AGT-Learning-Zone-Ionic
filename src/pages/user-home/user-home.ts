@@ -78,6 +78,8 @@ export class UserHomePage {
     return "" + this.days[date.getDay()] + " " + date.getDate() + "/" + (date.getMonth() + 1);
   }
   slotClicked(dateSelected: Date, timeSelected: String) {
+
+
     let s1 = this.getStartAndEndDate(dateSelected, timeSelected).s;
     let s2 = this.getStartAndEndDate(dateSelected, timeSelected).s2;
     if (new Date() >= new Date(s2)) {
@@ -93,7 +95,6 @@ export class UserHomePage {
 
         profileModal.onDidDismiss(data => {
           if (data != undefined && data != null) {
-            console.log(data.booking);
             if (data.send) {
               this.bookingService.create(data.booking).subscribe(data => {
                 toast = this.toastCtrl.create({

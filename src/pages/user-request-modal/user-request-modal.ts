@@ -90,6 +90,7 @@ export class UserRequestModalPage implements OnInit {
     this.booking.topics = new Array<Topic>();
     let now = new Date();
     this.booking.modifiedTimestamp = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds()));
+    console.log(this.booking.modifiedTimestamp);
     // console.log(this.booking.modifiedTimestamp.toISOString());
     // console.log(this.booking.modifiedTimestamp.toJSON());
     //2019-02-10T22:16:37.213Z
@@ -253,6 +254,7 @@ export class UserRequestModalPage implements OnInit {
   }
   initAvailableTime() {
     this.availableTimes = new Array();
+
     let at = new AvailableTime(new Date(this.s1), new Date(this.s2));
     this.availableTimes.push({ date: new Date(this.s1), time: [at] });
     // this.dateStart = "2019-02-18T00:00:00Z";
@@ -313,27 +315,27 @@ export class UserRequestModalPage implements OnInit {
   }
   checkValid() {
     let invalid = false;
-    if (this.booking.subjectId !=null &&this.booking.subjectId != -1 && this.booking.topics.length == 0) {
+    if (this.booking.subjectId != null && this.booking.subjectId != -1 && this.booking.topics.length == 0) {
       invalid = true;
     }
     if (this.subjectNull == true) {
       if (!this.selectTutotrial) {
-        if (this.booking.title == "" || this.booking.title ==undefined || this.booking.title==null) {
+        if (this.booking.title == "" || this.booking.title == undefined || this.booking.title == null) {
           invalid = true;
         }
       }
 
-        if (this.selectTutotrial) {
-          if (this.booking.userComments == "" || this.booking.userComments == null || this.booking.userComments == undefined) {
+      if (this.selectTutotrial) {
+        if (this.booking.userComments == "" || this.booking.userComments == null || this.booking.userComments == undefined) {
 
-            invalid = true;
-          }
-
-        }
-    } else {
-        if (this.booking.subjectId == -1 || this.booking.subjectId == undefined) {
           invalid = true;
-    } 
+        }
+
+      }
+    } else {
+      if (this.booking.subjectId == -1 || this.booking.subjectId == undefined) {
+        invalid = true;
+      }
     }
     return invalid || this.dateStart == null || this.dateStart == "" || this.dateStart == undefined || this.dateEnd == null || this.dateEnd == undefined || this.dateEnd == "";
   }

@@ -170,10 +170,10 @@
                   [selected]="true">{{'CHOOSE_TIMES' | translate}}</option>
                 <ng-container *ngFor="let value of FortmattedDates; let i=index;let lst=last">
                   <option *ngIf="i % 2 == 0" [ngValue]="value">
-                    {{value | date}} <span *ngIf="value.getHours() < 10">0</span>{{value.getHours()}}:<span
+                    {{value | date}} <span *ngIf="value.getUTCHours() < 10">0</span>{{value.getUTCHours()}}:<span
                       *ngIf="value.getMinutes() < 10">0</span>{{value.getMinutes()}}
                     - {{FortmattedDates[i+1] | date}}
-                    <span *ngIf="FortmattedDates[i+1].getHours() < 10">0</span>{{FortmattedDates[i+1].getHours()}}:<span
+                    <span *ngIf="FortmattedDates[i+1].getUTCHours() < 10">0</span>{{FortmattedDates[i+1].getUTCHours()}}:<span
                       *ngIf="FortmattedDates[i+1].getMinutes() < 10">0</span>{{FortmattedDates[i+1].getMinutes()}}
                   </option>
                 </ng-container>
