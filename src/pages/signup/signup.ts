@@ -18,7 +18,7 @@ import { Course } from '../../class/Course';
 })
 export class SignupPage implements OnInit {
   // The account fields for the signup form
-  account: { id: number, login: string, email: string, firstName: string, lastName: string, password: string, langKey: string, courseId: number, year: number, authorities: any[] } = {
+  account: { id: number, login: string, email: string, firstName: string, lastName: string, password: string, langKey: string, courseId: number, courseYearId: number, authorities: any[] } = {
     id: 0,
     login: '',
     email: '',
@@ -27,7 +27,7 @@ export class SignupPage implements OnInit {
     password: '',
     langKey: 'en',
     courseId: 0,
-    year: 0,
+    courseYearId: 0,
     authorities: [''],
   };
 
