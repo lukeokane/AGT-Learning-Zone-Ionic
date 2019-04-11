@@ -122,7 +122,7 @@ export class SignupPage implements OnInit {
   doSignup() {
 
     this.account.authorities = ['ROLE_USER'];
-    this.account.year = this.selectedYear.id;
+    this.account.courseYearId = this.selectedYear.id;
     this.account.courseId = this.selectedCourse.id;
     this.account.login = this.account.email.substr(0, this.account.email.lastIndexOf("@"));
 
