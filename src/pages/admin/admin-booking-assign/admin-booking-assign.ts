@@ -57,7 +57,7 @@ export class AdminBookingAssignPage implements OnInit {
 
   initUsers() {
     this.itemsPerPage =  20;
-    this.userService.getAllUsers(
+    this.userService.getAllTutors(
       {
         page: this.page - 1,
         size: this.itemsPerPage,
