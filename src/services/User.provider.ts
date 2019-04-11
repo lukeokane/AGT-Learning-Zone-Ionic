@@ -27,6 +27,13 @@ export class UserService {
         return this.http.get(this.resourceUrl);
     }
 
+    getAllTutors(req:any)
+    {
+        const options = createRequestOption(req);
+        return this.http.get<User[]>(`${this.resourceUrl}/tutors`, { params: options, observe: 'response' })
+            .map((res: HttpResponse<User[]>) => this.convertArrayResponse(res));
+    }
+
     delete(id: number): Observable<any> {
         return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response', responseType: 'text' });
     }
