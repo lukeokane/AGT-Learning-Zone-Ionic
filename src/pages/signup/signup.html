@@ -42,7 +42,7 @@
                   name="course">
                   <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_A_COURSE' | translate}}</option>
                   <option *ngFor="let value of courses; let i=index" [ngValue]="value">
-                    {{'YEAR' | translate}} - {{value?.title}}
+                    {{'COURSE' | translate}} - {{value?.title}}
                 </select>
               </ion-col>
             </ion-row>
