@@ -142,15 +142,15 @@
               <ng-container *ngIf="selectedBooking?.subjectId != null && selectedBooking?.subjectId != undefined">
                 <ng-container *ngFor="let subject of subjects">
                   <ng-container *ngIf="selectedBooking?.subjectId == subject?.id">
-                    <button ion-button outline class="tags">{{subject?.title}}</button> &nbsp;
+                    <span padding outline class="tags">{{subject?.title}}</span> &nbsp;
                   </ng-container>
                 </ng-container>
               </ng-container>
               <ng-container *ngFor="let topic of selectedBooking?.topics">
-                <button ion-button outline class="tags">{{topic?.title}}</button> &nbsp;
+                <span padding outline class="tags">{{topic?.title}}</span> &nbsp;
               </ng-container>
               <ng-container *ngIf="selectedBooking?.subjectId == null || selectedBooking?.subjectId == undefined">
-                <button ion-button outline class="tags">{{'NO_SUBJECT_SPECIFIED' | translate}}</button>
+                <span padding class="tags">{{'NO_SUBJECT_SPECIFIED' | translate}}</span>
               </ng-container>
             </ion-col>
           </ion-row>
