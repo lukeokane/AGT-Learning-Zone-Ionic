@@ -135,6 +135,12 @@ export class AdminBookingAssignPage implements OnInit {
       subTitle: fullName,
       buttons: [
         {
+          text: 'Cancel',
+          handler: () => {
+            this.navCtrl.pop;
+          }
+        },
+        {
           text: 'Continue',
           handler: () => {
             this.assignToTutor(tutorId);

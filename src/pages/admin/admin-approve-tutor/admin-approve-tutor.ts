@@ -125,7 +125,7 @@ export class AdminApproveTutorPage implements OnInit{
         }
      
       ],
-      cssClass: 'alertCustomCss'
+      cssClass: 'alertCustomCssAssignTutors'
     });
     alert.present();
   }
