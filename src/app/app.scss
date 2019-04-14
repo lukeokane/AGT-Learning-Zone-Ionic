@@ -173,4 +173,6 @@ only screen and (                min-resolution: 2dppx) {
 .toastcolor .toast-message {
   background-color:#FFB478;
   text-align: center;
-}    
+}
+
+button:focus {outline:0;}
