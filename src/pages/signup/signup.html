@@ -37,6 +37,20 @@
             </ion-row>
             <ion-row>
               <ion-col>
+                <i class="inside fa fa-lock"></i>
+                <input padding class="input" [(ngModel)]="checkPassword" type="password" name="password"
+                  placeholder="Confirm password">
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="checkPassword != null && account.password != checkPassword">
+              <ion-col>
+                <span class="error">
+                    <i class="fa fa-exclamation-circle"></i>
+                  Those Passwords do not currently match!</span>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>
                 <i class="inside fa fa-desktop"></i>
                 <select padding class="input" [(ngModel)]="selectedCourse" (ngModelChange)="initCourseYear($event)"
                   name="course">

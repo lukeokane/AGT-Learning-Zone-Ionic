@@ -50,6 +50,7 @@ export class SignupPage implements OnInit {
   selectedCourse: Course;
   roleType: any;
   check:boolean = false;
+  checkPassword:any;
 
   constructor(public navCtrl: NavController,
     public user: User,
