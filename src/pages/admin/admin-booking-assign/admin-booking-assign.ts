@@ -1,6 +1,6 @@
 import { BookingDetails } from './../../../class/BookingDetails';
 import { HttpResponse } from '@angular/common/http';
-import { homePage } from './../../pages';
+import { homePage, adminBookingManagementPage } from './../../pages';
 import { UserInfoService } from './../../../services/UserInfo.provider';
 import { UserService } from './../../../services/User.provider';
 import { Booking } from './../../../class/Booking';
@@ -179,4 +179,11 @@ export class AdminBookingAssignPage implements OnInit {
       this.navCtrl.push(homePage);
     }
   }
+
+  goBack()
+  {
+
+    this.navCtrl.push(adminBookingManagementPage);
+  }
+  
 }
