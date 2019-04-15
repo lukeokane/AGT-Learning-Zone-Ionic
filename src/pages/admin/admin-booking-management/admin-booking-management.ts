@@ -196,6 +196,10 @@ export class AdminBookingManagementPage implements OnInit {
 
     });
     bookingModal.present();
+  }
 
+  
+  getScreenSize() {
+    return window.innerWidth;
   }
 }

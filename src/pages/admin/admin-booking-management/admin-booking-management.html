@@ -80,6 +80,9 @@
           <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
             [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
+        <ng-container  *ngIf="getScreenSize() < 1920" >
+        <div style="padding-top:252px"></div>
+        </ng-container>
       </div>
     </ion-col>
     <ng-container *ngIf="selectedBooking != null && selectedBooking != undefined">
