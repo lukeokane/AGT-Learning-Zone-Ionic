@@ -27,7 +27,6 @@ export class AdminBookingAssignPage implements OnInit {
   page: number;
   totalItems: any;
   queryCount: any;
-  adminId:any;
 
   constructor(
     public navCtrl: NavController,
@@ -47,11 +46,6 @@ export class AdminBookingAssignPage implements OnInit {
   }
 
   ngOnInit() {
-    if(this.principal != null || this.principal != undefined)
-    {
-      this.adminId = this.principal.getUserId();
-    }
-    console.log("admin id  ",this.adminId);
     this.initUsers();
   }
 
@@ -153,8 +147,6 @@ export class AdminBookingAssignPage implements OnInit {
     alert.present();
   }
 
-
-
   assignToTutor(tutorId: number) {
 
     if(tutorId != null || tutorId != undefined)
@@ -182,7 +174,6 @@ export class AdminBookingAssignPage implements OnInit {
 
   goBack()
   {
-
     this.navCtrl.push(adminBookingManagementPage);
   }
   
