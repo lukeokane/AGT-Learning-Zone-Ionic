@@ -6,7 +6,7 @@
           <img src="../../assets/imgs/main_desktop.jpg" class="img">
           <div class="centered"><span style="font-size: 40px">{{'WELCOME_TO_ITLC' | translate}}</span><br><br>
             <span style="font-size: 20px">Join our community and become a member to learn new things everyday!</span>
-        </div>
+          </div>
         </ion-col>
         <ion-col col-4 class="align">
           <img src="../../assets/imgs/ITLC_logo.PNG" style="height:22%;">
@@ -25,7 +25,8 @@
             <ion-row>
               <ion-col>
                 <i class="inside fa fa-envelope"></i>
-                <input padding class="input" type="email" [(ngModel)]="account.email" name="email" placeholder="Email (d00123456@student.dkit.ie)">
+                <input padding class="input" type="email" [(ngModel)]="account.email" name="email"
+                  placeholder="Email (d00123456@student.dkit.ie)">
               </ion-col>
             </ion-row>
             <ion-row>
@@ -45,7 +46,7 @@
             <ion-row *ngIf="checkPassword != null && account.password != checkPassword">
               <ion-col>
                 <span class="error">
-                    <i class="fa fa-exclamation-circle"></i>
+                  <i class="fa fa-exclamation-circle"></i>
                   Those Passwords do not currently match!</span>
               </ion-col>
             </ion-row>
@@ -122,7 +123,8 @@
       <ion-row>
         <ion-col class="align">
           <i class="inside fa fa-envelope"></i>
-          <input class="inputReg" padding type="email" [(ngModel)]="account.email" name="email"  placeholder="Email (d00123456@student.dkit.ie)">
+          <input class="inputReg" padding type="email" [(ngModel)]="account.email" name="email"
+            placeholder="Email (d00123456@student.dkit.ie)">
         </ion-col>
       </ion-row>
       <ion-row>
@@ -130,6 +132,20 @@
           <i class="inside fa fa-lock"></i>
           <input class="inputReg" padding type="password" [(ngModel)]="account.password" name="password"
             placeholder="Password">
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="align">
+          <i class="inside fa fa-lock"></i>
+          <input padding class="inputReg" [(ngModel)]="checkPassword" type="password" name="password"
+            placeholder="Confirm password">
+        </ion-col>
+      </ion-row>
+      <ion-row *ngIf="checkPassword != null && account.password != checkPassword">
+        <ion-col class="align">
+          <span class="error">
+            <i class="fa fa-exclamation-circle"></i>
+            Those Passwords do not currently match!</span>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -155,20 +171,21 @@
       </ion-row>
       <ion-row>
         <ion-col col-1></ion-col>
-          <ion-col class="align">
-            <input type="checkbox" [(ngModel)]="check" name="check" value="check"> I have read and accepted the
-            Privacy Policy<br>
-          </ion-col>
-          <ion-col class="align">
-            <button style="border-radius: 22px;background-color: #6395C5;width:70%" ion-button (click)="displayGDPR()">
-              <i class="fa fa-file"></i> &nbsp;
-              Privacy Policy</button>
-          </ion-col>
-        </ion-row>
+        <ion-col class="align">
+          <input type="checkbox" [(ngModel)]="check" name="check" value="check"> I have read and accepted the
+          Privacy Policy<br>
+        </ion-col>
+        <ion-col class="align">
+          <button style="border-radius: 22px;background-color: #6395C5;width:70%" ion-button (click)="displayGDPR()">
+            <i class="fa fa-file"></i> &nbsp;
+            Privacy Policy</button>
+        </ion-col>
+      </ion-row>
       <br>
       <ion-row>
         <ion-col class="align">
-          <button [disabled]="check == false" ion-button round class="signUpButton" (click)="doSignup()">{{ 'SIGNUP_BUTTON' | translate }}</button>
+          <button [disabled]="check == false" ion-button round class="signUpButton"
+            (click)="doSignup()">{{ 'SIGNUP_BUTTON' | translate }}</button>
         </ion-col>
       </ion-row>
       <ion-row>
