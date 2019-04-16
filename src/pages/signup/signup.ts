@@ -52,6 +52,7 @@ export class SignupPage implements OnInit {
   check: boolean = false;
   checkPassword: any;
   validEmail: boolean;
+  validPassword: boolean;
 
   constructor(public navCtrl: NavController,
     public user: User,
@@ -180,6 +181,17 @@ export class SignupPage implements OnInit {
       this.validEmail = false;
     }
     return this.validEmail;
+  }
+
+  validatePassword(password: any) {
+    let regEx = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8}/;
+    if (regEx.test(password.target.value)) {
+      this.validPassword = true;
+    }
+    else {
+      this.validPassword = false;
+    }
+    return this.validPassword;
   }
 
 }
