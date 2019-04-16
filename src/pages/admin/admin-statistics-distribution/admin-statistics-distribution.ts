@@ -162,7 +162,6 @@ export class AdminStatisticsDistributionPage {
   */
   filterBookings() {
     for (let booking of this.bookings) {
-      if (booking.title != this.ACM) {
         for (let subject of this.subjects) {
           if (booking.subjectId == subject.id) {
             if (this.checkDuplicates(subject.title) == false) {
@@ -178,7 +177,6 @@ export class AdminStatisticsDistributionPage {
             }
           }
         }
-      }
     }
     this.chartGenerated = true;
     this.filterExcelData();
