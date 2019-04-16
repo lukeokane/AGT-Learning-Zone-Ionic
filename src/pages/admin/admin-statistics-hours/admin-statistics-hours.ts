@@ -98,17 +98,22 @@ export class AdminStatisticsHoursPage {
     this.today();
     this.startDate();
   }
-
+  
+  /**
+  *   Method to load all courses to the course picker
+  */
   loadAll() {
+
     this.courseService.findAllCoursesList().subscribe(data => {
       this.courses = data.body;
-      console.log(this.courses);
-      console.log(this.selectedCourse);
     }, error => {
       console.log(error);
     });
   }
-
+  
+  /**
+  *   Method to get booking data from the backend depending on the combination of requests from the tutorial student hours page
+  */
   generateChart() {
 
     if (this.selectedCourse == "all" && this.selectedYear == "all") {
@@ -122,7 +127,7 @@ export class AdminStatisticsHoursPage {
     }
 
     if (this.selectedCourse == "all" && this.selectedYear != "all") {
-      console.log("got here all courses and a selected year");
+
       this.bookingsService.findAllBookingsAllCoursesSelectedYear(this.fromDate, this.toDate, this.selectedYear).subscribe(data => {
         this.bookings = data.body;
         console.log(this.bookings);
@@ -133,7 +138,7 @@ export class AdminStatisticsHoursPage {
     }
 
     if (this.selectedCourse != "all" && this.selectedYear != "all") {
-      console.log("got here seleceted course and selected year");
+
       this.courseId = this.getCourseId(this.selectedCourse);
       console.log(this.courseId);
       this.bookingsService.findAllBookingsSelectedCourseAndSelectedYear(this.fromDate, this.toDate, this.courseId, this.selectedYear).subscribe(data => {
@@ -146,7 +151,7 @@ export class AdminStatisticsHoursPage {
     }
 
     if (this.selectedCourse != "all" && this.selectedYear == "all") {
-      console.log("got here seleceted course and all years");
+
       this.courseId = this.getCourseId(this.selectedCourse);
       console.log(this.courseId);
       this.bookingsService.findAllBookingsSelectedCourseAndAllYears(this.fromDate, this.toDate, this.courseId).subscribe(data => {
@@ -158,7 +163,14 @@ export class AdminStatisticsHoursPage {
       });
     }
   }
-
+  
+   /**
+  *   Method to filter chart data into lists for the angular charts gets the length of tutorial by month and multiplys by the students attended within that month
+  *   By using parralell array processing 
+  *   Fills a tutor list of hours attended
+  *   Makes sure no duplicate months are in the barhart data labels
+  *   Checks that only tutorials are used in chart data - no meetings 
+  */
   filterBookingsByDate() {
     for (let booking of this.bookings) {
       if (booking.title != this.ACM) {
@@ -175,10 +187,7 @@ export class AdminStatisticsHoursPage {
         }
       }
     }
-    console.log(this.barChartDataTutor);
-    console.log(this.barChartDataStudent);
-    console.log(this.barChartLabels2);
-    console.log(this.bookings);
+
     this.filterTutorChartData();
     this.filterTutorChartData();
     this.filterStudentChartData();
@@ -187,12 +196,23 @@ export class AdminStatisticsHoursPage {
     this.getBookingUserDetails();
     this.filterExcelData();
   }
-
+  
+  /**
+  *    Method to date pipe read in angular by month
+  *    @param dateTime
+  *    @returns the date in a angular readable form from java
+  */
   getMonth(dateTime) {
     const date = this.datePipe.transform(dateTime, 'MM', 'UTC');
     return date;
   }
 
+  /**
+  *   Method to get the length of a tutorial in minutes converted from java
+  *    @param dateTimeStart
+  *    @param dateTimeEnd
+  *    @returns difference in time by hour / if 30 minutes then .5
+  */
   tutorialLength(dateTimeStart, dateTimeEnd) {
 
     this.time1 = new Date(dateTimeEnd);
@@ -203,7 +223,13 @@ export class AdminStatisticsHoursPage {
 
     return this.diffHours;
   }
+   
 
+  /**
+  *   Method to get the course id from the selected course name
+  *    @param month
+  *    @returns boolean whether month is alleady in the linechart labels list
+  */
   checkDuplicates(month: any): boolean {
     for (let mon of this.barChartLabels2) {
       if (mon == month) {
@@ -212,37 +238,50 @@ export class AdminStatisticsHoursPage {
     }
     return false;
   }
-
+   
+  /**
+  *   Method to splice - remove all zeros from the tutor chart data list
+  */
   filterTutorChartData() {
     for (this.pos = 0; this.pos < this.barChartDataTutor.length; this.pos++) {
       if (this.barChartDataTutor[this.pos] == 0) {
         this.barChartDataTutor.splice(this.pos, 1);
-        this.pos = 0
+        this.pos = 0;
       }
     }
-    console.log(this.barChartDataTutor);
-  }
 
+  }
+  
+  /**
+  *   Method to splice - remove all zeros from the student chart data list
+  */
   filterStudentChartData() {
     for (this.pos2 = 0; this.pos2 < this.barChartDataStudent.length; this.pos2++) {
       if (this.barChartDataStudent[this.pos2] == 0) {
         this.barChartDataStudent.splice(this.pos2, 1);
-        this.pos2 = 0
+        this.pos2 = 0;
       }
     }
-    console.log(this.barChartDataStudent);
-  }
 
+  }
+  
+  /**
+  *   Method to get the course id from the selected course name
+  *    @param selectedCourse
+  *    @returns course id
+  */
   getCourseId(selectedCourse): number {
     for (let course of this.courses) {
       if (course.title == selectedCourse) {
-        this.id = course.id
-        //console.log(this.id);
+        this.id = course.id;
       }
     }
     return this.id;
   }
-
+  
+  /**
+  *   Method to fill students attended array from the generated bookings . Done in preparation for excel export
+  */
   getBookingUserDetails() {
     for (let booking of this.bookings) {
       for (let But of booking.bookingUserDetailsDTO) {
@@ -250,49 +289,67 @@ export class AdminStatisticsHoursPage {
           this.bookingsStudents.push(But);
         }
       }
-
     }
-    console.log(this.bookingsStudents);
-  }
 
+  }
+   
+  /**
+  *   Method to fill chart data list before generating in xls
+  */
   filterExcelData() {
-    this.filteredExcelData.push(this.selectedCourse);
-    this.filteredExcelData.push(this.selectedYear);
-    this.filteredExcelData.push(this.fromDate);
-    this.filteredExcelData.push(this.toDate);
+    this.filteredExcelData.push("Course " + this.selectedCourse);
+    this.filteredExcelData.push("Year " + this.selectedYear);
+    this.filteredExcelData.push("From " + this.fromDate);
+    this.filteredExcelData.push("To " + this.toDate);
     this.filteredExcelData.push(this.barChartLabels2);
     this.filteredExcelData.push(this.barChartDataTutor);
     this.filteredExcelData.push(this.barChartDataStudent);
-    console.log(this.filteredExcelData);
-  }
 
+  }
+  
+  /**
+  *   Method to export booking data and booking User Details in xls format
+  */
   exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.bookings, 'Bookings');
     this.excelService.exportAsExcelFile(this.bookingsStudents, 'Students Attended');
-    console.log(this.bookingsStudents);
+
   }
 
+  /**
+  *   Method to export chart data in xls file format
+  */
   exportChartDataAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.filteredExcelData, 'ChartData');
-    console.log(this.bookingsStudents);
-  }
 
+  }
+  
+    /**
+  *   Sets the enddate to the end of the current day
+  */
   today() {
+
     const dateFormat = 'yyyy-MM-dd';
-    // Today + 1 day - needed if the current day must be included
     const today: Date = new Date();
     today.setDate(today.getDate() + 1);
     const date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     this.toDate = this.datePipe.transform(date, dateFormat);
-  }
 
+  }
+  
+  /**
+  *   Sets the start date to the first of jan of the current year
+  */
   startDate() {
     const dateFormat = 'yyyy-MM-dd';
     let fromDate: Date = new Date();
     fromDate = new Date(fromDate.getFullYear(),0);
     this.fromDate = this.datePipe.transform(fromDate, dateFormat);
-}
-
+ }
+  
+  /**
+  *   refreshes page flushing out array data
+  */
   refreshPage() {
     this.navCtrl.push("AdminStatisticsHoursPage");
   }

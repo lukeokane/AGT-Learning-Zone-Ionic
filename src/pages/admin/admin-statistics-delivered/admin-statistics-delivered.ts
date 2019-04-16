@@ -114,7 +114,7 @@ export class AdminStatisticsDeliveredPage {
   }
   
   /**
-  *   Method to generate chart depending on the combination of requests from the tutorials delivered page
+  *   Method to get booking data from the backend on the combination of requests from the tutorials delivered page
   */
   generateChart() {
 
@@ -187,7 +187,7 @@ export class AdminStatisticsDeliveredPage {
   }
 
   /**
-  *   Method to get the course id from the selected course name
+  *   Method to date pipe read in angular by month
   *    @param dateTime
   *    @returns the date in a angular readable form from java
   */
@@ -206,9 +206,9 @@ export class AdminStatisticsDeliveredPage {
   }
 
   /**
-  *   Method to get the course id from the selected course name
+  *   Method to check for duplicates in the months list
   *    @param month
-  *    @returns boolean wheter month is alleady in the linechart labels list
+  *    @returns boolean whether month is alleady in the linechart labels list
   */
   checkDuplicates(month: any): boolean {
     for (let mon of this.lineChartLabels2) {
@@ -246,7 +246,7 @@ export class AdminStatisticsDeliveredPage {
   }
    
   /**
-  *   Method to export chart data to xls with details of how it was generated
+  *   Method to fill chart data list before generating in xls
   */
   filterExcelData() {
     this.filteredExcelData.push("Course " + this.selectedCourse);
