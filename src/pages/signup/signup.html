@@ -25,10 +25,16 @@
             <ion-row>
               <ion-col>
                 <i class="inside fa fa-envelope"></i>
-                <input padding class="input" type="email" [(ngModel)]="account.email" name="email"
-                  placeholder="Email (d00123456@student.dkit.ie)">
+                <input (keyup)="validateEmailAddress($event)" padding class="input" type="email"
+                  [(ngModel)]="account.email" name="email" placeholder="Email (d00123456@student.dkit.ie)">
               </ion-col>
             </ion-row>
+            <ng-container *ngIf="validEmail == false">
+              <span class="error">
+                <i class="fa fa-exclamation-circle"></i>
+                This email is not valid!.
+              </span>
+            </ng-container>
             <ion-row>
               <ion-col>
                 <i class="inside fa fa-lock"></i>
@@ -123,10 +129,16 @@
       <ion-row>
         <ion-col class="align">
           <i class="inside fa fa-envelope"></i>
-          <input class="inputReg" padding type="email" [(ngModel)]="account.email" name="email"
+          <input class="inputReg" (keyup)="validateEmailAddress($event)" padding type="email" [(ngModel)]="account.email" name="email"
             placeholder="Email (d00123456@student.dkit.ie)">
         </ion-col>
       </ion-row>
+      <ng-container *ngIf="validEmail == false">
+          <span style="color: red;text-align: center">
+            <i class="fa fa-exclamation-circle"></i>
+            This email is not valid!.
+          </span>
+        </ng-container>
       <ion-row>
         <ion-col class="align">
           <i class="inside fa fa-lock"></i>

@@ -49,8 +49,9 @@ export class SignupPage implements OnInit {
   selectedYear: CourseYear;
   selectedCourse: Course;
   roleType: any;
-  check:boolean = false;
-  checkPassword:any;
+  check: boolean = false;
+  checkPassword: any;
+  validEmail: boolean;
 
   constructor(public navCtrl: NavController,
     public user: User,
@@ -58,7 +59,7 @@ export class SignupPage implements OnInit {
     public translateService: TranslateService,
     private courseService: CourseService,
     private courseYearService: CourseYearService,
-    private modalCtrl:ModalController
+    private modalCtrl: ModalController
   ) {
 
     this.translateService.get(['SIGNUP_ERROR', 'SIGNUP_SUCCESS',
@@ -165,10 +166,20 @@ export class SignupPage implements OnInit {
     this.navCtrl.push(loginPage);
   }
 
-  displayGDPR()
-  {
-    window.open("http://localhost:8100/#/gdpr-notice",'_blank');
-    return false;           
+  displayGDPR() {
+    window.open("http://localhost:8100/#/gdpr-notice", '_blank');
+    return false;
+  }
+
+  validateEmailAddress(email: any) {
+    let regEx = /\S+@\S+\.\S+/;
+    if (regEx.test(email.target.value)) {
+      this.validEmail = true;
+    }
+    else {
+      this.validEmail = false;
+    }
+    return this.validEmail;
   }
 
 }
