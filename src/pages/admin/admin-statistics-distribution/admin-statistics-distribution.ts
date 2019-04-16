@@ -24,7 +24,6 @@ import { DatePipe } from '@angular/common';
 })
 export class AdminStatisticsDistributionPage {
 
-  ACM: string = "ACM Booking";
   toDate: any;
   fromDate: any;
   selectedYear: string = "all";
@@ -233,10 +232,10 @@ export class AdminStatisticsDistributionPage {
   *   Method to fill chart data list before generating in xls
   */
   filterExcelData() {
-    this.filteredExcelData.push("Course " + this.selectedCourse);
+    this.filteredExcelData.push(this.selectedCourse);
     this.filteredExcelData.push("Year " + this.selectedYear);
     this.filteredExcelData.push("From " + this.fromDate);
-    this.filteredExcelData.push("To " + this.toDate);
+    this.filteredExcelData.push("To   " + this.toDate);
     this.filteredExcelData.push(this.labels);
     this.filteredExcelData.push(this.data);
 

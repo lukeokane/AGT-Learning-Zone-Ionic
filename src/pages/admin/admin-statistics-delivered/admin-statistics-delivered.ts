@@ -22,7 +22,10 @@ import { ExcelService } from '../../../services/excel.service';
 })
 export class AdminStatisticsDeliveredPage {
 
-  ACM : string = "ACM Booking";
+  ACM : string = "ACM";
+  ACM2 : string = "Acm";
+  meeting: string = "Meeting";
+  meeting2 : string = "meeting";
   toDate: any;
   fromDate: any;
   selectedYear: string = "all";
@@ -167,7 +170,7 @@ export class AdminStatisticsDeliveredPage {
   */
   filterBookingsByDate() {
     for (let booking of this.bookings) {
-      if (booking.title != this.ACM) {
+      if (!booking.title.includes(this.ACM) || !booking.title.includes(this.ACM2) || !booking.title.includes(this.meeting) || !booking.title.includes(this.meeting2)){
         for (this.inc = 0; this.inc < this.months.length; this.inc++) {
           if (this.getMonth(booking.startTime) == this.months[this.inc]) {
             if (this.checkDuplicates(this.monthsName[this.inc]) == false) {
@@ -249,10 +252,10 @@ export class AdminStatisticsDeliveredPage {
   *   Method to fill chart data list before generating in xls
   */
   filterExcelData() {
-    this.filteredExcelData.push("Course " + this.selectedCourse);
+    this.filteredExcelData.push(this.selectedCourse);
     this.filteredExcelData.push("Year " + this.selectedYear);
     this.filteredExcelData.push("From " + this.fromDate);
-    this.filteredExcelData.push("To " + this.toDate);
+    this.filteredExcelData.push("To   " + this.toDate);
     this.filteredExcelData.push(this.lineChartLabels2);
     this.filteredExcelData.push(this.lineChartData2);
   }

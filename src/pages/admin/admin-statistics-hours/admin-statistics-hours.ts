@@ -22,7 +22,10 @@ import { BookingUserDetails } from '../../../class/BookingUserDetails';
 })
 export class AdminStatisticsHoursPage {
 
-  ACM : string = "ACM Booking";
+  ACM : string = "ACM";
+  ACM2 : string = "Acm";
+  meeting: string = "Meeting";
+  meeting2 : string = "meeting";
   toDate: any;
   fromDate: any;
   selectedYear: string = "all";
@@ -167,13 +170,13 @@ export class AdminStatisticsHoursPage {
    /**
   *   Method to filter chart data into lists for the angular charts gets the length of tutorial by month and multiplys by the students attended within that month
   *   By using parralell array processing 
-  *   Fills a tutor list of hours attended
+  *   Fills a list of tutor hours attended
   *   Makes sure no duplicate months are in the barhart data labels
   *   Checks that only tutorials are used in chart data - no meetings 
   */
   filterBookingsByDate() {
     for (let booking of this.bookings) {
-      if (booking.title != this.ACM) {
+      if (!booking.title.includes(this.ACM) || !booking.title.includes(this.ACM2) || !booking.title.includes(this.meeting) || !booking.title.includes(this.meeting2)){
         for (this.inc = 0; this.inc < this.months.length; this.inc++) {
           if (this.getMonth(booking.startTime) == this.months[this.inc]) {
             this.tutorialLengthHours = this.tutorialLength(booking.startTime, booking.endTime);
@@ -297,10 +300,10 @@ export class AdminStatisticsHoursPage {
   *   Method to fill chart data list before generating in xls
   */
   filterExcelData() {
-    this.filteredExcelData.push("Course " + this.selectedCourse);
+    this.filteredExcelData.push(this.selectedCourse);
     this.filteredExcelData.push("Year " + this.selectedYear);
     this.filteredExcelData.push("From " + this.fromDate);
-    this.filteredExcelData.push("To " + this.toDate);
+    this.filteredExcelData.push("To   " + this.toDate);
     this.filteredExcelData.push(this.barChartLabels2);
     this.filteredExcelData.push(this.barChartDataTutor);
     this.filteredExcelData.push(this.barChartDataStudent);
