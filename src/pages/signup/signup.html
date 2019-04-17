@@ -3,13 +3,13 @@
     <ng-container *ngIf="getScreenSize() >= 1280">
       <ion-row class="height">
         <ion-col col-8 class="tint">
-          <img src="../../assets/imgs/main_desktop.jpg" class="img">
+          <img src="assets/imgs/main_desktop.jpg" class="img">
           <div class="centered"><span style="font-size: 40px">{{'WELCOME_TO_ITLC' | translate}}</span><br><br>
             <span style="font-size: 20px">Join our community and become a member to learn new things everyday!</span>
           </div>
         </ion-col>
         <ion-col col-4 class="align">
-          <img src="../../assets/imgs/ITLC_logo.PNG" style="height:22%;">
+          <img src="assets/imgs/ITLC_logo.PNG" style="height:22%;">
           <br><br>
           <form (submit)="doSignup()">
             <ion-row>
@@ -112,12 +112,12 @@
       <ion-row class="topImages">
         <ion-col class="tintImgMob">
           <ng-container *ngIf="getScreenSize() < 500">
-            <img src="../../assets/imgs/main_mobile.jpg" class="mobImg">
-            <img src="../../assets/imgs/ITLC_logo.PNG" class="mobImg1">
+            <img src="assets/imgs/main_mobile.jpg" class="mobImg">
+            <img src="assets/imgs/ITLC_logo.PNG" class="mobImg1">
           </ng-container>
           <ng-container *ngIf="getScreenSize() > 500">
-            <img src="../../assets/imgs/main_mobile.jpg" class="mobImg">
-            <img src="../../assets/imgs/ITLC_logo.PNG" class="ipadImg">
+            <img src="assets/imgs/main_mobile.jpg" class="mobImg">
+            <img src="assets/imgs/ITLC_logo.PNG" class="ipadImg">
           </ng-container>
         </ion-col>
       </ion-row>
