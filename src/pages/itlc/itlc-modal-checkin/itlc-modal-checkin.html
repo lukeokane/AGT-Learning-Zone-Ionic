@@ -8,10 +8,6 @@
 
 
 <ion-content style="text-align:center !important" padding overflow-scroll="false">
-  <div id="scanner">
-    <video id="video" autoplay="true" preload="auto"></video>
-    <canvas id="canvas" class="drawingBuffer"></canvas>
-  </div>
   <div padding *ngIf="user != null || user != undefined">
     <h5 style="font-weight: bold"> {{'WELCOME_TITLE' | translate}} {{user?.firstName}}!</h5>
     <h6 *ngIf="login != null || login != undefined">{{login}} - {{'CHECKIN_SUCCESSFULL' | translate}}</h6>
