@@ -22,7 +22,10 @@ import { ExcelService } from '../../../services/excel.service';
 })
 export class AdminStatisticsDeliveredPage {
 
-  ACM : string = "ACM Booking";
+  ACM : string = "ACM";
+  ACM2 : string = "Acm";
+  meeting: string = "Meeting";
+  meeting2 : string = "meeting";
   toDate: any;
   fromDate: any;
   selectedYear: string = "all";
@@ -38,20 +41,15 @@ export class AdminStatisticsDeliveredPage {
   barChartLegend = true;
   barChartType = 'bar';
   courseId: number;
-
   id: number;
   chartGenerated: boolean = false;
   chartLine: boolean = true;
   filteredExcelData: Array<any> = [];
-
   public lineChartData2: Array<any> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   public lineChartData: Array<any> = [
     { data: this.lineChartData2, label: 'Tutorials Delivered' }
-
   ];
-
-
   public lineChartLabels2: Array<any> = [];
 
   public lineChartOptions: any = {
@@ -106,17 +104,21 @@ export class AdminStatisticsDeliveredPage {
     this.today();
     this.startDate();
   }
-
+  
+  /**
+  *   Method to load all courses to the course picker
+  */
   loadAll() {
     this.courseService.findAllCoursesList().subscribe(data => {
       this.courses = data.body;
-      console.log(this.courses);
-      console.log(this.selectedCourse);
     }, error => {
       console.log(error);
     });
   }
-
+  
+  /**
+  *   Method to get booking data from the backend on the combination of requests from the tutorials delivered page
+  */
   generateChart() {
 
     if (this.selectedCourse == "all" && this.selectedYear == "all") {
@@ -130,7 +132,6 @@ export class AdminStatisticsDeliveredPage {
     }
 
     if (this.selectedCourse == "all" && this.selectedYear != "all") {
-      console.log("got here all courses and a selected year");
       this.bookingsService.findAllBookingsAllCoursesSelectedYear(this.fromDate, this.toDate, this.selectedYear).subscribe(data => {
         this.bookings = data.body;
         console.log(this.bookings);
@@ -141,7 +142,6 @@ export class AdminStatisticsDeliveredPage {
     }
 
     if (this.selectedCourse != "all" && this.selectedYear != "all") {
-      console.log("got here seleceted course and selected year");
       this.courseId = this.getCourseId(this.selectedCourse);
       console.log(this.courseId);
       this.bookingsService.findAllBookingsSelectedCourseAndSelectedYear(this.fromDate, this.toDate, this.courseId, this.selectedYear).subscribe(data => {
@@ -154,7 +154,6 @@ export class AdminStatisticsDeliveredPage {
     }
 
     if (this.selectedCourse != "all" && this.selectedYear == "all") {
-      console.log("got here seleceted course and all years");
       this.courseId = this.getCourseId(this.selectedCourse);
       this.bookingsService.findAllBookingsSelectedCourseAndAllYears(this.fromDate, this.toDate, this.courseId).subscribe(data => {
         this.bookings = data.body;
@@ -166,9 +165,12 @@ export class AdminStatisticsDeliveredPage {
     }
   }
 
+  /**
+  *   Method to filter chart data into lists for the angular charts
+  */
   filterBookingsByDate() {
     for (let booking of this.bookings) {
-      if (booking.title != this.ACM) {
+      if (!booking.title.includes(this.ACM) || !booking.title.includes(this.ACM2) || !booking.title.includes(this.meeting) || !booking.title.includes(this.meeting2)){
         for (this.inc = 0; this.inc < this.months.length; this.inc++) {
           if (this.getMonth(booking.startTime) == this.months[this.inc]) {
             if (this.checkDuplicates(this.monthsName[this.inc]) == false) {
@@ -180,8 +182,6 @@ export class AdminStatisticsDeliveredPage {
         }
       }
     }
-    console.log(this.lineChartData2);
-    console.log(this.lineChartLabels2);
     this.filterLineChartData();
     this.filterLineChartData();
     this.filterExcelData();
@@ -189,18 +189,30 @@ export class AdminStatisticsDeliveredPage {
     this.chartGenerated = true;
   }
 
-
+  /**
+  *   Method to date pipe read in angular by month
+  *    @param dateTime
+  *    @returns the date in a angular readable form from java
+  */
   getMonth(dateTime) {
     const date = this.datePipe.transform(dateTime, 'MM', 'UTC');
     return date;
   }
 
+  /**
+  *   Method to to push data label and chart data into final line data for chart
+  */
   combineArrays() {
     this.lineChartDataFinal.push(this.lineChartData2);
     this.lineChartDataFinal.push(this.label);
     console.log(this.lineChartDataFinal);
   }
 
+  /**
+  *   Method to check for duplicates in the months list
+  *    @param month
+  *    @returns boolean whether month is alleady in the linechart labels list
+  */
   checkDuplicates(month: any): boolean {
     for (let mon of this.lineChartLabels2) {
       if (mon == month) {
@@ -210,6 +222,9 @@ export class AdminStatisticsDeliveredPage {
     return false;
   }
 
+  /**
+  *   Method to splice - remove all zeros from the chart data list
+  */
   filterLineChartData() {
     for (this.pos = 0; this.pos < this.lineChartData2.length; this.pos++) {
       if (this.lineChartData2[this.pos] == 0) {
@@ -217,37 +232,51 @@ export class AdminStatisticsDeliveredPage {
         this.pos = 0
       }
     }
-    console.log(this.lineChartData2);
   }
 
+  /**
+  *   Method to get the course id from the selected course name
+  *    @param selectedCourse
+  *    @returns course id
+  */
   getCourseId(selectedCourse): number {
     for (let course of this.courses) {
       if (course.title == selectedCourse) {
         this.id = course.id
-        console.log(this.id);
       }
     }
     return this.id;
   }
-
+   
+  /**
+  *   Method to fill chart data list before generating in xls
+  */
   filterExcelData() {
     this.filteredExcelData.push(this.selectedCourse);
     this.filteredExcelData.push("Year " + this.selectedYear);
-    this.filteredExcelData.push(this.fromDate);
-    this.filteredExcelData.push(this.toDate);
+    this.filteredExcelData.push("From " + this.fromDate);
+    this.filteredExcelData.push("To   " + this.toDate);
     this.filteredExcelData.push(this.lineChartLabels2);
     this.filteredExcelData.push(this.lineChartData2);
-    console.log(this.filteredExcelData);
   }
 
+  /**
+  *   Method to export booking data in xls format
+  */
   exportAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.bookings, 'Bookings');
   }
-
+  
+  /**
+  *   Method to export chart data in xls file format
+  */
   exportChartDataAsXLSX(): void {
     this.excelService.exportAsExcelFile(this.filteredExcelData, 'ChartData');
   }
-
+  
+  /**
+  *   Sets the enddate to the end of the current day
+  */
   today() {
     const dateFormat = 'yyyy-MM-dd';
     const today: Date = new Date();
@@ -256,20 +285,33 @@ export class AdminStatisticsDeliveredPage {
     this.toDate = this.datePipe.transform(date, dateFormat);
   }
 
+  /**
+  *   Sets the start date to the first of jan of the current year
+  */
   startDate() {
     const dateFormat = 'yyyy-MM-dd';
     let fromDate: Date = new Date();
     fromDate = new Date(fromDate.getFullYear(),0);
     this.fromDate = this.datePipe.transform(fromDate, dateFormat);
-}
-
+  }
+   
+  /**
+  *   refreshes page flushing out array data
+  */
   refreshPage() {
     this.navCtrl.push("AdminStatisticsDeliveredPage");
   }
-
+  
+  /**
+  *   Sets the Chartline to false toggling chart to a bar chart
+  */
   toggleChartLine() {
     this.chartLine = false;
   }
+
+  /**
+  *   Sets the chartLine to true toggling chart to line chart
+  */
   toggleChartBar() {
     this.chartLine = true;
   }
