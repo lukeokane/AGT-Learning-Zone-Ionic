@@ -4,7 +4,6 @@ import { Booking } from './../../../class/Booking';
 import { UserService } from './../../../services/User.provider';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import Quagga from 'quagga';
 import { itlcHomePage } from '../../pages';
 
 @IonicPage()
@@ -56,7 +55,7 @@ export class ItlcModalCheckinPage implements OnInit {
   }
 
   checkIn() {
-    let bookingUserDetails
+    let bookingUserDetails;
     bookingUserDetails = new BookingUserDetails();
     if (this.selectedBooking != null || this.selectedBooking != undefined) {
       this.bookingUserDetailService.updateBookingUserDetailsForCheckIn(this.selectedBooking.id, this.login, bookingUserDetails).subscribe(data => {

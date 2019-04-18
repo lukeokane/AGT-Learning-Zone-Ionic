@@ -11,26 +11,25 @@
   <div>
     <img src="assets/imgs/gif.gif" style="width: 83%">
   </div>
-  <input placeholder="Enter student ID" type="text" id="input_id1" value="D00183460" hidden>
-
   <div padding *ngIf="user != null || user != undefined">
     <h5 style="font-weight: bold"> {{'WELCOME_TITLE' | translate}} {{user?.firstName}}!</h5>
     <h6 *ngIf="login != null || login != undefined">{{login}} - {{'CHECKIN_SUCCESSFULL' | translate}}</h6>
     <h6>{{'WE_HOPE_YOU_ENJOY_YOUR_TIME_AT_THE_LEARNING_ZONE' | translate}}</h6>
     <button class="btn" ion-button (click)="checkIn()">{{'CONTINUE' | translate}}</button>
   </div>
-  <button class="btn1" ion-button (click)="manualCheckIn()"><span>Don't have a student card?</span></button>
+  <button *ngIf="clicked == false" class="btn1" ion-button (click)="manualCheckIn()"><span>Don't have a student
+      card?</span></button>
   <ion-row *ngIf="clicked == true">
     <ion-col col-4></ion-col>
     <form>
-      <ion-col><br><input placeholder="Enter student ID" type="text" id="input_id" value=""></ion-col>
+      <ion-col><br><input *ngIf="login == null || login == undefined" placeholder="Enter student ID" type="text"
+          id="input_id" value=""></ion-col>
+      <br>
+      <ion-col padding>
+        <button *ngIf="login == null || login == undefined" class="btn" ion-button type="button" value="Submit"
+          (click)="checkInManual()">{{'CONTINUE' | translate}}</button>
+      </ion-col>
     </form>
   </ion-row>
-  <ion-row *ngIf="clicked == true">
-    <br>
-    <ion-col padding>
-      <button class="btn" ion-button type="button" value="Submit"
-        (click)="checkInManual()">{{'CONTINUE' | translate}}</button>
-    </ion-col>
-  </ion-row>
+
 </ion-content>
