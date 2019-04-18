@@ -7,7 +7,12 @@
 </ion-header>
 
 
-<ion-content style="text-align:center !important" padding overflow-scroll="false">
+<ion-content id="modal" style="text-align:center !important" padding overflow-scroll="false">
+  <div>
+    <img src="assets/imgs/gif.gif" style="width: 83%">
+  </div>
+  <input placeholder="Enter student ID" type="text" id="input_id1" value="D00183460" hidden>
+
   <div padding *ngIf="user != null || user != undefined">
     <h5 style="font-weight: bold"> {{'WELCOME_TITLE' | translate}} {{user?.firstName}}!</h5>
     <h6 *ngIf="login != null || login != undefined">{{login}} - {{'CHECKIN_SUCCESSFULL' | translate}}</h6>
