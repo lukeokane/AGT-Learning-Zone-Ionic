@@ -1,4 +1,3 @@
-import { ItlcModalPage } from './../../itlc-modal/itlc-modal';
 import { Booking } from './../../../class/Booking';
 import { FirstRunPage } from './../../pages';
 import { Component } from '@angular/core';

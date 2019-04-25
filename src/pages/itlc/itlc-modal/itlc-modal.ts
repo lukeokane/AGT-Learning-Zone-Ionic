@@ -1,7 +1,7 @@
-import { Booking } from './../../class/Booking';
+import { Booking } from '../../../class/Booking';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
-import { itlcModalCheckinPage } from '../pages';
+import { itlcModalCheckinPage } from '../../pages';
 
 /**
  * Generated class for the ItlcModalPage page.
