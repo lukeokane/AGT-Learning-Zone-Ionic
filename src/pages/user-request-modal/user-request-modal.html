@@ -18,12 +18,13 @@
         </ion-select>
       </ion-col>
     </ion-row>
-
-    <ion-row *ngIf="!selectTutotrial">
-      <ion-col col-11 class="form-border">
-        <ion-input [(ngModel)]="booking.title" placeholder="Enter Title"></ion-input>
-      </ion-col>
-    </ion-row>
+    <ng-container *ngIf="selectTutotrial!=null">
+      <ion-row *ngIf="!selectTutotrial">
+        <ion-col col-11 class="form-border">
+          <ion-input [(ngModel)]="booking.title" placeholder="Enter Event Title"></ion-input>
+        </ion-col>
+      </ion-row>
+    </ng-container>
     <ion-row *ngIf="selectTutotrial">
       <ion-col col-11 class="form-border">
         <ion-select placeholder="Select Year" [(ngModel)]="selectedYear" (ionChange)="onYearChange()">
@@ -54,9 +55,16 @@
       <ion-col col-12>
         <ion-label class="text-colour-darkgrey">
           <ion-icon name="calendar"></ion-icon>
-          <span class="padding-left-size"> {{'DATE_RANGE' | translate}}</span>
-          <span>Date selected: {{s1.substring(0,10)}} {{s1.substring(11,13)}}:00 - {{s2.substring(11,13)}}:00</span>
+          <span class="padding-left-size"> {{'DATE_RANGE' | translate}}(Optional)</span>
+          <span style="color:black">Date selected: <b>{{s1.substring(0,10)}} {{s1.substring(11,13)}}:00 -
+              {{s2.substring(11,13)}}:00</b></span>
         </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <span style="color:red">You can choose from a range of dates that you are available and you can also choose the
+          available times on the next page</span>
       </ion-col>
     </ion-row>
     <ion-row>

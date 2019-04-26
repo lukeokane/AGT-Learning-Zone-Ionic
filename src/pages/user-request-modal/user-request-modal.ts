@@ -102,7 +102,7 @@ export class UserRequestModalPage implements OnInit {
     this.booking.startTime = new Date(1970, 1, 1, 0, 0, 0, 0);
     this.booking.endTime = new Date(1970, 1, 1, 0, 0, 0, 0);
     this.booking.modifiedTimestamp = new Date();
-    this.selectTutotrial = false;
+    this.selectTutotrial = null;
 
   }
   changeStartDate() {
@@ -261,58 +261,59 @@ export class UserRequestModalPage implements OnInit {
     this.availableTimes.push({ date: new Date(this.s1), time: [at] });
     // this.dateStart = "2019-02-18T00:00:00Z";
     // this.dateEnd = "2019-02-20T00:00:00Z";
-
-    let d1 = new Date(this.dateEnd);
-    d1.setTime((d1.getTime() + (1000 * 60 * 60 * 24)));
-    let d3 = new Date(this.dateStart);
-    let day = d3.getDay();
-    d3.setUTCHours(9);
-    let hr = d3.getUTCHours() - 1;
-    let added = true;
-    while (!(d1.getUTCFullYear() == d3.getUTCFullYear() && d1.getUTCMonth() == d3.getUTCMonth() && d1.getUTCDate() == d3.getUTCDate())) {
-      // while (exit < 20) {
-      if (added == true) {
-        hr++;
-      }
-      d3.setUTCHours(hr);
-      let availableTime: AvailableTime = new AvailableTime();
-      if ((hr >= 9 && hr <= 17) && (day != 6 && day != 0)) {
-        if (this.bookings != undefined && this.bookings != null) {
-          if (!(this.bookings.some((value, index, array) => {
-            return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == d3.toISOString().substring(0, 19) : value.booking.startTime.toISOString() == d3.toISOString().substring(0, 19);
-          }))) {
-            if (d3.toISOString().substring(0, 19) != this.availableTimes[0].date.toISOString().substring(0, 19)) {
-              let temp = new Date(d3.toISOString());
-              availableTime.startTime = temp;
-              hr++;
-              added = false;
-              d3.setUTCHours(hr);
-              let temp2 = new Date(d3.toISOString());
-              availableTime.endTime = temp2;
-              if (this.availableTimes[this.availableTimes.length - 1].date.toISOString().substring(0, 10) != availableTime.startTime.toISOString().substring(0, 10)) {
-                this.availableTimes.push({ date: availableTime.startTime, time: [availableTime] });
+    if (!(this.dateStart == null || this.dateStart == "" || this.dateStart == undefined || this.dateEnd == null || this.dateEnd == undefined || this.dateEnd == "")) {
+      let d1 = new Date(this.dateEnd);
+      d1.setTime((d1.getTime() + (1000 * 60 * 60 * 24)));
+      let d3 = new Date(this.dateStart);
+      let day = d3.getDay();
+      d3.setUTCHours(9);
+      let hr = d3.getUTCHours() - 1;
+      let added = true;
+      while (!(d1.getUTCFullYear() == d3.getUTCFullYear() && d1.getUTCMonth() == d3.getUTCMonth() && d1.getUTCDate() == d3.getUTCDate())) {
+        // while (exit < 20) {
+        if (added == true) {
+          hr++;
+        }
+        d3.setUTCHours(hr);
+        let availableTime: AvailableTime = new AvailableTime();
+        if ((hr >= 9 && hr <= 17) && (day != 6 && day != 0)) {
+          if (this.bookings != undefined && this.bookings != null) {
+            if (!(this.bookings.some((value, index, array) => {
+              return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == d3.toISOString().substring(0, 19) : value.booking.startTime.toISOString() == d3.toISOString().substring(0, 19);
+            }))) {
+              if (d3.toISOString().substring(0, 19) != this.availableTimes[0].date.toISOString().substring(0, 19)) {
+                let temp = new Date(d3.toISOString());
+                availableTime.startTime = temp;
+                hr++;
+                added = false;
+                d3.setUTCHours(hr);
+                let temp2 = new Date(d3.toISOString());
+                availableTime.endTime = temp2;
+                if (this.availableTimes[this.availableTimes.length - 1].date.toISOString().substring(0, 10) != availableTime.startTime.toISOString().substring(0, 10)) {
+                  this.availableTimes.push({ date: availableTime.startTime, time: [availableTime] });
+                } else {
+                  this.availableTimes[this.availableTimes.length - 1].time.push(availableTime);
+                }
               } else {
-                this.availableTimes[this.availableTimes.length - 1].time.push(availableTime);
+                added = true;
               }
-            } else {
+            }
+            else {
               added = true;
             }
-          }
-          else {
-            added = true;
+
           }
 
         }
+        else {
+          d3.setTime((d3.getTime() + (1000 * 60 * 60 * 24)));
+          day = d3.getDay();
+          d3.setUTCHours(9);
+          added = false;
+          hr = d3.getUTCHours();
+        }
 
       }
-      else {
-        d3.setTime((d3.getTime() + (1000 * 60 * 60 * 24)));
-        day = d3.getDay();
-        d3.setUTCHours(9);
-        added = false;
-        hr = d3.getUTCHours();
-      }
-
     }
   }
   checkValid() {
@@ -339,7 +340,8 @@ export class UserRequestModalPage implements OnInit {
         invalid = true;
       }
     }
-    return invalid || this.dateStart == null || this.dateStart == "" || this.dateStart == undefined || this.dateEnd == null || this.dateEnd == undefined || this.dateEnd == "";
+    // return invalid || this.dateStart == null || this.dateStart == "" || this.dateStart == undefined || this.dateEnd == null || this.dateEnd == undefined || this.dateEnd == "";
+    return invalid;
   }
   getDateAfterDay(date, noOfDay) {
     var answer = new Date(date.getTime() + noOfDay * 24 * 60 * 60 * 1000);
