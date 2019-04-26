@@ -19,7 +19,8 @@ import { BookingsService } from '../../services/Booking.provider';
 export class UserHomePage {
 
   account: Account;
-
+  weekMonday: Date;
+  weekFriday: Date;
   //calendar
   dates: Array<Date>;
   screenWidth: any;
@@ -43,6 +44,8 @@ export class UserHomePage {
     d.setUTCHours(0);
     this.generateDate(d);
     this.screenWidth = window.screen.width;
+    this.bookings=[];
+
   }
 
   ngOnInit() {
@@ -53,20 +56,30 @@ export class UserHomePage {
         this.account = account;
       }
     });
-    this.bookingService.findConfirmedBooking().subscribe(data => {
-      this.bookings = data;
-    }, (erro) => {
-      console.error(erro);
-    })
   }
 
   isAuthenticated() {
     return this.principal.isAuthenticated();
   }
+  getAllBooking() {
+    this.bookingService.findConfirmedBooking(this.weekMonday.getTime(), this.weekFriday.getTime()).subscribe(data => {
+      this.bookings = data;
+      if(this.bookings.length==0){
+        this.bookings=[];
+      }
+      console.log(this.bookings);
+    }, (erro) => {
+      console.error(erro);
+    })
+  
+  }
   generateDate(curDate: Date) {
     this.dates = new Array();
     this.currentDate = curDate;
     var monday = this.getMonday(curDate);
+    this.weekMonday = monday;
+    this.weekFriday = new Date(this.weekMonday.getTime() + (24 * 60 * 60 * 1000*5));
+    this.getAllBooking();
     for (var i = 0; i < 7; i++) {
       var temp = new Date(monday.getTime());
       this.dates.push(temp);
@@ -86,7 +99,6 @@ export class UserHomePage {
       console.log("BIG");
     }
     else {
-
       if (!(this.bookings.some((value, index, array) => {
         return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == s1.substring(0, 19) : value.booking.startTime.toISOString() == s1.substring(0, 19);
       }))) {
@@ -156,8 +168,8 @@ export class UserHomePage {
 
         }
       }
-
     }
+    
 
   }
   timeConvertedToInt(time: String) {

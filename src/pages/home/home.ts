@@ -12,7 +12,8 @@ import { BookingsService } from '../../services/Booking.provider';
 })
 export class HomePage implements OnInit {
   account: Account;
-
+  weekMonday: Date;
+  weekFriday: Date;
   //calendar
   dates: Array<Date>;
   screenWidth: any;
@@ -46,17 +47,32 @@ export class HomePage implements OnInit {
         this.account = account;
       }
     });
-    this.bookingService.findConfirmedBooking().subscribe(data => {
-      this.bookings = data;
-    }, (erro) => {
-      console.error(erro);
-    })
   }
-
+  // initBooking() {
+  //   // this.bookingsService.getAllBookingsPageable({
+  //   //   size: 100,
+  //   // }).subscribe(data => {
+  //   //   this.bookings = data;
+  //   // }, (erro) => {
+  //   //   console.error(erro);
+  //   // });
+  // }
   isAuthenticated() {
     return this.principal.isAuthenticated();
   }
 
+  getAllBooking() {
+    this.bookingService.findConfirmedBooking(this.weekMonday.getTime(), this.weekFriday.getTime()).subscribe(data => {
+      this.bookings = data;
+      if (this.bookings.length == 0) {
+        this.bookings = [];
+      }
+      console.log(this.bookings);
+    }, (erro) => {
+      console.error(erro);
+    })
+
+  }
   logout() {
     this.loginService.logout();
     this.app.getRootNavs()[0].setRoot(FirstRunPage);
@@ -66,12 +82,14 @@ export class HomePage implements OnInit {
     this.dates = new Array();
     this.currentDate = curDate;
     var monday = this.getMonday(curDate);
+    this.weekMonday = monday;
+    this.weekFriday = new Date(this.weekMonday.getTime() + (24 * 60 * 60 * 1000 * 5));
+    this.getAllBooking();
     for (var i = 0; i < 7; i++) {
       var temp = new Date(monday.getTime());
       this.dates.push(temp);
       monday.setTime(monday.getTime() + (24 * 60 * 60 * 1000));
     }
-
   }
   convertDateToString(date: Date) {
     return "" + this.days[date.getDay()] + " " + date.getDate() + "/" + (date.getMonth() + 1);
@@ -91,14 +109,14 @@ export class HomePage implements OnInit {
     })) {
       let profileModal = this.modalCtrl.create("AdminCheckBookingDetailsModalPage", { dateSelected: dateSelected, timeSelected: timeInt });
       profileModal.onDidDismiss(data => {
-  
+
       });
       profileModal.present();
-    }else{
+    } else {
       //Admin Add Booking
       let addBookingModal = this.modalCtrl.create("AdminAddBookingModalPage", { dateSelected: dateSelected, timeSelected: timeInt });
       addBookingModal.onDidDismiss(data => {
-  
+
       });
       addBookingModal.present();
     }
@@ -124,10 +142,11 @@ export class HomePage implements OnInit {
     return date1.getUTCFullYear() == date1.getUTCFullYear() && date1.getUTCDate() == date2.getUTCDate() && date1.getMonth() == date2.getMonth();
   }
   getWeekNumber(date: Date) {
-    var d: any = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+    var d: any = new Date(Date.UTC(date.getFullYear(), 
+    date.getMonth(), 
+    date.getDate()));
     var dayNum = d.getUTCDay() || 7;
     d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-    // **need give admin an option to set start academic year
     var yearStart: any = new Date(Date.UTC(2018, 7, 27));
     return Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
   }
@@ -136,6 +155,7 @@ export class HomePage implements OnInit {
   }
   getMonday(d: Date) {
     d = new Date(d);
+    d.setUTCHours(0, 0, 0, 0);
     var day = d.getDay(),
       diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
     return new Date(d.setDate(diff));
@@ -150,6 +170,7 @@ export class HomePage implements OnInit {
     var lastSun = new Date(this.dates[0].getTime());
     lastSun.setTime(lastSun.getTime() - (24 * 60 * 60 * 1000));
     this.generateDate(lastSun);
+
   }
   checkBooking(time: String, date: Date) {
     if (this.bookings != undefined && this.bookings != null) {
@@ -189,9 +210,15 @@ export class HomePage implements OnInit {
   checkPassTime(dateSelected: Date, timeSelected: String) {
     let s1 = this.getStartAndEndDate(dateSelected, timeSelected).s;
     let s2 = this.getStartAndEndDate(dateSelected, timeSelected).s2;
-    if (new Date() >= new Date(s2)) {
+
+    if (new Date() >= new Date(s2.substring(0,19))) {
       return 'tg-slot-passed';
     } else {
+      // console.log(s2.substring(0,4));
+      // console.log(s2.substring(5,7));
+      // console.log(s2.substring(8,10));
+      // console.log(s2.substring(11,13));
+
       return 'tg-slot'
     }
   }

@@ -16,32 +16,38 @@
 <ion-content padding>
   <ion-grid>
     <ion-row>
-      <ion-col col-2>
+      <!-- <ion-col col-2>
         <ion-list>
           <button ion-item *ngFor="let name of names" (click)="itemSelected(name.page)">
             {{ name.name }}
           </button>
         </ion-list>
-      </ion-col>
-      <ion-col col-10>
+      </ion-col> -->
+      <ion-col col-12>
         <ng-container *ngIf="page=='set-date'">
           <ion-row>
-            <ion-col col-12>
+
+            <ion-col col-11 offset-1>
               <ion-label class="text-colour-darkgrey">
                 <ion-icon name="calendar"></ion-icon>
-                <span class="padding-left-size">Academic Start Date</span>
+                <span class="padding-left-size">Academic Calendar Start Date</span>
               </ion-label>
             </ion-col>
           </ion-row>
           <ion-row>
-            <div col-5 class="form-border">
-              <ion-datetime [(ngModel)]="dateStart" display-format="DD/MMM/YYYY"></ion-datetime>
-            </div>
+            <ion-col col-10 offset-1>
+              <div class="form-border">
+                <ion-datetime [(ngModel)]="dateStart" display-format="DD/MMM/YYYY"></ion-datetime>
+              </div>
+            </ion-col>
           </ion-row>
           <!-- <page-admin-settings-set-date></page-admin-settings-set-date> -->
         </ng-container>
         <ion-row>
+            <ion-col col-11 offset-1>
+
           <button ion-button (click)="saveChanges()">Save Changes</button>
+       </ion-col> 
         </ion-row>
       </ion-col>
     </ion-row>

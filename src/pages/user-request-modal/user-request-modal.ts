@@ -64,6 +64,9 @@ export class UserRequestModalPage implements OnInit {
     this.availableTimes = new Array();
     this.s1 = this.navParams.get("s1");
     this.s2 = this.navParams.get("s2");
+    console.log(this.s1);
+    console.log(this.s2);
+
     this.bookings = this.navParams.get("bookings");
     this.selectedTopic = new Array();
     this.minDate = new Date().toISOString();
@@ -90,7 +93,6 @@ export class UserRequestModalPage implements OnInit {
     this.booking.topics = new Array<Topic>();
     let now = new Date();
     this.booking.modifiedTimestamp = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds()));
-    console.log(this.booking.modifiedTimestamp);
     // console.log(this.booking.modifiedTimestamp.toISOString());
     // console.log(this.booking.modifiedTimestamp.toJSON());
     //2019-02-10T22:16:37.213Z

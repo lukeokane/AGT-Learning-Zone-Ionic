@@ -15,7 +15,8 @@ import { Principal } from '../../../providers/auth/principal.service';
 })
 export class ItlcHomePage {
   account: Account;
-
+  weekMonday: Date;
+  weekFriday: Date;
   //calendar
   dates: Array<Date>;
   screenWidth: any;
@@ -24,9 +25,9 @@ export class ItlcHomePage {
   today: Date;
   currentDate: Date;
   time: String[] = ["09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "13:00 PM", "14:00 PM", "15:00 PM", "16:00 PM", "17:00 PM"];
-  selectedBooking:Booking = new Booking();
+  selectedBooking: Booking = new Booking();
   bookings: Array<any>;
-  constructor(public navCtrl: NavController, public navParams: NavParams,private modalCtrl:ModalController, private principal: Principal,
+  constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private principal: Principal,
     private app: App,
     private loginService: LoginService,
     private bookingService: BookingsService) {
@@ -35,7 +36,7 @@ export class ItlcHomePage {
     d.setUTCHours(0);
     this.generateDate(d);
     this.screenWidth = window.screen.width;
-    console.log("time "+ this.time);
+    console.log("time " + this.time);
   }
 
   ngOnInit() {
@@ -46,11 +47,6 @@ export class ItlcHomePage {
         this.account = account;
       }
     });
-    this.bookingService.findConfirmedBooking().subscribe(data => {
-      this.bookings = data;
-    }, (erro) => {
-      console.error(erro);
-    })
   }
 
 
@@ -63,16 +59,30 @@ export class ItlcHomePage {
     this.app.getRootNavs()[0].setRoot(FirstRunPage);
   }
 
+  getAllBooking() {
+    this.bookingService.findConfirmedBooking(this.weekMonday.getTime(), this.weekFriday.getTime()).subscribe(data => {
+      this.bookings = data;
+      if (this.bookings.length == 0) {
+        this.bookings = [];
+      }
+      console.log(this.bookings);
+    }, (erro) => {
+      console.error(erro);
+    })
+
+  }
   generateDate(curDate: Date) {
     this.dates = new Array();
     this.currentDate = curDate;
     var monday = this.getMonday(curDate);
+    this.weekMonday = monday;
+    this.weekFriday = new Date(this.weekMonday.getTime() + (24 * 60 * 60 * 1000 * 5));
+    this.getAllBooking();
     for (var i = 0; i < 7; i++) {
       var temp = new Date(monday.getTime());
       this.dates.push(temp);
       monday.setTime(monday.getTime() + (24 * 60 * 60 * 1000));
     }
-    console.log(this.dates);
 
   }
   convertDateToString(date: Date) {
@@ -100,10 +110,9 @@ export class ItlcHomePage {
     // });
     // profileModal.present();
 
-     if(this.selectedBooking != null || this.selectedBooking != undefined)
-    {
-    let checkinModal = this.modalCtrl.create("ItlcModalPage",{selectedBooking:this.selectedBooking});
-    checkinModal.present();
+    if (this.selectedBooking != null || this.selectedBooking != undefined) {
+      let checkinModal = this.modalCtrl.create("ItlcModalPage", { selectedBooking: this.selectedBooking });
+      checkinModal.present();
     }
   }
   timeConvertedToInt(time: String) {
