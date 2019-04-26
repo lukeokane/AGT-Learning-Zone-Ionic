@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Booking } from '../../../class/Booking';
+import { BookingDetails } from '../../../class/BookingDetails';
 
 /**
  * Generated class for the AdminCheckBookingDetailsModalPage page.
@@ -15,7 +17,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class AdminCheckBookingDetailsModalPage {
 
+  booking: Booking;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    if (this.navParams.get("booking") != null && this.navParams.get("s2") != undefined) {
+      this.booking = this.navParams.get("booking");
+      console.log(this.booking);
+    }
+
   }
 
   ionViewDidLoad() {

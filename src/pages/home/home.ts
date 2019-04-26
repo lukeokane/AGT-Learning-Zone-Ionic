@@ -107,19 +107,24 @@ export class HomePage implements OnInit {
     if (this.bookings.some((value, index, array) => {
       return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == s.substring(0, 19) : value.booking.startTime.toISOString() == s.substring(0, 19);
     })) {
-      let profileModal = this.modalCtrl.create("AdminCheckBookingDetailsModalPage", { dateSelected: dateSelected, timeSelected: timeInt });
+
+      let checkedBooking = this.bookings.find((value, index, array) => {
+        return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == s.substring(0, 19) : value.booking.startTime.toISOString() == s.substring(0, 19);
+      });
+      let profileModal = this.modalCtrl.create("AdminCheckBookingDetailsModalPage", { dateSelected: dateSelected, timeSelected: timeInt, booking: checkedBooking });
       profileModal.onDidDismiss(data => {
 
       });
       profileModal.present();
-    } else {
-      //Admin Add Booking
-      let addBookingModal = this.modalCtrl.create("AdminAddBookingModalPage", { dateSelected: dateSelected, timeSelected: timeInt });
-      addBookingModal.onDidDismiss(data => {
-
-      });
-      addBookingModal.present();
     }
+    // else {
+    //   //Admin Add Booking
+    //   let addBookingModal = this.modalCtrl.create("AdminAddBookingModalPage", { dateSelected: dateSelected, timeSelected: timeInt });
+    //   addBookingModal.onDidDismiss(data => {
+
+    //   });
+    //   addBookingModal.present();
+    // }
 
   }
   timeConvertedToInt(time: String) {
@@ -142,9 +147,9 @@ export class HomePage implements OnInit {
     return date1.getUTCFullYear() == date1.getUTCFullYear() && date1.getUTCDate() == date2.getUTCDate() && date1.getMonth() == date2.getMonth();
   }
   getWeekNumber(date: Date) {
-    var d: any = new Date(Date.UTC(date.getFullYear(), 
-    date.getMonth(), 
-    date.getDate()));
+    var d: any = new Date(Date.UTC(date.getFullYear(),
+      date.getMonth(),
+      date.getDate()));
     var dayNum = d.getUTCDay() || 7;
     d.setUTCDate(d.getUTCDate() + 4 - dayNum);
     var yearStart: any = new Date(Date.UTC(2018, 7, 27));
@@ -211,7 +216,7 @@ export class HomePage implements OnInit {
     let s1 = this.getStartAndEndDate(dateSelected, timeSelected).s;
     let s2 = this.getStartAndEndDate(dateSelected, timeSelected).s2;
 
-    if (new Date() >= new Date(s2.substring(0,19))) {
+    if (new Date() >= new Date(s2.substring(0, 19))) {
       return 'tg-slot-passed';
     } else {
       // console.log(s2.substring(0,4));
