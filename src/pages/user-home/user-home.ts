@@ -259,7 +259,7 @@ export class UserHomePage {
   checkPassTime(dateSelected: Date, timeSelected: String) {
     let s1 = this.getStartAndEndDate(dateSelected, timeSelected).s;
     let s2 = this.getStartAndEndDate(dateSelected, timeSelected).s2;
-    if (new Date() >= new Date(s2)) {
+    if (new Date() >= new Date(s2.substring(0,19))) {
       return 'tg-slot-passed';
     } else {
       return 'tg-slot'

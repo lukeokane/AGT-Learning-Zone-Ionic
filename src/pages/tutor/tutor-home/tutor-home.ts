@@ -181,10 +181,6 @@ export class TutorHomePage {
     return { s, s2 }
   }
   checkPreviousDisabled() {
-    console.log(this.today.getTime());
-    console.log(this.today);
-    console.log(this.dates[0].getTime());
-    console.log(this.dates[0]);
     if (this.today.getTime() > this.dates[0].getTime()) {
       return true;
     }
@@ -192,7 +188,7 @@ export class TutorHomePage {
   checkPassTime(dateSelected: Date, timeSelected: String) {
     let s1 = this.getStartAndEndDate(dateSelected, timeSelected).s;
     let s2 = this.getStartAndEndDate(dateSelected, timeSelected).s2;
-    if (new Date() >= new Date(s2)) {
+    if (new Date() >= new Date(s2.substring(0,19))) {
       return 'tg-slot-passed';
     } else {
       return 'tg-slot'
