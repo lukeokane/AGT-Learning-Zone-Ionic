@@ -96,6 +96,7 @@ export class SignupPage implements OnInit {
 
 
   initCourseYear(event: any, refresher?) {
+    this.selectedYear=null;
     this.FilteredYears = [];
     if (event != null && event != undefined) {
       this.arr = [event];
@@ -193,5 +194,7 @@ export class SignupPage implements OnInit {
     }
     return this.validPassword;
   }
-
+  validateInput(){
+    return !(this.validPassword&&this.validEmail)|| this.selectedCourse==null||this.selectedCourse==undefined || this.selectedYear==null||this.selectedYear==undefined||this.account.firstName==null||this.account.firstName==undefined||this.account.firstName==""||this.account.lastName==null||this.account.lastName==undefined ||this.account.lastName=="";
+  }
 }

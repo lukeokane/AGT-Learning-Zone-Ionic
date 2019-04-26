@@ -206,7 +206,7 @@
       <br>
       <ion-row>
         <ion-col class="align">
-          <button [disabled]="!check" ion-button round class="signUpButton"
+          <button [disabled]="!check||validateInput()" ion-button round class="signUpButton"
             (click)="doSignup()">{{ 'SIGNUP_BUTTON' | translate }}</button>
         </ion-col>
       </ion-row>
