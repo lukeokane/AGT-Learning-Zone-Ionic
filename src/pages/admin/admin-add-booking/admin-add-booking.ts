@@ -160,6 +160,7 @@ export class AdminAddBookingPage implements OnInit {
     this.booking.userComments = "";
     this.booking.topics = new Array<Topic>();
     let now = new Date();
+    this.booking.bookedById = this.principal.getUserId();
     this.booking.modifiedTimestamp = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds()));
     //2019-02 0T22:16:37.213Z
     this.booking.bookingUserDetails = new Array<BookingUserDetails>();

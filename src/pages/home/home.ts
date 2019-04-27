@@ -111,6 +111,7 @@ export class HomePage implements OnInit {
       let checkedBooking = this.bookings.find((value, index, array) => {
         return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == s.substring(0, 19) : value.booking.startTime.toISOString() == s.substring(0, 19);
       });
+      console.log("hello," ,checkedBooking);
       let profileModal = this.modalCtrl.create("AdminCheckBookingDetailsModalPage", { dateSelected: dateSelected, timeSelected: timeInt, booking: checkedBooking });
       profileModal.onDidDismiss(data => {
 
