@@ -103,7 +103,7 @@ page-home {
         vertical-align: top;
         padding: 0px;
         cursor: pointer;
-		background-color: #c4c4c4;
+        background-color: #c4c4c4;
         opacity: 0.7;
     }
 
@@ -241,5 +241,9 @@ page-home {
     ion-scroll {
         white-space: nowrap;
         height: 1000px;
+    }
+
+    .content.content-ios {
+        position: relative;
     }
 }
