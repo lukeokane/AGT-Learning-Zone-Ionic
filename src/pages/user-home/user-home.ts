@@ -3,6 +3,8 @@ import { IonicPage, NavController, ModalController, ToastController, App } from 
 import { FirstRunPage } from '../pages';
 import { Principal } from '../../providers/auth/principal.service';
 import { BookingsService } from '../../services/Booking.provider';
+import { Booking } from '../../class/Booking';
+import { BookingDetails } from '../../class/BookingDetails';
 
 /**
  * Generated class for the UserHomePage page.
@@ -30,7 +32,7 @@ export class UserHomePage {
   currentDate: Date;
   time: String[] = ["09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "13:00 PM", "14:00 PM", "15:00 PM", "16:00 PM", "17:00 PM"];
 
-  bookings: Array<any>;
+  bookings: Array<BookingDetails>;
 
   constructor(public navCtrl: NavController,
     private modalCtrl: ModalController,
@@ -96,7 +98,6 @@ export class UserHomePage {
     let s1 = this.getStartAndEndDate(dateSelected, timeSelected).s;
     let s2 = this.getStartAndEndDate(dateSelected, timeSelected).s2;
     if (new Date() >= new Date(s2)) {
-      console.log("BIG");
     }
     else {
       if (!(this.bookings.some((value, index, array) => {
@@ -137,7 +138,7 @@ export class UserHomePage {
         let i = this.bookings.findIndex(value => {
           return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == s1.substring(0, 19) : value.booking.startTime.toISOString() == s1.substring(0, 19);
         });
-        if (i != -1) {
+        if (i != -1 && this.bookings[i].booking.subjectId!=null) {
           let profileModal = this.modalCtrl.create("UserJoinTutorialModalPage", { booking: this.bookings[i].booking });
           profileModal.onDidDismiss(data => {
             if (data != null && data != undefined) {
