@@ -93,16 +93,20 @@ export class UserHomePage {
     return "" + this.days[date.getDay()] + " " + date.getDate() + "/" + (date.getMonth() + 1);
   }
   slotClicked(dateSelected: Date, timeSelected: String) {
+    console.log("slotClicked");
 
 
     let s1 = this.getStartAndEndDate(dateSelected, timeSelected).s;
     let s2 = this.getStartAndEndDate(dateSelected, timeSelected).s2;
     if (new Date() >= new Date(s2)) {
+      console.log("here");
     }
     else {
       if (!(this.bookings.some((value, index, array) => {
         return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == s1.substring(0, 19) : value.booking.startTime.toISOString() == s1.substring(0, 19);
       }))) {
+        console.log("here2");
+
         let toast;
         let profileModal = this.modalCtrl.create("UserRequestModalPage", { s1: s1, s2: s2, bookings: this.bookings });
 
@@ -135,6 +139,8 @@ export class UserHomePage {
         });
         profileModal.present();
       } else {
+        console.log("here3");
+
         let i = this.bookings.findIndex(value => {
           return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == s1.substring(0, 19) : value.booking.startTime.toISOString() == s1.substring(0, 19);
         });

@@ -41,7 +41,7 @@ export class BookingsService {
     }
     findConfirmedBooking(startTimeMs?,endTimeMs?): Observable<any> {
         // this.http.ge
-        return this.http.get(Api.API_URL + "/bookingsConfirmed",{params:{startTimeMs:startTimeMs,endTimeMs:endTimeMs,userInfo:true}});
+        return this.http.get(Api.API_URL + "/bookingsConfirmed",{params:{startTimeMs:startTimeMs,endTimeMs:endTimeMs,userInfo:'true'}});
     }
     delete(id: number): Observable<any> {
         return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response', responseType: 'text' });
