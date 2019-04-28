@@ -202,7 +202,8 @@ export class UserRequestModalPage implements OnInit {
     }
   }
   onSubjectChange() {
-    if (this.booking.subjectId != -1 && this.booking.subjectId != null) {
+    //126==others
+    if (this.booking.subjectId != 126 && this.booking.subjectId != null) {
       this.booking.subject = this.subjects.find(x => x.id == this.booking.subjectId);
       this.topics = this.booking.subject.topics;
       this.booking.topics = new Array();
@@ -229,7 +230,14 @@ export class UserRequestModalPage implements OnInit {
     }
     this.initAvailableTime();
 
-    if (this.booking.subjectId != -1) {
+    //need modify code
+    if (this.booking.subjectId == 126) {
+      if (this.booking.title == null) {
+        this.booking.title = "Others";
+      }
+      this.booking.subject = null;
+    }
+    else if (this.booking.subjectId != -1) {
       this.booking.subject = this.subjects.find(x => x.id == this.booking.subjectId);
       this.booking.title = this.booking.subject.title;
     } else {
@@ -259,8 +267,6 @@ export class UserRequestModalPage implements OnInit {
 
     let at = new AvailableTime(new Date(this.s1), new Date(this.s2));
     this.availableTimes.push({ date: new Date(this.s1), time: [at] });
-    // this.dateStart = "2019-02-18T00:00:00Z";
-    // this.dateEnd = "2019-02-20T00:00:00Z";
     if (!(this.dateStart == null || this.dateStart == "" || this.dateStart == undefined || this.dateEnd == null || this.dateEnd == undefined || this.dateEnd == "")) {
       let d1 = new Date(this.dateEnd);
       d1.setTime((d1.getTime() + (1000 * 60 * 60 * 24)));
@@ -318,7 +324,7 @@ export class UserRequestModalPage implements OnInit {
   }
   checkValid() {
     let invalid = false;
-    if (this.booking.subjectId != null && this.booking.subjectId != -1 && this.booking.topics.length == 0) {
+    if (this.booking.subjectId != null && this.booking.subjectId != 126 && this.booking.topics.length == 0) {
       invalid = true;
     }
     if (this.subjectNull == true) {
@@ -336,7 +342,7 @@ export class UserRequestModalPage implements OnInit {
 
       }
     } else {
-      if (this.booking.subjectId == -1 || this.booking.subjectId == undefined) {
+      if (this.booking.subjectId == 126 || this.booking.subjectId == undefined) {
         invalid = true;
       }
     }

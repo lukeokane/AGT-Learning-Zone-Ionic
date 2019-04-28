@@ -37,13 +37,13 @@
       <ion-col col-11 class="form-border">
         <ion-select placeholder="Select Subjects" [(ngModel)]="booking.subjectId" (ionChange)="onSubjectChange()">
           <ion-option *ngFor="let s of subjects " [value]="s.id">{{s.title}}</ion-option>
-          <ion-option value="-1">{{ 'OTHERS' |translate}}</ion-option>
+          <ion-option value="126">{{ 'OTHERS' |translate}}</ion-option>
 
         </ion-select>
       </ion-col>
     </ion-row>
-
-    <ion-row *ngIf="selectTutotrial && booking.subjectId != -1 ">
+<!-- 126==others -->
+    <ion-row *ngIf="selectTutotrial && booking.subjectId != 126 ">
       <ion-col col-11 class="form-border">
         <ion-select placeholder="Select Topics" multiple [(ngModel)]="booking.topics">
           <ion-option *ngFor="let t of topics " [value]="t">{{t.title}}</ion-option>
@@ -56,9 +56,14 @@
         <ion-label class="text-colour-darkgrey">
           <ion-icon name="calendar"></ion-icon>
           <span class="padding-left-size"> {{'DATE_RANGE' | translate}}(Optional)</span>
-          <span style="color:black">Date selected: <b>{{s1.substring(0,10)}} {{s1.substring(11,13)}}:00 -
-              {{s2.substring(11,13)}}:00</b></span>
+
         </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <span style="color:black">Date selected: <b>{{s1.substring(0,10)}} {{s1.substring(11,13)}}:00 -
+            {{s2.substring(11,13)}}:00</b></span>
       </ion-col>
     </ion-row>
     <ion-row>
