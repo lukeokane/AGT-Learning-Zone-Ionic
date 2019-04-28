@@ -217,7 +217,7 @@ export class AdminAddBookingPage implements OnInit {
     console.log(this.booking);
     this.bookingService.create(this.booking).subscribe(data => {
       toast = this.toastCtrl.create({
-        message: 'Thank You! You will receive a confirmation e-mail when your request is approved',
+        message: 'Thank You! Your request is sent',
         duration: 5000,
         position: 'top',
         showCloseButton: true,

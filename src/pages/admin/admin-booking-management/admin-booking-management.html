@@ -30,12 +30,13 @@
             data-placement="top" title="{{booking?.requestedBy}}"
             [style.border-left]="booking.readByAdmin == false ? '4px solid #0A7DD9' : 'black' ">
             <ion-row>
-              <ng-container *ngFor="let user of findUserBookings">
-                <ng-container *ngIf="booking?.userInfos.length == 1">
+              <ng-container *ngIf="booking?.userInfos.length >= 1 && booking?.bookedById==null">
+                <ng-container *ngFor="let user of findUserBookings; let index=i">
                   <ng-container *ngFor="let info of booking?.userInfos">
-                    <ng-container *ngIf="user?.id == info?.userId">
+                    <ng-container *ngIf="user?.id == info?.userId || user?.id ==booking?.bookedById">
                       <ion-col class="avatar" col-2>&nbsp;&nbsp;
-                        <img *ngIf="info.profileImageURL == null || info.profileImageURL == undefined"
+                        <img
+                          *ngIf="info.profileImageURL =='' || info.profileImageURL == null || info.profileImageURL == undefined"
                           src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
                         <img *ngIf="info.profileImageURL != null || info.profileImageURL != undefined"
                           src="assets/images/{{info.profileImageURL}}">
@@ -45,10 +46,18 @@
                     </ng-container>
                   </ng-container>
                 </ng-container>
+
               </ng-container>
-              <ng-container *ngFor="let user of findUserBookings">
+              <ng-container *ngIf="i==0 && booking?.bookedById!=null">
+                <ion-col class="avatar" col-2>&nbsp;&nbsp;
+                  <img src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+
+                </ion-col>
+                <ion-col col-6 class="top">&nbsp;&nbsp;Admin</ion-col>
+
+              </ng-container>
+              <!-- <ng-container *ngFor="let user of findUserBookings">
                 <ng-container *ngIf="booking?.userInfos.length > 1">
-                  <!-- <ng-container *ngFor="let info of booking?.userInfos;let i=index"> -->
                   <ng-container *ngIf="user?.id == booking?.userInfos[booking?.userInfos.length -1]?.userId">
                     <ion-col class="avatar" col-2>&nbsp;&nbsp;
                       <img
@@ -62,7 +71,7 @@
                     <ion-col col-2></ion-col>
                   </ng-container>
                 </ng-container>
-              </ng-container>
+              </ng-container> -->
             </ion-row>
             <ion-row [style.color]="booking.readByAdmin == false ? '#0A7DD9' : 'black' ">
               <ion-col col-2></ion-col>
@@ -80,15 +89,15 @@
           <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
             [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
-        <ng-container  *ngIf="getScreenSize() < 1920" >
-        <div style="padding-top:252px"></div>
+        <ng-container *ngIf="getScreenSize() < 1920">
+          <div style="padding-top:252px"></div>
         </ng-container>
       </div>
     </ion-col>
     <ng-container *ngIf="selectedBooking != null && selectedBooking != undefined">
       <ion-col col-8>
         <br>
-        <ng-container *ngIf="selectedBooking.userInfos.length ==1">
+        <ng-container *ngIf="selectedBooking.bookedById== null">
           <ng-container *ngFor="let user of findUserBookings">
             <ng-container *ngFor="let info of selectedBooking?.userInfos">
               <ng-container *ngIf="user?.id == info?.userId">
@@ -105,7 +114,15 @@
             </ng-container>
           </ng-container>
         </ng-container>
-        <ng-container *ngIf="selectedBooking.userInfos.length > 1">
+        <ng-container *ngIf="selectedBooking.bookedById!= null ">
+          <ion-avatar class="avatar">
+            <br><br><br>
+            <img src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+          </ion-avatar>
+          <h6>&emsp;&emsp;&emsp;Admin</h6>
+          &nbsp;&emsp;&emsp;&emsp;
+        </ng-container>
+        <ng-container *ngIf="(selectedBooking?.userInfos?.length > 0 && selectedBooking.bookedById!= null)||selectedBooking?.userInfos?.length > 1 && selectedBooking.bookedById== null">
           <ion-row>
             <ion-col col-1></ion-col>
             <ion-col *ngFor="let info of selectedBooking?.userInfos">
@@ -164,10 +181,12 @@
               <i class="fa fa-calendar"></i>&nbsp;
               {{'TIME_AND_DATE' | translate}}
             </ion-col>
-            <ion-col *ngIf="selectedBooking?.startTime !='1970-01-31T23:00:00Z'&& (selectedBooking?.adminAcceptedId!=null &&selectedBooking?.adminAcceptedId!=undefined&& selectedBooking?.startTime !=null && selectedBooking.startTime !=undefined)">
-              {{convertStringDate()  }} 
+            <ion-col
+              *ngIf="selectedBooking?.startTime !='1970-01-31T23:00:00Z'&& (selectedBooking?.adminAcceptedId!=null &&selectedBooking?.adminAcceptedId!=undefined&& selectedBooking?.startTime !=null && selectedBooking.startTime !=undefined)">
+              {{convertStringDate()  }}
             </ion-col>
-            <ion-col *ngIf="selectedBooking?.startTime =='1970-01-31T23:00:00Z' || selectedBooking.startTime ==undefined|| selectedBooking.startTime ==null">
+            <ion-col
+              *ngIf="selectedBooking?.startTime =='1970-01-31T23:00:00Z' || selectedBooking.startTime ==undefined|| selectedBooking.startTime ==null">
               <select [(ngModel)]="value" (ngModelChange)="getTimes($event)">
                 <option *ngIf="startTime == null || startTime == undefined " [ngValue]="value" disabled
                   [selected]="true">{{'CHOOSE_TIMES' | translate}}</option>
@@ -176,7 +195,8 @@
                     {{value | date}} <span *ngIf="value.getUTCHours() < 10">0</span>{{value.getUTCHours()}}:<span
                       *ngIf="value.getMinutes() < 10">0</span>{{value.getMinutes()}}
                     - {{FortmattedDates[i+1] | date}}
-                    <span *ngIf="FortmattedDates[i+1].getUTCHours() < 10">0</span>{{FortmattedDates[i+1].getUTCHours()}}:<span
+                    <span
+                      *ngIf="FortmattedDates[i+1].getUTCHours() < 10">0</span>{{FortmattedDates[i+1].getUTCHours()}}:<span
                       *ngIf="FortmattedDates[i+1].getMinutes() < 10">0</span>{{FortmattedDates[i+1].getMinutes()}}
                   </option>
                 </ng-container>
@@ -205,7 +225,8 @@
           <ion-row>
             <ion-col col-8></ion-col>
             <ion-col col-4>
-              <button *ngIf="(selectedBooking?.adminAcceptedId==null || selectedBooking?.adminAcceptedId==undefined )&&!selectedBooking?.cancelled"
+              <button
+                *ngIf="(selectedBooking?.adminAcceptedId==null || selectedBooking?.adminAcceptedId==undefined )&&!selectedBooking?.cancelled"
                 ion-button (click)="goToCancelBooking(selectedBooking)" class="assignBtn">{{'REJECT' |
                 translate}}
                 &nbsp; <i class="fa fa-times"></i>

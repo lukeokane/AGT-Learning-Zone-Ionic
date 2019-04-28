@@ -37,13 +37,13 @@ export class AdminBookingManagementPage implements OnInit {
   startTime: any;
   endTime: any;
   result = [];
-
   constructor(public navCtrl: NavController, public navParams: NavParams, private bookingsService: BookingsService, private toastCtrl: ToastController, private userService: UserService, private subjectService: SubjectsService, private bookingService: BookingsService, private modalCtrl: ModalController) {
   }
 
   ngOnInit() {
     this.initBooking();
     this.initUsersInfo();
+    
   }
 
   initBooking() {
@@ -67,6 +67,7 @@ export class AdminBookingManagementPage implements OnInit {
     this.findUserBookings = [];
     this.userService.query().subscribe((response) => {
       this.findUserBookings = response;
+      console.log(this.findUserBookings);
     })
   }
 
@@ -128,7 +129,6 @@ export class AdminBookingManagementPage implements OnInit {
     let filter = [];
     this.FortmattedDates = [];
     this.selectedBooking = booking;
-    console.log(this.selectedBooking);
     // if(this.selectedBooking.startTime!=null && this.selectedBooking.startTime!=undefined){
     //   this.selectedBooking.startTime  =new Date(this.selectedBooking.startTime);
     //   this.selectedBooking.endTime  =new Date(this.selectedBooking.endTime);
@@ -152,14 +152,13 @@ export class AdminBookingManagementPage implements OnInit {
   }
 
   goToAssignTutorManually(selectedBooking: Booking) {
-    
+
     if (this.startTime != null || this.startTime != undefined) {
       selectedBooking.startTime = this.startTime.toISOString();
     }
     if (this.endTime != null || this.endTime != undefined) {
       selectedBooking.endTime = this.endTime.toISOString();
     }
-    console.log(this.selectedBooking);
     this.navCtrl.push(adminBookingAssignPage, {
       selectedBooking: selectedBooking
     });
@@ -174,7 +173,7 @@ export class AdminBookingManagementPage implements OnInit {
     modal.onDidDismiss(data => {
       console.log("back");
       console.log(data);
-      if(data!=null && data !=undefined){
+      if (data != null && data != undefined) {
         this.selectedBooking = data.booking;
 
       }
@@ -198,7 +197,7 @@ export class AdminBookingManagementPage implements OnInit {
     bookingModal.present();
   }
 
-  
+
   getScreenSize() {
     return window.innerWidth;
   }
