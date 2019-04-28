@@ -111,7 +111,6 @@ export class UserHomePage {
               this.bookingService.create(data.booking).subscribe(data => {
                 toast = this.toastCtrl.create({
                   message: 'Thank You! You will receive a confirmation e-mail when your request is approved',
-                  // duration: 5000,
                   position: 'top',
                   showCloseButton: true,
                   closeButtonText: "Close"
@@ -121,7 +120,6 @@ export class UserHomePage {
               }, (erro) => {
                 toast = this.toastCtrl.create({
                   message: 'Your request is not sent. Please try again',
-                  duration: 5000,
                   position: 'top',
                   showCloseButton: true,
                   closeButtonText: "Close"

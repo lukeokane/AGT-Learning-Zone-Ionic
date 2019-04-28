@@ -232,12 +232,19 @@
                 &nbsp; <i class="fa fa-times"></i>
               </button>
               <button ion-button
-                *ngIf="(selectedBooking?.tutorAcceptedId==undefined || selectedBooking?.tutorAcceptedId==null)&&!selectedBooking?.cancelled"
-                [disabled]="selectedBooking?.tutorAccepted == true || selectedBooking?.adminAcceptedId != null && selectedBooking?.tutorAcceptedId != null"
+                *ngIf="selectedBooking?.subjectId!=null&&(selectedBooking?.tutorAcceptedId==undefined || selectedBooking?.tutorAcceptedId==null)&&!selectedBooking?.cancelled"
+                [disabled]="startTime ==null ||  startTime ==undefined|| selectedBooking?.tutorAccepted == true || selectedBooking?.adminAcceptedId != null && selectedBooking?.tutorAcceptedId != null"
                 (click)="goToAssignTutorManually(selectedBooking)" class="btn">{{'ASSIGN' |
                 translate}} &nbsp;
                 <i class="fa fa-calendar-plus"></i>
               </button>
+              <button ion-button
+              *ngIf="selectedBooking?.subjectId==null&& (selectedBooking?.adminAcceptedId==null||selectedBooking?.adminAcceptedId==undefined) &&!selectedBooking?.cancelled"
+              [disabled]="startTime ==null ||  startTime ==undefined|| selectedBooking?.adminAcceptedId != null"
+              (click)="goToAcceptBooking(selectedBooking)" class="btn">{{'ACCEPT' |
+              translate}} &nbsp;
+              <i class="fa fa-calendar-plus"></i>
+            </button>
               <button ion-button
                 *ngIf="selectedBooking?.cancelled || selectedBooking?.tutorAccepted == true || selectedBooking?.adminAcceptedId != null && selectedBooking?.tutorAcceptedId != null"
                 (click)="goToEditBooking(selectedBooking)" class="assignBtn">{{'EDIT' |

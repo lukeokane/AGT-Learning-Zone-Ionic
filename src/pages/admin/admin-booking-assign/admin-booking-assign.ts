@@ -153,7 +153,6 @@ export class AdminBookingAssignPage implements OnInit {
     {
       this.selectedBooking.adminAcceptedId = tutorId;
     }
-    console.log("here!!: ", this.selectedBooking);
     if (this.selectedBooking != null || this.selectedBooking != undefined) {
       this.selectedBooking.tutorAccepted =true;
       this.selectedBooking.tutorAcceptedId=tutorId;
