@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Toast, ToastController } from 'ionic-angular';
 import { CalendarService } from '../../../services/Calendar.provider';
 
 /**
@@ -15,13 +15,14 @@ import { CalendarService } from '../../../services/Calendar.provider';
   templateUrl: 'admin-settings.html',
 })
 export class AdminSettingsPage {
-  names:Array<any>;
-  page:String;
+  names: Array<any>;
+  page: String;
   dateStart: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public calendarService: CalendarService) {
-    this.page='set-date';
-    this.names=[{page:'set-date',name:"Set Academic Date"}];
+  constructor(public toastCtrl: ToastController,
+    public navCtrl: NavController, public navParams: NavParams, public calendarService: CalendarService) {
+    this.page = 'set-date';
+    this.names = [{ page: 'set-date', name: "Set Academic Date" }];
   }
 
   ionViewDidLoad() {
@@ -33,15 +34,29 @@ export class AdminSettingsPage {
 
     });
   }
-  itemSelected(name:String){
-    this.page=name;
+  itemSelected(name: String) {
+    this.page = name;
 
   }
-  saveChanges(){
-    console.log("dat start "+ this.dateStart);
+  saveChanges() {
     this.calendarService.edit(this.dateStart).subscribe(data => {
-      console.log(data);
+      let toast = this.toastCtrl.create({
+        message: 'The changes is updated',
+        position: 'top',
+        showCloseButton: true,
+        closeButtonText: "Close"
+      });
+      toast.present();
     }, (erro) => {
+      if (this.dateStart == erro.error.text) {
+        let toast = this.toastCtrl.create({
+          message: 'The changes is updated',
+          position: 'top',
+          showCloseButton: true,
+          closeButtonText: "Close"
+        });
+        toast.present();
+      }
       this.dateStart = erro.error.text;
       console.error(erro.error.text);
     })
