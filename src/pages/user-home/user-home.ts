@@ -62,6 +62,8 @@ export class UserHomePage {
         this.account = account;
       }
     });
+    this.getStartDate();
+
   }
 
   isAuthenticated() {
@@ -211,7 +213,7 @@ export class UserHomePage {
     return Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
   }
 
-  getStartDae() {
+  getStartDate() {
     this.calendarService.get().subscribe(data => {
       console.log(data);
     }, (erro) => {

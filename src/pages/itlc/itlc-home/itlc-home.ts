@@ -47,6 +47,8 @@ export class ItlcHomePage {
         this.account = account;
       }
     });
+    this.getStartDate();
+
   }
 
 
@@ -149,7 +151,7 @@ export class ItlcHomePage {
     return Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
   }
 
-  getStartDae() {
+  getStartDate() {
     this.calendarService.get().subscribe(data => {
       console.log(data);
     }, (erro) => {

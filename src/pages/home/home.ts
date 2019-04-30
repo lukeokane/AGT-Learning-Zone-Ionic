@@ -50,6 +50,7 @@ export class HomePage implements OnInit {
         this.account = account;
       }
     });
+    this.getStartDate();
   }
   // initBooking() {
   //   // this.bookingsService.getAllBookingsPageable({
@@ -165,7 +166,7 @@ export class HomePage implements OnInit {
     return Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
   }
 
-  getStartDae() {
+  getStartDate() {
     this.calendarService.get().subscribe(data => {
       console.log(data);
     }, (erro) => {
