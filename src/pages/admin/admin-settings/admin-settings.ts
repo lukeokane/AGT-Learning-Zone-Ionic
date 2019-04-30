@@ -31,6 +31,7 @@ export class AdminSettingsPage {
     }, (erro) => {
       this.dateStart = erro.error.text;
       console.error(erro.error.text);
+
     });
   }
   itemSelected(name:String){

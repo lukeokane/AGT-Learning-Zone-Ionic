@@ -4,6 +4,7 @@ import { Principal } from '../../providers/auth/principal.service';
 import { FirstRunPage } from '../pages';
 import { LoginService } from '../../providers/login/login.service';
 import { BookingsService } from '../../services/Booking.provider';
+import { CalendarService } from '../../services/Calendar.provider';
 
 @IonicPage()
 @Component({
@@ -24,11 +25,13 @@ export class HomePage implements OnInit {
   time: String[] = ["09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "13:00 PM", "14:00 PM", "15:00 PM", "16:00 PM", "17:00 PM"];
 
   bookings: Array<any>;
+  dateStart: any;
 
 
   constructor(public navCtrl: NavController,
     private principal: Principal,
     private app: App,
+    public calendarService: CalendarService,
     private loginService: LoginService,
     private modalCtrl: ModalController,
     private bookingService: BookingsService) {
@@ -153,8 +156,22 @@ export class HomePage implements OnInit {
       date.getDate()));
     var dayNum = d.getUTCDay() || 7;
     d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-    var yearStart: any = new Date(Date.UTC(2018, 7, 27));
+    if (this.dateStart == null || this.dateStart == undefined) {
+      this.dateStart = "2018-09-10T00:00:00.000Z";
+    }
+    var yearStart: any = new Date(Date.UTC(Number(this.dateStart.substring(0, 4)), (Number(this.dateStart.substring(5, 7)) - 1), Number(this.dateStart.substring(8, 10))));
+
+
     return Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
+  }
+
+  getStartDae() {
+    this.calendarService.get().subscribe(data => {
+      console.log(data);
+    }, (erro) => {
+      this.dateStart = erro.error.text;
+      console.error(erro.error.text);
+    });
   }
   getStartEndDate() {
     return this.dates[0].getDate() + " " + this.months[this.dates[0].getMonth()] + " - " + this.dates[this.dates.length - 1].getDate() + " " + this.months[this.dates[this.dates.length - 1].getMonth()];
