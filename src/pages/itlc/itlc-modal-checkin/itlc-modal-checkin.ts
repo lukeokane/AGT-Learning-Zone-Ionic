@@ -16,6 +16,7 @@ export class ItlcModalCheckinPage implements OnInit {
   user: any;
   selectedBooking: Booking = new Booking();
   clicked: boolean = false;
+  checked:boolean = false;
   constructor(
     public navParams: NavParams,
     public navCtrl: NavController,
@@ -34,8 +35,8 @@ export class ItlcModalCheckinPage implements OnInit {
     let code = "";
     window.addEventListener('keypress', e => {
       //Because our scanner throws an 'Enter' key at the end of scanning
-      if (e.keyCode === 13) {
-          console.log("Scanned Result ", code);
+      if (e.keyCode === 13 && this.clicked == false) {
+        console.log("Scanned Result ", code);
         this.login = code;
         this.checkInManual();
       } else {
@@ -75,6 +76,7 @@ export class ItlcModalCheckinPage implements OnInit {
     this.clicked = true;
   }
   checkInManual() {
+    this.clicked=true;
     if(<HTMLInputElement>document.getElementById("input_id") != null || <HTMLInputElement>document.getElementById("input_id") != undefined)
     {
    this.login = (<HTMLInputElement>document.getElementById("input_id")).value;
