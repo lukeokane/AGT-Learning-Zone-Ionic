@@ -25,7 +25,6 @@ export class AdminSettingsPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AdminSettingsPage');
     this.calendarService.get().subscribe(data => {
       console.log(data);
     }, (erro) => {

@@ -1,6 +1,6 @@
 import { Booking } from '../../../class/Booking';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 import { itlcModalCheckinPage } from '../../pages';
 
 /**
@@ -19,7 +19,9 @@ export class ItlcModalPage implements OnInit {
   selectedBooking:Booking = new Booking();
   time:any;
  
-  constructor(public navCtrl: NavController, public navParams: NavParams,private modalCtrl:ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    private modalCtrl:ModalController,
+    private viewCtrl: ViewController) {
     if (navParams.get('selectedBooking') != null || navParams.get('selectedBooking') != undefined) {
       this.selectedBooking = navParams.get('selectedBooking');
     }
@@ -35,5 +37,8 @@ export class ItlcModalPage implements OnInit {
     let checkinModal = this.modalCtrl.create(itlcModalCheckinPage,{selectedBooking:this.selectedBooking});
     checkinModal.present();
   }
+  cancel(){
+    this.viewCtrl.dismiss();
 
+  }
 }

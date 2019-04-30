@@ -1,9 +1,15 @@
 page-itlc-modal {
-.btn{
-    background-color: #FE787B;
-}
+    .btn {
+        background-color: #FE787B;
+    }
 
-.scroll-content {
-    overflow: hidden;
-}
+    .scroll-content {
+        overflow: hidden;
+    }
+    .toolbar-title-md,.bar-button-default-md{
+        color: #FFFFFF;
+    }
+    .toolbar-background-md {
+        background-color: #202D31;
+    }
 }

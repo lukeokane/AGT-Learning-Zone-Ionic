@@ -102,6 +102,11 @@ export class ItlcHomePage {
       return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == s.substring(0, 19) : value.booking.startTime.toISOString() == s.substring(0, 19);
     })) {
 
+      var index = this.bookings.findIndex((value, index, array) => {
+        return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == s.substring(0, 19) : value.booking.startTime.toISOString() == s.substring(0, 19);
+      });
+        let checkinModal = this.modalCtrl.create("ItlcModalPage", { selectedBooking: this.bookings[index].booking });
+        checkinModal.present();
     }
 
     // let profileModal = this.modalCtrl.create("AdminCheckBookingDetailsModalPage", { dateSelected: dateSelected, timeSelected: timeInt });
@@ -110,10 +115,7 @@ export class ItlcHomePage {
     // });
     // profileModal.present();
 
-    if (this.selectedBooking != null || this.selectedBooking != undefined) {
-      let checkinModal = this.modalCtrl.create("ItlcModalPage", { selectedBooking: this.selectedBooking });
-      checkinModal.present();
-    }
+
   }
   timeConvertedToInt(time: String) {
     var timeSub = time.substring(0, 2);
