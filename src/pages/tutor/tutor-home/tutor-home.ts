@@ -59,7 +59,8 @@ export class TutorHomePage {
       this.bookings = data;
     }, (erro) => {
       console.error(erro);
-    })
+    });
+    this.getStartDate();
   }
 
   isAuthenticated() {
@@ -139,7 +140,7 @@ export class TutorHomePage {
     return Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
   }
 
-  getStartDae() {
+  getStartDate() {
     this.calendarService.get().subscribe(data => {
       console.log(data);
     }, (erro) => {
