@@ -131,7 +131,8 @@ export class TutorHomePage {
     var dayNum = d.getUTCDay() || 7;
     d.setUTCDate(d.getUTCDate() + 4 - dayNum);
     if (true) {
-      // if (this.dateStart == null || this.dateStart == undefined) {      this.dateStart = "2018-09-10T00:00:00.000Z";
+      // if (this.dateStart == null || this.dateStart == undefined) {      
+        this.dateStart = "2018-09-10T00:00:00.000Z";
     }
     var yearStart: any = new Date(Date.UTC(Number(this.dateStart.substring(0, 4)), (Number(this.dateStart.substring(5, 7)) - 1), Number(this.dateStart.substring(8, 10))));
 
