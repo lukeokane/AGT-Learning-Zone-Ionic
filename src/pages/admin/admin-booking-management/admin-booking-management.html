@@ -48,7 +48,7 @@
                 </ng-container>
 
               </ng-container>
-              <ng-container *ngIf="i==0 && booking?.bookedById!=null">
+              <ng-container *ngIf="booking?.bookedById!=null">
                 <ion-col class="avatar" col-2>&nbsp;&nbsp;
                   <img src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
 
@@ -114,16 +114,19 @@
             </ng-container>
           </ng-container>
         </ng-container>
+        <ion-row>
         <ng-container *ngIf="selectedBooking.bookedById!= null ">
+            &emsp;&emsp;&emsp;
+          <ion-col col-2>
           <ion-avatar class="avatar">
             <br><br><br>
             <img src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
           </ion-avatar>
           <h6>&emsp;&emsp;&emsp;Admin</h6>
           &nbsp;&emsp;&emsp;&emsp;
+        </ion-col>
         </ng-container>
         <ng-container *ngIf="(selectedBooking?.userInfos?.length > 0 && selectedBooking.bookedById!= null)||selectedBooking?.userInfos?.length > 1 && selectedBooking.bookedById== null">
-          <ion-row>
             <ion-col col-1></ion-col>
             <ion-col *ngFor="let info of selectedBooking?.userInfos">
               <ng-container *ngFor="let user of findUserBookings">
@@ -141,8 +144,8 @@
               </ng-container>
             </ion-col>
             <ion-col></ion-col>
-          </ion-row>
         </ng-container>
+      </ion-row>
         <hr>
         <div class="theme">
           <br>
