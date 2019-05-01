@@ -31,10 +31,11 @@
             [style.border-left]="booking.readByAdmin == false ? '4px solid #0A7DD9' : 'black' ">
             <ion-row>
               <ng-container *ngIf="booking?.userInfos.length >= 1 && booking?.bookedById==null">
-                <ng-container *ngFor="let user of findUserBookings; let index=i">
-                  <ng-container *ngFor="let info of booking?.userInfos">
-                    <ng-container *ngIf="user?.id == info?.userId || user?.id ==booking?.bookedById">
-                      <ion-col class="avatar" col-2>&nbsp;&nbsp;
+                <ng-container *ngFor="let user of findUserBookings; ">
+                  <ng-container *ngFor="let info of booking?.userInfos;let i = index">
+                    <ng-container *ngIf="i==0&&(user?.id == info?.userId || user?.id ==booking?.bookedById)">
+                     
+                      <ion-col class="avatar" col-2 >&nbsp;&nbsp;
                         <img
                           *ngIf="info.profileImageURL =='' || info.profileImageURL == null || info.profileImageURL == undefined"
                           src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
@@ -99,8 +100,8 @@
         <br>
         <ng-container *ngIf="selectedBooking.bookedById== null">
           <ng-container *ngFor="let user of findUserBookings">
-            <ng-container *ngFor="let info of selectedBooking?.userInfos">
-              <ng-container *ngIf="user?.id == info?.userId">
+            <ng-container *ngFor="let info of selectedBooking?.userInfos; let i=index;">
+              <ng-container *ngIf="i==0 && (user?.id == info?.userId)">
                 <ion-avatar class="avatar">
                   <br><br><br>
                   <img *ngIf="info.profileImageURL == null || info.profileImageURL == undefined"
