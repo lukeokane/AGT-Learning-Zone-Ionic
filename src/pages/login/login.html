@@ -8,14 +8,14 @@
     <ng-container *ngIf="getScreenSize() >= 1280">
       <ion-row class="height">
         <ion-col col-8 class="tint">
-          <img src="../../assets/imgs/main_desktop.jpg" class="img">
-          <div class="centered">{{'WELCOME_TO_ITLC' | translate}}</div>
-          <div class="centered1">Join our community that have more than 10000 members and learn new things
-            everyday!</div>
+          <img src="assets/imgs/main_desktop.jpg" class="img">
+          <div class="centered"><span style="font-size: 40px">{{'WELCOME_TO_ITLC' | translate}}</span><br><br>
+              <span style="font-size: 20px">Join our community and become a member to learn new things everyday!</span>
+          </div>
         </ion-col>
         <ion-col col-4 class="align">
           <br>
-          <img src="../../assets/imgs/ITLC_logo.PNG" style="height:25%;">
+          <img src="assets/imgs/ITLC_logo.PNG" style="height:25%;">
           <br>
           <!-- <h2 class="title">Be One Us!</h2> -->
           <br><br><br><br>
@@ -23,7 +23,7 @@
             <ion-row>
               <ion-col>
                 <i class="inside fa fa-user"></i>
-                <input id="username" class="input" padding type="string" [(ngModel)]="account.username" name="username" placeholder="Username">
+                <input id="username" class="input" padding type="string" [(ngModel)]="account.username" name="username" placeholder="ID or Email">
               </ion-col>
             </ion-row>
             <br>
@@ -41,6 +41,9 @@
                 </button>
               </ion-col>
             </ion-row>
+            <ion-row>
+              <ion-col class="align"(click)="goToSignUp()">Don't have an Account? Create one now!</ion-col>
+            </ion-row>
             <!-- <ion-row>
               <ion-col>
                 <ion-label>{{'REMEMBER_ME' | translate}}</ion-label>
@@ -52,15 +55,15 @@
       </ion-row>
     </ng-container>
     <ng-container *ngIf="getScreenSize() < 1280">
-      <ion-row class="topImages">
+      <ion-row>
         <ion-col class="tintImgMob">
           <ng-container *ngIf="getScreenSize() < 500">
-          <img src="../../assets/imgs/main_mobile.jpg" class="mobImg">
-          <img src="../../assets/imgs/ITLC_logo.PNG" class="mobImg1">
+          <img src="assets/imgs/main_mobile.jpg" class="mobImg">
+          <img src="assets/imgs/ITLC_logo.PNG" class="mobImg1">
         </ng-container>
         <ng-container *ngIf="getScreenSize() > 500">
-          <img src="../../assets/imgs/main_mobile.jpg" class="mobImg">
-          <img src="../../assets/imgs/ITLC_logo.PNG" class="ipadImg">
+          <img src="assets/imgs/main_mobile.jpg" class="mobImg">
+          <img src="assets/imgs/ITLC_logo.PNG" class="ipadImg">
         </ng-container>
         </ion-col>
       </ion-row>
@@ -88,10 +91,13 @@
             </button>
           </ion-col>
         </ion-row>
-        <ion-row>
+        <!-- <ion-row>
           <ion-col class="align">
             <h6 style="font-size:12px !important" id ="forgot_password_btn">{{'FORGOT_PASSWORD' | translate}}?</h6>
           </ion-col>
+        </ion-row> -->
+        <ion-row>
+          <ion-col class="align"(click)="goToSignUp()">Don't have an Account? Create one now!</ion-col>
         </ion-row>
       </form>
     </ng-container>

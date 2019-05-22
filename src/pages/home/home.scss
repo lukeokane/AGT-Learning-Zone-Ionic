@@ -103,7 +103,7 @@ page-home {
         vertical-align: top;
         padding: 0px;
         cursor: pointer;
-		background-color: rgba(192,192,192, 0.1);
+        background-color: #c4c4c4;
         opacity: 0.7;
     }
 
@@ -115,7 +115,7 @@ page-home {
 
     .showBooking {
         border-radius: 0.3em;
-        background-color: #FFB478;
+        background-color: #202D31;
         color: white;
         text-align: center;
         font-family: "SourceSansPro";
@@ -227,7 +227,7 @@ page-home {
 
     .mobile-week {
         width: 87%;
-        padding-left: 10%;
+        text-align: center;
         display: inline-block;
     }
 
@@ -241,5 +241,9 @@ page-home {
     ion-scroll {
         white-space: nowrap;
         height: 1000px;
+    }
+
+    .content.content-ios {
+        position: relative;
     }
 }

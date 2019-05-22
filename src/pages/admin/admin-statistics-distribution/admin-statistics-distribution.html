@@ -16,7 +16,7 @@
 <ion-content padding>
   <div class="topic">
     <p>
-      Tutorial Distribution
+      Tutorial Distribution By Module
     </p>
   </div>
   <form (submit)="generateChart()">
@@ -26,9 +26,9 @@
           <div class="headers">
             <h4>Course</h4>
             <div>
-              <select class="form-control" class="input" [(ngModel)]="selectedCourse" [ngModelOptions]="{standalone: true}">
+              <select class="form-control" name="course" id="course" class="input" [(ngModel)]="selectedCourse" [ngModelOptions]="{standalone: true}">
                 <option>Please select a course</option>
-                <option>all</option>
+                <option value="all" selected>All</option>
                 <option *ngFor="let course of courses; trackBy: id;let i = index;" class="form-control" class="text-center">{{course?.title}}
                   {{course?.code}}</option>
               </select>
@@ -40,7 +40,7 @@
             <h4>Course year</h4>
             <select class="form-control" name="year" id="year" class="input" [(ngModel)]="selectedYear"
               [ngModelOptions]="{standalone: true}">
-              <option value="all">All</option>
+              <option selected value="all" selected>All</option>
               <option>1</option>
               <option>2</option>
               <option>3</option>
@@ -65,8 +65,9 @@
               <h4>End date</h4>
               <div class="input-group-append">
               </div>
-              <input type="date" class="form-control" name="end" [(ngModel)]="toDate" [ngModelOptions]="{standalone: true}"
-                required />
+             <input type="date" selected="date" class="form-control" name="end"  [(ngModel)]="toDate" [ngModelOptions]="{standalone: true}"
+                required /> 
+    
             </div>
           </div>
         </ion-col>
@@ -78,7 +79,9 @@
               <!-- <fa-icon [icon]="'eye'"></fa-icon> -->
               <span class="d-none d-md-inline">View</span>
             </button>
-            <button  *ngIf="labels.length > 0" (click)="exportAsXLSX()">   <span class="btn btn-info btn-sm">Download as XLS</span></button>
+            <button type="button" *ngIf="labels.length > 0" (click)="exportAsXLSX()">   <span class="btn btn-info btn-sm">Booking Data XLS</span></button>
+            <button type="button" *ngIf="labels.length > 0" (click)="exportChartDataAsXLSX()"> <span
+              class="btn btn-info btn-sm">Chart Data XLS</span></button>
             <button  *ngIf="chartGenerated == true" (click)="refreshPage()">   <span class="btn btn-info btn-sm">New Chart</span></button>
           </div>
         </ion-col>
@@ -90,14 +93,17 @@
       (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
   </div> -->
   <br>
-  <br>
-  <br>
-  <br>
   <div>
+      <ng-container *ngIf="data.length == 0">
+          <img src="assets/images/blank-graph2.png">
+        </ng-container>
       <ng-container *ngIf="data.length > 0">
+          <br>
+          <br> 
+          <br> 
           <div style="display: block">
-              <canvas width="1400" height="500" baseChart [data]="data" [labels]="labels" [chartType]="doughnutChartType" [options]="barChartOptions"
-                (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+              <canvas width="1400" height="400" baseChart [data]="data" [labels]="labels" [chartType]="'pie'" [options]="barChartOptions"
+                (chartHover)="chartHovered($event)" ></canvas>
             </div>
       </ng-container>
   </div>

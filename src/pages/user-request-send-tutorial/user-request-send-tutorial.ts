@@ -14,14 +14,18 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
   templateUrl: 'user-request-send-tutorial.html',
 })
 export class UserRequestSendTutorialPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams,private viewCtrl:ViewController) {
+  booking;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
+    if (this.navParams.get("booking") != null && this.navParams.get("booking") != undefined) {
+    this.booking = this.navParams.get("booking");
+      console.log(this.booking);
+    }
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad UserRequestSendTutorialPage');
   }
-  onClickBtn(send:boolean){
+  onClickBtn(send: boolean) {
     this.viewCtrl.dismiss(send);
   }
 

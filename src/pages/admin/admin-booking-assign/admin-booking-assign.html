@@ -12,6 +12,10 @@
           </div>
         </button>
       </ion-col>
+      <ion-col>
+        <button (click)="goBack()" ion-button><i class="fa fa-arrow-left"></i> &nbsp; {{'BACK_BUTTON_TEXT' | translate}}
+        </button>
+      </ion-col>
     </ion-row>
   </ion-col>
   <ion-col>
@@ -49,13 +53,14 @@
           </ng-container>
         </ng-container>
       </ion-col>
-      <ion-col *ngIf="filterTutors != null || filterTutors != undefined && filterTutors.length % 2 == 1" col-5></ion-col>
+      <ion-col *ngIf="filterTutors != null || filterTutors != undefined && filterTutors.length % 2 == 1" col-5>
+      </ion-col>
     </ion-row>
   </ion-col>
 </ion-content>
-<ion-footer  no-border>
-<div class="row justify-content-center">
-  <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
-    [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
-</div>
+<ion-footer no-border>
+  <div class="row justify-content-center">
+    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
+      [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+  </div>
 </ion-footer>

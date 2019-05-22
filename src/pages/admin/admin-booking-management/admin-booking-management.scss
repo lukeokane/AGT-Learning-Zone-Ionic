@@ -40,7 +40,7 @@ page-admin-booking-management {
     .scroll {
         overflow-y: auto;
         overflow-x: hidden;
-        height: 490px;
+        height: 410px;
     }
 
     .timePos {
@@ -85,6 +85,7 @@ page-admin-booking-management {
     .tags {
         color: #2B7A78;
         // border-color: #2B7A78;
+        border: 1px solid #2B7A78;
         background-color: white;
     }
 
@@ -130,4 +131,18 @@ page-admin-booking-management {
         background-color: #FE787B;
         float: left;
     }
+
+       
+    @media screen and (max-height:1200px) and (max-height:1280px)and (max-height:1400px)and (max-height:1920px){
+    .scroll 
+    {
+        height: 700px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+}
+
+.scroll-content {
+    overflow: hidden;
+  }
 }

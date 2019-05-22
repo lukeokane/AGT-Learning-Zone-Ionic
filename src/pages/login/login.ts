@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, ToastController, App } from 'ionic-angular';
 import { LoginService } from '../../providers/login/login.service';
+import { SignupPage } from '../signup/signup';
 
 @IonicPage()
 @Component({
@@ -75,6 +76,10 @@ export class LoginPage {
 
   getScreenSize() {
     return window.innerWidth;
+  }
+
+  goToSignUp(){
+    this.navCtrl.push("SignupPage");
   }
 
 }

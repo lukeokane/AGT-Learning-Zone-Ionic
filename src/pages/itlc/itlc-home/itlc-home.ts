@@ -1,4 +1,3 @@
-import { ItlcModalPage } from './../../itlc-modal/itlc-modal';
 import { Booking } from './../../../class/Booking';
 import { FirstRunPage } from './../../pages';
 import { Component } from '@angular/core';
@@ -6,6 +5,7 @@ import { IonicPage, NavController, NavParams, ModalController, App } from 'ionic
 import { LoginService } from '../../../providers/login/login.service';
 import { BookingsService } from '../../../services/Booking.provider';
 import { Principal } from '../../../providers/auth/principal.service';
+import { CalendarService } from '../../../services/Calendar.provider';
 
 
 @IonicPage()
@@ -15,7 +15,8 @@ import { Principal } from '../../../providers/auth/principal.service';
 })
 export class ItlcHomePage {
   account: Account;
-
+  weekMonday: Date;
+  weekFriday: Date;
   //calendar
   dates: Array<Date>;
   screenWidth: any;
@@ -24,9 +25,10 @@ export class ItlcHomePage {
   today: Date;
   currentDate: Date;
   time: String[] = ["09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "13:00 PM", "14:00 PM", "15:00 PM", "16:00 PM", "17:00 PM"];
-  selectedBooking:Booking = new Booking();
+  selectedBooking: Booking = new Booking();
   bookings: Array<any>;
-  constructor(public navCtrl: NavController, public navParams: NavParams,private modalCtrl:ModalController, private principal: Principal,
+  dateStart: any;
+  constructor(public calendarService: CalendarService, public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private principal: Principal,
     private app: App,
     private loginService: LoginService,
     private bookingService: BookingsService) {
@@ -35,7 +37,6 @@ export class ItlcHomePage {
     d.setUTCHours(0);
     this.generateDate(d);
     this.screenWidth = window.screen.width;
-    console.log("time "+ this.time);
   }
 
   ngOnInit() {
@@ -46,11 +47,8 @@ export class ItlcHomePage {
         this.account = account;
       }
     });
-    this.bookingService.findConfirmedBooking().subscribe(data => {
-      this.bookings = data;
-    }, (erro) => {
-      console.error(erro);
-    })
+    this.getStartDate();
+
   }
 
 
@@ -63,16 +61,30 @@ export class ItlcHomePage {
     this.app.getRootNavs()[0].setRoot(FirstRunPage);
   }
 
+  getAllBooking() {
+    this.bookingService.findConfirmedBooking(this.weekMonday.getTime(), this.weekFriday.getTime()).subscribe(data => {
+      this.bookings = data;
+      if (this.bookings.length == 0) {
+        this.bookings = [];
+      }
+      console.log(this.bookings);
+    }, (erro) => {
+      console.error(erro);
+    })
+
+  }
   generateDate(curDate: Date) {
     this.dates = new Array();
     this.currentDate = curDate;
     var monday = this.getMonday(curDate);
+    this.weekMonday = monday;
+    this.weekFriday = new Date(this.weekMonday.getTime() + (24 * 60 * 60 * 1000 * 5));
+    this.getAllBooking();
     for (var i = 0; i < 7; i++) {
       var temp = new Date(monday.getTime());
       this.dates.push(temp);
       monday.setTime(monday.getTime() + (24 * 60 * 60 * 1000));
     }
-    console.log(this.dates);
 
   }
   convertDateToString(date: Date) {
@@ -92,6 +104,11 @@ export class ItlcHomePage {
       return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == s.substring(0, 19) : value.booking.startTime.toISOString() == s.substring(0, 19);
     })) {
 
+      var index = this.bookings.findIndex((value, index, array) => {
+        return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == s.substring(0, 19) : value.booking.startTime.toISOString() == s.substring(0, 19);
+      });
+        let checkinModal = this.modalCtrl.create("ItlcModalPage", { selectedBooking: this.bookings[index].booking });
+        checkinModal.present();
     }
 
     // let profileModal = this.modalCtrl.create("AdminCheckBookingDetailsModalPage", { dateSelected: dateSelected, timeSelected: timeInt });
@@ -100,11 +117,7 @@ export class ItlcHomePage {
     // });
     // profileModal.present();
 
-     if(this.selectedBooking != null || this.selectedBooking != undefined)
-    {
-    let checkinModal = this.modalCtrl.create("ItlcModalPage",{selectedBooking:this.selectedBooking});
-    checkinModal.present();
-    }
+
   }
   timeConvertedToInt(time: String) {
     var timeSub = time.substring(0, 2);
@@ -129,9 +142,23 @@ export class ItlcHomePage {
     var d: any = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
     var dayNum = d.getUTCDay() || 7;
     d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-    // **need give admin an option to set start academic year
-    var yearStart: any = new Date(Date.UTC(2018, 7, 27));
+    if (true) {
+    // if (this.dateStart == null || this.dateStart == undefined) {
+      this.dateStart = "2018-09-10T00:00:00.000Z";
+    }
+    var yearStart: any = new Date(Date.UTC(Number(this.dateStart.substring(0, 4)), (Number(this.dateStart.substring(5, 7)) - 1), Number(this.dateStart.substring(8, 10))));
+
+
     return Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
+  }
+
+  getStartDate() {
+    this.calendarService.get().subscribe(data => {
+      console.log(data);
+    }, (erro) => {
+      this.dateStart = erro.error.text;
+      console.error(erro.error.text);
+    });
   }
   getStartEndDate() {
     return this.dates[0].getDate() + " " + this.months[this.dates[0].getMonth()] + " - " + this.dates[this.dates.length - 1].getDate() + " " + this.months[this.dates[this.dates.length - 1].getMonth()];
@@ -191,7 +218,7 @@ export class ItlcHomePage {
   checkPassTime(dateSelected: Date, timeSelected: String) {
     let s1 = this.getStartAndEndDate(dateSelected, timeSelected).s;
     let s2 = this.getStartAndEndDate(dateSelected, timeSelected).s2;
-    if (new Date() >= new Date(s2)) {
+    if (new Date() >= new Date(s2.substring(0, 19))) {
       return 'tg-slot-passed';
     } else {
       return 'tg-slot'

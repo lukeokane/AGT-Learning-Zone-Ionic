@@ -4,6 +4,7 @@ import { Principal } from '../../providers/auth/principal.service';
 import { FirstRunPage } from '../pages';
 import { LoginService } from '../../providers/login/login.service';
 import { BookingsService } from '../../services/Booking.provider';
+import { CalendarService } from '../../services/Calendar.provider';
 
 @IonicPage()
 @Component({
@@ -12,7 +13,8 @@ import { BookingsService } from '../../services/Booking.provider';
 })
 export class HomePage implements OnInit {
   account: Account;
-
+  weekMonday: Date;
+  weekFriday: Date;
   //calendar
   dates: Array<Date>;
   screenWidth: any;
@@ -23,11 +25,13 @@ export class HomePage implements OnInit {
   time: String[] = ["09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "13:00 PM", "14:00 PM", "15:00 PM", "16:00 PM", "17:00 PM"];
 
   bookings: Array<any>;
+  dateStart: any;
 
 
   constructor(public navCtrl: NavController,
     private principal: Principal,
     private app: App,
+    public calendarService: CalendarService,
     private loginService: LoginService,
     private modalCtrl: ModalController,
     private bookingService: BookingsService) {
@@ -46,17 +50,33 @@ export class HomePage implements OnInit {
         this.account = account;
       }
     });
-    this.bookingService.findConfirmedBooking().subscribe(data => {
-      this.bookings = data;
-    }, (erro) => {
-      console.error(erro);
-    })
+    this.getStartDate();
   }
-
+  // initBooking() {
+  //   // this.bookingsService.getAllBookingsPageable({
+  //   //   size: 100,
+  //   // }).subscribe(data => {
+  //   //   this.bookings = data;
+  //   // }, (erro) => {
+  //   //   console.error(erro);
+  //   // });
+  // }
   isAuthenticated() {
     return this.principal.isAuthenticated();
   }
 
+  getAllBooking() {
+    this.bookingService.findConfirmedBooking(this.weekMonday.getTime(), this.weekFriday.getTime()).subscribe(data => {
+      this.bookings = data;
+      if (this.bookings.length == 0) {
+        this.bookings = [];
+      }
+      console.log(this.bookings);
+    }, (erro) => {
+      console.error(erro);
+    })
+
+  }
   logout() {
     this.loginService.logout();
     this.app.getRootNavs()[0].setRoot(FirstRunPage);
@@ -66,12 +86,14 @@ export class HomePage implements OnInit {
     this.dates = new Array();
     this.currentDate = curDate;
     var monday = this.getMonday(curDate);
+    this.weekMonday = monday;
+    this.weekFriday = new Date(this.weekMonday.getTime() + (24 * 60 * 60 * 1000 * 5));
+    this.getAllBooking();
     for (var i = 0; i < 7; i++) {
       var temp = new Date(monday.getTime());
       this.dates.push(temp);
       monday.setTime(monday.getTime() + (24 * 60 * 60 * 1000));
     }
-
   }
   convertDateToString(date: Date) {
     return "" + this.days[date.getDay()] + " " + date.getDate() + "/" + (date.getMonth() + 1);
@@ -89,19 +111,25 @@ export class HomePage implements OnInit {
     if (this.bookings.some((value, index, array) => {
       return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == s.substring(0, 19) : value.booking.startTime.toISOString() == s.substring(0, 19);
     })) {
-      let profileModal = this.modalCtrl.create("AdminCheckBookingDetailsModalPage", { dateSelected: dateSelected, timeSelected: timeInt });
+
+      let checkedBooking = this.bookings.find((value, index, array) => {
+        return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == s.substring(0, 19) : value.booking.startTime.toISOString() == s.substring(0, 19);
+      });
+      console.log("hello," ,checkedBooking);
+      let profileModal = this.modalCtrl.create("AdminCheckBookingDetailsModalPage", { dateSelected: dateSelected, timeSelected: timeInt, booking: checkedBooking });
       profileModal.onDidDismiss(data => {
-  
+
       });
       profileModal.present();
-    }else{
-      //Admin Add Booking
-      let addBookingModal = this.modalCtrl.create("AdminAddBookingModalPage", { dateSelected: dateSelected, timeSelected: timeInt });
-      addBookingModal.onDidDismiss(data => {
-  
-      });
-      addBookingModal.present();
     }
+    // else {
+    //   //Admin Add Booking
+    //   let addBookingModal = this.modalCtrl.create("AdminAddBookingModalPage", { dateSelected: dateSelected, timeSelected: timeInt });
+    //   addBookingModal.onDidDismiss(data => {
+
+    //   });
+    //   addBookingModal.present();
+    // }
 
   }
   timeConvertedToInt(time: String) {
@@ -124,18 +152,35 @@ export class HomePage implements OnInit {
     return date1.getUTCFullYear() == date1.getUTCFullYear() && date1.getUTCDate() == date2.getUTCDate() && date1.getMonth() == date2.getMonth();
   }
   getWeekNumber(date: Date) {
-    var d: any = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+    var d: any = new Date(Date.UTC(date.getFullYear(),
+      date.getMonth(),
+      date.getDate()));
     var dayNum = d.getUTCDay() || 7;
     d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-    // **need give admin an option to set start academic year
-    var yearStart: any = new Date(Date.UTC(2018, 7, 27));
+    if (true) {
+      // if (this.dateStart == null || this.dateStart == undefined) {
+      this.dateStart = "2018-09-10T00:00:00.000Z";
+    }
+    var yearStart: any = new Date(Date.UTC(Number(this.dateStart.substring(0, 4)), (Number(this.dateStart.substring(5, 7)) - 1), Number(this.dateStart.substring(8, 10))));
+
+
     return Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
+  }
+
+  getStartDate() {
+    this.calendarService.get().subscribe(data => {
+      console.log(data);
+    }, (erro) => {
+      this.dateStart = erro.error.text;
+      console.error(erro.error.text);
+    });
   }
   getStartEndDate() {
     return this.dates[0].getDate() + " " + this.months[this.dates[0].getMonth()] + " - " + this.dates[this.dates.length - 1].getDate() + " " + this.months[this.dates[this.dates.length - 1].getMonth()];
   }
   getMonday(d: Date) {
     d = new Date(d);
+    d.setUTCHours(0, 0, 0, 0);
     var day = d.getDay(),
       diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
     return new Date(d.setDate(diff));
@@ -150,6 +195,7 @@ export class HomePage implements OnInit {
     var lastSun = new Date(this.dates[0].getTime());
     lastSun.setTime(lastSun.getTime() - (24 * 60 * 60 * 1000));
     this.generateDate(lastSun);
+
   }
   checkBooking(time: String, date: Date) {
     if (this.bookings != undefined && this.bookings != null) {
@@ -189,9 +235,15 @@ export class HomePage implements OnInit {
   checkPassTime(dateSelected: Date, timeSelected: String) {
     let s1 = this.getStartAndEndDate(dateSelected, timeSelected).s;
     let s2 = this.getStartAndEndDate(dateSelected, timeSelected).s2;
-    if (new Date() >= new Date(s2)) {
+
+    if (new Date() >= new Date(s2.substring(0, 19))) {
       return 'tg-slot-passed';
     } else {
+      // console.log(s2.substring(0,4));
+      // console.log(s2.substring(5,7));
+      // console.log(s2.substring(8,10));
+      // console.log(s2.substring(11,13));
+
       return 'tg-slot'
     }
   }

@@ -39,8 +39,9 @@ export class BookingsService {
     updateBookingAcceptedTutorAssigned(booking: Booking,bookingId,adminId,tutorId): Observable<any> {
         return this.http.put(`${this.resourceUrl}/updateBookingAcceptedTutorAssigned`,{},{params:{bookingId:bookingId,adminId:adminId,tutorId:tutorId}});
     }
-    findConfirmedBooking(): Observable<any> {
-        return this.http.get(Api.API_URL + "/bookingsConfirmed");
+    findConfirmedBooking(startTimeMs?,endTimeMs?): Observable<any> {
+        // this.http.ge
+        return this.http.get(Api.API_URL + "/bookingsConfirmed",{params:{startTimeMs:startTimeMs,endTimeMs:endTimeMs,userInfo:'true'}});
     }
     delete(id: number): Observable<any> {
         return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response', responseType: 'text' });
@@ -103,9 +104,9 @@ export class BookingsService {
         return this.http.get(`${this.resourceUrl}/${id}`);
     }
 
-    getConfirmedBookings(): Observable<Booking> {
-        return this.http.get(`${this.resource}/bookingsConfirmed`);
-    }
+    // getConfirmedBookings(): Observable<Booking> {
+    //     return this.http.get(`${this.resource}/bookingsConfirmed`,);
+    // }
 
     getAllBookingsDetails(): Observable<Booking> {
         return this.http.get(`${this.resource}/bookingsDetails`);

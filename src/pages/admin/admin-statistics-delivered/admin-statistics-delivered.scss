@@ -1,19 +1,29 @@
 page-admin-statistics-delivered {
 
     #year{
-        width:150px;   
+        width:200px;   
        }
     
     
     #year option{
-        width:150px;   
+        width:200px;   
       }
+
+      #course{
+        width:200px;   
+       }
     
+    
+      #course option{
+        width:200px;   
+      }
+
       .topic{
           text-align: center;
-          font-size: 25px;
+          font-size: 23px;
           color: rgb(53,61,71);
           font-weight: bold;
+          //background-color:rgb(59, 61, 61);
           
       }
 
@@ -21,5 +31,4 @@ page-admin-statistics-delivered {
         font-size: 17px; 
         color: rgb(53,61,71);
       }
-
 }

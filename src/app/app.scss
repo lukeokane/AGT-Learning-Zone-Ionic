@@ -84,7 +84,7 @@ only screen and (                min-resolution: 2dppx) {
     border-bottom:0;
   }
   
-  #sideMenuTitle .toolbar-background-md{
+  #sideMenuTitle .toolbar-background-md, .toolbar-ios, .toolbar-background-ios{
     background-color: #202D31;
   }
 
@@ -92,13 +92,47 @@ only screen and (                min-resolution: 2dppx) {
   ion-content.content.content-md{
     position: relative;
 }
+.alertCustomCssAssignTutors {
+  button
+  {
+    color: #3AAFA9 !important;
+    bottom: 50%;
+    right: 30%;
+    position: absolute;
+    border: 1.5px solid #3AAFA9;
+  }
+  
+  alert-button-group
+  {
+    text-align: center !important;
+  }
+
+  .alert-wrapper{
+      background: white;
+      text-align:center;
+  }
+ 
+  .alert-message {
+      color: #717171;
+  }
+ 
+  .alert-title{
+      color: #717171;
+      text-align:center;
+  }
+ 
+  .alert-sub-title{
+    color: #717171;
+    text-align:center;
+    }
+}
 
 .alertCustomCss {
   button
   {
     color: #3AAFA9 !important;
     bottom: 50%;
-    right: 30%;
+    right: 10%;
     position: absolute;
     border: 1.5px solid #3AAFA9;
   }
@@ -139,4 +173,6 @@ only screen and (                min-resolution: 2dppx) {
 .toastcolor .toast-message {
   background-color:#FFB478;
   text-align: center;
-}    
+}
+
+button:focus {outline:0;}

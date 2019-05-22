@@ -3,6 +3,10 @@ import { IonicPageModule } from 'ionic-angular';
 import { AdminStatisticsDistributionPage } from './admin-statistics-distribution';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { ExcelService } from '../../../services/excel.service';
+import { DatePipe } from '@angular/common';
+import 'chart.piecelabel.js';
+import 'chartjs-plugin-datalabels'
+
 
 @NgModule({
   declarations: [
@@ -14,6 +18,7 @@ import { ExcelService } from '../../../services/excel.service';
   ],
   providers: [
     ExcelService,
+    DatePipe,
   ]
 })
 export class AdminStatisticsDistributionPageModule {}

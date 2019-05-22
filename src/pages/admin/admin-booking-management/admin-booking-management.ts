@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
 import { User } from '../../../class/User';
 import { Subject } from '../../../class/Subject';
+import { BookingDetails } from '../../../class/BookingDetails';
+import { Principal } from '../../../providers/auth/principal.service';
 
 @IonicPage()
 @Component({
@@ -37,13 +39,15 @@ export class AdminBookingManagementPage implements OnInit {
   startTime: any;
   endTime: any;
   result = [];
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, private bookingsService: BookingsService, private toastCtrl: ToastController, private userService: UserService, private subjectService: SubjectsService, private bookingService: BookingsService, private modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController,
+    private principal: Principal,
+    public navParams: NavParams, private bookingsService: BookingsService, private toastCtrl: ToastController, private userService: UserService, private subjectService: SubjectsService, private bookingService: BookingsService, private modalCtrl: ModalController) {
   }
 
   ngOnInit() {
     this.initBooking();
     this.initUsersInfo();
+
   }
 
   initBooking() {
@@ -67,6 +71,7 @@ export class AdminBookingManagementPage implements OnInit {
     this.findUserBookings = [];
     this.userService.query().subscribe((response) => {
       this.findUserBookings = response;
+      console.log(this.findUserBookings);
     })
   }
 
@@ -124,6 +129,7 @@ export class AdminBookingManagementPage implements OnInit {
     return this.selectedBooking.startTime.substring(0, 10) + " " + this.selectedBooking.startTime.substring(11, 16) + " - " + this.selectedBooking.endTime.substring(11, 16);
   }
   goToBooking(booking: Booking) {
+    this.startTime=null;
     let timeArray = [];
     let filter = [];
     this.FortmattedDates = [];
@@ -152,14 +158,13 @@ export class AdminBookingManagementPage implements OnInit {
   }
 
   goToAssignTutorManually(selectedBooking: Booking) {
-    
+
     if (this.startTime != null || this.startTime != undefined) {
       selectedBooking.startTime = this.startTime.toISOString();
     }
     if (this.endTime != null || this.endTime != undefined) {
       selectedBooking.endTime = this.endTime.toISOString();
     }
-    console.log(this.selectedBooking);
     this.navCtrl.push(adminBookingAssignPage, {
       selectedBooking: selectedBooking
     });
@@ -174,7 +179,7 @@ export class AdminBookingManagementPage implements OnInit {
     modal.onDidDismiss(data => {
       console.log("back");
       console.log(data);
-      if(data!=null && data !=undefined){
+      if (data != null && data != undefined) {
         this.selectedBooking = data.booking;
 
       }
@@ -196,6 +201,27 @@ export class AdminBookingManagementPage implements OnInit {
 
     });
     bookingModal.present();
+  }
 
+
+  getScreenSize() {
+    return window.innerWidth;
+  }
+  goToAcceptBooking() {
+
+    this.selectedBooking.adminAcceptedId = Number(this.principal.getUserId());
+    this.selectedBooking.startTime = this.startTime.toISOString();
+    this.selectedBooking.endTime = this.endTime.toISOString();
+
+    if (this.selectedBooking != null || this.selectedBooking != undefined) {
+      let bookingDetails = new BookingDetails();
+      bookingDetails.message = null
+      bookingDetails.booking = this.selectedBooking;
+      this.bookingService.updateBooking(bookingDetails).subscribe(data => {
+        console.log(data);
+      }, (erro) => {
+        console.error(erro);
+      });
+    }
   }
 }

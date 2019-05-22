@@ -20,14 +20,19 @@ export class MyApp {
     // { title: 'Welcome', component: 'WelcomePage' },
     // { title: 'Tabs', component: 'TabsPage' },
     { title: 'Home', component: 'HomePage', role: "ROLE_ADMIN" },
-    { title: 'Add Tutors', component: 'AdminApproveTutorPage', role: "ROLE_ADMIN" },
+    { title: 'Tutor Management', component: 'AdminApproveTutorPage', role: "ROLE_ADMIN" },
     { title: 'Manage Bookings', component: 'AdminBookingManagementPage', role: "ROLE_ADMIN" },
     // { title: 'Signup', component: 'SignupPage' },
     // { title: 'Menu', component: 'MenuPage' },
     { title: 'Statistics', component: 'AdminStatisticsPage', role: "ROLE_ADMIN" },
     { title: 'Settings', component: 'AdminSettingsPage', role: "ROLE_ADMIN" },
     { title: 'Home', component: 'UserHomePage', role: "ROLE_USER" },
-    { title: 'My Booking', component: 'UserMyBookingPage', role: "ROLE_USER" }
+    // { title: 'My Booking', component: 'UserMyBookingPage', role: "ROLE_USER" },
+    { title: 'Privacy Policy', component: 'GdprNoticePage', role: "ROLE_USER" },
+    { title: 'Privacy Policy', component: 'GdprNoticePage', role: "ROLE_ADMIN" },
+    { title: 'Privacy Policy', component: 'GdprNoticePage', role: "ROLE_ITLC" },
+
+
   ];
 
   constructor(private translate: TranslateService, platform: Platform, settings: Settings, private config: Config,

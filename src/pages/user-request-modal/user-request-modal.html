@@ -12,18 +12,19 @@
     <ion-row>
       <ion-col col-11 class="form-border">
         <ion-select placeholder="Select Booking Type" [(ngModel)]="selectedType" (ionChange)="typeChange()">
-          <ion-option value="EVENT">Event/Other</ion-option>
-          <ion-option value="SUBJECT">Subject in course</ion-option>
+          <ion-option value="EVENT">Event/Other (Book the Room)</ion-option>
+          <ion-option value="SUBJECT">Subject in course (Request tutorial)</ion-option>
 
         </ion-select>
       </ion-col>
     </ion-row>
-
-    <ion-row *ngIf="!selectTutotrial">
-      <ion-col col-11 class="form-border">
-        <ion-input [(ngModel)]="booking.title" placeholder="Enter Title"></ion-input>
-      </ion-col>
-    </ion-row>
+    <ng-container *ngIf="selectTutotrial!=null">
+      <ion-row *ngIf="!selectTutotrial">
+        <ion-col col-11 class="form-border">
+          <ion-input [(ngModel)]="booking.title" placeholder="  Enter Event Title"></ion-input>
+        </ion-col>
+      </ion-row>
+    </ng-container>
     <ion-row *ngIf="selectTutotrial">
       <ion-col col-11 class="form-border">
         <ion-select placeholder="Select Year" [(ngModel)]="selectedYear" (ionChange)="onYearChange()">
@@ -36,13 +37,13 @@
       <ion-col col-11 class="form-border">
         <ion-select placeholder="Select Subjects" [(ngModel)]="booking.subjectId" (ionChange)="onSubjectChange()">
           <ion-option *ngFor="let s of subjects " [value]="s.id">{{s.title}}</ion-option>
-          <ion-option value="-1">{{ 'OTHERS' |translate}}</ion-option>
+          <ion-option value="126">{{ 'OTHERS' |translate}}</ion-option>
 
         </ion-select>
       </ion-col>
     </ion-row>
-
-    <ion-row *ngIf="selectTutotrial && booking.subjectId != -1 ">
+<!-- 126==others -->
+    <ion-row *ngIf="selectTutotrial && booking.subjectId != 126 ">
       <ion-col col-11 class="form-border">
         <ion-select placeholder="Select Topics" multiple [(ngModel)]="booking.topics">
           <ion-option *ngFor="let t of topics " [value]="t">{{t.title}}</ion-option>
@@ -51,11 +52,32 @@
       </ion-col>
     </ion-row>
     <ion-row>
+
       <ion-col col-12>
+	  <hr>
+	  <ion-label class="text-colour-darkgrey">
+          <ion-icon name="calendar"></ion-icon>
+          <span class="padding-left-size">Date selected: <b>{{s1.substring(0,10)}} {{s1.substring(11,13)}}:00 -
+              {{s2.substring(11,13)}}:00</b></span>
+        </ion-label>
+		<hr>
         <ion-label class="text-colour-darkgrey">
           <ion-icon name="calendar"></ion-icon>
-          <span class="padding-left-size"> {{'DATE_RANGE' | translate}}</span>
+          <span class="padding-left-size"> {{'DATE_RANGE' | translate}} (Optional)</span>
         </ion-label>
+      </ion-col>
+    </ion-row>
+    <!-- <ion-row>
+	<hr>
+      <ion-col col-12>
+        <span style="color:black">Date selected: <b>{{s1.substring(0,10)}} {{s1.substring(11,13)}}:00 -
+            {{s2.substring(11,13)}}:00</b></span>
+      </ion-col>
+    </ion-row> -->
+    <ion-row>
+      <ion-col col-12>
+        <span style="color:red">You can choose from a range of dates that you are available and you can also choose the
+          available times on the next page</span>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -71,8 +93,9 @@
     </ion-row>
     <ion-row>
       <ion-col col-11>
+	  <hr>
         <ion-textarea [(ngModel)]="booking.userComments"
-          placeholder="Please provide some more detail about your request...">
+          placeholder="Please provide some more detail about your request... (Optional)">
         </ion-textarea>
       </ion-col>
     </ion-row>

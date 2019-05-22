@@ -3,6 +3,9 @@ import { IonicPage, NavController, ModalController, ToastController, App } from 
 import { FirstRunPage } from '../pages';
 import { Principal } from '../../providers/auth/principal.service';
 import { BookingsService } from '../../services/Booking.provider';
+import { Booking } from '../../class/Booking';
+import { BookingDetails } from '../../class/BookingDetails';
+import { CalendarService } from '../../services/Calendar.provider';
 
 /**
  * Generated class for the UserHomePage page.
@@ -19,7 +22,8 @@ import { BookingsService } from '../../services/Booking.provider';
 export class UserHomePage {
 
   account: Account;
-
+  weekMonday: Date;
+  weekFriday: Date;
   //calendar
   dates: Array<Date>;
   screenWidth: any;
@@ -29,10 +33,13 @@ export class UserHomePage {
   currentDate: Date;
   time: String[] = ["09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "13:00 PM", "14:00 PM", "15:00 PM", "16:00 PM", "17:00 PM"];
 
-  bookings: Array<any>;
+  bookings: Array<BookingDetails>;
+  dateStart: any;
+
 
   constructor(public navCtrl: NavController,
     private modalCtrl: ModalController,
+    public calendarService: CalendarService,
     private toastCtrl: ToastController,
     private principal: Principal,
     private app: App,
@@ -43,6 +50,8 @@ export class UserHomePage {
     d.setUTCHours(0);
     this.generateDate(d);
     this.screenWidth = window.screen.width;
+    this.bookings = [];
+
   }
 
   ngOnInit() {
@@ -53,20 +62,32 @@ export class UserHomePage {
         this.account = account;
       }
     });
-    this.bookingService.findConfirmedBooking().subscribe(data => {
-      this.bookings = data;
-    }, (erro) => {
-      console.error(erro);
-    })
+    this.getStartDate();
+
   }
 
   isAuthenticated() {
     return this.principal.isAuthenticated();
   }
+  getAllBooking() {
+    this.bookingService.findConfirmedBooking(this.weekMonday.getTime(), this.weekFriday.getTime()).subscribe(data => {
+      this.bookings = data;
+      if (this.bookings.length == 0) {
+        this.bookings = [];
+      }
+      console.log(this.bookings);
+    }, (erro) => {
+      console.error(erro);
+    })
+
+  }
   generateDate(curDate: Date) {
     this.dates = new Array();
     this.currentDate = curDate;
     var monday = this.getMonday(curDate);
+    this.weekMonday = monday;
+    this.weekFriday = new Date(this.weekMonday.getTime() + (24 * 60 * 60 * 1000 * 5));
+    this.getAllBooking();
     for (var i = 0; i < 7; i++) {
       var temp = new Date(monday.getTime());
       this.dates.push(temp);
@@ -78,27 +99,25 @@ export class UserHomePage {
     return "" + this.days[date.getDay()] + " " + date.getDate() + "/" + (date.getMonth() + 1);
   }
   slotClicked(dateSelected: Date, timeSelected: String) {
+
     let s1 = this.getStartAndEndDate(dateSelected, timeSelected).s;
     let s2 = this.getStartAndEndDate(dateSelected, timeSelected).s2;
     if (new Date() >= new Date(s2)) {
-      console.log("BIG");
     }
     else {
-
       if (!(this.bookings.some((value, index, array) => {
         return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == s1.substring(0, 19) : value.booking.startTime.toISOString() == s1.substring(0, 19);
       }))) {
+
         let toast;
         let profileModal = this.modalCtrl.create("UserRequestModalPage", { s1: s1, s2: s2, bookings: this.bookings });
 
         profileModal.onDidDismiss(data => {
           if (data != undefined && data != null) {
-            console.log(data.booking);
             if (data.send) {
               this.bookingService.create(data.booking).subscribe(data => {
                 toast = this.toastCtrl.create({
                   message: 'Thank You! You will receive a confirmation e-mail when your request is approved',
-                  duration: 5000,
                   position: 'top',
                   showCloseButton: true,
                   closeButtonText: "Close"
@@ -108,7 +127,6 @@ export class UserHomePage {
               }, (erro) => {
                 toast = this.toastCtrl.create({
                   message: 'Your request is not sent. Please try again',
-                  duration: 5000,
                   position: 'top',
                   showCloseButton: true,
                   closeButtonText: "Close"
@@ -123,10 +141,11 @@ export class UserHomePage {
         });
         profileModal.present();
       } else {
+
         let i = this.bookings.findIndex(value => {
           return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == s1.substring(0, 19) : value.booking.startTime.toISOString() == s1.substring(0, 19);
         });
-        if (i != -1) {
+        if (i != -1 && this.bookings[i].booking.subjectId != null) {
           let profileModal = this.modalCtrl.create("UserJoinTutorialModalPage", { booking: this.bookings[i].booking });
           profileModal.onDidDismiss(data => {
             if (data != null && data != undefined) {
@@ -155,8 +174,8 @@ export class UserHomePage {
 
         }
       }
-
     }
+
 
   }
   timeConvertedToInt(time: String) {
@@ -185,8 +204,23 @@ export class UserHomePage {
     var dayNum = d.getUTCDay() || 7;
     d.setUTCDate(d.getUTCDate() + 4 - dayNum);
     // **need give admin an option to set start academic year
-    var yearStart: any = new Date(Date.UTC(2018, 7, 27));
+    if (true) {
+      // if (this.dateStart == null || this.dateStart == undefined) {     
+         this.dateStart = "2018-09-10T00:00:00.000Z";
+    }
+    var yearStart: any = new Date(Date.UTC(Number(this.dateStart.substring(0, 4)), (Number(this.dateStart.substring(5, 7)) - 1), Number(this.dateStart.substring(8, 10))));
+
+
     return Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
+  }
+
+  getStartDate() {
+    this.calendarService.get().subscribe(data => {
+      console.log(data);
+    }, (erro) => {
+      this.dateStart = erro.error.text;
+      console.error(erro.error.text);
+    });
   }
   getStartEndDate() {
     return this.dates[0].getDate() + " " + this.months[this.dates[0].getMonth()] + " - " + this.dates[this.dates.length - 1].getDate() + " " + this.months[this.dates[this.dates.length - 1].getMonth()];
@@ -246,7 +280,7 @@ export class UserHomePage {
   checkPassTime(dateSelected: Date, timeSelected: String) {
     let s1 = this.getStartAndEndDate(dateSelected, timeSelected).s;
     let s2 = this.getStartAndEndDate(dateSelected, timeSelected).s2;
-    if (new Date() >= new Date(s2)) {
+    if (new Date() >= new Date(s2.substring(0, 19))) {
       return 'tg-slot-passed';
     } else {
       return 'tg-slot'

@@ -1,8 +1,38 @@
 page-admin-settings {
+    #menu_button {
+        background-color: transparent;
+        color: black;
+        box-shadow: none;
+    }
+
+    .border-menu {
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .bar1,
+    .bar2,
+    .bar3 {
+        width: 35px;
+        height: 5px;
+        background-color: #DEF2F1;
+        border: 1px solid #3AAFA9;
+        margin: 6px 0;
+
+    }
+
+    .bar3 {
+        width: 25px;
+    }
+
+    .btn {
+        border-color: #3AAFA9;
+        color: #3AAFA9;
+    }
     .toolbar-background-md {
         background-color: #202D31;
     }
-    .toolbar-title-md,.bar-button-default-md{
+    .toolbar-title-md,.bar-button-default-md,.toolbar-title, .toolbar-title-ios{
         color: #FFFFFF;
     }
     .form-border {
@@ -11,4 +41,8 @@ page-admin-settings {
         border-radius: 1em;
         background-color: #F6FFFF;
     }
+    .content.content-ios {
+        position: relative;
+    }
+    
 }

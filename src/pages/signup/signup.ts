@@ -1,8 +1,9 @@
+import { GdprNoticePage } from './../gdpr-notice/gdpr-notice';
 import { CourseService } from './../../services/Course.provider';
 import { CourseYear } from './../../class/CourseYear';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { IonicPage, NavController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, ToastController, ModalController } from 'ionic-angular';
 
 import { User } from '../../providers/providers';
 import { MainPage, loginPage } from '../pages';
@@ -17,7 +18,7 @@ import { Course } from '../../class/Course';
 })
 export class SignupPage implements OnInit {
   // The account fields for the signup form
-  account: { id: number, login: string, email: string, firstName: string, lastName: string, password: string, langKey: string, courseId: number, year: number, authorities: any[] } = {
+  account: { id: number, login: string, email: string, firstName: string, lastName: string, password: string, langKey: string, courseId: number, courseYearId: number, authorities: any[] } = {
     id: 0,
     login: '',
     email: '',
@@ -26,7 +27,7 @@ export class SignupPage implements OnInit {
     password: '',
     langKey: 'en',
     courseId: 0,
-    year: 0,
+    courseYearId: 0,
     authorities: [''],
   };
 
@@ -48,6 +49,10 @@ export class SignupPage implements OnInit {
   selectedYear: CourseYear;
   selectedCourse: Course;
   roleType: any;
+  check: boolean = false;
+  checkPassword: any;
+  validEmail: boolean;
+  validPassword: boolean;
 
   constructor(public navCtrl: NavController,
     public user: User,
@@ -55,6 +60,7 @@ export class SignupPage implements OnInit {
     public translateService: TranslateService,
     private courseService: CourseService,
     private courseYearService: CourseYearService,
+    private modalCtrl: ModalController
   ) {
 
     this.translateService.get(['SIGNUP_ERROR', 'SIGNUP_SUCCESS',
@@ -90,6 +96,7 @@ export class SignupPage implements OnInit {
 
 
   initCourseYear(event: any, refresher?) {
+    this.selectedYear=null;
     this.FilteredYears = [];
     if (event != null && event != undefined) {
       this.arr = [event];
@@ -117,18 +124,12 @@ export class SignupPage implements OnInit {
   }
 
   doSignup() {
-    if (this.roleType == "ROLE_TUTOR") {
-      this.account.authorities = ['ROLE_TUTOR'];
-      this.account.year = null;
-      this.signupSuccessString = "An ITLC staff member will handle your registering request";
-    }
-    else if (this.roleType == "ROLE_USER") {
-      this.account.authorities = ['ROLE_USER'];
-      this.account.year = this.selectedYear.id;
-      this.account.courseId = this.selectedCourse.id;
-    }
-  
-    this.account.login = this.account.email;
+
+    this.account.authorities = ['ROLE_USER'];
+    this.account.courseYearId = this.selectedYear.id;
+    this.account.courseId = this.selectedCourse.id;
+    this.account.login = this.account.email.substr(0, this.account.email.lastIndexOf("@"));
+
 
     this.user.signup(this.account).subscribe(() => {
       let toast = this.toastCtrl.create({
@@ -163,12 +164,37 @@ export class SignupPage implements OnInit {
     return window.innerWidth;
   }
 
-  roleTypes(event: any) {
-    this.roleType = event;
+  goToLogin() {
+    this.navCtrl.push(loginPage);
   }
 
-  goToLogin()
-  {
-    this.navCtrl.push(loginPage);
+  displayGDPR() {
+    window.open("http://localhost:8100/#/gdpr-notice", '_blank');
+    return false;
+  }
+
+  validateEmailAddress(email: any) {
+    let regEx = /\S+@\S+\.\S+/;
+    if (regEx.test(email.target.value)) {
+      this.validEmail = true;
+    }
+    else {
+      this.validEmail = false;
+    }
+    return this.validEmail;
+  }
+
+  validatePassword(password: any) {
+    let regEx = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8}/;
+    if (regEx.test(password.target.value)) {
+      this.validPassword = true;
+    }
+    else {
+      this.validPassword = false;
+    }
+    return this.validPassword;
+  }
+  validateInput(){
+    return !(this.validPassword&&this.validEmail)|| this.selectedCourse==null||this.selectedCourse==undefined || this.selectedYear==null||this.selectedYear==undefined||this.account.firstName==null||this.account.firstName==undefined||this.account.firstName==""||this.account.lastName==null||this.account.lastName==undefined ||this.account.lastName=="";
   }
 }

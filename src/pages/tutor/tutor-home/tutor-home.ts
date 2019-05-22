@@ -4,6 +4,7 @@ import { Principal } from '../../../providers/auth/principal.service';
 import { LoginService } from '../../../providers/login/login.service';
 import { BookingsService } from '../../../services/Booking.provider';
 import { FirstRunPage } from '../../pages';
+import { CalendarService } from '../../../services/Calendar.provider';
 
 /**
  * Generated class for the TutorHomePage page.
@@ -30,10 +31,12 @@ export class TutorHomePage {
   time: String[] = ["09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "13:00 PM", "14:00 PM", "15:00 PM", "16:00 PM", "17:00 PM"];
 
   bookings: Array<any>;
+  dateStart: any;
 
- constructor(public navCtrl: NavController,
+  constructor(public navCtrl: NavController,
     private principal: Principal,
     private app: App,
+    public calendarService: CalendarService,
     private loginService: LoginService,
     private modalCtrl: ModalController,
     private bookingService: BookingsService) {
@@ -56,7 +59,8 @@ export class TutorHomePage {
       this.bookings = data;
     }, (erro) => {
       console.error(erro);
-    })
+    });
+    this.getStartDate();
   }
 
   isAuthenticated() {
@@ -126,9 +130,23 @@ export class TutorHomePage {
     var d: any = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
     var dayNum = d.getUTCDay() || 7;
     d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-    // **need give admin an option to set start academic year
-    var yearStart: any = new Date(Date.UTC(2018, 7, 27));
+    if (true) {
+      // if (this.dateStart == null || this.dateStart == undefined) {      
+        this.dateStart = "2018-09-10T00:00:00.000Z";
+    }
+    var yearStart: any = new Date(Date.UTC(Number(this.dateStart.substring(0, 4)), (Number(this.dateStart.substring(5, 7)) - 1), Number(this.dateStart.substring(8, 10))));
+
+
     return Math.ceil((((d - yearStart) / 86400000) + 1) / 7)
+  }
+
+  getStartDate() {
+    this.calendarService.get().subscribe(data => {
+      console.log(data);
+    }, (erro) => {
+      this.dateStart = erro.error.text;
+      console.error(erro.error.text);
+    });
   }
   getStartEndDate() {
     return this.dates[0].getDate() + " " + this.months[this.dates[0].getMonth()] + " - " + this.dates[this.dates.length - 1].getDate() + " " + this.months[this.dates[this.dates.length - 1].getMonth()];
@@ -181,10 +199,6 @@ export class TutorHomePage {
     return { s, s2 }
   }
   checkPreviousDisabled() {
-    console.log(this.today.getTime());
-    console.log(this.today);
-    console.log(this.dates[0].getTime());
-    console.log(this.dates[0]);
     if (this.today.getTime() > this.dates[0].getTime()) {
       return true;
     }
@@ -192,7 +206,7 @@ export class TutorHomePage {
   checkPassTime(dateSelected: Date, timeSelected: String) {
     let s1 = this.getStartAndEndDate(dateSelected, timeSelected).s;
     let s2 = this.getStartAndEndDate(dateSelected, timeSelected).s2;
-    if (new Date() >= new Date(s2)) {
+    if (new Date() >= new Date(s2.substring(0, 19))) {
       return 'tg-slot-passed';
     } else {
       return 'tg-slot'

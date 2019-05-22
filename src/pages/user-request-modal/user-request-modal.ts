@@ -64,6 +64,9 @@ export class UserRequestModalPage implements OnInit {
     this.availableTimes = new Array();
     this.s1 = this.navParams.get("s1");
     this.s2 = this.navParams.get("s2");
+    console.log(this.s1);
+    console.log(this.s2);
+
     this.bookings = this.navParams.get("bookings");
     this.selectedTopic = new Array();
     this.minDate = new Date().toISOString();
@@ -99,7 +102,7 @@ export class UserRequestModalPage implements OnInit {
     this.booking.startTime = new Date(1970, 1, 1, 0, 0, 0, 0);
     this.booking.endTime = new Date(1970, 1, 1, 0, 0, 0, 0);
     this.booking.modifiedTimestamp = new Date();
-    this.selectTutotrial = false;
+    this.selectTutotrial = null;
 
   }
   changeStartDate() {
@@ -199,7 +202,8 @@ export class UserRequestModalPage implements OnInit {
     }
   }
   onSubjectChange() {
-    if (this.booking.subjectId != -1 && this.booking.subjectId != null) {
+    //126==others
+    if (this.booking.subjectId != 126 && this.booking.subjectId != null) {
       this.booking.subject = this.subjects.find(x => x.id == this.booking.subjectId);
       this.topics = this.booking.subject.topics;
       this.booking.topics = new Array();
@@ -226,7 +230,14 @@ export class UserRequestModalPage implements OnInit {
     }
     this.initAvailableTime();
 
-    if (this.booking.subjectId != -1) {
+    //need modify code
+    if (this.booking.subjectId == 126) {
+      if (this.booking.title == null) {
+        this.booking.title = "Others";
+      }
+      this.booking.subject = null;
+    }
+    else if (this.booking.subjectId != -1) {
       this.booking.subject = this.subjects.find(x => x.id == this.booking.subjectId);
       this.booking.title = this.booking.subject.title;
     } else {
@@ -253,89 +264,90 @@ export class UserRequestModalPage implements OnInit {
   }
   initAvailableTime() {
     this.availableTimes = new Array();
+
     let at = new AvailableTime(new Date(this.s1), new Date(this.s2));
     this.availableTimes.push({ date: new Date(this.s1), time: [at] });
-    // this.dateStart = "2019-02-18T00:00:00Z";
-    // this.dateEnd = "2019-02-20T00:00:00Z";
-
-    let d1 = new Date(this.dateEnd);
-    d1.setTime((d1.getTime() + (1000 * 60 * 60 * 24)));
-    let d3 = new Date(this.dateStart);
-    let day = d3.getDay();
-    d3.setUTCHours(9);
-    let hr = d3.getUTCHours() - 1;
-    let added = true;
-    while (!(d1.getUTCFullYear() == d3.getUTCFullYear() && d1.getUTCMonth() == d3.getUTCMonth() && d1.getUTCDate() == d3.getUTCDate())) {
-      // while (exit < 20) {
-      if (added == true) {
-        hr++;
-      }
-      d3.setUTCHours(hr);
-      let availableTime: AvailableTime = new AvailableTime();
-      if ((hr >= 9 && hr <= 17) && (day != 6 && day != 0)) {
-        if (this.bookings != undefined && this.bookings != null) {
-          if (!(this.bookings.some((value, index, array) => {
-            return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == d3.toISOString().substring(0, 19) : value.booking.startTime.toISOString() == d3.toISOString().substring(0, 19);
-          }))) {
-            if (d3.toISOString().substring(0, 19) != this.availableTimes[0].date.toISOString().substring(0, 19)) {
-              let temp = new Date(d3.toISOString());
-              availableTime.startTime = temp;
-              hr++;
-              added = false;
-              d3.setUTCHours(hr);
-              let temp2 = new Date(d3.toISOString());
-              availableTime.endTime = temp2;
-              if (this.availableTimes[this.availableTimes.length - 1].date.toISOString().substring(0, 10) != availableTime.startTime.toISOString().substring(0, 10)) {
-                this.availableTimes.push({ date: availableTime.startTime, time: [availableTime] });
+    if (!(this.dateStart == null || this.dateStart == "" || this.dateStart == undefined || this.dateEnd == null || this.dateEnd == undefined || this.dateEnd == "")) {
+      let d1 = new Date(this.dateEnd);
+      d1.setTime((d1.getTime() + (1000 * 60 * 60 * 24)));
+      let d3 = new Date(this.dateStart);
+      let day = d3.getDay();
+      d3.setUTCHours(9);
+      let hr = d3.getUTCHours() - 1;
+      let added = true;
+      while (!(d1.getUTCFullYear() == d3.getUTCFullYear() && d1.getUTCMonth() == d3.getUTCMonth() && d1.getUTCDate() == d3.getUTCDate())) {
+        // while (exit < 20) {
+        if (added == true) {
+          hr++;
+        }
+        d3.setUTCHours(hr);
+        let availableTime: AvailableTime = new AvailableTime();
+        if ((hr >= 9 && hr <= 17) && (day != 6 && day != 0)) {
+          if (this.bookings != undefined && this.bookings != null) {
+            if (!(this.bookings.some((value, index, array) => {
+              return typeof (value.booking.startTime) == "string" ? value.booking.startTime.substring(0, 19) == d3.toISOString().substring(0, 19) : value.booking.startTime.toISOString() == d3.toISOString().substring(0, 19);
+            }))) {
+              if (d3.toISOString().substring(0, 19) != this.availableTimes[0].date.toISOString().substring(0, 19)) {
+                let temp = new Date(d3.toISOString());
+                availableTime.startTime = temp;
+                hr++;
+                added = false;
+                d3.setUTCHours(hr);
+                let temp2 = new Date(d3.toISOString());
+                availableTime.endTime = temp2;
+                if (this.availableTimes[this.availableTimes.length - 1].date.toISOString().substring(0, 10) != availableTime.startTime.toISOString().substring(0, 10)) {
+                  this.availableTimes.push({ date: availableTime.startTime, time: [availableTime] });
+                } else {
+                  this.availableTimes[this.availableTimes.length - 1].time.push(availableTime);
+                }
               } else {
-                this.availableTimes[this.availableTimes.length - 1].time.push(availableTime);
+                added = true;
               }
-            } else {
+            }
+            else {
               added = true;
             }
-          }
-          else {
-            added = true;
+
           }
 
         }
+        else {
+          d3.setTime((d3.getTime() + (1000 * 60 * 60 * 24)));
+          day = d3.getDay();
+          d3.setUTCHours(9);
+          added = false;
+          hr = d3.getUTCHours();
+        }
 
       }
-      else {
-        d3.setTime((d3.getTime() + (1000 * 60 * 60 * 24)));
-        day = d3.getDay();
-        d3.setUTCHours(9);
-        added = false;
-        hr = d3.getUTCHours();
-      }
-
     }
   }
   checkValid() {
     let invalid = false;
-    if (this.booking.subjectId !=null &&this.booking.subjectId != -1 && this.booking.topics.length == 0) {
+    if (this.booking.subjectId != null && this.booking.subjectId != 126 && this.booking.topics.length == 0) {
       invalid = true;
     }
     if (this.subjectNull == true) {
       if (!this.selectTutotrial) {
-        if (this.booking.title == "" || this.booking.title ==undefined || this.booking.title==null) {
+        if (this.booking.title == "" || this.booking.title == undefined || this.booking.title == null) {
           invalid = true;
         }
       }
 
-        if (this.selectTutotrial) {
-          if (this.booking.userComments == "" || this.booking.userComments == null || this.booking.userComments == undefined) {
+      if (this.selectTutotrial) {
+        if (this.booking.userComments == "" || this.booking.userComments == null || this.booking.userComments == undefined) {
 
-            invalid = true;
-          }
-
-        }
-    } else {
-        if (this.booking.subjectId == -1 || this.booking.subjectId == undefined) {
           invalid = true;
-    } 
+        }
+
+      }
+    } else {
+      if (this.booking.subjectId == 126 || this.booking.subjectId == undefined) {
+        invalid = true;
+      }
     }
-    return invalid || this.dateStart == null || this.dateStart == "" || this.dateStart == undefined || this.dateEnd == null || this.dateEnd == undefined || this.dateEnd == "";
+    // return invalid || this.dateStart == null || this.dateStart == "" || this.dateStart == undefined || this.dateEnd == null || this.dateEnd == undefined || this.dateEnd == "";
+    return invalid;
   }
   getDateAfterDay(date, noOfDay) {
     var answer = new Date(date.getTime() + noOfDay * 24 * 60 * 60 * 1000);

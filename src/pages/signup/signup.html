@@ -3,13 +3,13 @@
     <ng-container *ngIf="getScreenSize() >= 1280">
       <ion-row class="height">
         <ion-col col-8 class="tint">
-          <img src="../../assets/imgs/main_desktop.jpg" class="img">
-          <div class="centered">{{'WELCOME_TO_ITLC' | translate}}</div>
-          <div class="centered1">Join our community that have more than 10000 members and learn new things
-            everyday!</div>
+          <img src="assets/imgs/main_desktop.jpg" class="img">
+          <div class="centered"><span style="font-size: 40px">{{'WELCOME_TO_ITLC' | translate}}</span><br><br>
+            <span style="font-size: 20px">Join our community and become a member to learn new things everyday!</span>
+          </div>
         </ion-col>
         <ion-col col-4 class="align">
-          <img src="../../assets/imgs/ITLC_logo.PNG" style="height:22%;">
+          <img src="assets/imgs/ITLC_logo.PNG" style="height:22%;">
           <br><br>
           <form (submit)="doSignup()">
             <ion-row>
@@ -25,73 +25,99 @@
             <ion-row>
               <ion-col>
                 <i class="inside fa fa-envelope"></i>
-                <input padding class="input" type="email" [(ngModel)]="account.email" name="email" placeholder="Email">
+                <input (keyup)="validateEmailAddress($event)" padding class="input" type="email"
+                  [(ngModel)]="account.email" name="email" placeholder="Email (d00123456@student.dkit.ie)">
               </ion-col>
             </ion-row>
-            <ion-row>
-              <ion-col>
-                <i class="inside fa fa-lock"></i>
-                <input padding class="input" type="password" [(ngModel)]="account.password" name="password"
-                  placeholder="Password">
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <i class="inside fa fa-user"></i>
-                <select padding [(ngModel)]="roleType" class="input" (ngModelChange)="roleTypes($event)"
-                  name="registerType">
-                  <option *ngIf="roleType == null || roleType == undefined" [ngValue]="roleType" [selected]="true"
-                    disabled>Choose Registration Type</option>
-                  <option value="ROLE_USER">{{'REGISTER_AS_STUDENT' | translate}}</option>
-                  <option value="ROLE_TUTOR">{{'REGISTER_AS_TUTOR' | translate}}
-                </select>
-              </ion-col>
-            </ion-row>
-            <ng-container *ngIf="roleType == 'ROLE_USER'">
-              <ion-row>
-                <ion-col>
-                  <i class="inside fa fa-desktop"></i>
-                  <select padding class="input" [(ngModel)]="selectedCourse" (ngModelChange)="initCourseYear($event)"
-                    name="course">
-                    <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_A_COURSE' | translate}}</option>
-                    <option *ngFor="let value of courses; let i=index" [ngValue]="value">
-                      {{'YEAR' | translate}} - {{value?.title}}
-                  </select>
-                </ion-col>
-              </ion-row>
-              <ion-row *ngIf="FilteredYears.length > 0 && FilteredYears != null && FilteredYears != undefined">
-                <ion-col>
-                  <i class="inside fa fa-calendar"></i>
-                  <select padding class="input" [(ngModel)]="selectedYear" name="year">
-                    <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_A_YEAR' | translate}}</option>
-                    <option *ngFor="let value of FilteredYears; let i=index" [ngValue]="value">
-                      {{value?.courseYear}}
-                  </select>
-                </ion-col>
-              </ion-row>
+            <ng-container *ngIf="validEmail == false">
+              <span class="error">
+                <i class="fa fa-exclamation-circle"></i>
+                This email is not valid!.
+              </span>
             </ng-container>
             <ion-row>
               <ion-col>
-                <button ion-button round class="signUpButton">{{ 'SIGNUP_BUTTON' | translate }}</button>
+                <i class="inside fa fa-lock"></i>
+                <input (keyup)="validatePassword($event)" padding class="input" type="password"
+                  [(ngModel)]="account.password" name="password" placeholder="Password">
+              </ion-col>
+            </ion-row>
+            <ng-container *ngIf="validPassword == false">
+              <span class="error">
+                <i class="fa fa-exclamation-circle"></i>
+                Password must atleast include 8 characters, 1 upper, 1 lowercase and 1 number
+              </span>
+            </ng-container>
+            <ion-row>
+              <ion-col>
+                <i class="inside fa fa-lock"></i>
+                <input padding class="input" [(ngModel)]="checkPassword" type="password" name="password"
+                  placeholder="Confirm password">
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="checkPassword != null && account.password != checkPassword">
+              <ion-col>
+                <span class="error">
+                  <i class="fa fa-exclamation-circle"></i>
+                  Those Passwords do not currently match!</span>
               </ion-col>
             </ion-row>
             <ion-row>
-              <ion-col class="login" (click)="goToLogin()">Already signed up? Sign in!</ion-col>
+              <ion-col>
+                <i class="inside fa fa-desktop"></i>
+                <select padding class="input" [(ngModel)]="selectedCourse" (ngModelChange)="initCourseYear($event)"
+                  name="course">
+                  <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_A_COURSE' | translate}}</option>
+                  <option *ngFor="let value of courses; let i=index" [ngValue]="value">
+                    {{'COURSE' | translate}} - {{value?.title}}
+                </select>
+              </ion-col>
+            </ion-row>
+            <ion-row *ngIf="FilteredYears.length > 0 && FilteredYears != null && FilteredYears != undefined">
+              <ion-col>
+                <i class="inside fa fa-calendar"></i>
+                <select padding class="input" [(ngModel)]="selectedYear" name="year">
+                  <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_A_YEAR' | translate}}</option>
+                  <option *ngFor="let value of FilteredYears; let i=index" [ngValue]="value">
+                    {{value?.courseYear}}
+                </select>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col col-1></ion-col>
+              <ion-col col-5>
+                <input type="checkbox" [(ngModel)]="check" name="check" value="check"> I have read and accepted the
+                Privacy Policy<br>
+              </ion-col>
+              <ion-col col-5>
+                <button style="border-radius: 37px;background-color: #6395C5" ion-button (click)="displayGDPR()">
+                  <i class="fa fa-file"></i> &nbsp;
+                  Privacy Policy</button>
+              </ion-col>
+            </ion-row>
+            <ion-row style="text-align:center">
+              <ion-col>
+                <button [disabled]="!check" ion-button round
+                  class="signUpButton">{{ 'SIGNUP_BUTTON' | translate }}</button>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col (click)="goToLogin()">Already signed up? Sign in!</ion-col>
             </ion-row>
           </form>
         </ion-col>
       </ion-row>
     </ng-container>
     <ng-container *ngIf="getScreenSize() < 1280">
-      <ion-row class="topImages">
+      <ion-row>
         <ion-col class="tintImgMob">
           <ng-container *ngIf="getScreenSize() < 500">
-            <img src="../../assets/imgs/main_mobile.jpg" class="mobImg">
-            <img src="../../assets/imgs/ITLC_logo.PNG" class="mobImg1">
+            <img src="assets/imgs/main_mobile.jpg" class="mobImg">
+            <img src="assets/imgs/ITLC_logo.PNG" class="mobImg1">
           </ng-container>
           <ng-container *ngIf="getScreenSize() > 500">
-            <img src="../../assets/imgs/main_mobile.jpg" class="mobImg">
-            <img src="../../assets/imgs/ITLC_logo.PNG" class="ipadImg">
+            <img src="assets/imgs/main_mobile.jpg" class="mobImg">
+            <img src="assets/imgs/ITLC_logo.PNG" class="ipadImg">
           </ng-container>
         </ion-col>
       </ion-row>
@@ -109,59 +135,83 @@
       <ion-row>
         <ion-col class="align">
           <i class="inside fa fa-envelope"></i>
-          <input class="inputReg" padding type="email" [(ngModel)]="account.email" name="email" placeholder="Email">
+          <input class="inputReg" (keyup)="validateEmailAddress($event)" padding type="email"
+            [(ngModel)]="account.email" name="email" placeholder="Email (d00123456@student.dkit.ie)">
         </ion-col>
       </ion-row>
+      <ng-container *ngIf="validEmail == false">
+        <span class="error">
+          <i class="fa fa-exclamation-circle"></i>
+          This email is not valid!.
+        </span>
+      </ng-container>
       <ion-row>
         <ion-col class="align">
           <i class="inside fa fa-lock"></i>
-          <input class="inputReg" padding type="password" [(ngModel)]="account.password" name="password"
+          <input (keyup)="validatePassword($event)" class="inputReg" padding type="password" [(ngModel)]="account.password" name="password"
             placeholder="Password">
         </ion-col>
       </ion-row>
+      <ng-container *ngIf="validPassword == false">
+        <span class="error">
+          <i class="fa fa-exclamation-circle"></i>
+          Password must atleast include 8 characters, 1 upper, 1 lowercase and 1 number
+        </span>
+      </ng-container>
       <ion-row>
         <ion-col class="align">
-          <i class="inside fa fa-user"></i>
-          <select padding [(ngModel)]="roleType" class="inputReg" (ngModelChange)="roleTypes($event)"
-            name="registerType">
-            <option *ngIf="roleType == null || roleType == undefined" [ngValue]="roleType" [selected]="true" disabled>
-              Choose Registration Type</option>
-            <option value="ROLE_USER">{{'REGISTER_AS_STUDENT' | translate}}</option>
-            <option value="ROLE_TUTOR">{{'REGISTER_AS_STUDENT' | translate}}
+          <i class="inside fa fa-lock"></i>
+          <input padding class="inputReg" [(ngModel)]="checkPassword" type="password" name="password"
+            placeholder="Confirm password">
+        </ion-col>
+      </ion-row>
+      <ng-container *ngIf="checkPassword != null && account.password != checkPassword">
+        <span class="error">
+          <i class="fa fa-exclamation-circle"></i>
+          Those Passwords do not currently match!</span>
+      </ng-container>
+      <ion-row>
+        <ion-col class="align">
+          <i class="inside fa fa-desktop"></i>
+          <select padding class="inputReg" [(ngModel)]="selectedCourse" (ngModelChange)="initCourseYear($event)"
+            name="course">
+            <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_A_COURSE' | translate}}</option>
+            <option *ngFor="let value of courses; let i=index" [ngValue]="value">
+              {{'YEAR' | translate}} - {{value?.title}}
           </select>
         </ion-col>
       </ion-row>
-      <ng-container *ngIf="roleType == 'ROLE_USER'">
-        <ion-row>
-          <ion-col class="align">
-            <i class="inside fa fa-desktop"></i>
-            <select padding class="inputReg" [(ngModel)]="selectedCourse" (ngModelChange)="initCourseYear($event)"
-              name="course">
-              <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_A_COURSE' | translate}}</option>
-              <option *ngFor="let value of courses; let i=index" [ngValue]="value">
-                {{'YEAR' | translate}} - {{value?.title}}
-            </select>
-          </ion-col>
-        </ion-row>
-        <ion-row *ngIf="FilteredYears.length > 0 && FilteredYears != null && FilteredYears != undefined">
-          <ion-col class="align">
-            <i class="inside fa fa-calendar"></i>
-            <select padding class="inputReg" [(ngModel)]="selectedYear" name="year">
-              <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_A_YEAR' | translate}}</option>
-              <option *ngFor="let value of FilteredYears; let i=index" [ngValue]="value">
-                {{value?.courseYear}}
-            </select>
-          </ion-col>
-        </ion-row>
-      </ng-container>
-      <br>
-      <ion-row>
+      <ion-row *ngIf="FilteredYears.length > 0 && FilteredYears != null && FilteredYears != undefined">
         <ion-col class="align">
-          <button ion-button round class="signUpButton" (click)="doSignup()">{{ 'SIGNUP_BUTTON' | translate }}</button>
+          <i class="inside fa fa-calendar"></i>
+          <select padding class="inputReg" [(ngModel)]="selectedYear" name="year">
+            <option [ngValue]="null" disabled [selected]="true">{{'CHOOSE_A_YEAR' | translate}}</option>
+            <option *ngFor="let value of FilteredYears; let i=index" [ngValue]="value">
+              {{value?.courseYear}}
+          </select>
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col class="align"(click)="goToLogin()">Already signed up? Sign in!</ion-col>
+        <ion-col col-1></ion-col>
+        <ion-col class="align">
+          <input type="checkbox" [(ngModel)]="check" name="check" value="check"> I have read and accepted the
+          Privacy Policy<br>
+        </ion-col>
+        <ion-col class="align">
+          <button style="border-radius: 20px;background-color: #6395C5;width:75%" ion-button (click)="displayGDPR()">
+            <i class="fa fa-file"></i> &nbsp;
+            Privacy Policy</button>
+        </ion-col>
+      </ion-row>
+      <br>
+      <ion-row>
+        <ion-col class="align">
+          <button [disabled]="!check||validateInput()" ion-button round class="signUpButton"
+            (click)="doSignup()">{{ 'SIGNUP_BUTTON' | translate }}</button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="align" (click)="goToLogin()">Already signed up? Sign in!</ion-col>
       </ion-row>
     </ng-container>
   </ion-grid>

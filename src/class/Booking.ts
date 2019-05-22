@@ -30,7 +30,8 @@ export class Booking {
         public modifiedTimestamp?:Date,
         public requestTimes?:string,
         public readByAdmin?:boolean,
-        public topics?:Array<Topic>
+        public topics?:Array<Topic>,
+        public bookedById?:any
         )
     { }
 

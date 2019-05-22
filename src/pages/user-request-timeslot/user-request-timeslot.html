@@ -34,7 +34,7 @@
     </ion-row>
     <ion-row>
       <ion-col [class]="checkSelected(t)" col-sm-3 *ngFor="let t of a.time" (click)="onSelectTimeSlot(t)">
-        {{t.startTime.getHours() }}:00 - {{t.endTime.getHours()}}:00
+        {{t.startTime.getUTCHours() }}:00 - {{t.endTime.getUTCHours()}}:00
       </ion-col>
     </ion-row>
 

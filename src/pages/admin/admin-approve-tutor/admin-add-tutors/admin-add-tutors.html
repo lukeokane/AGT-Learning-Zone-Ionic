@@ -1,0 +1,65 @@
+<ion-header>
+
+  <ion-navbar>
+    <h3 class="align">&nbsp;Add Tutor Information &nbsp;<i class="far fa-user"></i></h3>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form (submit)="doSignup()">
+    <br>
+    <ion-row>
+      <ion-col style="text-align:right">
+        <input class="inputReg" [(ngModel)]="account.firstName" padding type="text" name="firstName"
+          placeholder="First Name">
+      </ion-col>
+      <ion-col>
+        <input class="inputReg" [(ngModel)]="account.lastName" padding type="text" name="lastName"
+          placeholder="Last Name">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="align">
+        <i class="inside fa fa-user"></i>
+        <input class="inputReg" [(ngModel)]="account.userName" padding type="email" name="email" placeholder="Username">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="align">
+        <i class="inside fa fa-envelope"></i>
+        <input class="inputReg" [(ngModel)]="account.email" padding type="email" name="email" placeholder="Email">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <span *ngIf="invalid==true" style="color:red">*</span>
+      <ion-col class="align">
+        <i class="inside fa fa-lock"></i>
+        <input class="inputReg" [(ngModel)]="account.password" padding type="password" name="password"
+          placeholder="Password">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="align">
+        <i class="inside fa fa-lock"></i>
+        <input class="inputReg" [(ngModel)]="checkPassword" padding type="password" name="password"
+          placeholder="Confirm password">
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="align">
+        <span class="error" *ngIf="checkPassword != null && account.password != checkPassword">
+            <i class="fa fa-exclamation-circle"></i>
+          Those Passwords do not currently match!</span>
+      </ion-col>
+    </ion-row>
+    <br>
+    <ion-row>
+      <ion-col class="align">
+        <button [disabled]="account.password != checkPassword" ion-button round
+          class="signUpButton">{{ 'ADD_TUTOR' | translate }}</button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

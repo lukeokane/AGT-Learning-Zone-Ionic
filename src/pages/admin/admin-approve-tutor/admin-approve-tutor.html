@@ -1,5 +1,5 @@
 <top-menu></top-menu>
-<ion-content padding class="scroll">
+<ion-content padding>
   <ion-col col-1>
     <ion-row>
       <ion-col col-1>
@@ -11,47 +11,52 @@
           </div>
         </button>
       </ion-col>
-      <ion-col>
-        <h1 class="tutors">{{'ADD_TUTORS' | translate}}</h1>
+      <ion-col col-4>
+        <button class="Addbtn" ion-button (click)="goToAddTutors()">
+          Add tutor &nbsp;<i class="fas fa-user-plus"></i>
+        </button>
       </ion-col>
+      <ion-col col-2>
+      </ion-col>
+      <ion-col col-5></ion-col>
     </ion-row>
-  </ion-col>
-  <ion-col>
   </ion-col>
   <ion-col padding>
     <ion-row padding justify-content-center>
       <ion-col padding col-5 *ngFor="let tutor of tutors">
-        <ion-row class="border" padding>
-          <div class="avatar">
-              <img src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
-          </div>
-          <ion-col padding col-10>
-            <span class="bold">
-              {{'EMAIL' | translate}} :
-            </span>
-            {{tutor?.email}}
-            <br>
-            <span class="bold">
-              {{'FIRST_NAME' | translate}} :
-            </span>
-            {{tutor?.firstName}}
-            <br>
-            <span class="bold">
-              {{'LAST_NAME' | translate}} :
-            </span>
-            {{tutor?.lastName}}
-            <br>
-            <hr>
-            <button class="btn" (click)="approveTutor(tutor)" ion-button>
-              {{'APPROVE' | translate}} &nbsp;
-              <i class="fa fa-check"></i>
-            </button>
-            <button class="btnReject" (click)="rejectTutor(tutor.login)" ion-button>
-              {{'Reject' | translate}} &nbsp;
-              <i class="fa fa-times"></i>
-            </button>
-          </ion-col>
-        </ion-row>
+        <ng-container *ngFor="let user of userInfos">
+          <ng-container *ngIf="tutor?.id == user?.userId">
+            <ion-row class="border" padding>
+              <div class="avatar">
+                <img *ngIf="user.profileImageURL == null || user.profileImageURL == undefined"
+                  src="http://www.precision-spine.com/wp-content/uploads/2015/09/person-icon.png">
+                <img *ngIf="user.profileImageURL != null || user.profileImageURL != undefined"
+                  src="assets/images/{{user.profileImageURL}}"> </div>
+              <ion-col padding col-10>
+                <span class="bold">
+                  {{'EMAIL' | translate}} :
+                </span>
+                {{tutor?.email}}
+                <br>
+                <span class="bold">
+                  {{'FIRST_NAME' | translate}} :
+                </span>
+                {{tutor?.firstName}}
+                <br>
+                <span class="bold">
+                  {{'LAST_NAME' | translate}} :
+                </span>
+                {{tutor?.lastName}}
+                <br>
+                <hr>
+                <button class="btnReject" (click)="ContinueAlert(tutor.login)" ion-button>
+                  Delete Tutor &nbsp;
+                  <i class="fa fa-trash"></i>
+                </button>
+              </ion-col>
+            </ion-row>
+          </ng-container>
+        </ng-container>
       </ion-col>
       <ion-col *ngIf="tutors.length % 2 == 1" col-5></ion-col>
     </ion-row>
@@ -59,11 +64,13 @@
   <ion-row *ngIf="tutors.length ==0" class="align">
     <ion-col col-1></ion-col>
     <ion-col>
-      <h4>{{'NO_TUTOR_REQUESTS' | translate}}!</h4>
+      <h4>No Tutors Found!</h4>
     </ion-col>
   </ion-row>
 </ion-content>
-<div class="row justify-content-center">
-  <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true"
-    [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
-</div>
+<ion-footer>
+  <div class="row justify-content-center">
+    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
+      [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+  </div>
+</ion-footer>

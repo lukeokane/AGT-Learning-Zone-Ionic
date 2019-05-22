@@ -160,6 +160,7 @@ export class AdminAddBookingPage implements OnInit {
     this.booking.userComments = "";
     this.booking.topics = new Array<Topic>();
     let now = new Date();
+    this.booking.bookedById = this.principal.getUserId();
     this.booking.modifiedTimestamp = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds()));
     //2019-02 0T22:16:37.213Z
     this.booking.bookingUserDetails = new Array<BookingUserDetails>();
@@ -216,7 +217,7 @@ export class AdminAddBookingPage implements OnInit {
     console.log(this.booking);
     this.bookingService.create(this.booking).subscribe(data => {
       toast = this.toastCtrl.create({
-        message: 'Thank You! You will receive a confirmation e-mail when your request is approved',
+        message: 'Thank You! Your request is sent',
         duration: 5000,
         position: 'top',
         showCloseButton: true,

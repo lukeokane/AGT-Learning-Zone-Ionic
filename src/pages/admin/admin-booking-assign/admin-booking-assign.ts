@@ -1,6 +1,6 @@
 import { BookingDetails } from './../../../class/BookingDetails';
 import { HttpResponse } from '@angular/common/http';
-import { homePage } from './../../pages';
+import { homePage, adminBookingManagementPage } from './../../pages';
 import { UserInfoService } from './../../../services/UserInfo.provider';
 import { UserService } from './../../../services/User.provider';
 import { Booking } from './../../../class/Booking';
@@ -27,7 +27,6 @@ export class AdminBookingAssignPage implements OnInit {
   page: number;
   totalItems: any;
   queryCount: any;
-  adminId:any;
 
   constructor(
     public navCtrl: NavController,
@@ -47,17 +46,12 @@ export class AdminBookingAssignPage implements OnInit {
   }
 
   ngOnInit() {
-    if(this.principal != null || this.principal != undefined)
-    {
-      this.adminId = this.principal.getUserId();
-    }
-    console.log("admin id  ",this.adminId);
     this.initUsers();
   }
 
   initUsers() {
     this.itemsPerPage =  20;
-    this.userService.getAllUsers(
+    this.userService.getAllTutors(
       {
         page: this.page - 1,
         size: this.itemsPerPage,
@@ -135,6 +129,12 @@ export class AdminBookingAssignPage implements OnInit {
       subTitle: fullName,
       buttons: [
         {
+          text: 'Cancel',
+          handler: () => {
+            this.navCtrl.pop;
+          }
+        },
+        {
           text: 'Continue',
           handler: () => {
             this.assignToTutor(tutorId);
@@ -147,15 +147,12 @@ export class AdminBookingAssignPage implements OnInit {
     alert.present();
   }
 
-
-
   assignToTutor(tutorId: number) {
 
     if(tutorId != null || tutorId != undefined)
     {
       this.selectedBooking.adminAcceptedId = tutorId;
     }
-    console.log("here!!: ", this.selectedBooking);
     if (this.selectedBooking != null || this.selectedBooking != undefined) {
       this.selectedBooking.tutorAccepted =true;
       this.selectedBooking.tutorAcceptedId=tutorId;
@@ -173,4 +170,10 @@ export class AdminBookingAssignPage implements OnInit {
       this.navCtrl.push(homePage);
     }
   }
+
+  goBack()
+  {
+    this.navCtrl.push(adminBookingManagementPage);
+  }
+  
 }

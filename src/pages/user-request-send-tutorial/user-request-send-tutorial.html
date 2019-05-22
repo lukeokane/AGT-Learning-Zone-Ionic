@@ -22,11 +22,19 @@
       </ion-col>
     </ion-row>
     <ion-row class="confirm-text">
-      <ion-col text-center>
-        Are you sure that you
-        want to request this tutorial?
+      <ng-container *ngIf="booking?.subjectId!=null||(booking?.subjectId==null && booking?.title=='Others')">
+        <ion-col text-center>
+          Are you sure that you
+          want to request this tutorial?
 
-      </ion-col>
+        </ion-col>
+      </ng-container>
+      <ng-container *ngIf="booking?.subjectId==null && booking?.title!='Others'">
+        <ion-col text-center>
+          Are you sure that you
+          want to book this room?
+        </ion-col>
+      </ng-container>
     </ion-row>
     <ion-row>
       <ion-col text-center>

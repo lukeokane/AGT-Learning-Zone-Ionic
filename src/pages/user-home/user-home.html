@@ -34,12 +34,17 @@
               <button ion-button (click)="onNextWeek()" class="date-change-btn text-colour-darkgrey">Next</button>
 
             </div>
+
             <div class="relative-div">
               <span class="text-colour-darkgrey font-change">Week {{getWeekNumber(currentDate)}}:
                 {{getStartEndDate()}} </span>
             </div>
           </div>
+          <h6 style="color:red">- To request a tutorial or usage of the premises, click on a suitable time
+            slot.</h6>
 
+          <h6 style="color:red">- To join a tutorial, click on the tutorial slot.
+          </h6>
 
         </div>
         <div *ngIf="screenWidth<800">
@@ -54,7 +59,18 @@
             <ion-icon name="arrow-forward"></ion-icon>
 
           </span>
+          <div class="relative-div">
+            <span style="color:red">- To request a tutorial or usage of the premises, click on a suitable time
+              slot.</span>
+          </div>
+          <div class="relative-div">
+
+            <span style="color:red">- To join a tutorial, click on the tutorial slot.</span>
+          </div>
+
+
         </div>
+
         <ion-scroll scrollX="true" scrollY="true">
 
           <table class="tg">

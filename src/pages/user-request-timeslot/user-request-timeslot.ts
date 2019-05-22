@@ -26,7 +26,9 @@ export class UserRequestTimeslotPage {
   selectedTime: Array<AvailableTime>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private modalCtrl: ModalController, private viewCtrl: ViewController) {
-    if (this.navParams.get("booking") != null && this.navParams.get("booking") != undefined)
+    
+    if (this.navParams.get("booking") != null 
+    && this.navParams.get("booking") != undefined)
       this.booking = this.navParams.get("booking");
     else
       this.viewCtrl.dismiss();
